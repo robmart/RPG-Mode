@@ -1,0 +1,18 @@
+
+# Commands
+commands.rpgmode.manainfo.usage=/manainfo <fält> [spelare]
+commands.rpgmode.manainfo.success=%ss %s är %s
+commands.rpgmode.restore.usage=/restore [spelare]
+commands.rpgmode.restore.success1=Du känner dig plötsligt utvilad!
+commands.rpgmode.restore.success2=%s ser plötsligt utvilad ut!
+commands.rpgmode.setmana.usage=/setmana <fält> <värde> [spelare]
+commands.rpgmode.setmana.success1=Din %s är nu %s
+commands.rpgmode.setmana.success2=%ss %s är nu %s
+
+# Config stuff
+category.rpgmode.general=Allmänt
+category.rpgmode.client=Klient
+tooltip.rpgmode.general.tooltip=Allmänna saker som applicerar rill alla. Mest gameplay ändrande alternativ.
+tooltip.rpgmode.client.tooltip=Saker som bara applicerar till klienten. Mest UI och andra grafiska alternativ.
+manaValueRender.enabled=Rendera Mana Värde
+moveManaBar.enabled=Flytta Mana Stapel
