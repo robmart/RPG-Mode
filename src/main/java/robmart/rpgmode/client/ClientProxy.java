@@ -9,9 +9,9 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import robmart.rpgmode.client.gui.GuiAir;
-import robmart.rpgmode.client.gui.GuiHunger;
-import robmart.rpgmode.client.gui.GuiManaBar;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import robmart.rpgmode.client.gui.*;
 import robmart.rpgmode.common.CommonProxy;
 
 /**
@@ -33,6 +33,7 @@ import robmart.rpgmode.common.CommonProxy;
  *   You should have received a copy of the GNU Lesser General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+@SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
     private final Minecraft mc = Minecraft.getMinecraft();
 
@@ -45,9 +46,11 @@ public class ClientProxy extends CommonProxy {
     public void init(FMLInitializationEvent event){
         super.init(event);
 
-        MinecraftForge.EVENT_BUS.register(new GuiManaBar(Minecraft.getMinecraft()));
+        MinecraftForge.EVENT_BUS.register(new GuiHealth(Minecraft.getMinecraft()));
+        MinecraftForge.EVENT_BUS.register(new GuiMana(Minecraft.getMinecraft()));
         MinecraftForge.EVENT_BUS.register(new GuiAir(Minecraft.getMinecraft()));
-        MinecraftForge.EVENT_BUS.register(new GuiHunger(Minecraft.getMinecraft()));
+        MinecraftForge.EVENT_BUS.register(new GuiFood(Minecraft.getMinecraft()));
+        MinecraftForge.EVENT_BUS.register(new GuiArmor(Minecraft.getMinecraft()));
     }
 
     @Override
@@ -62,11 +65,11 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public EntityPlayer getPlayerEntity(MessageContext ctx) {
-        return (ctx.side.isClient() ? mc.thePlayer : super.getPlayerEntity(ctx));
+        return (ctx.side.isClient() ? this.mc.thePlayer : super.getPlayerEntity(ctx));
     }
 
     @Override
     public IThreadListener getThreadFromContext(MessageContext ctx) {
-        return (ctx.side.isClient() ? mc : super.getThreadFromContext(ctx));
+        return (ctx.side.isClient() ? this.mc : super.getThreadFromContext(ctx));
     }
 }

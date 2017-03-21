@@ -8,11 +8,17 @@ commands.rpgmode.restore.success2=%s suddenly looks restored!
 commands.rpgmode.setmana.usage=/setmana <field> <value> [player]
 commands.rpgmode.setmana.success1=Your %s is now %s
 commands.rpgmode.setmana.success2=%s's %s is now %s
+commands.rpgmode.healthinfo.usage=/healthinfo <field> [player]
+commands.rpgmode.healthinfo.success=%s's %s is %s
+commands.rpgmode.setmana.usage=/sethealth <field> <value> [player]
+commands.rpgmode.sethealth.success1=Your %s is now %s
+commands.rpgmode.sethealth.success2=%s's %s is now %s
 
 # Config stuff
-name.rpgmode.general=General
-name.rpgmode.client=Client
+category.rpgmode.general=General
+category.rpgmode.client=Client
 tooltip.rpgmode.general.tooltip=General stuff that applies to everyone. Mostly gameplay changing options.
 tooltip.rpgmode.client.tooltip=Stuff that applies only to the client. Mostly UI and other graphical options.
+healthValueRender.enabled=Render Health Value
 manaValueRender.enabled=Render Mana Value
 moveManaBar.enabled=Move Mana Bar

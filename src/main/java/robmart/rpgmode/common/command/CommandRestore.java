@@ -64,7 +64,7 @@ public class CommandRestore extends CommandBase {
 
         mana = player.getCapability(ManaProvider.MANA_CAPABILITY, null);
         player.setHealth(player.getMaxHealth());
-        mana.setMana(mana.getMaxMana());
+        mana.restoreMana();
         player.getFoodStats().addStats(20, 20);
 
         notifyCommandListener(player, this, "commands.rpgmode.restore.success1");

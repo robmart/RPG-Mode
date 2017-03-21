@@ -31,6 +31,7 @@ public class ConfigurationHandler {
 
     public static Configuration config;
     public static boolean displayManaValue = false;
+    public static boolean displayHealthValue = false;
     public static boolean moveManaBar = true;
 
     public static void initialize(File file) {
@@ -43,7 +44,11 @@ public class ConfigurationHandler {
     }
 
     static void load() {
-        String desc = "Set this to true to display the amount of mana you have left.";
+        String desc = "Set this to true to display the amount of health you have left.";
+        displayHealthValue = config.getBoolean("healthValueRender.enabled",
+                Configuration.CATEGORY_CLIENT, displayHealthValue, desc);
+
+        desc = "Set this to true to display the amount of mana you have left.";
         displayManaValue = config.getBoolean("manaValueRender.enabled",
                 Configuration.CATEGORY_CLIENT, displayManaValue, desc);
 

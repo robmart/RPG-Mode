@@ -1,8 +1,8 @@
 package robmart.rpgmode.common.handlers;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
@@ -11,6 +11,7 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import robmart.rpgmode.client.network.SyncPlayerMana;
+import robmart.rpgmode.common.capability.health.MaxHealthProvider;
 import robmart.rpgmode.common.capability.mana.IMana;
 import robmart.rpgmode.common.capability.mana.ManaProvider;
 import robmart.rpgmode.common.network.PacketDispatcher;
@@ -40,24 +41,22 @@ public class CapabilityHandler {
     @SubscribeEvent
     @SuppressWarnings("unused")
     public void attachCapabilities(AttachCapabilitiesEvent.Entity event){
-        if (event.getEntity() instanceof EntityPlayer){
+        if (event.getEntity() instanceof EntityPlayer)
             event.addCapability(new ResourceLocation(Reference.MOD_ID.toLowerCase() + ":ManaCapability"), new ManaProvider((EntityPlayer) event.getEntity()));
-        }
+
+        if (event.getEntity() instanceof EntityLivingBase)
+            event.addCapability(new ResourceLocation(Reference.MOD_ID.toLowerCase() + ":MaxHealthCapability"), new MaxHealthProvider((EntityLivingBase) (event.getEntity())));
     }
 
     @SubscribeEvent
     @SuppressWarnings("unused")
     public void onPlayerClone(net.minecraftforge.event.entity.player.PlayerEvent.Clone event) {
-        EntityPlayer oldPlayer;
-        EntityPlayer newPlayer;
-        NBTTagCompound compound = new NBTTagCompound();
+        EntityPlayer oldPlayer = event.getOriginal();
+        EntityPlayer newPlayer = event.getEntityPlayer();
 
-        if (event.isWasDeath()){
-            oldPlayer = event.getOriginal();
-            newPlayer = event.getEntityPlayer();
-            compound = ManaProvider.get(oldPlayer).saveNBTData(compound);
-            ManaProvider.get(newPlayer).loadNBTData(compound);
-        }
+        ManaProvider.get(newPlayer).loadNBTData(ManaProvider.get(oldPlayer).saveNBTData());
+        MaxHealthProvider.get(newPlayer).loadNBTData(MaxHealthProvider.get(oldPlayer).saveNBTData());
+
     }
 
     @SubscribeEvent

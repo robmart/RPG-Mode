@@ -6,6 +6,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.GameType;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -30,13 +31,15 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class GuiAir extends Gui{
-
     private Minecraft mc;
 
     public GuiAir(Minecraft mc){
         this.mc = mc;
     }
 
+    /**
+     * Stops the normal air from rendering
+     */
     @SubscribeEvent(priority = EventPriority.NORMAL)
     @SuppressWarnings("unused")
     public void onRenderAir(RenderGameOverlayEvent.Pre event){
@@ -44,17 +47,25 @@ public class GuiAir extends Gui{
             event.setCanceled(true);
     }
 
+    /**
+     * Render air bubbles in the right position
+     */
     @SubscribeEvent(priority =  EventPriority.NORMAL)
     @SuppressWarnings("unused")
     public void onRenderExperienceBar(RenderGameOverlayEvent.Post event) {
-        if (event.getType() != RenderGameOverlayEvent.ElementType.HEALTH)
+        if (event.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE)
             return;
 
+        if (mc.playerController.getCurrentGameType() == GameType.CREATIVE || mc.playerController.getCurrentGameType() == GameType.SPECTATOR)
+            return;
+
+        this.mc.getTextureManager().bindTexture(ICONS);
         EntityPlayer  entityPlayer = (EntityPlayer)this.mc.getRenderViewEntity();
-        ScaledResolution scaledRes = new ScaledResolution(mc);
+        ScaledResolution scaledRes = new ScaledResolution(this.mc);
 
         int i1 = scaledRes.getScaledWidth() / 2 + 91;
 
+        this.mc.mcProfiler.startSection("air");
 
         if (entityPlayer.isInsideOfMaterial(Material.WATER)) {
             int i6 = this.mc.thePlayer.getAir();

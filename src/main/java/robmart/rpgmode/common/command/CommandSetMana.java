@@ -65,7 +65,7 @@ public class CommandSetMana extends CommandBase {
 
         mana = player.getCapability(ManaProvider.MANA_CAPABILITY, null);
 
-        setMana(args[0], Integer.valueOf(args[1]), mana);
+        setMana(args[0], Float.valueOf(args[1]), mana);
         info = getInfoFromString(args[0], mana);
 
         if (info == null)
@@ -83,13 +83,13 @@ public class CommandSetMana extends CommandBase {
                         (!"speed".equalsIgnoreCase(string) && !"regenspeed".equalsIgnoreCase(string) ?
                                 (!"amount".equalsIgnoreCase(string) && !"regenamount".equalsIgnoreCase(string) ?
                                         null :
-                                        new String[]{"regeneration amount", intToString(mana.getRegenAmount())}) :
-                                new String[]{"regeneration speed", intToString(mana.getRegenSpeed())}) :
-                        new String[]{"max mana", intToString(mana.getMaxMana())}) :
-                new String[]{"mana", intToString(mana.getMana())};
+                                        new String[]{"regeneration amount", floatToString(mana.getRegenAmount())}) :
+                                new String[]{"regeneration speed", floatToString(mana.getRegenSpeed())}) :
+                        new String[]{"max mana", floatToString(mana.getMaxMana())}) :
+                new String[]{"mana", floatToString(mana.getMana())};
     }
 
-    private void setMana(String string, int amount, IMana mana){
+    private void setMana(String string, float amount, IMana mana) {
         if ("mana".equalsIgnoreCase(string) || "m".equalsIgnoreCase(string))
             mana.setMana(amount);
         else if ("maxmana".equalsIgnoreCase(string) || "max".equalsIgnoreCase(string))
@@ -100,7 +100,7 @@ public class CommandSetMana extends CommandBase {
             mana.setRegenAmount(amount);
     }
 
-    private String intToString(int value){
+    private String floatToString(float value) {
         return String.valueOf(value);
     }
 

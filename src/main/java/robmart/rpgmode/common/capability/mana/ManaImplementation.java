@@ -7,7 +7,7 @@ import robmart.rpgmode.client.network.SyncPlayerMana;
 import robmart.rpgmode.common.network.PacketDispatcher;
 
 /**
- * Created by Robmart.
+ * @author Robmart.
  *
  *   This software is a modification for the game Minecraft, intended to give the game RPG elements.
  *   Copyright (C) 2017 Robmart
@@ -26,7 +26,7 @@ import robmart.rpgmode.common.network.PacketDispatcher;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class ManaImplementation implements IMana {
-    private int maxMana = 100, mana = maxMana, regenSpeed = 100, regenTimer = regenSpeed, regenAmount = 1;
+    private float maxMana = 100, mana = maxMana, regenSpeed = 100, regenTimer = regenSpeed, regenAmount = 1;
     private EntityPlayer player;
 
     ManaImplementation(){}
@@ -41,70 +41,85 @@ public class ManaImplementation implements IMana {
     }
 
     /**
-     * @return Current amount of mana
+     * Get the max mana
+     *
+     * @return Current max amount of mana
      */
     @Override
-    public int getMaxMana(){
+    public float getMaxMana() {
         return this.maxMana;
     }
 
     /**
-     * @return The players max amount of mana
+     * Set max mana
+     *
+     * @param amount The new max amount of mana
      */
     @Override
-    public int getMana(){
-        return this.mana;
-    }
-
-    /**
-     * @return The time (ms) it takes for mana to regen
-     */
-    @Override
-    public int getRegenSpeed(){
-        return this.regenSpeed;
-    }
-
-    /**
-     * @return The amount of mana the player regens every time
-     */
-    @Override
-    public int getRegenAmount(){
-        return this.regenAmount;
-    }
-
-    /**
-     * Sets the max mana to specified amount
-     * @param amount The new max mana
-     */
-    @Override
-    public void setMaxMana(int amount) {
+    public void setMaxMana(float amount) {
         this.maxMana = amount > 0 ? amount : 1;
         setMana(getMaxMana() < getMana() ? getMaxMana() : getMana());
         PacketDispatcher.sendTo(new SyncPlayerMana(this.player), (EntityPlayerMP) this.player);
     }
 
     /**
+     * Get mana
+     *
+     * @return The players amount of mana
+     */
+    @Override
+    public float getMana() {
+        return this.mana;
+    }
+
+    /**
      * Sets the current mana value
+     *
      * @param amount The new mana value
      */
     @Override
-    public void setMana(int amount){
+    public void setMana(float amount) {
         this.mana = amount > 0 ? (amount < getMaxMana() ? amount : getMaxMana()) : 0;
         PacketDispatcher.sendTo(new SyncPlayerMana(this.player), (EntityPlayerMP) this.player);
-        //System.out.println(this.mana);
+    }
+
+    /**
+     * Get regen speed
+     *
+     * @return The time (ms) it takes for mana to regen
+     */
+    @Override
+    public float getRegenSpeed() {
+        return this.regenSpeed;
     }
 
     /**
      * Sets the regeneration speed
-     * @param speed The speed at which the mana regenerates (in milliseconds)
+     *
+     * @param speed The speed at which the mana regenerates (in ms)
      */
     @Override
-    public void setRegenSpeed(int speed){
+    public void setRegenSpeed(float speed) {
         this.regenSpeed = speed;
     }
 
+    /**
+     * Get regen amount
+     *
+     * @return The amount of mana the player regens every time
+     */
     @Override
-    public void setRegenAmount(int amount){
+    public float getRegenAmount() {
+        return this.regenAmount;
+    }
+
+    /**
+     * Changes the amount regenerated
+     *
+     * @param amount The new generation amount
+     */
+    @Override
+    public void setRegenAmount(float amount) {
         this.regenAmount = amount;
     }
 
@@ -121,9 +136,9 @@ public class ManaImplementation implements IMana {
 
     /**
      * Checks if the player should regen mana
+     *
      * @return Weather the player can regen mana or not
      */
-    @Override
     public boolean updateManaTimer() {
         if (this.regenTimer > 0) {
             --this.regenTimer;
@@ -138,10 +153,10 @@ public class ManaImplementation implements IMana {
 
     /**
      * Regenerates the players mana
+     *
      * @param amount The amount that will be regenerated
      */
-    @Override
-    public final void regenMana(int amount) {
+    public final void regenMana(float amount) {
         setMana(getMana() + amount);
     }
 
@@ -155,12 +170,13 @@ public class ManaImplementation implements IMana {
     }
 
     /**
-     * Removes mana
+     * Consumes mana mana
+     *
      * @param amount The amount that will be removed
      * @return If the mana can be consumed
      */
     @Override
-    public boolean consumeMana(int amount) {
+    public boolean consumeMana(float amount) {
 
         if (amount <= getMana() && getMana() != 0) {
             setMana(getMana() - amount);
@@ -171,30 +187,46 @@ public class ManaImplementation implements IMana {
 
     }
 
+    /**
+     * Saves the NBT data
+     *
+     * @return The saved NBT Data
+     */
     @Override
     public NBTTagCompound saveNBTData() {
         NBTTagCompound nbt = new NBTTagCompound();
-        nbt.setInteger("maxMana", getMaxMana());
-        nbt.setInteger("currentMana", getMana());
-        nbt.setInteger("regenSpeed", getRegenSpeed());
-        nbt.setInteger("regenAmount", getRegenAmount());
+        nbt.setFloat("maxMana", getMaxMana());
+        nbt.setFloat("currentMana", getMana());
+        nbt.setFloat("regenSpeed", getRegenSpeed());
+        nbt.setFloat("regenAmount", getRegenAmount());
         return nbt;
     }
 
+    /**
+     * Saves the NBT data into specified NBT compound
+     *
+     * @param nbt The compound
+     * @return The saved nbt data
+     */
     @Override
     public NBTTagCompound saveNBTData(NBTTagCompound nbt) {
-        nbt.setInteger("maxMana", getMaxMana());
-        nbt.setInteger("currentMana", getMana());
-        nbt.setInteger("regenSpeed", getRegenSpeed());
-        nbt.setInteger("regenAmount", getRegenAmount());
+        nbt.setFloat("maxMana", getMaxMana());
+        nbt.setFloat("currentMana", getMana());
+        nbt.setFloat("regenSpeed", getRegenSpeed());
+        nbt.setFloat("regenAmount", getRegenAmount());
         return nbt;
     }
 
+    /**
+     * Loads the NBT data from NBT compound
+     *
+     * @param nbt The compound
+     */
     @Override
     public void loadNBTData(NBTTagCompound nbt) {
-        this.maxMana = nbt.getInteger("maxMana");
-        this.mana = nbt.getInteger("currentMana");
-        this.regenSpeed = nbt.getInteger("regenSpeed");
-        this.regenAmount = nbt.getInteger("regenAmount");
+        this.maxMana = nbt.getFloat("maxMana");
+        this.mana = nbt.getFloat("currentMana");
+        this.regenSpeed = nbt.getFloat("regenSpeed");
+        this.regenAmount = nbt.getFloat("regenAmount");
     }
 }

@@ -29,6 +29,10 @@ import net.minecraftforge.common.capabilities.ICapabilitySerializable;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class ManaProvider implements ICapabilitySerializable, ICapabilityProvider{
+
+    /**
+     * The {@link Capability} instance.
+     */
     @CapabilityInject(IMana.class)
     public static final Capability<IMana> MANA_CAPABILITY = null;
 

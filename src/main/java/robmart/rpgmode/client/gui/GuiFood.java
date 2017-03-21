@@ -8,6 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.util.FoodStats;
+import net.minecraft.world.GameType;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -35,16 +36,19 @@ import java.util.Random;
  *   You should have received a copy of the GNU Lesser General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class GuiHunger extends Gui{
-    private Minecraft mc;
+public class GuiFood extends Gui {
     private final Random rand = new Random();
+    private Minecraft mc;
     private int updateCounter;
 
 
-    public GuiHunger(Minecraft mc){
+    public GuiFood(Minecraft mc) {
         this.mc = mc;
     }
 
+    /**
+     * Stops normal hunger from rendering
+     */
     @SubscribeEvent(priority = EventPriority.NORMAL)
     @SuppressWarnings("unused")
     public void onRenderFoodBar(RenderGameOverlayEvent.Pre event){
@@ -52,16 +56,24 @@ public class GuiHunger extends Gui{
             event.setCanceled(true);
     }
 
+    /**
+     * Renders hunger at new position
+     *
+     * @param event
+     */
     @SubscribeEvent(priority =  EventPriority.NORMAL)
     @SuppressWarnings("unused")
-    public void onRenderExperienceBar(RenderGameOverlayEvent.Post event){
-        if (event.getType() != RenderGameOverlayEvent.ElementType.HEALTH)
+    public void onRenderExperienceBar(RenderGameOverlayEvent.Post event) {
+        if (event.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE)
+            return;
+
+        if (mc.playerController.getCurrentGameType() == GameType.CREATIVE || mc.playerController.getCurrentGameType() == GameType.SPECTATOR)
             return;
 
         this.mc.getTextureManager().bindTexture(ICONS);
 
         EntityPlayer entityplayer = (EntityPlayer)this.mc.getRenderViewEntity();
-        ScaledResolution scaledRes = new ScaledResolution(mc);
+        ScaledResolution scaledRes = new ScaledResolution(this.mc);
 
         this.rand.setSeed((long)(this.updateCounter * 312871));
         FoodStats foodstats = entityplayer.getFoodStats();
@@ -73,7 +85,7 @@ public class GuiHunger extends Gui{
 
         int j6 = j1;
 
-        EntityPlayer player = mc.thePlayer;
+        EntityPlayer player = this.mc.thePlayer;
         Entity entity = player.getRidingEntity();
 
         if (entity == null) {

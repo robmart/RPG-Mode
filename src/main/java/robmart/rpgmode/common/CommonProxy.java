@@ -11,12 +11,13 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import robmart.rpgmode.common.capability.health.IMaxHealth;
+import robmart.rpgmode.common.capability.health.MaxHealthFactory;
+import robmart.rpgmode.common.capability.health.MaxHealthStorage;
 import robmart.rpgmode.common.capability.mana.IMana;
 import robmart.rpgmode.common.capability.mana.ManaFactory;
 import robmart.rpgmode.common.capability.mana.ManaStorage;
-import robmart.rpgmode.common.command.CommandManaInfo;
-import robmart.rpgmode.common.command.CommandRestore;
-import robmart.rpgmode.common.command.CommandSetMana;
+import robmart.rpgmode.common.command.*;
 import robmart.rpgmode.common.handlers.CapabilityHandler;
 import robmart.rpgmode.common.handlers.ConfigurationHandler;
 import robmart.rpgmode.common.network.PacketDispatcher;
@@ -53,6 +54,7 @@ public abstract class CommonProxy implements IGuiHandler{
         }
 
         CapabilityManager.INSTANCE.register(IMana.class, new ManaStorage(), new ManaFactory());
+        CapabilityManager.INSTANCE.register(IMaxHealth.class, new MaxHealthStorage(), new MaxHealthFactory());
         MinecraftForge.EVENT_BUS.register(new CapabilityHandler());
         MinecraftForge.EVENT_BUS.register(new ConfigurationHandler());
 
@@ -71,6 +73,8 @@ public abstract class CommonProxy implements IGuiHandler{
         event.registerServerCommand(new CommandManaInfo());
         event.registerServerCommand(new CommandSetMana());
         event.registerServerCommand(new CommandRestore());
+        event.registerServerCommand(new CommandSetHealth());
+        event.registerServerCommand(new CommandHealthInfo());
     }
 
     @Override
