@@ -1,6 +1,5 @@
 package robmart.rpgmode.common.command;
 
-import com.sun.istack.internal.Nullable;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -10,6 +9,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import robmart.rpgmode.common.reference.Reference;
 
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
