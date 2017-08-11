@@ -85,7 +85,7 @@ public class GuiFood extends Gui {
 
         int j6 = j1;
 
-        EntityPlayer player = this.mc.thePlayer;
+        EntityPlayer player = this.mc.player;
         Entity entity = player.getRidingEntity();
 
         if (entity == null) {

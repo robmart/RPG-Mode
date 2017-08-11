@@ -63,12 +63,16 @@ public class MaxHealthImplementation implements IMaxHealth {
      */
     private float bonusMaxHealth;
 
+    @Override
+    public String getOwnerType(){
+        return "Default Implementation";
+    }
 
-    public MaxHealthImplementation() {
+    MaxHealthImplementation() {
         entity = null;
     }
 
-    public MaxHealthImplementation(@Nullable EntityLivingBase entity) {
+    MaxHealthImplementation(@Nullable EntityLivingBase entity) {
         this.entity = entity;
     }
 

@@ -1,6 +1,11 @@
-package robmart.rpgmode.common.capability.health;
+package robmart.rpgmode.common.helper;
 
-import java.util.concurrent.Callable;
+import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+
+import javax.annotation.Nullable;
+
 
 /**
  * @author Robmart.
@@ -21,10 +26,10 @@ import java.util.concurrent.Callable;
  *         You should have received a copy of the GNU Lesser General Public License
  *         along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class MaxHealthFactory implements Callable<IMaxHealth> {
+public class CapabilityHelper {
 
-    @Override
-    public IMaxHealth call() throws Exception {
-        return new MaxHealthImplementation();
+    @Nullable
+    public static <T> T getCapability(@Nullable ICapabilityProvider provider, Capability<T> capability, @Nullable EnumFacing facing){
+        return provider != null && provider.hasCapability(capability, facing) ? provider.getCapability(capability, facing) : null;
     }
 }

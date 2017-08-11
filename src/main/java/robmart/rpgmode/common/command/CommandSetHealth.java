@@ -7,7 +7,7 @@ import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
-import robmart.rpgmode.common.capability.health.MaxHealthProvider;
+import robmart.rpgmode.common.capability.health.MaxHealthCapability;
 import robmart.rpgmode.common.reference.Reference;
 
 import javax.annotation.Nullable;
@@ -38,7 +38,8 @@ public class CommandSetHealth extends CommandBase {
     public int permissionLevel = 2;
     String commandUsage = "commands." + Reference.MOD_ID.toLowerCase() + ".sethealth.usage";
 
-    public String getCommandName() {
+    @Override
+    public String getName() {
         return name;
     }
 
@@ -46,7 +47,8 @@ public class CommandSetHealth extends CommandBase {
         return permissionLevel;
     }
 
-    public String getCommandUsage(ICommandSender sender) {
+    @Override
+    public String getUsage(ICommandSender sender) {
         return commandUsage;
     }
 
@@ -86,7 +88,7 @@ public class CommandSetHealth extends CommandBase {
         if ("health".equalsIgnoreCase(string) || "h".equalsIgnoreCase(string))
             player.setHealth(amount);
         else if ("maxhealth".equalsIgnoreCase(string) || "max".equalsIgnoreCase(string)) {
-            MaxHealthProvider.get(player).setBonusMaxHealth(amount - 20);
+            MaxHealthCapability.get(player).setBonusMaxHealth(amount - 20);
             player.setHealth(player.getMaxHealth());
         }
     }
@@ -96,6 +98,6 @@ public class CommandSetHealth extends CommandBase {
     }
 
     public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
-        return args.length == 1 ? getListOfStringsMatchingLastWord(args, "health", "maxhealth") : (args.length == 3 ? getListOfStringsMatchingLastWord(args, server.getAllUsernames()) : Collections.emptyList());
+        return args.length == 1 ? getListOfStringsMatchingLastWord(args, "health", "maxhealth") : (args.length == 3 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) : Collections.emptyList());
     }
 }

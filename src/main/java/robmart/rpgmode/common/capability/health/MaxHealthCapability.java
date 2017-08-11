@@ -1,14 +1,15 @@
 package robmart.rpgmode.common.capability.health;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import robmart.rpgmode.common.capability.CapabilityProvider;
+import robmart.rpgmode.common.helper.CapabilityHelper;
 
 /**
  * @author Robmart.
@@ -29,7 +30,7 @@ import net.minecraftforge.common.capabilities.ICapabilitySerializable;
  *         You should have received a copy of the GNU Lesser General Public License
  *         along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class MaxHealthProvider implements ICapabilitySerializable, ICapabilityProvider {
+public class MaxHealthCapability {
 
     /**
      * The {@link Capability} instance.
@@ -39,45 +40,37 @@ public class MaxHealthProvider implements ICapabilitySerializable, ICapabilityPr
 
     private IMaxHealth maxHealthCap = null;
 
-    public MaxHealthProvider() {
+    public MaxHealthCapability() {
         this.maxHealthCap = new MaxHealthImplementation();
     }
 
-    public MaxHealthProvider(EntityLivingBase enitity) {
-        this.maxHealthCap = new MaxHealthImplementation(enitity);
+    public MaxHealthCapability(EntityLivingBase entity) {
+        this.maxHealthCap = new MaxHealthImplementation(entity);
     }
 
-    public MaxHealthProvider(IMaxHealth maxHealth) {
+    public MaxHealthCapability(IMaxHealth maxHealth) {
         this.maxHealthCap = maxHealth;
     }
 
-    public static IMaxHealth get(EntityPlayer player) {
-        if (player.hasCapability(MAX_HEALTH_CAPABILITY, null))
-            return player.getCapability(MAX_HEALTH_CAPABILITY, null);
-
-        return null;
+    public static IMaxHealth get(EntityLivingBase entity) {
+        return CapabilityHelper.getCapability(entity, MAX_HEALTH_CAPABILITY, null);
     }
 
-    @Override
-    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        return capability == MAX_HEALTH_CAPABILITY;
+    public ICapabilityProvider createProvider() {
+        return new CapabilityProvider<>(MAX_HEALTH_CAPABILITY, null, maxHealthCap);
     }
 
-    @Override
-    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        if (capability == MAX_HEALTH_CAPABILITY)
-            return MAX_HEALTH_CAPABILITY.cast(maxHealthCap);
+    public static void register() {
+        CapabilityManager.INSTANCE.register(IMaxHealth.class, new Capability.IStorage<IMaxHealth>() {
+            @Override
+            public NBTBase writeNBT(Capability<IMaxHealth> capability, IMaxHealth instance, EnumFacing side) {
+                return instance.saveNBTData();
+            }
 
-        return null;
-    }
-
-    @Override
-    public NBTBase serializeNBT() {
-        return maxHealthCap.saveNBTData();
-    }
-
-    @Override
-    public void deserializeNBT(NBTBase nbt) {
-        maxHealthCap.loadNBTData((NBTTagCompound) nbt);
+            @Override
+            public void readNBT(Capability<IMaxHealth> capability, IMaxHealth instance, EnumFacing side, NBTBase nbt) {
+                instance.loadNBTData((NBTTagCompound) nbt);
+            }
+        }, () -> new MaxHealthImplementation(null));
     }
 }

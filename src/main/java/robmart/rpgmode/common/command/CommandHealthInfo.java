@@ -37,7 +37,8 @@ public class CommandHealthInfo extends CommandBase {
     private final int permissionLevel = 1;
     private final String commandUsage = "commands." + Reference.MOD_ID.toLowerCase() + ".healthinfo.usage";
 
-    public String getCommandName() {
+    @Override
+    public String getName() {
         return name;
     }
 
@@ -45,7 +46,8 @@ public class CommandHealthInfo extends CommandBase {
         return permissionLevel;
     }
 
-    public String getCommandUsage(ICommandSender sender) {
+    @Override
+    public String getUsage(ICommandSender sender) {
         return commandUsage;
     }
 
@@ -82,6 +84,6 @@ public class CommandHealthInfo extends CommandBase {
     }
 
     public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
-        return args.length == 1 ? getListOfStringsMatchingLastWord(args, "health", "maxhealth") : (args.length == 2 ? getListOfStringsMatchingLastWord(args, server.getAllUsernames()) : Collections.emptyList());
+        return args.length == 1 ? getListOfStringsMatchingLastWord(args, "health", "maxhealth") : (args.length == 2 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) : Collections.emptyList());
     }
 }

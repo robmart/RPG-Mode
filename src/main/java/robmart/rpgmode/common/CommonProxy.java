@@ -4,19 +4,16 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import robmart.rpgmode.common.capability.health.IMaxHealth;
-import robmart.rpgmode.common.capability.health.MaxHealthFactory;
-import robmart.rpgmode.common.capability.health.MaxHealthStorage;
-import robmart.rpgmode.common.capability.mana.IMana;
-import robmart.rpgmode.common.capability.mana.ManaFactory;
-import robmart.rpgmode.common.capability.mana.ManaStorage;
+import robmart.rpgmode.common.capability.attribute.AttributeCapability;
+import robmart.rpgmode.common.capability.character.CharacterCapability;
+import robmart.rpgmode.common.capability.health.MaxHealthCapability;
+import robmart.rpgmode.common.capability.mana.ManaCapability;
 import robmart.rpgmode.common.command.*;
 import robmart.rpgmode.common.handlers.CapabilityHandler;
 import robmart.rpgmode.common.handlers.ConfigurationHandler;
@@ -53,8 +50,10 @@ public abstract class CommonProxy implements IGuiHandler{
             if (ConfigurationHandler.config!=null) ConfigurationHandler.save();
         }
 
-        CapabilityManager.INSTANCE.register(IMana.class, new ManaStorage(), new ManaFactory());
-        CapabilityManager.INSTANCE.register(IMaxHealth.class, new MaxHealthStorage(), new MaxHealthFactory());
+        ManaCapability.register();
+        MaxHealthCapability.register();
+        AttributeCapability.register();
+        CharacterCapability.register();
         MinecraftForge.EVENT_BUS.register(new CapabilityHandler());
         MinecraftForge.EVENT_BUS.register(new ConfigurationHandler());
 
@@ -75,6 +74,8 @@ public abstract class CommonProxy implements IGuiHandler{
         event.registerServerCommand(new CommandRestore());
         event.registerServerCommand(new CommandSetHealth());
         event.registerServerCommand(new CommandHealthInfo());
+        //TODO: Command for getting attributes
+        //TODO: Command for setting attributes
     }
 
     @Override
@@ -88,10 +89,10 @@ public abstract class CommonProxy implements IGuiHandler{
     }
 
     public EntityPlayer getPlayerEntity(MessageContext ctx) {
-        return ctx.getServerHandler().playerEntity;
+        return ctx.getServerHandler().player;
     }
 
     public IThreadListener getThreadFromContext(MessageContext ctx) {
-        return ctx.getServerHandler().playerEntity.getServerWorld();
+        return ctx.getServerHandler().player.getServerWorld();
     }
 }

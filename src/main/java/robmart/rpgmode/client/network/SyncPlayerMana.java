@@ -4,7 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.relauncher.Side;
-import robmart.rpgmode.common.capability.mana.ManaProvider;
+import robmart.rpgmode.common.capability.mana.ManaCapability;
 import robmart.rpgmode.common.network.AbstractMessage;
 
 import java.io.IOException;
@@ -35,21 +35,21 @@ public class SyncPlayerMana extends AbstractMessage.AbstractClientMessage<SyncPl
 
     public SyncPlayerMana(EntityPlayer player) {
         data = new NBTTagCompound();
-        ManaProvider.get(player).saveNBTData(data);
+        ManaCapability.get(player).saveNBTData(data);
     }
 
     @Override
     protected void read(PacketBuffer buffer) throws IOException {
-        data = buffer.readNBTTagCompoundFromBuffer();
+        data = buffer.readCompoundTag();
     }
 
     @Override
     protected void write(PacketBuffer buffer) throws IOException {
-        buffer.writeNBTTagCompoundToBuffer(data);
+        buffer.writeCompoundTag(data);
     }
 
     @Override
     public void process(EntityPlayer player, Side side) {
-        ManaProvider.get(player).loadNBTData(data);
+        ManaCapability.get(player).loadNBTData(data);
     }
 }

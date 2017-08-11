@@ -65,7 +65,7 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public EntityPlayer getPlayerEntity(MessageContext ctx) {
-        return (ctx.side.isClient() ? this.mc.thePlayer : super.getPlayerEntity(ctx));
+        return (ctx.side.isClient() ? this.mc.player : super.getPlayerEntity(ctx));
     }
 
     @Override

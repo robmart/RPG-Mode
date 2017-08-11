@@ -12,7 +12,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import robmart.rpgmode.common.capability.mana.IMana;
-import robmart.rpgmode.common.capability.mana.ManaProvider;
+import robmart.rpgmode.common.capability.mana.ManaCapability;
 import robmart.rpgmode.common.handlers.ConfigurationHandler;
 import robmart.rpgmode.common.reference.Reference;
 
@@ -38,7 +38,7 @@ import java.text.DecimalFormat;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class GuiMana extends Gui {
-    private static final ResourceLocation texture = new ResourceLocation(Reference.MOD_ID, "textures/gui/Bars.png");
+    private static final ResourceLocation texture = new ResourceLocation(Reference.MOD_ID, "textures/gui/bars.png");
     private Minecraft mc;
 
     public GuiMana(Minecraft mc) {
@@ -59,9 +59,9 @@ public class GuiMana extends Gui {
             return;
 
         ScaledResolution scaledResolution = new ScaledResolution(this.mc);
-        IMana mana = ManaProvider.get(this.mc.thePlayer);
+        IMana mana = ManaCapability.get(this.mc.player);
 
-        Entity entity = this.mc.thePlayer.getRidingEntity();
+        Entity entity = this.mc.player.getRidingEntity();
 
         if (entity != null)
             return;
@@ -71,7 +71,7 @@ public class GuiMana extends Gui {
         int yPos = (scaledResolution.getScaledHeight() - 39) * 2;
         int barLength = 77;
         int manaBarWidth = (int) ((mana.getMana() / mana.getMaxMana()) * barLength);
-        FontRenderer fontRenderer = this.mc.fontRendererObj;
+        FontRenderer fontRenderer = this.mc.fontRenderer;
         DecimalFormat decimalFormat = new DecimalFormat("#");
 
         GlStateManager.pushAttrib();

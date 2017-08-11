@@ -1,9 +1,9 @@
 [
   {
-    "modid": "RPGMode",
+    "modid": "rpgmode",
     "name": "Rob's RPG Mode",
     "description": "This is a Minecraft RPG mod. It is inspired by Hack/Mine and other such mods. \nMy goal with this mod is to (eventually) create a pretty solid RPG experience inside of Minecraft.",
-    "version": "1.10.2-0.0.1",
+    "version": "1.12-0.0.2",
     "mcversion": "${mcversion}",
     "url": "",
     "updateUrl": "",

@@ -8,7 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import robmart.rpgmode.common.capability.mana.IMana;
-import robmart.rpgmode.common.capability.mana.ManaProvider;
+import robmart.rpgmode.common.capability.mana.ManaCapability;
 import robmart.rpgmode.common.reference.Reference;
 
 import javax.annotation.Nullable;
@@ -35,11 +35,13 @@ import java.util.List;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class CommandRestore extends CommandBase {
+    //TODO: Remove debuffs
     private final String name = "restore";
     private final int permissionLevel = 2;
     private final String commandUsage = "commands." + Reference.MOD_ID.toLowerCase() + ".restore.usage";
 
-    public String getCommandName() {
+    @Override
+    public String getName() {
         return name;
     }
 
@@ -47,7 +49,8 @@ public class CommandRestore extends CommandBase {
         return permissionLevel;
     }
 
-    public String getCommandUsage(ICommandSender sender){
+    @Override
+    public String getUsage(ICommandSender sender){
         return commandUsage;
     }
 
@@ -62,7 +65,7 @@ public class CommandRestore extends CommandBase {
         else
             player = getCommandSenderAsPlayer(sender);
 
-        mana = player.getCapability(ManaProvider.MANA_CAPABILITY, null);
+        mana = player.getCapability(ManaCapability.MANA_CAPABILITY, null);
         player.setHealth(player.getMaxHealth());
         mana.restoreMana();
         player.getFoodStats().addStats(20, 20);
@@ -74,6 +77,6 @@ public class CommandRestore extends CommandBase {
     }
 
     public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
-        return args.length == 1 ? getListOfStringsMatchingLastWord(args, server.getAllUsernames()): Collections.emptyList();
+        return args.length == 1 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()): Collections.emptyList();
     }
 }

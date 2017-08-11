@@ -37,7 +37,7 @@ import java.text.DecimalFormat;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class GuiHealth extends Gui {
-    private static final ResourceLocation texture = new ResourceLocation(Reference.MOD_ID, "textures/gui/Bars.png");
+    private static final ResourceLocation texture = new ResourceLocation(Reference.MOD_ID, "textures/gui/bars.png");
     private Minecraft mc;
 
 
@@ -61,7 +61,7 @@ public class GuiHealth extends Gui {
     @SubscribeEvent(priority = EventPriority.NORMAL)
     @SuppressWarnings("unused")
     public void onRenderExperienceBar(RenderGameOverlayEvent.Post event) {
-        EntityPlayer player = this.mc.thePlayer;
+        EntityPlayer player = this.mc.player;
 
         if (event.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE)
             return;
@@ -71,7 +71,7 @@ public class GuiHealth extends Gui {
 
         ScaledResolution scaledResolution = new ScaledResolution(mc);
 
-        Entity entity = this.mc.thePlayer.getRidingEntity();
+        Entity entity = this.mc.player.getRidingEntity();
 
         if (entity != null)
             return;
@@ -81,7 +81,7 @@ public class GuiHealth extends Gui {
         int yPos = (scaledResolution.getScaledHeight() - 39) * 2;
         int barLength = 77;
         int healthBarWidth = (int) ((player.getHealth() / player.getMaxHealth()) * barLength);
-        FontRenderer fontRenderer = this.mc.fontRendererObj;
+        FontRenderer fontRenderer = this.mc.fontRenderer;
         DecimalFormat decimalFormat = new DecimalFormat("#");
 
         this.mc.mcProfiler.startSection("health");

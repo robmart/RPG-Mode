@@ -26,10 +26,35 @@ import robmart.rpgmode.common.network.PacketDispatcher;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class ManaImplementation implements IMana {
-    private float maxMana = 100, mana = maxMana, regenSpeed = 100, regenTimer = regenSpeed, regenAmount = 1;
-    private EntityPlayer player;
+    /**
+     * The max amount of mana
+     */
+    private float maxMana = 100,
+    /**
+     * The current amount of mana
+     */
+            mana = maxMana,
+    /**
+     * The speed at which mana regenerates
+     */
+            regenSpeed = 100,
+    /**
+     * How long until next regeneration
+     */
+            regenTimer = regenSpeed,
+    /**
+     * How much is regenerated
+     */
+            regenAmount = 1;
 
-    ManaImplementation(){}
+    /**
+     * The player the capability is attached to
+     */
+    private final EntityPlayer player;
+
+    ManaImplementation(){
+        this.player = null;
+    }
 
     ManaImplementation (EntityPlayer player){
         this.player = player;
@@ -130,7 +155,7 @@ public class ManaImplementation implements IMana {
      */
     @Override
     public void onUpdate(EntityPlayer player) {
-        if (!player.worldObj.isRemote && updateManaTimer())
+        if (!player.world.isRemote && updateManaTimer())
             regenMana(getRegenAmount());
     }
 

@@ -1,9 +1,6 @@
-package robmart.rpgmode.common.capability.health;
+package robmart.rpgmode.common.capability.character;
 
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.common.capabilities.Capability;
 
 /**
  * @author Robmart.
@@ -24,15 +21,42 @@ import net.minecraftforge.common.capabilities.Capability;
  *         You should have received a copy of the GNU Lesser General Public License
  *         along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class MaxHealthStorage implements Capability.IStorage<IMaxHealth> {
+public interface ICharacter {
+    String getOwnerType();
 
-    @Override
-    public NBTBase writeNBT(Capability<IMaxHealth> capability, IMaxHealth instance, EnumFacing facing) {
-        return instance.saveNBTData();
-    }
+    /**
+     * Checks if the player has joined before
+     *
+     * @return Whether the player has joined before or not
+     */
+    boolean getHasJoined();
 
-    @Override
-    public void readNBT(Capability<IMaxHealth> capability, IMaxHealth instance, EnumFacing facing, NBTBase nbt) {
-        instance.loadNBTData((NBTTagCompound) nbt);
-    }
+    /**
+     * Sets if the plaer has joined before
+     *
+     * @param hasJoined Whether the player has joined before
+     */
+    void setHasJoined(boolean hasJoined);
+
+    /**
+     * Saves the NBT data
+     *
+     * @return The saved NBT Data
+     */
+    NBTTagCompound saveNBTData();
+
+    /**
+     * Saves the NBT data into specified NBT compound
+     *
+     * @param compound The compound
+     * @return The saved nbt data
+     */
+    NBTTagCompound saveNBTData(NBTTagCompound compound);
+
+    /**
+     * Loads the NBT data from NBT compound
+     *
+     * @param compound The compound
+     */
+    void loadNBTData(NBTTagCompound compound);
 }

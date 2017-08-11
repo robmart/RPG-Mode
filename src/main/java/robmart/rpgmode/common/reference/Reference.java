@@ -20,15 +20,15 @@ package robmart.rpgmode.common.reference;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class Reference {
-    public static final String MOD_ID = "RPGMode";
+    public static final String MOD_ID = "rpgmode";
     public static final String MOD_NAME = "Rob's RPG Mode";
-    public static final String MOD_VERSION = "1.10.2-0.0.1";
-    public static final String MINECRAFT_VERSION = "1.10.2";
+    public static final String MOD_VERSION = "1.12-0.0.2";
+    public static final String MINECRAFT_VERSION = "1.12";
 
     public static final String CLIENT_PROXY = "robmart.rpgmode.client.ClientProxy";
     public static final String SERVER_PROXY = "robmart.rpgmode.server.ServerProxy";
 
-    public static final String GUI_FACTORY = "robmart.rpgmode.client.gui.CapGuiFactory";
+    public static final String GUI_FACTORY = "robmart.rpgmode.client.gui.RPGGuiConfig";
 
     public static final String DEPENDENCIES = "";
 }

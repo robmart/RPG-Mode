@@ -22,6 +22,8 @@ import net.minecraft.nbt.NBTTagCompound;
  *         along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public interface IMaxHealth {
+    String getOwnerType();
+
     /**
      * Get the bonus max health.
      *

@@ -68,9 +68,9 @@ public class GuiAir extends Gui{
         this.mc.mcProfiler.startSection("air");
 
         if (entityPlayer.isInsideOfMaterial(Material.WATER)) {
-            int i6 = this.mc.thePlayer.getAir();
-            int k6 = MathHelper.ceiling_double_int((double) (i6 - 2) * 10.0D / 300.0D);
-            int i7 = MathHelper.ceiling_double_int((double) i6 * 10.0D / 300.0D) - k6;
+            int i6 = this.mc.player.getAir();
+            int k6 = MathHelper.ceil((double) (i6 - 2) * 10.0D / 300.0D);
+            int i7 = MathHelper.ceil((double) i6 * 10.0D / 300.0D) - k6;
             int j1 = scaledRes.getScaledHeight() - 59;
 
             for (int k7 = 0; k7 < k6 + i7; ++k7) {

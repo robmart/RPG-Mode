@@ -32,10 +32,17 @@ import java.io.IOException;
  *   You should have received a copy of the GNU Lesser General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-public abstract class AbstractMessage<T extends AbstractMessage<T>> implements IMessage, IMessageHandler <T, IMessage>
-{
+public abstract class AbstractMessage<T extends AbstractMessage<T>> implements IMessage, IMessageHandler <T, IMessage> {
+    /**
+     * Some PacketBuffer methods throw IOException - default handling propagates the exception.
+     * if an IOException is expected but should not be fatal, handle it within this method.
+     */
     protected abstract void read(PacketBuffer buffer) throws IOException;
 
+    /**
+     * Some PacketBuffer methods throw IOException - default handling propagates the exception.
+     * if an IOException is expected but should not be fatal, handle it within this method.
+     */
     protected abstract void write(PacketBuffer buffer) throws IOException;
 
     /**
@@ -80,6 +87,16 @@ public abstract class AbstractMessage<T extends AbstractMessage<T>> implements I
         }
     }
 
+    //=====================================================================//
+	/*
+	 * Make the implementation final so child classes don't need to bother
+	 * with it, since the message class shouldn't have anything to do with
+	 * the handler. This is simply to avoid having to have:
+	 *
+	 * public static class Handler extends GenericMessageHandler<OpenGuiMessage> {}
+	 *
+	 * in every single message class for the sole purpose of registration.
+	 */
     @Override
     public final IMessage onMessage(T msg, MessageContext ctx) {
         if (!msg.isValidOnSide(ctx.side)) {
@@ -93,9 +110,9 @@ public abstract class AbstractMessage<T extends AbstractMessage<T>> implements I
     }
 
     /**
-     * Ensures that the message is being handled on the main thread
+     * 1.8 ONLY: Ensures that the message is being handled on the main thread
      */
-    private static <T extends AbstractMessage<T>> void checkThreadAndEnqueue(final AbstractMessage<T> msg, final MessageContext ctx) {
+    private static final <T extends AbstractMessage<T>> void checkThreadAndEnqueue(final AbstractMessage<T> msg, final MessageContext ctx) {
         IThreadListener thread = RPGMode.proxy.getThreadFromContext(ctx);
         // pretty much copied straight from vanilla code, see {@link PacketThreadUtil#checkThreadAndEnqueue}
         thread.addScheduledTask(new Runnable() {

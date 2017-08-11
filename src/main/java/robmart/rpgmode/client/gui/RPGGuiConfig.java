@@ -1,12 +1,16 @@
 package robmart.rpgmode.client.gui;
 
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigElement;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.client.DefaultGuiFactory;
 import net.minecraftforge.fml.client.config.DummyConfigElement;
 import net.minecraftforge.fml.client.config.GuiConfig;
 import net.minecraftforge.fml.client.config.IConfigElement;
+import robmart.rpgmode.common.RPGMode;
 import robmart.rpgmode.common.handlers.ConfigurationHandler;
+import robmart.rpgmode.common.reference.Reference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,32 +36,28 @@ import static robmart.rpgmode.common.reference.Reference.MOD_ID;
  *   You should have received a copy of the GNU Lesser General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class CapGuiConfig extends GuiConfig {
+public class RPGGuiConfig extends DefaultGuiFactory {
 
-    public CapGuiConfig(GuiScreen parent){
-        super(parent, getConfigElements(), MOD_ID, false, false, GuiConfig.getAbridgedConfigPath(ConfigurationHandler.config.toString()));
+    public RPGGuiConfig(){
+        super(Reference.MOD_ID, GuiConfig.getAbridgedConfigPath(ConfigurationHandler.config.toString()));
     }
 
+
+    @Override
+    public GuiScreen createConfigGui(GuiScreen parent){
+        return new GuiConfig(parent, getConfigElements(), this.modid, false, false, this.title);
+    }
 
     private static List<IConfigElement> getConfigElements() {
-        List<IConfigElement> list = new ArrayList<>();
+        List<IConfigElement> list = new ArrayList<IConfigElement>();
 
-        list.add(categoryElement(
-                Configuration.CATEGORY_GENERAL,
-                "category." + MOD_ID.toLowerCase() + ".general",
-                "tooltip." + MOD_ID.toLowerCase() + ".general"));
-        list.add(categoryElement(
-                Configuration.CATEGORY_CLIENT,
-                "category." + MOD_ID.toLowerCase() + ".client",
-                "tooltip." + MOD_ID.toLowerCase() + ".client"));
-
+        list.addAll(new ConfigElement(ConfigurationHandler.config
+                .getCategory(Configuration.CATEGORY_GENERAL))
+                .getChildElements());
+        list.addAll(new ConfigElement(ConfigurationHandler.config
+                .getCategory(Configuration.CATEGORY_CLIENT))
+                .getChildElements());
 
         return list;
-
-    }
-
-    private static IConfigElement categoryElement(String category, String name, String tooltip_key) {
-        return new DummyConfigElement.DummyCategoryElement(name, tooltip_key,
-                new ConfigElement(ConfigurationHandler.config.getCategory(category)).getChildElements());
     }
 }
