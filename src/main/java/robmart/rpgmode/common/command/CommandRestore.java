@@ -37,7 +37,6 @@ import java.util.List;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class CommandRestore extends CommandBase {
-    //TODO: Remove debuffs
     private final String name = "restore";
     private final int permissionLevel = 2;
     private final String commandUsage = "commands." + Reference.MOD_ID.toLowerCase() + ".restore.usage";
