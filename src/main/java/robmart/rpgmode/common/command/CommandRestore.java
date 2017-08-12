@@ -5,6 +5,8 @@ import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import robmart.rpgmode.common.capability.mana.IMana;
@@ -69,6 +71,13 @@ public class CommandRestore extends CommandBase {
         player.setHealth(player.getMaxHealth());
         mana.restoreMana();
         player.getFoodStats().addStats(20, 20);
+
+        Potion effects[] = new Potion[player.getActivePotionEffects().toArray().length];
+        for (int i = 0; i < player.getActivePotionEffects().toArray().length; i++)
+            effects[i] = ((PotionEffect) player.getActivePotionEffects().toArray()[i]).getPotion();
+        for (Potion potion : effects)
+            if (potion.isBadEffect())
+                player.removePotionEffect(potion);
 
         notifyCommandListener(player, this, "commands.rpgmode.restore.success1");
 
