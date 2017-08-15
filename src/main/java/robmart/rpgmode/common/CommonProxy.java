@@ -74,8 +74,8 @@ public abstract class CommonProxy implements IGuiHandler{
         event.registerServerCommand(new CommandRestore());
         event.registerServerCommand(new CommandSetHealth());
         event.registerServerCommand(new CommandHealthInfo());
-        //TODO: Command for getting attributes
-        //TODO: Command for setting attributes
+        event.registerServerCommand(new CommandAttributeInfo());
+        event.registerServerCommand(new CommandSetAttribute());
     }
 
     @Override

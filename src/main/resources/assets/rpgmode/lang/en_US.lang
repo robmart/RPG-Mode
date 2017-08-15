@@ -2,15 +2,20 @@
 # Commands
 commands.rpgmode.manainfo.usage=/manainfo <field> [entity]
 commands.rpgmode.manainfo.success=%s's %s is %s
+commands.rpgmode.attributeinfo.usage=/manainfo <field> [entity]
+commands.rpgmode.attributeinfo.success=%s's %s is %s
 commands.rpgmode.restore.usage=/restore [entity]
 commands.rpgmode.restore.success1=You suddenly feel restored!
 commands.rpgmode.restore.success2=%s suddenly looks restored!
 commands.rpgmode.setmana.usage=/setmana <field> <value> [entity]
 commands.rpgmode.setmana.success1=Your %s is now %s
 commands.rpgmode.setmana.success2=%s's %s is now %s
+commands.rpgmode.setattribute.usage=/setattribute <field> <value> [entity]
+commands.rpgmode.setattribute.success1=Your %s is now %s
+commands.rpgmode.setattribute.success2=%s's %s is now %s
 commands.rpgmode.healthinfo.usage=/healthinfo <field> [entity]
 commands.rpgmode.healthinfo.success=%s's %s is %s
-commands.rpgmode.setmana.usage=/sethealth <field> <value> [entity]
+commands.rpgmode.sethealth.usage=/sethealth <field> <value> [entity]
 commands.rpgmode.sethealth.success1=Your %s is now %s
 commands.rpgmode.sethealth.success2=%s's %s is now %s
 

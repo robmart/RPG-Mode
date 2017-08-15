@@ -2,12 +2,17 @@
 # Commands
 commands.rpgmode.manainfo.usage=/manainfo <fält> [spelare]
 commands.rpgmode.manainfo.success=%ss %s är %s
+commands.rpgmode.attributeinfo.usage=/attributeinfo <fält> [spelare]
+commands.rpgmode.attributeinfo.success=%ss %s är %s
 commands.rpgmode.restore.usage=/restore [spelare]
 commands.rpgmode.restore.success1=Du känner dig plötsligt utvilad!
 commands.rpgmode.restore.success2=%s ser plötsligt utvilad ut!
 commands.rpgmode.setmana.usage=/setmana <fält> <värde> [spelare]
 commands.rpgmode.setmana.success1=Din %s är nu %s
 commands.rpgmode.setmana.success2=%ss %s är nu %s
+commands.rpgmode.setattribute.usage=/setattribute <fält> <värde> [spelare]
+commands.rpgmode.setattribute.success1=Din %s är nu %s
+commands.rpgmode.setattribute.success2=%ss %s är nu %s
 commands.rpgmode.healthinfo.usage=/healthinfo <fält> [spelare]
 commands.rpgmode.healthinfo.success=%ss %s is %s
 commands.rpgmode.setmana.usage=/sethealth <fält> <värde> [spelare]
