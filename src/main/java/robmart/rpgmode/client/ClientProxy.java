@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import robmart.rpgmode.client.gui.*;
+import robmart.rpgmode.client.init.InitGui;
 import robmart.rpgmode.common.CommonProxy;
 
 /**
@@ -46,11 +47,7 @@ public class ClientProxy extends CommonProxy {
     public void init(FMLInitializationEvent event){
         super.init(event);
 
-        MinecraftForge.EVENT_BUS.register(new GuiHealth(Minecraft.getMinecraft()));
-        MinecraftForge.EVENT_BUS.register(new GuiMana(Minecraft.getMinecraft()));
-        MinecraftForge.EVENT_BUS.register(new GuiAir(Minecraft.getMinecraft()));
-        MinecraftForge.EVENT_BUS.register(new GuiFood(Minecraft.getMinecraft()));
-        MinecraftForge.EVENT_BUS.register(new GuiArmor(Minecraft.getMinecraft()));
+        InitGui.init();
     }
 
     @Override

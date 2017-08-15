@@ -17,6 +17,8 @@ import robmart.rpgmode.common.capability.mana.ManaCapability;
 import robmart.rpgmode.common.command.*;
 import robmart.rpgmode.common.handlers.CapabilityHandler;
 import robmart.rpgmode.common.handlers.ConfigurationHandler;
+import robmart.rpgmode.common.init.InitCapabilities;
+import robmart.rpgmode.common.init.InitCommands;
 import robmart.rpgmode.common.network.PacketDispatcher;
 
 /**
@@ -50,11 +52,7 @@ public abstract class CommonProxy implements IGuiHandler{
             if (ConfigurationHandler.config!=null) ConfigurationHandler.save();
         }
 
-        ManaCapability.register();
-        MaxHealthCapability.register();
-        AttributeCapability.register();
-        CharacterCapability.register();
-        MinecraftForge.EVENT_BUS.register(new CapabilityHandler());
+        InitCapabilities.init();
         MinecraftForge.EVENT_BUS.register(new ConfigurationHandler());
 
         PacketDispatcher.registerPackets();
@@ -69,13 +67,7 @@ public abstract class CommonProxy implements IGuiHandler{
     }
 
     public void serverStarting(FMLServerStartingEvent event){
-        event.registerServerCommand(new CommandManaInfo());
-        event.registerServerCommand(new CommandSetMana());
-        event.registerServerCommand(new CommandRestore());
-        event.registerServerCommand(new CommandSetHealth());
-        event.registerServerCommand(new CommandHealthInfo());
-        event.registerServerCommand(new CommandAttributeInfo());
-        event.registerServerCommand(new CommandSetAttribute());
+        InitCommands.init(event);
     }
 
     @Override
