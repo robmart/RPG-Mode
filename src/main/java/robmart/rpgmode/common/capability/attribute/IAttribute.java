@@ -40,6 +40,20 @@ public interface IAttribute {
     void setStrength(int value);
 
     /**
+     * Get the strength modifier
+     *
+     * @return Current strength modifier
+     */
+    int getStrMod();
+
+    /**
+     * Set strength modifier
+     *
+     * @param value The new strength modifier
+     */
+    void setStrMod(int value);
+
+    /**
      * Get the dexterity value
      *
      * @return Current dexterity value
@@ -52,6 +66,20 @@ public interface IAttribute {
      * @param value The new dexterity value
      */
     void setDexterity(int value);
+
+    /**
+     * Get the dexterity modifier
+     *
+     * @return Current dexterity modifier
+     */
+    int getDexMod();
+
+    /**
+     * Set dexterity modifier
+     *
+     * @param value The new dexterity modifier
+     */
+    void setDexMod(int value);
 
     /**
      * Get the intelligence value
@@ -68,6 +96,20 @@ public interface IAttribute {
     void setIntelligence(int value);
 
     /**
+     * Get the intelligence modifier
+     *
+     * @return Current intelligence modifier
+     */
+    int getIntMod();
+
+    /**
+     * Set intelligence modifier
+     *
+     * @param value The new intelligence modifier
+     */
+    void setIntMod(int value);
+
+    /**
      * Get the constitution
      *
      * @return Current constitution value
@@ -82,6 +124,20 @@ public interface IAttribute {
     void setConstitution(int value);
 
     /**
+     * Get the constitution modifier
+     *
+     * @return Current constitution modifier
+     */
+    int getConMod();
+
+    /**
+     * Set constitution modifier
+     *
+     * @param value The new constitution modifier
+     */
+    void setConMod(int value);
+
+    /**
      * Get the wisdom
      *
      * @return Current wisdom value
@@ -94,6 +150,20 @@ public interface IAttribute {
      * @param value The new wisdom value
      */
     void setWisdom(int value);
+
+    /**
+     * Get the wisdom modifier
+     *
+     * @return Current wisdom modifier
+     */
+    int getWisMod();
+
+    /**
+     * Set wisdom modifier
+     *
+     * @param value The new wisdom modifier
+     */
+    void setWisMod(int value);
 
     /**
      * Sets all attributes
@@ -118,12 +188,6 @@ public interface IAttribute {
      * @param value The new attribute point value
      */
     void setAttributePoint(int value);
-
-    /**
-     * Changes max mana, hp and other stuff when an attribute is changed
-     * Call this from all set methods
-     */
-    void onAttributeChanged();
 
     /**
      * Saves the NBT data

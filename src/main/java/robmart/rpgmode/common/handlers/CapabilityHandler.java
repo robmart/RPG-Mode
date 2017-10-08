@@ -2,8 +2,6 @@ package robmart.rpgmode.common.handlers;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngame;
-import net.minecraft.client.gui.inventory.GuiChest;
-import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -16,10 +14,9 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import robmart.rpgmode.client.network.SyncPlayerMana;
 import robmart.rpgmode.common.capability.attribute.AttributeCapability;
+import robmart.rpgmode.common.capability.attribute.IAttribute;
 import robmart.rpgmode.common.capability.character.CharacterCapability;
 import robmart.rpgmode.common.capability.health.MaxHealthCapability;
 import robmart.rpgmode.common.capability.mana.IMana;
@@ -105,7 +102,12 @@ public class CapabilityHandler {
     public void onPlayerTick(TickEvent.PlayerTickEvent event){
         if (!event.player.world.isRemote && event.player.world.isAreaLoaded(event.player.getPosition(), 3) && !CharacterCapability.get(event.player).getHasJoined()) {
             System.out.println("PLAYER HAS NOT JOINED BEFORE");
-            AttributeCapability.get(event.player).onAttributeChanged();
+            IAttribute capability = AttributeCapability.get(event.player);
+            capability.setStrength(capability.getStrength());
+            capability.setDexterity(capability.getDexterity());
+            capability.setConstitution(capability.getConstitution());
+            capability.setIntelligence(capability.getIntelligence());
+            capability.setWisdom(capability.getWisdom());
             CharacterCapability.get(event.player).setHasJoined(true);
         }
     }

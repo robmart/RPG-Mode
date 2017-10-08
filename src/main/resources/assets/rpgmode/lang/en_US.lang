@@ -2,7 +2,7 @@
 # Commands
 commands.rpgmode.manainfo.usage=/manainfo <field> [entity]
 commands.rpgmode.manainfo.success=%s's %s is %s
-commands.rpgmode.attributeinfo.usage=/manainfo <field> [entity]
+commands.rpgmode.attributeinfo.usage=/attributeinfo <field> [entity]
 commands.rpgmode.attributeinfo.success=%s's %s is %s
 commands.rpgmode.restore.usage=/restore [entity]
 commands.rpgmode.restore.success1=You suddenly feel restored!
@@ -18,6 +18,14 @@ commands.rpgmode.healthinfo.success=%s's %s is %s
 commands.rpgmode.sethealth.usage=/sethealth <field> <value> [entity]
 commands.rpgmode.sethealth.success1=Your %s is now %s
 commands.rpgmode.sethealth.success2=%s's %s is now %s
+
+# Potions
+potion.effect.rpgmode:strength=Potion of Strength
+splash_potion.effect.rpgmode:strength=Splash Potion of Strength
+lingering_potion.effect.rpgmode:strength=Lingering Potion of Strength
+tipped_arrow.effect.rpgmode:strength=Arrow of Strength
+effect.rpgmode:strength=Strength
+attribute.name.rpgmode.strength=Strength
 
 # Config stuff
 category.rpgmode.general=General

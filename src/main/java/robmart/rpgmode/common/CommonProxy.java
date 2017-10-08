@@ -10,13 +10,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import robmart.rpgmode.common.capability.attribute.AttributeCapability;
-import robmart.rpgmode.common.capability.character.CharacterCapability;
-import robmart.rpgmode.common.capability.health.MaxHealthCapability;
-import robmart.rpgmode.common.capability.mana.ManaCapability;
-import robmart.rpgmode.common.command.*;
-import robmart.rpgmode.common.handlers.CapabilityHandler;
 import robmart.rpgmode.common.handlers.ConfigurationHandler;
+import robmart.rpgmode.common.handlers.PotionHandler;
 import robmart.rpgmode.common.init.InitCapabilities;
 import robmart.rpgmode.common.init.InitCommands;
 import robmart.rpgmode.common.network.PacketDispatcher;
@@ -54,6 +49,7 @@ public abstract class CommonProxy implements IGuiHandler{
 
         InitCapabilities.init();
         MinecraftForge.EVENT_BUS.register(new ConfigurationHandler());
+        MinecraftForge.EVENT_BUS.register(new PotionHandler());
 
         PacketDispatcher.registerPackets();
     }
