@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import robmart.rpgmode.common.potion.PotionStrength;
+import robmart.rpgmode.common.potion.PotionWeakness;
 import robmart.rpgmode.common.reference.Reference;
 
 /**
@@ -31,12 +32,14 @@ import robmart.rpgmode.common.reference.Reference;
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID)
 public class InitPotions {
     public static final PotionStrength STRENGTH = new PotionStrength();
+    public static final PotionWeakness WEAKNESS = new PotionWeakness();
 
     @SubscribeEvent
     public void init(final RegistryEvent.Register<Potion> event) {
         System.out.println("POTIONS INIT");
         event.getRegistry().registerAll(
-                STRENGTH
+                STRENGTH,
+                WEAKNESS
         );
     }
 }

@@ -37,6 +37,10 @@ public class InitPotionTypes {
     public static final PotionType LONG_STRENGTH;
     public static final PotionType STRONG_STRENGTH;
 
+    public static final PotionType WEAKNESS;
+    public static final PotionType LONG_WEAKNESS;
+    public static final PotionType STRONG_WEAKNESS;
+
     static {
         final String LONG_PREFIX = "long_";
         final String STRONG_PREFIX = "strong_";
@@ -52,6 +56,10 @@ public class InitPotionTypes {
         STRENGTH = createPotionType(new PotionEffect(InitPotions.STRENGTH, HELPFUL_DURATION_STANDARD));
         LONG_STRENGTH = createPotionType(new PotionEffect(InitPotions.STRENGTH, HELPFUL_DURATION_LONG), LONG_PREFIX);
         STRONG_STRENGTH = createPotionType(new PotionEffect(InitPotions.STRENGTH, HELPFUL_DURATION_STRONG, 1), STRONG_PREFIX);
+
+        WEAKNESS = createPotionType(new PotionEffect(InitPotions.WEAKNESS, HARMFUL_DURATION_STANDARD));
+        LONG_WEAKNESS = createPotionType(new PotionEffect(InitPotions.WEAKNESS, HARMFUL_DURATION_LONG), LONG_PREFIX);
+        STRONG_WEAKNESS = createPotionType(new PotionEffect(InitPotions.WEAKNESS, HARMFUL_DURATION_STRONG, 1), STRONG_PREFIX);
     }
 
     private static PotionType createPotionType(final PotionEffect effect) {
@@ -76,7 +84,10 @@ public class InitPotionTypes {
         event.getRegistry().registerAll(
                 STRENGTH,
                 LONG_STRENGTH,
-                STRONG_STRENGTH
+                STRONG_STRENGTH,
+                WEAKNESS,
+                LONG_WEAKNESS,
+                STRONG_WEAKNESS
         );
     }
 }

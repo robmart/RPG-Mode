@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import robmart.rpgmode.common.capability.attribute.AttributeCapability;
 import robmart.rpgmode.common.helper.PotionHelper;
 import robmart.rpgmode.common.potion.PotionStrength;
+import robmart.rpgmode.common.potion.PotionWeakness;
 
 /**
  * Created by Robmart.
@@ -35,6 +36,10 @@ public class PotionHandler {
     public void onEntityConstructing(EntityEvent.EntityConstructing event) {
         if (event.getEntity() instanceof EntityLivingBase) {
             ((EntityLivingBase) event.getEntity()).getAttributeMap().registerAttribute(PotionHelper.STRENGTH);
+            ((EntityLivingBase) event.getEntity()).getAttributeMap().registerAttribute(PotionHelper.DEXTEROUSNESS);
+            ((EntityLivingBase) event.getEntity()).getAttributeMap().registerAttribute(PotionHelper.FORTITUDE);
+            ((EntityLivingBase) event.getEntity()).getAttributeMap().registerAttribute(PotionHelper.INTELLIGENCE);
+            ((EntityLivingBase) event.getEntity()).getAttributeMap().registerAttribute(PotionHelper.WISDOM);
         }
     }
 
@@ -57,6 +62,24 @@ public class PotionHandler {
 
                         if (player.getEntityAttribute(PotionHelper.STRENGTH).getAttributeValue() == PotionHelper.STRENGTH.getDefaultValue()) {
                             persisted.setBoolean(PotionStrength.TAG_NAME, false);
+                        }
+                    }
+                }
+            }
+
+            //Weakness
+            if (event.getEntityLiving() instanceof EntityPlayer) {
+                if (player.ticksExisted % 9 == 0 && PotionWeakness.instance != null && !player.isDead) {
+
+                    if (!persisted.getBoolean(PotionWeakness.TAG_NAME)) {
+                        if (player.getEntityAttribute(PotionHelper.STRENGTH).getAttributeValue() != PotionHelper.STRENGTH.getDefaultValue()) {
+                            persisted.setBoolean(PotionWeakness.TAG_NAME, true);
+                        }
+                    } else {
+                        AttributeCapability.get(player).setStrMod((int) player.getEntityAttribute(PotionHelper.STRENGTH).getAttributeValue());
+
+                        if (player.getEntityAttribute(PotionHelper.STRENGTH).getAttributeValue() == PotionHelper.STRENGTH.getDefaultValue()) {
+                            persisted.setBoolean(PotionWeakness.TAG_NAME, false);
                         }
                     }
                 }

@@ -26,6 +26,11 @@ lingering_potion.effect.rpgmode:strength=Lingering Potion of Strength
 tipped_arrow.effect.rpgmode:strength=Arrow of Strength
 effect.rpgmode:strength=Strength
 attribute.name.rpgmode.strength=Strength
+potion.effect.rpgmode:weakness=Potion of Weakness
+splash_potion.effect.rpgmode:weakness=Splash Potion of Weakness
+lingering_potion.effect.rpgmode:weakness=Lingering Potion of Weakness
+tipped_arrow.effect.rpgmode:weakness=Arrow of Weakness
+effect.rpgmode:weakness=Weakness
 
 # Config stuff
 category.rpgmode.general=General

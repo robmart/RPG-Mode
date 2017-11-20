@@ -351,11 +351,11 @@ public class AttributeImplementation implements IAttribute {
     @Override
     public NBTTagCompound saveNBTData() {
         NBTTagCompound nbt = new NBTTagCompound();
-        nbt.setInteger("strength", getStrength());
-        nbt.setInteger("dexterity", getDexterity());
-        nbt.setInteger("intelligence", getIntelligence());
-        nbt.setInteger("constitution", getConstitution());
-        nbt.setInteger("wisdom", getWisdom());
+        nbt.setInteger("strength", this.strength);
+        nbt.setInteger("dexterity", this.dexterity);
+        nbt.setInteger("intelligence", this.intelligence);
+        nbt.setInteger("constitution", this.constitution);
+        nbt.setInteger("wisdom", this.wisdom);
         nbt.setInteger("attributePoint", getAttributePoint());
         nbt.setInteger("strMod", getStrMod());
         nbt.setInteger("dexMod", getDexMod());
@@ -373,12 +373,12 @@ public class AttributeImplementation implements IAttribute {
      */
     @Override
     public NBTTagCompound saveNBTData(NBTTagCompound nbt) {
-        nbt.setInteger("strength", getStrength());
-        nbt.setInteger("dexterity", getDexterity());
-        nbt.setInteger("intelligence", getIntelligence());
-        nbt.setInteger("constitution", getConstitution());
-        nbt.setInteger("wisdom", getWisdom());
-        nbt.setInteger("attributePoint", getWisdom());
+        nbt.setInteger("strength", this.strength);
+        nbt.setInteger("dexterity", this.dexterity);
+        nbt.setInteger("intelligence", this.intelligence);
+        nbt.setInteger("constitution", this.constitution);
+        nbt.setInteger("wisdom", this.wisdom);
+        nbt.setInteger("attributePoint", getAttributePoint());
         nbt.setInteger("strMod", getStrMod());
         nbt.setInteger("dexMod", getDexMod());
         nbt.setInteger("intMod", getIntMod());
