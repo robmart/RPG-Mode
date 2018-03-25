@@ -2,6 +2,7 @@ package robmart.rpgmode.common.potion;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
@@ -10,6 +11,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import robmart.rpgmode.common.reference.Reference;
 
 import java.awt.*;
+import java.util.Objects;
 
 /**
  * Created by Robmart.
@@ -34,15 +36,15 @@ public class PotionBase extends Potion {
     /**
      * The icon texture to use in the HUD and inventory GUI.
      */
-    final ResourceLocation iconTexture;
+    private final ResourceLocation iconTexture;
 
-    public PotionBase(boolean isBadEffect, int liquidColor, String name) {
+    public PotionBase(final boolean isBadEffect, final int liquidColor, final String name) {
         super(isBadEffect, liquidColor);
         setPotionName(this, name);
         iconTexture = new ResourceLocation(Reference.MOD_ID, "textures/potions/" + name + ".png");
     }
 
-    public PotionBase(boolean isBadEffect, int liquidR, int liquidG, int liquidB, String name) {
+    public PotionBase(final boolean isBadEffect, final int liquidR, final int liquidG, final int liquidB, final String name) {
         this(isBadEffect, new Color(liquidR, liquidG, liquidB).getRGB(), name);
     }
 
@@ -52,9 +54,10 @@ public class PotionBase extends Potion {
      * @param potion     The potion
      * @param potionName The potion's name
      */
-    public static void setPotionName(Potion potion, String potionName) {
+    public static void setPotionName(final Potion potion, final String potionName) {
         potion.setRegistryName(Reference.MOD_ID, potionName);
-        potion.setPotionName("effect." + potion.getRegistryName().toString());
+        final ResourceLocation registryName = Objects.requireNonNull(potion.getRegistryName());
+        potion.setPotionName("effect." + registryName.toString());
     }
 
     @Override
@@ -73,10 +76,12 @@ public class PotionBase extends Potion {
      */
     @SideOnly(Side.CLIENT)
     @Override
-    public void renderInventoryEffect(int x, int y, PotionEffect effect, Minecraft mc) {
+    public void renderInventoryEffect(final int x, final int y, final PotionEffect effect, final Minecraft mc) {
         if (mc.currentScreen != null) {
             mc.getTextureManager().bindTexture(iconTexture);
-            Gui.drawModalRectWithCustomSizedTexture(x + 6, y + 7, 0, 0, 18, 18, 18, 18);
+            GlStateManager.scale(0.25, 0.25, 0.25);
+            Gui.drawModalRectWithCustomSizedTexture((x + 7) * 4, (y + 8) * 4, 0, 0, 64, 64, 64, 64);
+            GlStateManager.scale(4, 4, 4);
         }
     }
 
@@ -92,9 +97,10 @@ public class PotionBase extends Potion {
      */
     @SideOnly(Side.CLIENT)
     @Override
-    public void renderHUDEffect(int x, int y, PotionEffect effect, Minecraft mc, float alpha) {
-        System.out.println("WHY IS THIS NOT WORKING");
+    public void renderHUDEffect(final int x, final int y, final PotionEffect effect, final Minecraft mc, final float alpha) {
         mc.getTextureManager().bindTexture(iconTexture);
-        Gui.drawModalRectWithCustomSizedTexture(x + 3, y + 3, 0, 0, 18, 18, 18, 18);
+        GlStateManager.scale(0.25, 0.25, 0.25);
+        Gui.drawModalRectWithCustomSizedTexture((x + 4) * 4, (y + 4) * 4, 0, 0, 64, 64, 64, 64);
+        GlStateManager.scale(4, 4, 4);
     }
 }

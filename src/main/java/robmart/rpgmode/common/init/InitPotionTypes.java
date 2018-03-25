@@ -1,12 +1,16 @@
 package robmart.rpgmode.common.init;
 
+import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.registries.IForgeRegistry;
+import robmart.rpgmode.common.helper.RegistryHelper;
 import robmart.rpgmode.common.reference.Reference;
 
 import javax.annotation.Nullable;
@@ -33,13 +37,13 @@ import javax.annotation.Nullable;
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID)
 public class InitPotionTypes {
-    public static final PotionType STRENGTH;
-    public static final PotionType LONG_STRENGTH;
-    public static final PotionType STRONG_STRENGTH;
+    private static final PotionType STRENGTH;
+    private static final PotionType LONG_STRENGTH;
+    private static final PotionType STRONG_STRENGTH;
 
-    public static final PotionType WEAKNESS;
-    public static final PotionType LONG_WEAKNESS;
-    public static final PotionType STRONG_WEAKNESS;
+    private static final PotionType WEAKNESS;
+    private static final PotionType LONG_WEAKNESS;
+    private static final PotionType STRONG_WEAKNESS;
 
     static {
         final String LONG_PREFIX = "long_";
@@ -53,13 +57,17 @@ public class InitPotionTypes {
         final int HARMFUL_DURATION_LONG = 4800;
         final int HARMFUL_DURATION_STRONG = 900;
 
-        STRENGTH = createPotionType(new PotionEffect(InitPotions.STRENGTH, HELPFUL_DURATION_STANDARD));
-        LONG_STRENGTH = createPotionType(new PotionEffect(InitPotions.STRENGTH, HELPFUL_DURATION_LONG), LONG_PREFIX);
-        STRONG_STRENGTH = createPotionType(new PotionEffect(InitPotions.STRENGTH, HELPFUL_DURATION_STRONG, 1), STRONG_PREFIX);
+        final IForgeRegistry<Potion> potionRegistry = ForgeRegistries.POTIONS;
+        final Potion strength = RegistryHelper.getRegistryEntry(potionRegistry, "strength");
+        final Potion weakness = RegistryHelper.getRegistryEntry(potionRegistry, "weakness");
 
-        WEAKNESS = createPotionType(new PotionEffect(InitPotions.WEAKNESS, HARMFUL_DURATION_STANDARD));
-        LONG_WEAKNESS = createPotionType(new PotionEffect(InitPotions.WEAKNESS, HARMFUL_DURATION_LONG), LONG_PREFIX);
-        STRONG_WEAKNESS = createPotionType(new PotionEffect(InitPotions.WEAKNESS, HARMFUL_DURATION_STRONG, 1), STRONG_PREFIX);
+        STRENGTH = createPotionType(new PotionEffect(strength, HELPFUL_DURATION_STANDARD));
+        LONG_STRENGTH = createPotionType(new PotionEffect(strength, HELPFUL_DURATION_LONG), LONG_PREFIX);
+        STRONG_STRENGTH = createPotionType(new PotionEffect(strength, HELPFUL_DURATION_STRONG, 1), STRONG_PREFIX);
+
+        WEAKNESS = createPotionType(new PotionEffect(weakness, HARMFUL_DURATION_STANDARD));
+        LONG_WEAKNESS = createPotionType(new PotionEffect(weakness, HARMFUL_DURATION_LONG), LONG_PREFIX);
+        STRONG_WEAKNESS = createPotionType(new PotionEffect(weakness, HARMFUL_DURATION_STRONG, 1), STRONG_PREFIX);
     }
 
     private static PotionType createPotionType(final PotionEffect effect) {
@@ -80,11 +88,11 @@ public class InitPotionTypes {
 
     @SubscribeEvent
     public static void registerPotionTypes(final RegistryEvent.Register<PotionType> event) {
-        System.out.println("POTIONTYPES INIT");
         event.getRegistry().registerAll(
                 STRENGTH,
                 LONG_STRENGTH,
                 STRONG_STRENGTH,
+
                 WEAKNESS,
                 LONG_WEAKNESS,
                 STRONG_WEAKNESS

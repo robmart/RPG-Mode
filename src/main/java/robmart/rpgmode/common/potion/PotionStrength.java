@@ -26,7 +26,7 @@ public class PotionStrength extends PotionBase {
     public static PotionStrength instance = null;
 
     public PotionStrength() {
-        super(false, 9643043, "strength");
+        super(false, 155, 24, 24, "strength");
         this.registerPotionAttributeModifier(PotionHelper.STRENGTH, "2f6f5f5f-172b-4f95-97e3-d976823ed50e", 2, 0);
         instance = this;
     }

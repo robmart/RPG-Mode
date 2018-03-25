@@ -6,7 +6,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import robmart.rpgmode.common.capability.attribute.AttributeCapability;
 import robmart.rpgmode.common.helper.PotionHelper;
 import robmart.rpgmode.common.potion.PotionStrength;
 import robmart.rpgmode.common.potion.PotionWeakness;
@@ -58,8 +57,6 @@ public class PotionHandler {
                             persisted.setBoolean(PotionStrength.TAG_NAME, true);
                         }
                     } else {
-                        AttributeCapability.get(player).setStrMod((int) player.getEntityAttribute(PotionHelper.STRENGTH).getAttributeValue());
-
                         if (player.getEntityAttribute(PotionHelper.STRENGTH).getAttributeValue() == PotionHelper.STRENGTH.getDefaultValue()) {
                             persisted.setBoolean(PotionStrength.TAG_NAME, false);
                         }
@@ -76,8 +73,6 @@ public class PotionHandler {
                             persisted.setBoolean(PotionWeakness.TAG_NAME, true);
                         }
                     } else {
-                        AttributeCapability.get(player).setStrMod((int) player.getEntityAttribute(PotionHelper.STRENGTH).getAttributeValue());
-
                         if (player.getEntityAttribute(PotionHelper.STRENGTH).getAttributeValue() == PotionHelper.STRENGTH.getDefaultValue()) {
                             persisted.setBoolean(PotionWeakness.TAG_NAME, false);
                         }

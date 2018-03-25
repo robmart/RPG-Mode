@@ -43,10 +43,10 @@ import robmart.rpgmode.common.reference.Reference;
  *   You should have received a copy of the GNU Lesser General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+@SuppressWarnings("unused")
 public class CapabilityHandler {
 
     @SubscribeEvent
-    @SuppressWarnings("unused")
     public void attachCapabilities(AttachCapabilitiesEvent event){
         if (event.getObject() instanceof EntityPlayer)
             event.addCapability(new ResourceLocation(Reference.MOD_ID.toLowerCase() + ":ManaCapability"), new ManaCapability((EntityPlayer) event.getObject()).createProvider());
@@ -62,7 +62,6 @@ public class CapabilityHandler {
     }
 
     @SubscribeEvent
-    @SuppressWarnings("unused")
     public void onPlayerClone(net.minecraftforge.event.entity.player.PlayerEvent.Clone event) {
         EntityPlayer oldPlayer = event.getOriginal();
         EntityPlayer newPlayer = event.getEntityPlayer();
@@ -75,7 +74,6 @@ public class CapabilityHandler {
     }
 
     @SubscribeEvent
-    @SuppressWarnings("unused")
     public void onLivingUpdate(LivingEvent.LivingUpdateEvent event){
         if (event.getEntity() instanceof EntityPlayer){
             EntityPlayer player = (EntityPlayer) event.getEntity();
@@ -91,7 +89,6 @@ public class CapabilityHandler {
     }
 
     @SubscribeEvent
-    @SuppressWarnings("unused")
     public void onEntityJoinWorld(EntityJoinWorldEvent event){
         if (event.getEntity() instanceof  EntityPlayerMP){
             PacketDispatcher.sendTo(new SyncPlayerMana((EntityPlayer) event.getEntity()), (EntityPlayerMP) event.getEntity());

@@ -5,6 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import robmart.rpgmode.common.capability.health.MaxHealthCapability;
 import robmart.rpgmode.common.capability.mana.ManaCapability;
+import robmart.rpgmode.common.helper.PotionHelper;
 
 /**
  * @author Robmart.
@@ -31,41 +32,21 @@ public class AttributeImplementation implements IAttribute {
      */
     private int strength = 5,
     /**
-     * The players strength modifier
-     */
-    strModifier = 0,
-    /**
      * The players dexterity
      */
     dexterity = 5,
-    /**
-     * The players dexterity modifier
-     */
-    dexModifier = 0,
     /**
      * The players intelligence
      */
     intelligence = 5,
     /**
-     * The players intelligence modifier
-     */
-    intModifier = 0,
-    /**
      * The players constitution
      */
     constitution = 5,
     /**
-     * The players constitution modifier
-     */
-    conModifier = 0,
-    /**
      * The players wisdom
      */
     wisdom = 5,
-    /**
-     * The players wisdom modifier
-     */
-    wisModifier = 0,
     /**
      * The players available attribute points
      */
@@ -117,17 +98,7 @@ public class AttributeImplementation implements IAttribute {
      */
     @Override
     public int getStrMod() {
-        return this.strModifier;
-    }
-
-    /**
-     * Set strength modifier
-     *
-     * @param value The new strength modifier
-     */
-    @Override
-    public void setStrMod(int value) {
-        this.strModifier = value;
+        return (int) entity.getEntityAttribute(PotionHelper.STRENGTH).getAttributeValue();
     }
 
     /**
@@ -158,17 +129,7 @@ public class AttributeImplementation implements IAttribute {
      */
     @Override
     public int getDexMod() {
-        return this.dexModifier;
-    }
-
-    /**
-     * Set dexterity modifier
-     *
-     * @param value The new dexterity modifier
-     */
-    @Override
-    public void setDexMod(int value) {
-        this.dexModifier = value;
+        return (int) entity.getEntityAttribute(PotionHelper.DEXTEROUSNESS).getAttributeValue();
     }
 
     /**
@@ -199,17 +160,7 @@ public class AttributeImplementation implements IAttribute {
      */
     @Override
     public int getIntMod() {
-        return this.intModifier;
-    }
-
-    /**
-     * Set intelligence modifier
-     *
-     * @param value The new intelligence modifier
-     */
-    @Override
-    public void setIntMod(int value) {
-        this.intModifier = value;
+        return (int) entity.getEntityAttribute(PotionHelper.INTELLIGENCE).getAttributeValue();
     }
 
     /**
@@ -249,17 +200,7 @@ public class AttributeImplementation implements IAttribute {
      */
     @Override
     public int getConMod() {
-        return this.conModifier;
-    }
-
-    /**
-     * Set constitution modifier
-     *
-     * @param value The new constitution modifier
-     */
-    @Override
-    public void setConMod(int value) {
-        this.conModifier = value;
+        return (int) entity.getEntityAttribute(PotionHelper.FORTITUDE).getAttributeValue();
     }
 
     /**
@@ -293,17 +234,7 @@ public class AttributeImplementation implements IAttribute {
      */
     @Override
     public int getWisMod() {
-        return this.wisModifier;
-    }
-
-    /**
-     * Set wisdom modifier
-     *
-     * @param value The new modifier value
-     */
-    @Override
-    public void setWisMod(int value) {
-        this.wisModifier = value;
+        return (int) entity.getEntityAttribute(PotionHelper.WISDOM).getAttributeValue();
     }
 
     /**
@@ -357,11 +288,6 @@ public class AttributeImplementation implements IAttribute {
         nbt.setInteger("constitution", this.constitution);
         nbt.setInteger("wisdom", this.wisdom);
         nbt.setInteger("attributePoint", getAttributePoint());
-        nbt.setInteger("strMod", getStrMod());
-        nbt.setInteger("dexMod", getDexMod());
-        nbt.setInteger("intMod", getIntMod());
-        nbt.setInteger("conMod", getConMod());
-        nbt.setInteger("wisMod", getWisMod());
         return nbt;
     }
 
@@ -379,11 +305,6 @@ public class AttributeImplementation implements IAttribute {
         nbt.setInteger("constitution", this.constitution);
         nbt.setInteger("wisdom", this.wisdom);
         nbt.setInteger("attributePoint", getAttributePoint());
-        nbt.setInteger("strMod", getStrMod());
-        nbt.setInteger("dexMod", getDexMod());
-        nbt.setInteger("intMod", getIntMod());
-        nbt.setInteger("conMod", getConMod());
-        nbt.setInteger("wisMod", getWisMod());
         return nbt;
     }
 
@@ -400,10 +321,5 @@ public class AttributeImplementation implements IAttribute {
         this.constitution = nbt.getInteger("constitution");
         this.wisdom = nbt.getInteger("wisdom");
         this.attributePoint = nbt.getInteger("attributePoint");
-        this.strModifier = nbt.getInteger("strMod");
-        this.dexModifier = nbt.getInteger("dexMod");
-        this.intModifier = nbt.getInteger("intMod");
-        this.conModifier = nbt.getInteger("conMod");
-        this.wisModifier = nbt.getInteger("wisMod");
     }
 }

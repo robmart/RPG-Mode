@@ -47,13 +47,6 @@ public interface IAttribute {
     int getStrMod();
 
     /**
-     * Set strength modifier
-     *
-     * @param value The new strength modifier
-     */
-    void setStrMod(int value);
-
-    /**
      * Get the dexterity value
      *
      * @return Current dexterity value
@@ -73,13 +66,6 @@ public interface IAttribute {
      * @return Current dexterity modifier
      */
     int getDexMod();
-
-    /**
-     * Set dexterity modifier
-     *
-     * @param value The new dexterity modifier
-     */
-    void setDexMod(int value);
 
     /**
      * Get the intelligence value
@@ -103,13 +89,6 @@ public interface IAttribute {
     int getIntMod();
 
     /**
-     * Set intelligence modifier
-     *
-     * @param value The new intelligence modifier
-     */
-    void setIntMod(int value);
-
-    /**
      * Get the constitution
      *
      * @return Current constitution value
@@ -131,13 +110,6 @@ public interface IAttribute {
     int getConMod();
 
     /**
-     * Set constitution modifier
-     *
-     * @param value The new constitution modifier
-     */
-    void setConMod(int value);
-
-    /**
      * Get the wisdom
      *
      * @return Current wisdom value
@@ -157,13 +129,6 @@ public interface IAttribute {
      * @return Current wisdom modifier
      */
     int getWisMod();
-
-    /**
-     * Set wisdom modifier
-     *
-     * @param value The new wisdom modifier
-     */
-    void setWisMod(int value);
 
     /**
      * Sets all attributes

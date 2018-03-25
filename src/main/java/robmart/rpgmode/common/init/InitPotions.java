@@ -30,13 +30,13 @@ import robmart.rpgmode.common.reference.Reference;
  */
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID)
+@SuppressWarnings("unused")
 public class InitPotions {
-    public static final PotionStrength STRENGTH = new PotionStrength();
-    public static final PotionWeakness WEAKNESS = new PotionWeakness();
+    private static final PotionStrength STRENGTH = new PotionStrength();
+    private static final PotionWeakness WEAKNESS = new PotionWeakness();
 
     @SubscribeEvent
-    public void init(final RegistryEvent.Register<Potion> event) {
-        System.out.println("POTIONS INIT");
+    public static void registerPotions(final RegistryEvent.Register<Potion> event) {
         event.getRegistry().registerAll(
                 STRENGTH,
                 WEAKNESS

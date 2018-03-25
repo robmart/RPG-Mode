@@ -29,10 +29,4 @@ public class PotionHelper {
     public static final IAttribute FORTITUDE = (new RangedAttribute(null, Reference.MOD_ID + ".fortitude", 0, -10, 10)).setDescription("Strength").setShouldWatch(true);
     public static final IAttribute INTELLIGENCE = (new RangedAttribute(null, Reference.MOD_ID + ".intelligence", 0, -10, 10)).setDescription("Strength").setShouldWatch(true);
     public static final IAttribute WISDOM = (new RangedAttribute(null, Reference.MOD_ID + ".wisdom", 0, -10, 10)).setDescription("Strength").setShouldWatch(true);
-
-    public static int nextId = 0;
-
-    public static int getNextId() {
-        return nextId++;
-    }
 }
