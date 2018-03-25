@@ -1,5 +1,6 @@
 package robmart.rpgmode.common.capability.mana;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
@@ -48,16 +49,16 @@ public class ManaImplementation implements IMana {
             regenAmount = 1;
 
     /**
-     * The player the capability is attached to
+     * The entity the capability is attached to
      */
-    private final EntityPlayer player;
+    private final EntityLivingBase entity;
 
     ManaImplementation(){
-        this.player = null;
+        this.entity = null;
     }
 
-    ManaImplementation (EntityPlayer player){
-        this.player = player;
+    ManaImplementation(EntityLivingBase entity) {
+        this.entity = entity;
     }
 
     @Override
@@ -84,7 +85,8 @@ public class ManaImplementation implements IMana {
     public void setMaxMana(float amount) {
         this.maxMana = amount > 0 ? amount : 1;
         setMana(getMaxMana() < getMana() ? getMaxMana() : getMana());
-        PacketDispatcher.sendTo(new SyncPlayerMana(this.player), (EntityPlayerMP) this.player);
+        if (this.entity instanceof EntityPlayer)
+            PacketDispatcher.sendTo(new SyncPlayerMana((EntityPlayer) this.entity), (EntityPlayerMP) this.entity);
     }
 
     /**
@@ -105,7 +107,8 @@ public class ManaImplementation implements IMana {
     @Override
     public void setMana(float amount) {
         this.mana = amount > 0 ? (amount < getMaxMana() ? amount : getMaxMana()) : 0;
-        PacketDispatcher.sendTo(new SyncPlayerMana(this.player), (EntityPlayerMP) this.player);
+        if (this.entity instanceof EntityPlayer)
+            PacketDispatcher.sendTo(new SyncPlayerMana((EntityPlayer) this.entity), (EntityPlayerMP) this.entity);
     }
 
     /**
@@ -131,7 +134,7 @@ public class ManaImplementation implements IMana {
     /**
      * Get regen amount
      *
-     * @return The amount of mana the player regens every time
+     * @return The amount of mana the entity regens every time
      */
     @Override
     public float getRegenAmount() {
@@ -160,9 +163,9 @@ public class ManaImplementation implements IMana {
     }
 
     /**
-     * Checks if the player should regen mana
+     * Checks if the entity should regen mana
      *
-     * @return Weather the player can regen mana or not
+     * @return Weather the entity can regen mana or not
      */
     public boolean updateManaTimer() {
         if (this.regenTimer > 0) {

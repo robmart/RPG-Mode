@@ -45,6 +45,22 @@ public class InitPotionTypes {
     private static final PotionType LONG_WEAKNESS;
     private static final PotionType STRONG_WEAKNESS;
 
+    private static final PotionType DEXTEROUSNESS;
+    private static final PotionType LONG_DEXTEROUSNESS;
+    private static final PotionType STRONG_DEXTEROUSNESS;
+
+    private static final PotionType CLUMSINESS;
+    private static final PotionType LONG_CLUMSINESS;
+    private static final PotionType STRONG_CLUMSINESS;
+
+    private static final PotionType FORTITUDE;
+    private static final PotionType LONG_FORTITUDE;
+    private static final PotionType STRONG_FORTITUDE;
+
+    private static final PotionType LETHARGY;
+    private static final PotionType LONG_LETHARGY;
+    private static final PotionType STRONG_LETHARGY;
+
     static {
         final String LONG_PREFIX = "long_";
         final String STRONG_PREFIX = "strong_";
@@ -60,6 +76,10 @@ public class InitPotionTypes {
         final IForgeRegistry<Potion> potionRegistry = ForgeRegistries.POTIONS;
         final Potion strength = RegistryHelper.getRegistryEntry(potionRegistry, "strength");
         final Potion weakness = RegistryHelper.getRegistryEntry(potionRegistry, "weakness");
+        final Potion dexterousness = RegistryHelper.getRegistryEntry(potionRegistry, "dexterousness");
+        final Potion clumsiness = RegistryHelper.getRegistryEntry(potionRegistry, "clumsiness");
+        final Potion fortitude = RegistryHelper.getRegistryEntry(potionRegistry, "fortitude");
+        final Potion lethargy = RegistryHelper.getRegistryEntry(potionRegistry, "lethargy");
 
         STRENGTH = createPotionType(new PotionEffect(strength, HELPFUL_DURATION_STANDARD));
         LONG_STRENGTH = createPotionType(new PotionEffect(strength, HELPFUL_DURATION_LONG), LONG_PREFIX);
@@ -68,6 +88,22 @@ public class InitPotionTypes {
         WEAKNESS = createPotionType(new PotionEffect(weakness, HARMFUL_DURATION_STANDARD));
         LONG_WEAKNESS = createPotionType(new PotionEffect(weakness, HARMFUL_DURATION_LONG), LONG_PREFIX);
         STRONG_WEAKNESS = createPotionType(new PotionEffect(weakness, HARMFUL_DURATION_STRONG, 1), STRONG_PREFIX);
+
+        DEXTEROUSNESS = createPotionType(new PotionEffect(dexterousness, HARMFUL_DURATION_STANDARD));
+        LONG_DEXTEROUSNESS = createPotionType(new PotionEffect(dexterousness, HARMFUL_DURATION_LONG), LONG_PREFIX);
+        STRONG_DEXTEROUSNESS = createPotionType(new PotionEffect(dexterousness, HARMFUL_DURATION_STRONG, 1), STRONG_PREFIX);
+
+        CLUMSINESS = createPotionType(new PotionEffect(clumsiness, HARMFUL_DURATION_STANDARD));
+        LONG_CLUMSINESS = createPotionType(new PotionEffect(clumsiness, HARMFUL_DURATION_LONG), LONG_PREFIX);
+        STRONG_CLUMSINESS = createPotionType(new PotionEffect(clumsiness, HARMFUL_DURATION_STRONG, 1), STRONG_PREFIX);
+
+        FORTITUDE = createPotionType(new PotionEffect(fortitude, HARMFUL_DURATION_STANDARD));
+        LONG_FORTITUDE = createPotionType(new PotionEffect(fortitude, HARMFUL_DURATION_LONG), LONG_PREFIX);
+        STRONG_FORTITUDE = createPotionType(new PotionEffect(fortitude, HARMFUL_DURATION_STRONG, 1), STRONG_PREFIX);
+
+        LETHARGY = createPotionType(new PotionEffect(lethargy, HARMFUL_DURATION_STANDARD));
+        LONG_LETHARGY = createPotionType(new PotionEffect(lethargy, HARMFUL_DURATION_LONG), LONG_PREFIX);
+        STRONG_LETHARGY = createPotionType(new PotionEffect(lethargy, HARMFUL_DURATION_STRONG, 1), STRONG_PREFIX);
     }
 
     private static PotionType createPotionType(final PotionEffect effect) {
@@ -95,7 +131,23 @@ public class InitPotionTypes {
 
                 WEAKNESS,
                 LONG_WEAKNESS,
-                STRONG_WEAKNESS
+                STRONG_WEAKNESS,
+
+                DEXTEROUSNESS,
+                LONG_DEXTEROUSNESS,
+                STRONG_DEXTEROUSNESS,
+
+                CLUMSINESS,
+                LONG_CLUMSINESS,
+                STRONG_CLUMSINESS,
+
+                FORTITUDE,
+                LONG_FORTITUDE,
+                STRONG_FORTITUDE,
+
+                LETHARGY,
+                LONG_LETHARGY,
+                STRONG_LETHARGY
         );
     }
 }

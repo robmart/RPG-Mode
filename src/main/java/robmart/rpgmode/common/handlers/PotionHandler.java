@@ -7,8 +7,7 @@ import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import robmart.rpgmode.common.helper.PotionHelper;
-import robmart.rpgmode.common.potion.PotionStrength;
-import robmart.rpgmode.common.potion.PotionWeakness;
+import robmart.rpgmode.common.potion.*;
 
 /**
  * Created by Robmart.
@@ -44,45 +43,98 @@ public class PotionHandler {
 
     @SubscribeEvent
     public void inLivingUppdate(LivingEvent.LivingUpdateEvent event) {
-        if ((event.getEntityLiving() instanceof EntityPlayer)) {
-            EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-            NBTTagCompound persisted = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+        EntityLivingBase entity = event.getEntityLiving();
+        NBTTagCompound persisted = entity.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
 
             //Strength
-            if (event.getEntityLiving() instanceof EntityPlayer) {
-                if (player.ticksExisted % 9 == 0 && PotionStrength.instance != null && !player.isDead) {
+        if (entity.ticksExisted % 9 == 0 && PotionStrength.instance != null && !entity.isDead) {
 
                     if (!persisted.getBoolean(PotionStrength.TAG_NAME)) {
-                        if (player.getEntityAttribute(PotionHelper.STRENGTH).getAttributeValue() != PotionHelper.STRENGTH.getDefaultValue()) {
+                        if (entity.getEntityAttribute(PotionHelper.STRENGTH).getAttributeValue() != PotionHelper.STRENGTH.getDefaultValue()) {
                             persisted.setBoolean(PotionStrength.TAG_NAME, true);
                         }
                     } else {
-                        if (player.getEntityAttribute(PotionHelper.STRENGTH).getAttributeValue() == PotionHelper.STRENGTH.getDefaultValue()) {
+                        if (entity.getEntityAttribute(PotionHelper.STRENGTH).getAttributeValue() == PotionHelper.STRENGTH.getDefaultValue()) {
                             persisted.setBoolean(PotionStrength.TAG_NAME, false);
                         }
                     }
-                }
-            }
 
-            //Weakness
-            if (event.getEntityLiving() instanceof EntityPlayer) {
-                if (player.ticksExisted % 9 == 0 && PotionWeakness.instance != null && !player.isDead) {
+        }
+
+        //Weakness
+        if (entity.ticksExisted % 9 == 0 && PotionWeakness.instance != null && !entity.isDead) {
 
                     if (!persisted.getBoolean(PotionWeakness.TAG_NAME)) {
-                        if (player.getEntityAttribute(PotionHelper.STRENGTH).getAttributeValue() != PotionHelper.STRENGTH.getDefaultValue()) {
+                        if (entity.getEntityAttribute(PotionHelper.STRENGTH).getAttributeValue() != PotionHelper.STRENGTH.getDefaultValue()) {
                             persisted.setBoolean(PotionWeakness.TAG_NAME, true);
                         }
                     } else {
-                        if (player.getEntityAttribute(PotionHelper.STRENGTH).getAttributeValue() == PotionHelper.STRENGTH.getDefaultValue()) {
+                        if (entity.getEntityAttribute(PotionHelper.STRENGTH).getAttributeValue() == PotionHelper.STRENGTH.getDefaultValue()) {
                             persisted.setBoolean(PotionWeakness.TAG_NAME, false);
                         }
                     }
                 }
-            }
 
-            if (!player.getEntityData().hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
-                player.getEntityData().setTag(EntityPlayer.PERSISTED_NBT_TAG, persisted);
+        //Dexterousness
+        if (entity.ticksExisted % 9 == 0 && PotionDexterousness.instance != null && !entity.isDead) {
+
+            if (!persisted.getBoolean(PotionDexterousness.TAG_NAME)) {
+                if (entity.getEntityAttribute(PotionHelper.DEXTEROUSNESS).getAttributeValue() != PotionHelper.DEXTEROUSNESS.getDefaultValue()) {
+                    persisted.setBoolean(PotionDexterousness.TAG_NAME, true);
+                }
+            } else {
+                if (entity.getEntityAttribute(PotionHelper.DEXTEROUSNESS).getAttributeValue() == PotionHelper.DEXTEROUSNESS.getDefaultValue()) {
+                    persisted.setBoolean(PotionDexterousness.TAG_NAME, false);
+                }
             }
+        }
+
+        //Clumsiness
+        if (entity.ticksExisted % 9 == 0 && PotionClumsiness.instance != null && !entity.isDead) {
+
+            if (!persisted.getBoolean(PotionClumsiness.TAG_NAME)) {
+                if (entity.getEntityAttribute(PotionHelper.DEXTEROUSNESS).getAttributeValue() != PotionHelper.DEXTEROUSNESS.getDefaultValue()) {
+                    persisted.setBoolean(PotionClumsiness.TAG_NAME, true);
+                }
+            } else {
+                if (entity.getEntityAttribute(PotionHelper.DEXTEROUSNESS).getAttributeValue() == PotionHelper.DEXTEROUSNESS.getDefaultValue()) {
+                    persisted.setBoolean(PotionClumsiness.TAG_NAME, false);
+                }
+            }
+        }
+
+        //Fortitude
+        if (entity.ticksExisted % 9 == 0 && PotionFortitude.instance != null && !entity.isDead) {
+
+            if (!persisted.getBoolean(PotionFortitude.TAG_NAME)) {
+                if (entity.getEntityAttribute(PotionHelper.FORTITUDE).getAttributeValue() != PotionHelper.FORTITUDE.getDefaultValue()) {
+                    persisted.setBoolean(PotionFortitude.TAG_NAME, true);
+                }
+            } else {
+                if (entity.getEntityAttribute(PotionHelper.FORTITUDE).getAttributeValue() == PotionHelper.FORTITUDE.getDefaultValue()) {
+                    persisted.setBoolean(PotionFortitude.TAG_NAME, false);
+                }
+            }
+        }
+
+        //Lethargy
+        if (entity.ticksExisted % 9 == 0 && PotionLethargy.instance != null && !entity.isDead) {
+
+            if (!persisted.getBoolean(PotionLethargy.TAG_NAME)) {
+                if (entity.getEntityAttribute(PotionHelper.FORTITUDE).getAttributeValue() != PotionHelper.FORTITUDE.getDefaultValue()) {
+                    persisted.setBoolean(PotionLethargy.TAG_NAME, true);
+                }
+            } else {
+                if (entity.getEntityAttribute(PotionHelper.FORTITUDE).getAttributeValue() == PotionHelper.FORTITUDE.getDefaultValue()) {
+                    persisted.setBoolean(PotionLethargy.TAG_NAME, false);
+                }
+            }
+        }
+
+
+        if (!entity.getEntityData().hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
+            entity.getEntityData().setTag(EntityPlayer.PERSISTED_NBT_TAG, persisted);
+
         }
     }
 }

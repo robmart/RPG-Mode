@@ -1,5 +1,6 @@
 package robmart.rpgmode.common.capability.mana;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -44,7 +45,7 @@ public class ManaCapability {
         this.manaCap = new ManaImplementation();
     }
 
-    public ManaCapability(EntityPlayer enitity) {
+    public ManaCapability(EntityLivingBase enitity) {
         this.manaCap = new ManaImplementation(enitity);
     }
 

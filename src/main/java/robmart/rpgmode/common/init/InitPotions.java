@@ -5,8 +5,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import robmart.rpgmode.common.potion.PotionStrength;
-import robmart.rpgmode.common.potion.PotionWeakness;
+import robmart.rpgmode.common.potion.*;
 import robmart.rpgmode.common.reference.Reference;
 
 /**
@@ -32,14 +31,24 @@ import robmart.rpgmode.common.reference.Reference;
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID)
 @SuppressWarnings("unused")
 public class InitPotions {
-    private static final PotionStrength STRENGTH = new PotionStrength();
-    private static final PotionWeakness WEAKNESS = new PotionWeakness();
+    private static final PotionBase STRENGTH = new PotionStrength();
+    private static final PotionBase WEAKNESS = new PotionWeakness();
+    private static final PotionBase DEXTEROUSNESS = new PotionDexterousness();
+    private static final PotionBase CLUMSINESS = new PotionClumsiness();
+    private static final PotionBase FORTITUDE = new PotionFortitude();
+    private static final PotionBase LETHARGY = new PotionLethargy();
 
     @SubscribeEvent
     public static void registerPotions(final RegistryEvent.Register<Potion> event) {
         event.getRegistry().registerAll(
                 STRENGTH,
-                WEAKNESS
+                WEAKNESS,
+
+                DEXTEROUSNESS,
+                CLUMSINESS,
+
+                FORTITUDE,
+                LETHARGY
         );
     }
 }

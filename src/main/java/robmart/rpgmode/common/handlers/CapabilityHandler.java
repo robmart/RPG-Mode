@@ -13,11 +13,8 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 import robmart.rpgmode.client.network.SyncPlayerMana;
 import robmart.rpgmode.common.capability.attribute.AttributeCapability;
-import robmart.rpgmode.common.capability.attribute.IAttribute;
-import robmart.rpgmode.common.capability.character.CharacterCapability;
 import robmart.rpgmode.common.capability.health.MaxHealthCapability;
 import robmart.rpgmode.common.capability.mana.IMana;
 import robmart.rpgmode.common.capability.mana.ManaCapability;
@@ -48,17 +45,14 @@ public class CapabilityHandler {
 
     @SubscribeEvent
     public void attachCapabilities(AttachCapabilitiesEvent event){
-        if (event.getObject() instanceof EntityPlayer)
-            event.addCapability(new ResourceLocation(Reference.MOD_ID.toLowerCase() + ":ManaCapability"), new ManaCapability((EntityPlayer) event.getObject()).createProvider());
+        if (event.getObject() instanceof EntityLivingBase)
+            event.addCapability(new ResourceLocation(Reference.MOD_ID.toLowerCase() + ":ManaCapability"), new ManaCapability((EntityLivingBase) event.getObject()).createProvider());
 
         if (event.getObject() instanceof EntityLivingBase)
             event.addCapability(new ResourceLocation(Reference.MOD_ID.toLowerCase() + ":MaxHealthCapability"), new MaxHealthCapability((EntityLivingBase) event.getObject()).createProvider());
 
         if (event.getObject() instanceof EntityLivingBase)
             event.addCapability(new ResourceLocation(Reference.MOD_ID.toLowerCase() + ":AttributeCapability"), new AttributeCapability((EntityLivingBase) event.getObject()).createProvider());
-
-        if (event.getObject() instanceof EntityPlayer)
-            event.addCapability(new ResourceLocation(Reference.MOD_ID.toLowerCase() + ":CharacterCapability"), new CharacterCapability((EntityPlayer) event.getObject()).createProvider());
     }
 
     @SubscribeEvent
@@ -69,7 +63,6 @@ public class CapabilityHandler {
         ManaCapability.get(newPlayer).loadNBTData(ManaCapability.get(oldPlayer).saveNBTData());
         MaxHealthCapability.get(newPlayer).loadNBTData(MaxHealthCapability.get(oldPlayer).saveNBTData());
         AttributeCapability.get(newPlayer).loadNBTData(AttributeCapability.get(oldPlayer).saveNBTData());
-        CharacterCapability.get(newPlayer).loadNBTData(CharacterCapability.get(oldPlayer).saveNBTData());
 
     }
 
@@ -92,20 +85,6 @@ public class CapabilityHandler {
     public void onEntityJoinWorld(EntityJoinWorldEvent event){
         if (event.getEntity() instanceof  EntityPlayerMP){
             PacketDispatcher.sendTo(new SyncPlayerMana((EntityPlayer) event.getEntity()), (EntityPlayerMP) event.getEntity());
-        }
-    }
-
-    @SubscribeEvent
-    public void onPlayerTick(TickEvent.PlayerTickEvent event){
-        if (!event.player.world.isRemote && event.player.world.isAreaLoaded(event.player.getPosition(), 3) && !CharacterCapability.get(event.player).getHasJoined()) {
-            System.out.println("PLAYER HAS NOT JOINED BEFORE");
-            IAttribute capability = AttributeCapability.get(event.player);
-            capability.setStrength(capability.getStrength());
-            capability.setDexterity(capability.getDexterity());
-            capability.setConstitution(capability.getConstitution());
-            capability.setIntelligence(capability.getIntelligence());
-            capability.setWisdom(capability.getWisdom());
-            CharacterCapability.get(event.player).setHasJoined(true);
         }
     }
 }

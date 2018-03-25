@@ -1,13 +1,12 @@
-package robmart.rpgmode.common.init;
+package robmart.rpgmode.common.potion;
 
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import robmart.rpgmode.common.command.*;
+import robmart.rpgmode.common.helper.PotionHelper;
 
 /**
  * @author Robmart.
  * <p>
  * This software is a modification for the game Minecraft, intended to give the game RPG elements.
- * Copyright (C) 2017 Robmart
+ * Copyright (C) 2018 Robmart
  * <p>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -22,16 +21,18 @@ import robmart.rpgmode.common.command.*;
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+public class PotionFortitude extends PotionBase {
+    public static final String TAG_NAME = "rpgmode - fortitude";
+    public static PotionFortitude instance = null;
 
-public class InitCommands {
+    public PotionFortitude() {
+        super(false, 234, 10, 40, "fortitude");
+        this.registerPotionAttributeModifier(PotionHelper.FORTITUDE, "fe0e866a-2602-40ac-b22f-a477adad20a7", 2, 0);
+        instance = this;
+    }
 
-    public static void init(FMLServerStartingEvent event){
-        event.registerServerCommand(new CommandManaInfo());
-        event.registerServerCommand(new CommandSetMana());
-        event.registerServerCommand(new CommandRestore());
-        event.registerServerCommand(new CommandSetHealth());
-        event.registerServerCommand(new CommandHealthInfo());
-        event.registerServerCommand(new CommandAttributeInfo());
-        event.registerServerCommand(new CommandSetAttribute());
+    @Override
+    public boolean isReady(int duration, int amplifier) {
+        return true;
     }
 }
