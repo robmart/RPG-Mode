@@ -24,6 +24,8 @@ minecraft {
 
     if (project.hasProperty('mappings_version'))
         mappings = project.mappings_version
+
+    makeObfSourceJar = true
 }
 
 processResources {

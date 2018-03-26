@@ -1,7 +1,6 @@
 package robmart.rpgmode.common.capability.mana;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -53,8 +52,8 @@ public class ManaCapability {
         this.manaCap = mana;
     }
 
-    public static IMana get(EntityPlayer player) {
-        return CapabilityHelper.getCapability(player, MANA_CAPABILITY, null);
+    public static IMana get(EntityLivingBase enitity) {
+        return CapabilityHelper.getCapability(enitity, MANA_CAPABILITY, null);
     }
 
     public ICapabilityProvider createProvider() {

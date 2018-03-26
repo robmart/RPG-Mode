@@ -131,10 +131,65 @@ public class PotionHandler {
             }
         }
 
+        //Intelligence
+        if (entity.ticksExisted % 9 == 0 && PotionIntelligence.instance != null && !entity.isDead) {
+
+            if (!persisted.getBoolean(PotionIntelligence.TAG_NAME)) {
+                if (entity.getEntityAttribute(PotionHelper.INTELLIGENCE).getAttributeValue() != PotionHelper.INTELLIGENCE.getDefaultValue()) {
+                    persisted.setBoolean(PotionIntelligence.TAG_NAME, true);
+                }
+            } else {
+                if (entity.getEntityAttribute(PotionHelper.INTELLIGENCE).getAttributeValue() == PotionHelper.INTELLIGENCE.getDefaultValue()) {
+                    persisted.setBoolean(PotionIntelligence.TAG_NAME, false);
+                }
+            }
+        }
+
+        //Stupidity
+        if (entity.ticksExisted % 9 == 0 && PotionStupidity.instance != null && !entity.isDead) {
+
+            if (!persisted.getBoolean(PotionStupidity.TAG_NAME)) {
+                if (entity.getEntityAttribute(PotionHelper.INTELLIGENCE).getAttributeValue() != PotionHelper.INTELLIGENCE.getDefaultValue()) {
+                    persisted.setBoolean(PotionStupidity.TAG_NAME, true);
+                }
+            } else {
+                if (entity.getEntityAttribute(PotionHelper.INTELLIGENCE).getAttributeValue() == PotionHelper.INTELLIGENCE.getDefaultValue()) {
+                    persisted.setBoolean(PotionStupidity.TAG_NAME, false);
+                }
+            }
+        }
+
+        //Wisdom
+        if (entity.ticksExisted % 9 == 0 && PotionWisdom.instance != null && !entity.isDead) {
+
+            if (!persisted.getBoolean(PotionWisdom.TAG_NAME)) {
+                if (entity.getEntityAttribute(PotionHelper.WISDOM).getAttributeValue() != PotionHelper.WISDOM.getDefaultValue()) {
+                    persisted.setBoolean(PotionWisdom.TAG_NAME, true);
+                }
+            } else {
+                if (entity.getEntityAttribute(PotionHelper.WISDOM).getAttributeValue() == PotionHelper.WISDOM.getDefaultValue()) {
+                    persisted.setBoolean(PotionWisdom.TAG_NAME, false);
+                }
+            }
+        }
+
+        //Foolishness
+        if (entity.ticksExisted % 9 == 0 && PotionFoolishness.instance != null && !entity.isDead) {
+
+            if (!persisted.getBoolean(PotionFoolishness.TAG_NAME)) {
+                if (entity.getEntityAttribute(PotionHelper.WISDOM).getAttributeValue() != PotionHelper.WISDOM.getDefaultValue()) {
+                    persisted.setBoolean(PotionFoolishness.TAG_NAME, true);
+                }
+            } else {
+                if (entity.getEntityAttribute(PotionHelper.WISDOM).getAttributeValue() == PotionHelper.WISDOM.getDefaultValue()) {
+                    persisted.setBoolean(PotionFoolishness.TAG_NAME, false);
+                }
+            }
+        }
+
 
         if (!entity.getEntityData().hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
             entity.getEntityData().setTag(EntityPlayer.PERSISTED_NBT_TAG, persisted);
-
         }
     }
 }

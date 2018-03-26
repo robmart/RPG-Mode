@@ -37,6 +37,10 @@ public class InitPotions {
     private static final PotionBase CLUMSINESS = new PotionClumsiness();
     private static final PotionBase FORTITUDE = new PotionFortitude();
     private static final PotionBase LETHARGY = new PotionLethargy();
+    private static final PotionBase INTELLIGENCE = new PotionIntelligence();
+    private static final PotionBase STUPIDITY = new PotionStupidity();
+    private static final PotionBase WISDOM = new PotionWisdom();
+    private static final PotionBase FOOLISHNESS = new PotionFoolishness();
 
     @SubscribeEvent
     public static void registerPotions(final RegistryEvent.Register<Potion> event) {
@@ -48,7 +52,13 @@ public class InitPotions {
                 CLUMSINESS,
 
                 FORTITUDE,
-                LETHARGY
+                LETHARGY,
+
+                INTELLIGENCE,
+                STUPIDITY,
+
+                WISDOM,
+                FOOLISHNESS
         );
     }
 }

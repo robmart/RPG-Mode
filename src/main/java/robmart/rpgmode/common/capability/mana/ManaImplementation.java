@@ -85,7 +85,7 @@ public class ManaImplementation implements IMana {
     public void setMaxMana(float amount) {
         this.maxMana = amount > 0 ? amount : 1;
         setMana(getMaxMana() < getMana() ? getMaxMana() : getMana());
-        if (this.entity instanceof EntityPlayer)
+        if (this.entity instanceof EntityPlayerMP)
             PacketDispatcher.sendTo(new SyncPlayerMana((EntityPlayer) this.entity), (EntityPlayerMP) this.entity);
     }
 
@@ -107,7 +107,7 @@ public class ManaImplementation implements IMana {
     @Override
     public void setMana(float amount) {
         this.mana = amount > 0 ? (amount < getMaxMana() ? amount : getMaxMana()) : 0;
-        if (this.entity instanceof EntityPlayer)
+        if (this.entity instanceof EntityPlayerMP)
             PacketDispatcher.sendTo(new SyncPlayerMana((EntityPlayer) this.entity), (EntityPlayerMP) this.entity);
     }
 

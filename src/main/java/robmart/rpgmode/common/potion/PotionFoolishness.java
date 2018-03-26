@@ -21,13 +21,13 @@ import robmart.rpgmode.common.helper.PotionHelper;
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class PotionLethargy extends PotionBase {
-    public static final String TAG_NAME = "rpgmode - lethargy";
-    public static PotionLethargy instance = null;
+public class PotionFoolishness extends PotionBase {
+    public static final String TAG_NAME = "rpgmode - foolishness";
+    public static PotionBase instance = null;
 
-    public PotionLethargy() {
-        super(true, 56, 81, 7, "lethargy");
-        this.registerPotionAttributeModifier(PotionHelper.FORTITUDE, "a64eab83-d3a8-4813-acd6-44914a46e0a5", -2, 0);
+    public PotionFoolishness() {
+        super(true, 116, 196, 42, "foolishness");
+        this.registerPotionAttributeModifier(PotionHelper.WISDOM, "47544add-a921-4b4d-b247-c5da8db72cd1", -2, 0);
         instance = this;
     }
 

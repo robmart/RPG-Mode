@@ -61,6 +61,22 @@ public class InitPotionTypes {
     private static final PotionType LONG_LETHARGY;
     private static final PotionType STRONG_LETHARGY;
 
+    private static final PotionType INTELLIGENCE;
+    private static final PotionType LONG_INTELLIGENCE;
+    private static final PotionType STRONG_INTELLIGENCE;
+
+    private static final PotionType STUPIDITY;
+    private static final PotionType LONG_STUPIDITY;
+    private static final PotionType STRONG_STUPIDITY;
+
+    private static final PotionType WISDOM;
+    private static final PotionType LONG_WISDOM;
+    private static final PotionType STRONG_WISDOM;
+
+    private static final PotionType FOOLISHNESS;
+    private static final PotionType LONG_FOOLISHNESS;
+    private static final PotionType STRONG_FOOLISHNESS;
+
     static {
         final String LONG_PREFIX = "long_";
         final String STRONG_PREFIX = "strong_";
@@ -80,6 +96,10 @@ public class InitPotionTypes {
         final Potion clumsiness = RegistryHelper.getRegistryEntry(potionRegistry, "clumsiness");
         final Potion fortitude = RegistryHelper.getRegistryEntry(potionRegistry, "fortitude");
         final Potion lethargy = RegistryHelper.getRegistryEntry(potionRegistry, "lethargy");
+        final Potion intelligence = RegistryHelper.getRegistryEntry(potionRegistry, "intelligence");
+        final Potion stupidity = RegistryHelper.getRegistryEntry(potionRegistry, "stupidity");
+        final Potion wisdom = RegistryHelper.getRegistryEntry(potionRegistry, "wisdom");
+        final Potion foolishness = RegistryHelper.getRegistryEntry(potionRegistry, "foolishness");
 
         STRENGTH = createPotionType(new PotionEffect(strength, HELPFUL_DURATION_STANDARD));
         LONG_STRENGTH = createPotionType(new PotionEffect(strength, HELPFUL_DURATION_LONG), LONG_PREFIX);
@@ -89,21 +109,37 @@ public class InitPotionTypes {
         LONG_WEAKNESS = createPotionType(new PotionEffect(weakness, HARMFUL_DURATION_LONG), LONG_PREFIX);
         STRONG_WEAKNESS = createPotionType(new PotionEffect(weakness, HARMFUL_DURATION_STRONG, 1), STRONG_PREFIX);
 
-        DEXTEROUSNESS = createPotionType(new PotionEffect(dexterousness, HARMFUL_DURATION_STANDARD));
-        LONG_DEXTEROUSNESS = createPotionType(new PotionEffect(dexterousness, HARMFUL_DURATION_LONG), LONG_PREFIX);
-        STRONG_DEXTEROUSNESS = createPotionType(new PotionEffect(dexterousness, HARMFUL_DURATION_STRONG, 1), STRONG_PREFIX);
+        DEXTEROUSNESS = createPotionType(new PotionEffect(dexterousness, HELPFUL_DURATION_STANDARD));
+        LONG_DEXTEROUSNESS = createPotionType(new PotionEffect(dexterousness, HELPFUL_DURATION_LONG), LONG_PREFIX);
+        STRONG_DEXTEROUSNESS = createPotionType(new PotionEffect(dexterousness, HELPFUL_DURATION_STRONG, 1), STRONG_PREFIX);
 
         CLUMSINESS = createPotionType(new PotionEffect(clumsiness, HARMFUL_DURATION_STANDARD));
         LONG_CLUMSINESS = createPotionType(new PotionEffect(clumsiness, HARMFUL_DURATION_LONG), LONG_PREFIX);
         STRONG_CLUMSINESS = createPotionType(new PotionEffect(clumsiness, HARMFUL_DURATION_STRONG, 1), STRONG_PREFIX);
 
-        FORTITUDE = createPotionType(new PotionEffect(fortitude, HARMFUL_DURATION_STANDARD));
-        LONG_FORTITUDE = createPotionType(new PotionEffect(fortitude, HARMFUL_DURATION_LONG), LONG_PREFIX);
-        STRONG_FORTITUDE = createPotionType(new PotionEffect(fortitude, HARMFUL_DURATION_STRONG, 1), STRONG_PREFIX);
+        FORTITUDE = createPotionType(new PotionEffect(fortitude, HELPFUL_DURATION_STANDARD));
+        LONG_FORTITUDE = createPotionType(new PotionEffect(fortitude, HELPFUL_DURATION_LONG), LONG_PREFIX);
+        STRONG_FORTITUDE = createPotionType(new PotionEffect(fortitude, HELPFUL_DURATION_STRONG, 1), STRONG_PREFIX);
 
         LETHARGY = createPotionType(new PotionEffect(lethargy, HARMFUL_DURATION_STANDARD));
         LONG_LETHARGY = createPotionType(new PotionEffect(lethargy, HARMFUL_DURATION_LONG), LONG_PREFIX);
         STRONG_LETHARGY = createPotionType(new PotionEffect(lethargy, HARMFUL_DURATION_STRONG, 1), STRONG_PREFIX);
+
+        INTELLIGENCE = createPotionType(new PotionEffect(intelligence, HELPFUL_DURATION_STANDARD));
+        LONG_INTELLIGENCE = createPotionType(new PotionEffect(intelligence, HELPFUL_DURATION_LONG), LONG_PREFIX);
+        STRONG_INTELLIGENCE = createPotionType(new PotionEffect(intelligence, HELPFUL_DURATION_STRONG, 1), STRONG_PREFIX);
+
+        STUPIDITY = createPotionType(new PotionEffect(stupidity, HARMFUL_DURATION_STANDARD));
+        LONG_STUPIDITY = createPotionType(new PotionEffect(stupidity, HARMFUL_DURATION_LONG), LONG_PREFIX);
+        STRONG_STUPIDITY = createPotionType(new PotionEffect(stupidity, HARMFUL_DURATION_STRONG, 1), STRONG_PREFIX);
+
+        WISDOM = createPotionType(new PotionEffect(wisdom, HELPFUL_DURATION_STANDARD));
+        LONG_WISDOM = createPotionType(new PotionEffect(wisdom, HELPFUL_DURATION_LONG), LONG_PREFIX);
+        STRONG_WISDOM = createPotionType(new PotionEffect(wisdom, HELPFUL_DURATION_STRONG, 1), STRONG_PREFIX);
+
+        FOOLISHNESS = createPotionType(new PotionEffect(foolishness, HARMFUL_DURATION_STANDARD));
+        LONG_FOOLISHNESS = createPotionType(new PotionEffect(foolishness, HARMFUL_DURATION_LONG), LONG_PREFIX);
+        STRONG_FOOLISHNESS = createPotionType(new PotionEffect(foolishness, HARMFUL_DURATION_STRONG, 1), STRONG_PREFIX);
     }
 
     private static PotionType createPotionType(final PotionEffect effect) {
@@ -147,7 +183,23 @@ public class InitPotionTypes {
 
                 LETHARGY,
                 LONG_LETHARGY,
-                STRONG_LETHARGY
+                STRONG_LETHARGY,
+
+                INTELLIGENCE,
+                LONG_INTELLIGENCE,
+                STRONG_INTELLIGENCE,
+
+                STUPIDITY,
+                LONG_STUPIDITY,
+                STRONG_STUPIDITY,
+
+                WISDOM,
+                LONG_WISDOM,
+                STRONG_WISDOM,
+
+                FOOLISHNESS,
+                LONG_FOOLISHNESS,
+                STRONG_FOOLISHNESS
         );
     }
 }

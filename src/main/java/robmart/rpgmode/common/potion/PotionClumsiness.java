@@ -26,7 +26,7 @@ public class PotionClumsiness extends PotionBase {
     public static PotionClumsiness instance = null;
 
     public PotionClumsiness() {
-        super(false, 149, 64, 167, "clumsiness");
+        super(true, 149, 64, 167, "clumsiness");
         this.registerPotionAttributeModifier(PotionHelper.DEXTEROUSNESS, "309bf477-d48d-41ae-a829-33caa0f604e0", -2, 0);
         instance = this;
     }

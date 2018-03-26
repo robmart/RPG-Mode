@@ -51,13 +51,39 @@ splash_potion.effect.rpgmode:fortitude=Splash Potion of Fortitude
 lingering_potion.effect.rpgmode:fortitude=Lingering Potion of Fortitude
 tipped_arrow.effect.rpgmode:fortitude=Arrow of Fortitude
 effect.rpgmode:fortitude=Fortitude
-attribute.name.rpgmode.fortitude=Fortitude
+attribute.name.rpgmode.fortitude=Constitution
 
 potion.effect.rpgmode:lethargy=Potion of Lethargy
 splash_potion.effect.rpgmode:lethargy=Splash Potion of Lethargy
 lingering_potion.effect.rpgmode:lethargy=Lingering Potion of Lethargy
 tipped_arrow.effect.rpgmode:lethargy=Arrow of Lethargy
 effect.rpgmode:lethargy=Lethargy
+
+potion.effect.rpgmode:intelligence=Potion of Intelligence
+splash_potion.effect.rpgmode:intelligence=Splash Potion of Intelligence
+lingering_potion.effect.rpgmode:intelligence=Lingering Potion of Intelligence
+tipped_arrow.effect.rpgmode:intelligence=Arrow of Intelligence
+effect.rpgmode:intelligence=Intelligence
+attribute.name.rpgmode.intelligence=Intelligence
+
+potion.effect.rpgmode:stupidity=Potion of Stupidity
+splash_potion.effect.rpgmode:stupidity=Splash Potion of Stupidity
+lingering_potion.effect.rpgmode:stupidity=Lingering Potion of Stupidity
+tipped_arrow.effect.rpgmode:stupidity=Arrow of Stupidity
+effect.rpgmode:stupidity=Stupidity
+
+potion.effect.rpgmode:wisdom=Potion of Wisdom
+splash_potion.effect.rpgmode:wisdom=Splash Potion of Wisdom
+lingering_potion.effect.rpgmode:wisdom=Lingering Potion of Wisdom
+tipped_arrow.effect.rpgmode:wisdom=Arrow of Wisdom
+effect.rpgmode:wisdom=Wisdom
+attribute.name.rpgmode.wisdom=Wisdom
+
+potion.effect.rpgmode:foolishness=Potion of Foolishness
+splash_potion.effect.rpgmode:foolishness=Splash Potion of Foolishness
+lingering_potion.effect.rpgmode:foolishness=Lingering Potion of Foolishness
+tipped_arrow.effect.rpgmode:foolishness=Arrow of Foolishness
+effect.rpgmode:foolishness=Foolishness
 
 # Config stuff
 category.rpgmode.general=General
