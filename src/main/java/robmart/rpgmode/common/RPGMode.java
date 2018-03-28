@@ -39,10 +39,10 @@ import static robmart.rpgmode.common.reference.Reference.*;
         acceptedMinecraftVersions = MINECRAFT_VERSION,
         guiFactory = GUI_FACTORY
 )
+@SuppressWarnings("unused")
 public class RPGMode {
 
     @Mod.Instance
-    @SuppressWarnings("unused")
     public static RPGMode instance = new RPGMode();
 
     @SidedProxy(clientSide = CLIENT_PROXY, serverSide = SERVER_PROXY)
@@ -51,19 +51,16 @@ public class RPGMode {
     public static final Logger logger = LogManager.getLogger(MOD_ID);
 
     @Mod.EventHandler
-    @SuppressWarnings("unused")
     public void preInit(FMLPreInitializationEvent event) {
         proxy.preInit(event);
     }
 
     @Mod.EventHandler
-    @SuppressWarnings("unused")
     public void init(FMLInitializationEvent event) {
         proxy.init(event);
     }
 
     @Mod.EventHandler
-    @SuppressWarnings("unused")
     public void postInit(FMLPostInitializationEvent event) {
         proxy.postInit(event);
     }

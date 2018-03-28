@@ -1,7 +1,13 @@
 package robmart.rpgmode.common;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IThreadListener;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -12,9 +18,15 @@ import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import robmart.rpgmode.common.handlers.ConfigurationHandler;
 import robmart.rpgmode.common.handlers.PotionHandler;
+import robmart.rpgmode.common.helper.RecipeHelper;
 import robmart.rpgmode.common.init.InitCapabilities;
 import robmart.rpgmode.common.init.InitCommands;
 import robmart.rpgmode.common.network.PacketDispatcher;
+import robmart.rpgmode.common.reference.Reference;
+import robmart.rpgmode.creativetab.CreativeTabBrewing;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Robmart.
@@ -38,11 +50,11 @@ import robmart.rpgmode.common.network.PacketDispatcher;
 public abstract class CommonProxy implements IGuiHandler{
 
     public void preInit(FMLPreInitializationEvent event){
-        RPGMode.logger.info("[RPGMode] Pre initialization starting");
+        RPGMode.logger.info("Pre initialization starting");
 
         try {
             ConfigurationHandler.initialize(event.getSuggestedConfigurationFile());
-            RPGMode.logger.error("[RPGMode] Problem loading configuration");
+            RPGMode.logger.error("Problem loading configuration");
         } finally {
             if (ConfigurationHandler.config!=null) ConfigurationHandler.save();
         }
@@ -55,11 +67,12 @@ public abstract class CommonProxy implements IGuiHandler{
     }
 
     public void init(FMLInitializationEvent event){
-        RPGMode.logger.info("[RPGMode] Initialization starting");
+        RPGMode.logger.info("Initialization starting");
+        CreativeTabBrewing.instance.Init();
     }
 
     public void postInit(FMLPostInitializationEvent event){
-        RPGMode.logger.info("[RPGMode] Post initialization starting");
+        RPGMode.logger.info("Post initialization starting");
     }
 
     public void serverStarting(FMLServerStartingEvent event){

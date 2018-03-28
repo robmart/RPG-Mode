@@ -31,7 +31,7 @@ import robmart.rpgmode.common.potion.*;
 public class PotionHandler {
 
     @SubscribeEvent
-    public void onEntityConstructing(EntityEvent.EntityConstructing event) {
+    public static void onEntityConstructing(EntityEvent.EntityConstructing event) {
         if (event.getEntity() instanceof EntityLivingBase) {
             ((EntityLivingBase) event.getEntity()).getAttributeMap().registerAttribute(PotionHelper.STRENGTH);
             ((EntityLivingBase) event.getEntity()).getAttributeMap().registerAttribute(PotionHelper.DEXTEROUSNESS);
@@ -42,7 +42,7 @@ public class PotionHandler {
     }
 
     @SubscribeEvent
-    public void inLivingUppdate(LivingEvent.LivingUpdateEvent event) {
+    public static void inLivingUppdate(LivingEvent.LivingUpdateEvent event) {
         EntityLivingBase entity = event.getEntityLiving();
         NBTTagCompound persisted = entity.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
 
