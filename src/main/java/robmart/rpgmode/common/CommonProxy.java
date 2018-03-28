@@ -4,8 +4,11 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.PotionTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
@@ -17,16 +20,10 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import robmart.rpgmode.common.handlers.ConfigurationHandler;
-import robmart.rpgmode.common.handlers.PotionHandler;
-import robmart.rpgmode.common.helper.RecipeHelper;
 import robmart.rpgmode.common.init.InitCapabilities;
 import robmart.rpgmode.common.init.InitCommands;
 import robmart.rpgmode.common.network.PacketDispatcher;
-import robmart.rpgmode.common.reference.Reference;
 import robmart.rpgmode.creativetab.CreativeTabBrewing;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Robmart.
@@ -61,7 +58,6 @@ public abstract class CommonProxy implements IGuiHandler{
 
         InitCapabilities.init();
         MinecraftForge.EVENT_BUS.register(new ConfigurationHandler());
-        MinecraftForge.EVENT_BUS.register(new PotionHandler());
 
         PacketDispatcher.registerPackets();
     }
@@ -73,6 +69,7 @@ public abstract class CommonProxy implements IGuiHandler{
 
     public void postInit(FMLPostInitializationEvent event){
         RPGMode.logger.info("Post initialization starting");
+        //RecipeHelper.RemoveBrewing(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.STRENGTH));
     }
 
     public void serverStarting(FMLServerStartingEvent event){

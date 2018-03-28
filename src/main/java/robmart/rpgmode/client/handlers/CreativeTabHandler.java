@@ -36,7 +36,6 @@ public class CreativeTabHandler {
 
     @SubscribeEvent
     public static void onGuiOpen(GuiOpenEvent event){
-        System.out.println(event.getGui());
         if (event.getGui() instanceof GuiContainerCreative){
             event.setGui(new GuiContainerCreativeOverride(Minecraft.getMinecraft().player));
         }

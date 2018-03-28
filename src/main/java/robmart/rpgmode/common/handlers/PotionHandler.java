@@ -3,11 +3,15 @@ package robmart.rpgmode.common.handlers;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import robmart.rpgmode.common.helper.PotionHelper;
 import robmart.rpgmode.common.potion.*;
+import robmart.rpgmode.common.reference.Reference;
 
 /**
  * Created by Robmart.
@@ -28,16 +32,19 @@ import robmart.rpgmode.common.potion.*;
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+@GameRegistry.ObjectHolder(Reference.MOD_ID)
+@Mod.EventBusSubscriber(modid = Reference.MOD_ID)
+@SuppressWarnings("unused")
 public class PotionHandler {
 
     @SubscribeEvent
-    public static void onEntityConstructing(EntityEvent.EntityConstructing event) {
-        if (event.getEntity() instanceof EntityLivingBase) {
-            ((EntityLivingBase) event.getEntity()).getAttributeMap().registerAttribute(PotionHelper.STRENGTH);
-            ((EntityLivingBase) event.getEntity()).getAttributeMap().registerAttribute(PotionHelper.DEXTEROUSNESS);
-            ((EntityLivingBase) event.getEntity()).getAttributeMap().registerAttribute(PotionHelper.FORTITUDE);
-            ((EntityLivingBase) event.getEntity()).getAttributeMap().registerAttribute(PotionHelper.INTELLIGENCE);
-            ((EntityLivingBase) event.getEntity()).getAttributeMap().registerAttribute(PotionHelper.WISDOM);
+    public static void onAttachCapabilities(AttachCapabilitiesEvent event) {
+        if (event.getObject() instanceof EntityLivingBase) {
+            ((EntityLivingBase) event.getObject()).getAttributeMap().registerAttribute(PotionHelper.STRENGTH);
+            ((EntityLivingBase) event.getObject()).getAttributeMap().registerAttribute(PotionHelper.DEXTEROUSNESS);
+            ((EntityLivingBase) event.getObject()).getAttributeMap().registerAttribute(PotionHelper.FORTITUDE);
+            ((EntityLivingBase) event.getObject()).getAttributeMap().registerAttribute(PotionHelper.INTELLIGENCE);
+            ((EntityLivingBase) event.getObject()).getAttributeMap().registerAttribute(PotionHelper.WISDOM);
         }
     }
 
