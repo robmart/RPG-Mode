@@ -16,8 +16,13 @@ hs_err_pid*
 # Folder
 /.gradle
 /.idea
+/Assets
 /build
 /run
 /fileTemplates
 /out/
-/PotionCore
+/gradle
+
+# Other
+*.bat
+gradlew
