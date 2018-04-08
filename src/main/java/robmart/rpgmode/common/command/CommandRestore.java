@@ -66,7 +66,7 @@ public class CommandRestore extends CommandBase {
         else
             player = getCommandSenderAsPlayer(sender);
 
-        mana = player.getCapability(ManaCapability.MANA_CAPABILITY, null);
+        mana = ManaCapability.get(player);
         player.setHealth(player.getMaxHealth());
         mana.restoreMana();
         player.getFoodStats().addStats(20, 20);

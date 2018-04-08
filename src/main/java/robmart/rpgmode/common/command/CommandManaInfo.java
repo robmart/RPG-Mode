@@ -65,7 +65,7 @@ public class CommandManaInfo extends CommandBase {
         else
             player = getCommandSenderAsPlayer(sender);
 
-        mana = player.getCapability(ManaCapability.MANA_CAPABILITY, null);
+        mana = ManaCapability.get(player);
         info = getInfoFromString(args[0], mana);
 
         if (info == null)
@@ -75,15 +75,25 @@ public class CommandManaInfo extends CommandBase {
     }
 
     private String[] getInfoFromString(String string, IMana mana){
-        return !"mana".equalsIgnoreCase(string) && !"m".equalsIgnoreCase(string) ?
-                (!"max".equalsIgnoreCase(string) && !"maxmana".equalsIgnoreCase(string) ?
-                        (!"speed".equalsIgnoreCase(string) && !"regenspeed".equalsIgnoreCase(string) ?
-                                (!"amount".equalsIgnoreCase(string) && !"regenamount".equalsIgnoreCase(string) ?
-                                        null :
-                                        new String[]{"regeneration amount", floatToString(mana.getRegenAmount())}) :
-                                new String[]{"regeneration speed", floatToString(mana.getRegenSpeed())}) :
-                        new String[]{"max mana", floatToString(mana.getMaxMana())}) :
-                new String[]{"mana", floatToString(mana.getMana())};
+        switch (string.toLowerCase()) {
+            case "mana":
+                return new String[]{"mana", floatToString(mana.getMana())};
+            case "m":
+                return getInfoFromString("mana", mana);
+            case "maxmana":
+                return new String[]{"max mana", floatToString(mana.getMaxMana())};
+            case "max":
+                return getInfoFromString("maxmana", mana);
+            case "regenspeed":
+                return new String[]{"regeneration speed", floatToString(mana.getRegenSpeed())};
+            case "speed":
+                return getInfoFromString("regenspeed", mana);
+            case "regenamount":
+                return new String[]{"regeneration amount", floatToString(mana.getRegenAmount())};
+            case "amount":
+                return getInfoFromString("regenamount", mana);
+        }
+        return null;
     }
 
     private String floatToString(float value) {

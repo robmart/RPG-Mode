@@ -36,7 +36,7 @@ public class AttributeCapability {
      * The {@link Capability} instance.
      */
     @CapabilityInject(IAttribute.class)
-    public static final Capability<IAttribute> ATTRIBUTE_CAPABILITY = null;
+    private static final Capability<IAttribute> ATTRIBUTE_CAPABILITY = null;
 
     private IAttribute attributeCap = null;
 

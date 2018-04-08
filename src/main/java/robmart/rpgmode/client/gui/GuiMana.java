@@ -52,19 +52,16 @@ public class GuiMana extends Gui {
     @SubscribeEvent(priority = EventPriority.NORMAL)
     @SuppressWarnings("unused")
     public void onRenderExperienceBar(RenderGameOverlayEvent.Post event){
-        if (event.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE)
-            return;
+        if (event.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE) return;
 
-        if (mc.playerController.getCurrentGameType() == GameType.CREATIVE || mc.playerController.getCurrentGameType() == GameType.SPECTATOR)
-            return;
+        if (mc.playerController.getCurrentGameType() == GameType.CREATIVE || mc.playerController.getCurrentGameType() == GameType.SPECTATOR) return;
 
         ScaledResolution scaledResolution = new ScaledResolution(this.mc);
         IMana mana = ManaCapability.get(this.mc.player);
 
         Entity entity = this.mc.player.getRidingEntity();
 
-        if (entity != null)
-            return;
+        if (entity != null) return;
 
         this.mc.getTextureManager().bindTexture(texture);
         int xPos = (scaledResolution.getScaledWidth() / 2 + 10) * 2;

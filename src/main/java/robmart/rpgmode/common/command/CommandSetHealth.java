@@ -76,20 +76,32 @@ public class CommandSetHealth extends CommandBase {
     }
 
     private String[] getInfoFromString(String string, EntityPlayer player) {
-        return
-                !"health".equalsIgnoreCase(string) && !"h".equalsIgnoreCase(string) ?
-                        (!"maxhealth".equalsIgnoreCase(string) && !"max".equalsIgnoreCase(string) ?
-                                null :
-                                new String[]{"max health", floatToString(player.getMaxHealth())}) :
-                        new String[]{"health", floatToString(player.getHealth())};
+        switch (string.toLowerCase()) {
+            case "health":
+                return new String[]{"health", floatToString(player.getHealth())};
+            case "h":
+                return getInfoFromString("health", player);
+            case "maxhealth":
+                return new String[]{"max health", floatToString(player.getMaxHealth())};
+            case "max":
+                return getInfoFromString("maxhealth", player);
+        }
+        return null;
     }
 
     private void setHealth(String string, float amount, EntityPlayer player) {
-        if ("health".equalsIgnoreCase(string) || "h".equalsIgnoreCase(string))
-            player.setHealth(amount);
-        else if ("maxhealth".equalsIgnoreCase(string) || "max".equalsIgnoreCase(string)) {
-            MaxHealthCapability.get(player).setBonusMaxHealth(amount - 20);
-            player.setHealth(player.getMaxHealth());
+        switch (string.toLowerCase()){
+            case "health":
+                player.setHealth(amount);
+                break;
+            case "h":
+                setHealth("health", amount, player);
+                break;
+            case "maxhealth":
+                MaxHealthCapability.get(player).setBonusMaxHealth(amount);
+                break;
+            case "max":
+                setHealth("maxhealth", amount, player);
         }
     }
 

@@ -2,16 +2,25 @@ package robmart.rpgmode.common.handlers;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.init.PotionTypes;
+import net.minecraft.item.ItemPotion;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.PotionUtils;
+import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.entity.EntityEvent;
+import net.minecraftforge.event.brewing.PotionBrewEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import robmart.rpgmode.common.helper.PotionHelper;
+import robmart.rpgmode.common.init.InitPotionTypes;
 import robmart.rpgmode.common.potion.*;
 import robmart.rpgmode.common.reference.Reference;
+
+import java.util.Objects;
 
 /**
  * Created by Robmart.
@@ -37,6 +46,25 @@ import robmart.rpgmode.common.reference.Reference;
 @SuppressWarnings("unused")
 public class PotionHandler {
 
+    @SuppressWarnings("ConstantConditions")
+    @SubscribeEvent
+    public static void onAttemptBrew(PotionBrewEvent.Pre event){
+        for (int i = 0; i <= event.getLength() - 3; i++) {
+            ItemStack output = BrewingRecipeRegistry.getOutput(event.getItem(i), event.getItem(3));
+            if (output.getItem() instanceof ItemPotion) {
+                if (Objects.equals(output.getTagCompound().getString("Potion"),
+                        PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.STRENGTH).getTagCompound().getString("Potion"))){
+                    event.setItem(i, PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), InitPotionTypes.STRENGTH));
+                    event.setCanceled(true);
+                } else if (Objects.equals(output.getTagCompound().getString("Potion"),
+                        PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.WEAKNESS).getTagCompound().getString("Potion"))){
+                    event.setItem(i, PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), InitPotionTypes.WEAKNESS));
+                    event.setCanceled(true);
+                }
+            }
+        }
+    }
+
     @SubscribeEvent
     public static void onAttachCapabilities(AttachCapabilitiesEvent event) {
         if (event.getObject() instanceof EntityLivingBase) {
@@ -49,7 +77,7 @@ public class PotionHandler {
     }
 
     @SubscribeEvent
-    public static void inLivingUppdate(LivingEvent.LivingUpdateEvent event) {
+    public static void inLivingUpdate(LivingEvent.LivingUpdateEvent event) {
         EntityLivingBase entity = event.getEntityLiving();
         NBTTagCompound persisted = entity.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
 

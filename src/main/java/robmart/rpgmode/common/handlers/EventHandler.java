@@ -10,7 +10,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import robmart.rpgmode.common.capability.attribute.AttributeCapability;
-import robmart.rpgmode.common.capability.attribute.IAttribute;
 import robmart.rpgmode.common.reference.Reference;
 
 /**
@@ -56,12 +55,7 @@ public class EventHandler {
 
             message = "Player hasn't joined before.";
 
-            IAttribute capability = AttributeCapability.get(event.player);
-            capability.setStrength(capability.getStrength());
-            capability.setDexterity(capability.getDexterity());
-            capability.setConstitution(capability.getConstitution());
-            capability.setIntelligence(capability.getIntelligence());
-            capability.setWisdom(capability.getWisdom());
+            AttributeCapability.get(player).setAttributes(5, 5, 5, 5, 5);
         }
 
         final ITextComponent chatComponent = new TextComponentTranslation(message);

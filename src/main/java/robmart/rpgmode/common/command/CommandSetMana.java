@@ -65,7 +65,7 @@ public class CommandSetMana extends CommandBase {
         else
             player = getCommandSenderAsPlayer(sender);
 
-        mana = player.getCapability(ManaCapability.MANA_CAPABILITY, null);
+        mana = ManaCapability.get(player);
 
         setMana(args[0], Float.valueOf(args[1]), mana);
         info = getInfoFromString(args[0], mana);
@@ -80,26 +80,54 @@ public class CommandSetMana extends CommandBase {
     }
 
     private String[] getInfoFromString(String string, IMana mana){
-        return !"mana".equalsIgnoreCase(string) && !"m".equalsIgnoreCase(string) ?
-                (!"max".equalsIgnoreCase(string) && !"maxmana".equalsIgnoreCase(string) ?
-                        (!"speed".equalsIgnoreCase(string) && !"regenspeed".equalsIgnoreCase(string) ?
-                                (!"amount".equalsIgnoreCase(string) && !"regenamount".equalsIgnoreCase(string) ?
-                                        null :
-                                        new String[]{"regeneration amount", floatToString(mana.getRegenAmount())}) :
-                                new String[]{"regeneration speed", floatToString(mana.getRegenSpeed())}) :
-                        new String[]{"max mana", floatToString(mana.getMaxMana())}) :
-                new String[]{"mana", floatToString(mana.getMana())};
+        switch (string.toLowerCase()) {
+            case "mana":
+                return new String[]{"mana", floatToString(mana.getMana())};
+            case "m":
+                return getInfoFromString("mana", mana);
+            case "maxmana":
+                return new String[]{"max mana", floatToString(mana.getMaxMana())};
+            case "max":
+                return getInfoFromString("maxmana", mana);
+            case "regenspeed":
+                return new String[]{"regeneration speed", floatToString(mana.getRegenSpeed())};
+            case "speed":
+                return getInfoFromString("regenspeed", mana);
+            case "regenamount":
+                return new String[]{"regeneration amount", floatToString(mana.getRegenAmount())};
+            case "amount":
+                return getInfoFromString("regenamount", mana);
+        }
+        return null;
     }
 
     private void setMana(String string, float amount, IMana mana) {
-        if ("mana".equalsIgnoreCase(string) || "m".equalsIgnoreCase(string))
-            mana.setMana(amount);
-        else if ("maxmana".equalsIgnoreCase(string) || "max".equalsIgnoreCase(string))
-            mana.setMaxMana(amount);
-        else if ("regenspeed".equalsIgnoreCase(string) || "speed".equalsIgnoreCase(string))
-            mana.setRegenSpeed(amount);
-        else if ("regenamount".equalsIgnoreCase(string) || "amount".equalsIgnoreCase(string))
-            mana.setRegenAmount(amount);
+        switch (string.toLowerCase()) {
+            case "mana":
+                mana.setMana(amount);
+                break;
+            case "m":
+                setMana("mana", amount, mana);
+                break;
+            case "maxmana":
+                mana.setMaxMana(amount);
+                break;
+            case "max":
+                setMana("maxmana", amount, mana);
+                break;
+            case "regenspeed":
+                mana.setRegenSpeed(amount);
+                break;
+            case "speed":
+                setMana("regenspeed", amount, mana);
+                break;
+            case "regenamount":
+                mana.setRegenAmount(amount);
+                break;
+            case "amount":
+                setMana("regenamount", amount, mana);
+                break;
+        }
     }
 
     private String floatToString(float value) {

@@ -36,7 +36,7 @@ public class MaxHealthCapability {
      * The {@link Capability} instance.
      */
     @CapabilityInject(IMaxHealth.class)
-    public static final Capability<IMaxHealth> MAX_HEALTH_CAPABILITY = null;
+    private static final Capability<IMaxHealth> MAX_HEALTH_CAPABILITY = null;
 
     private IMaxHealth maxHealthCap = null;
 

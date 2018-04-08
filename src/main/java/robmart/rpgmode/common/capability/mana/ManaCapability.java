@@ -36,7 +36,7 @@ public class ManaCapability {
      * The {@link Capability} instance.
      */
     @CapabilityInject(IMana.class)
-    public static final Capability<IMana> MANA_CAPABILITY = null;
+    private static final Capability<IMana> MANA_CAPABILITY = null;
 
     private IMana manaCap = null;
 

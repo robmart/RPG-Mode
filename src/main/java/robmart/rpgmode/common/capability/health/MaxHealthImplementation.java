@@ -124,7 +124,7 @@ public class MaxHealthImplementation implements IMaxHealth {
      * @return The AttributeModifier
      */
     protected AttributeModifier createModifier() {
-        return new AttributeModifier(MODIFIER_ID, MODIFIER_NAME, getBonusMaxHealth(), ATTRIBUTE_MODIFIER_OPERATION_ADD);
+        return new AttributeModifier(MODIFIER_ID, MODIFIER_NAME, getBonusMaxHealth() - entity.getMaxHealth(), ATTRIBUTE_MODIFIER_OPERATION_ADD);
     }
 
     /**
@@ -162,21 +162,19 @@ public class MaxHealthImplementation implements IMaxHealth {
         if (oldModifier != null) {
             entityMaxHealthAttribute.removeModifier(oldModifier);
 
+            modifier = createModifier();
+
             oldAmount = (float) oldModifier.getAmount();
 
             RPGMode.logger.debug("Max Health Changed! Entity: %s - Old: %s - New: %s", entity, formatMaxHealth(oldAmount), formatMaxHealth(newAmount));
         } else {
-            oldAmount = 0.0f;
-
             RPGMode.logger.debug("Max Health Added! Entity: %s - New: %s", entity, formatMaxHealth(newAmount));
         }
 
         entityMaxHealthAttribute.applyModifier(modifier);
 
-        final float amountToHeal = newAmount - oldAmount;
-        if (amountToHeal > 0) {
-            entity.heal(amountToHeal);
-        }
+        if (entity.getHealth() > entity.getMaxHealth())
+            entity.setHealth(entity.getMaxHealth());
     }
 
     /**

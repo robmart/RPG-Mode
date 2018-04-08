@@ -1,7 +1,11 @@
 package robmart.rpgmode.common.capability.attribute;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import robmart.rpgmode.common.capability.health.MaxHealthCapability;
+import robmart.rpgmode.common.capability.mana.ManaCapability;
 import robmart.rpgmode.common.helper.PotionHelper;
 
 /**
@@ -179,6 +183,25 @@ public class AttributeImplementation implements IAttribute {
     public void setConstitution(int value){
         //TODO: Constitution: Breathing, poison resistance
         this.constitution = value;
+
+        //Set max health
+        MaxHealthCapability.get(entity).setBonusMaxHealth(((float)(10 * getConstitution())));
+
+        //Increases hostile mobs walk speed
+        if (!(entity instanceof EntityPlayer) && entity.isCreatureType(EnumCreatureType.MONSTER, false))
+            if (getConstitution() <= 20)
+                entity.setAIMoveSpeed(0.1F + (0.0025F * getConstitution()));
+            else
+                //Cap at 50% boost
+                entity.setAIMoveSpeed(0.1F + (0.0025F * 20));
+
+        //Increases player walk speed
+        if (entity instanceof EntityPlayer)
+            if (getConstitution() <= 20)
+                ((EntityPlayer)entity).capabilities.setPlayerWalkSpeed((0.1F + (0.0025F * getConstitution())));
+            else
+                //Cap at 50% boost
+                ((EntityPlayer)entity).capabilities.setPlayerWalkSpeed((0.1F + (0.0025F * 20)));
     }
 
     /**
@@ -210,6 +233,7 @@ public class AttributeImplementation implements IAttribute {
     public void setWisdom(int value){
         //TODO: Wisdom: Taming, spell amount
         this.wisdom = value + getWisMod();
+        ManaCapability.get(entity).setMaxMana(10 * getWisdom());
     }
 
     /**

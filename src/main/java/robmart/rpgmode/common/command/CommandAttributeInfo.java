@@ -66,7 +66,7 @@ public class CommandAttributeInfo extends CommandBase {
         else
             player = getCommandSenderAsPlayer(sender);
 
-        attribute = player.getCapability(AttributeCapability.ATTRIBUTE_CAPABILITY, null);
+        attribute = AttributeCapability.get(player);
         info = getInfoFromString(args[0], attribute);
 
         if (info == null)
@@ -76,19 +76,33 @@ public class CommandAttributeInfo extends CommandBase {
     }
 
     private String[] getInfoFromString(String string, IAttribute attribute){
-        return !"strength".equalsIgnoreCase(string) && !"str".equalsIgnoreCase(string) ?
-                (!"dexterity".equalsIgnoreCase(string) && !"dex".equalsIgnoreCase(string) ?
-                        (!"intelligence".equalsIgnoreCase(string) && !"int".equalsIgnoreCase(string) ?
-                                (!"constitution".equalsIgnoreCase(string) && !"con".equalsIgnoreCase(string) ?
-                                        (!"wisdom".equalsIgnoreCase(string) && !"wis".equalsIgnoreCase(string) ?
-                                                (!"attributepoints".equalsIgnoreCase(string) && !"points".equalsIgnoreCase(string) ?
-                                                        null :
-                                                        new String[]{"attribute points", floatToString(attribute.getAttributePoint())}) :
-                                                new String[]{"wisdom", floatToString(attribute.getWisdom())}) :
-                                        new String[]{"constitution", floatToString(attribute.getConstitution())}) :
-                                new String[]{"intelligence", floatToString(attribute.getIntelligence())}) :
-                        new String[]{"dexterity", floatToString(attribute.getDexterity())}) :
-                new String[]{"strength", floatToString(attribute.getStrength())};
+        switch (string.toLowerCase()){
+            case "strength":
+                return new String[]{"strength", floatToString(attribute.getStrength())};
+            case "str":
+                return getInfoFromString("strength", attribute);
+            case "dexterity":
+                return new String[]{"dexterity", floatToString(attribute.getDexterity())};
+            case "dex":
+                return getInfoFromString("dexterity", attribute);
+            case "intelligence":
+                return new String[]{"intelligence", floatToString(attribute.getIntelligence())};
+            case "int":
+                return getInfoFromString("intelligence", attribute);
+            case "constitution":
+                return new String[]{"constitution", floatToString(attribute.getConstitution())};
+            case "con":
+                return getInfoFromString("constitution", attribute);
+            case "wisdom":
+                return new String[]{"wisdom", floatToString(attribute.getWisdom())};
+            case "wis":
+                return getInfoFromString("wisdom", attribute);
+            case "attributepoints":
+                return new String[]{"attribute points", floatToString(attribute.getAttributePoint())};
+            case "points":
+                return getInfoFromString("attributepoints", attribute);
+        }
+        return null;
     }
 
     private String floatToString(float value) {

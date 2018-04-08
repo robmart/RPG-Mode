@@ -71,12 +71,17 @@ public class CommandHealthInfo extends CommandBase {
     }
 
     private String[] getInfoFromString(String string, EntityPlayer player) {
-        return
-                !"health".equalsIgnoreCase(string) && !"h".equalsIgnoreCase(string) ?
-                        (!"maxhealth".equalsIgnoreCase(string) && !"max".equalsIgnoreCase(string) ?
-                                null :
-                                new String[]{"max health", floatToString(player.getMaxHealth())}) :
-                        new String[]{"health", floatToString(player.getHealth())};
+        switch (string.toLowerCase()) {
+            case "health":
+                return new String[]{"health", floatToString(player.getHealth())};
+            case "h":
+                return getInfoFromString("health", player);
+            case "maxhealth":
+                return new String[]{"max health", floatToString(player.getMaxHealth())};
+            case "max":
+                return getInfoFromString("maxhealth", player);
+        }
+        return null;
     }
 
     private String floatToString(float value) {

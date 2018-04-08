@@ -3,7 +3,6 @@ package robmart.rpgmode.common.handlers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ResourceLocation;
@@ -16,8 +15,6 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import robmart.rpgmode.client.network.SyncPlayerMana;
 import robmart.rpgmode.common.capability.attribute.AttributeCapability;
-import robmart.rpgmode.common.capability.attribute.IAttribute;
-import robmart.rpgmode.common.capability.health.IMaxHealth;
 import robmart.rpgmode.common.capability.health.MaxHealthCapability;
 import robmart.rpgmode.common.capability.mana.IMana;
 import robmart.rpgmode.common.capability.mana.ManaCapability;
@@ -71,35 +68,10 @@ public class CapabilityHandler {
 
     @SubscribeEvent
     public void onLivingUpdate(LivingEvent.LivingUpdateEvent event){
-        IMaxHealth healthCap = MaxHealthCapability.get(event.getEntityLiving());
         IMana manaCap = ManaCapability.get(event.getEntityLiving());
-        IAttribute attributeCap = AttributeCapability.get(event.getEntityLiving());
-
-        //Gives players and hostile mobs extra health
-        if (event.getEntityLiving() instanceof EntityPlayer || event.getEntityLiving().isCreatureType(EnumCreatureType.MONSTER, false))
-            healthCap.setBonusMaxHealth((10 * attributeCap.getConstitution()) - (event.getEntityLiving().getMaxHealth() - healthCap.getBonusMaxHealth()));
-
-        //Sets max mana
-        manaCap.setMaxMana(10 * attributeCap.getWisdom());
-
-        //Increases hostile mobs walk speed
-        if (!(event.getEntityLiving() instanceof EntityPlayer) && event.getEntityLiving().isCreatureType(EnumCreatureType.MONSTER, false))
-            if (attributeCap.getConstitution() <= 20)
-                event.getEntityLiving().setAIMoveSpeed(0.1F + (0.0025F * attributeCap.getConstitution()));
-            else
-                //Cap at 50% boost
-                event.getEntityLiving().setAIMoveSpeed(0.1F + (0.0025F * 20));
-
 
         if (event.getEntity() instanceof EntityPlayer){
             EntityPlayer player = (EntityPlayer) event.getEntity();
-
-            //Increases player walk speed
-            if (attributeCap.getConstitution() <= 20)
-                player.capabilities.setPlayerWalkSpeed((0.1F + (0.0025F * attributeCap.getConstitution())));
-            else
-                //Cap at 50% boost
-                player.capabilities.setPlayerWalkSpeed((0.1F + (0.0025F * 20)));
 
             //Regenerates mana
             manaCap.onUpdate(player);
@@ -117,5 +89,8 @@ public class CapabilityHandler {
         if (event.getEntity() instanceof  EntityPlayerMP){
             PacketDispatcher.sendTo(new SyncPlayerMana((EntityPlayer) event.getEntity()), (EntityPlayerMP) event.getEntity());
         }
+
+        if (event.getEntity() instanceof EntityLivingBase)
+            AttributeCapability.get((EntityLivingBase) event.getEntity()).setAttributes(5, 5, 5, 5, 5);
     }
 }

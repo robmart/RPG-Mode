@@ -34,48 +34,49 @@ import javax.annotation.Nullable;
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+@SuppressWarnings({"WeakerAccess", "unused"})
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID)
 public class InitPotionTypes {
-    private static final PotionType STRENGTH;
-    private static final PotionType LONG_STRENGTH;
-    private static final PotionType STRONG_STRENGTH;
+    public static final PotionType STRENGTH;
+    public static final PotionType LONG_STRENGTH;
+    public static final PotionType STRONG_STRENGTH;
 
-    private static final PotionType WEAKNESS;
-    private static final PotionType LONG_WEAKNESS;
-    private static final PotionType STRONG_WEAKNESS;
+    public static final PotionType WEAKNESS;
+    public static final PotionType LONG_WEAKNESS;
+    public static final PotionType STRONG_WEAKNESS;
 
-    private static final PotionType DEXTEROUSNESS;
-    private static final PotionType LONG_DEXTEROUSNESS;
-    private static final PotionType STRONG_DEXTEROUSNESS;
+    public static final PotionType DEXTEROUSNESS;
+    public static final PotionType LONG_DEXTEROUSNESS;
+    public static final PotionType STRONG_DEXTEROUSNESS;
 
-    private static final PotionType CLUMSINESS;
-    private static final PotionType LONG_CLUMSINESS;
-    private static final PotionType STRONG_CLUMSINESS;
+    public static final PotionType CLUMSINESS;
+    public static final PotionType LONG_CLUMSINESS;
+    public static final PotionType STRONG_CLUMSINESS;
 
-    private static final PotionType FORTITUDE;
-    private static final PotionType LONG_FORTITUDE;
-    private static final PotionType STRONG_FORTITUDE;
+    public static final PotionType FORTITUDE;
+    public static final PotionType LONG_FORTITUDE;
+    public static final PotionType STRONG_FORTITUDE;
 
-    private static final PotionType LETHARGY;
-    private static final PotionType LONG_LETHARGY;
-    private static final PotionType STRONG_LETHARGY;
+    public static final PotionType LETHARGY;
+    public static final PotionType LONG_LETHARGY;
+    public static final PotionType STRONG_LETHARGY;
 
-    private static final PotionType INTELLIGENCE;
-    private static final PotionType LONG_INTELLIGENCE;
-    private static final PotionType STRONG_INTELLIGENCE;
+    public static final PotionType INTELLIGENCE;
+    public static final PotionType LONG_INTELLIGENCE;
+    public static final PotionType STRONG_INTELLIGENCE;
 
-    private static final PotionType STUPIDITY;
-    private static final PotionType LONG_STUPIDITY;
-    private static final PotionType STRONG_STUPIDITY;
+    public static final PotionType STUPIDITY;
+    public static final PotionType LONG_STUPIDITY;
+    public static final PotionType STRONG_STUPIDITY;
 
-    private static final PotionType WISDOM;
-    private static final PotionType LONG_WISDOM;
-    private static final PotionType STRONG_WISDOM;
+    public static final PotionType WISDOM;
+    public static final PotionType LONG_WISDOM;
+    public static final PotionType STRONG_WISDOM;
 
-    private static final PotionType FOOLISHNESS;
-    private static final PotionType LONG_FOOLISHNESS;
-    private static final PotionType STRONG_FOOLISHNESS;
+    public static final PotionType FOOLISHNESS;
+    public static final PotionType LONG_FOOLISHNESS;
+    public static final PotionType STRONG_FOOLISHNESS;
 
     static {
         final String LONG_PREFIX = "long_";
@@ -150,11 +151,14 @@ public class InitPotionTypes {
         final ResourceLocation potionName = effect.getPotion().getRegistryName();
         final ResourceLocation potionTypeName;
 
-        if (namePrefix != null)
+        if (namePrefix != null) {
+            assert potionName != null;
             potionTypeName = new ResourceLocation(potionName.getResourceDomain(), namePrefix + potionName.getResourcePath());
+        }
         else
             potionTypeName = potionName;
 
+        assert potionName != null;
         return new PotionType(potionName.toString(), effect).setRegistryName(potionTypeName);
     }
 

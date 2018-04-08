@@ -69,7 +69,6 @@ public abstract class CommonProxy implements IGuiHandler{
 
     public void postInit(FMLPostInitializationEvent event){
         RPGMode.logger.info("Post initialization starting");
-        //RecipeHelper.RemoveBrewing(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.STRENGTH));
     }
 
     public void serverStarting(FMLServerStartingEvent event){
