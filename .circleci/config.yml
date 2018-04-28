@@ -43,5 +43,9 @@ jobs:
       # run tests!
       - run: ./gradlew build
 
+      - run: cd build/libs
+
+      - run: ls
+
       - store_artifacts:
-          path: /build/libs/*
+          path: *
