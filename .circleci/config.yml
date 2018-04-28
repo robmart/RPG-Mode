@@ -24,6 +24,8 @@ jobs:
     steps:
       - checkout
 
+      - run: sudo chmod +x ./gradlew
+
       # Download and cache dependencies
       - restore_cache:
           keys:
