@@ -46,4 +46,5 @@ jobs:
       - run: ls build/libs
 
       - store_artifacts:
-          path: build/libs/*.jar
+          path: build/libs/rpgmode-1.12.2-0.0.2.jar
+          path: build/libs/rpgmode-1.12.2-0.0.2-sources.jar
