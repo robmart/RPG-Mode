@@ -47,4 +47,8 @@ jobs:
 
       - store_artifacts:
           path: build/libs/rpgmode-1.12.2-0.0.2.jar
+          destination: artifacts/
+
+      - store_artifacts:
           path: build/libs/rpgmode-1.12.2-0.0.2-sources.jar
+          destination: artifacts/
