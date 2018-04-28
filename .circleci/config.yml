@@ -3,11 +3,6 @@
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
 version: 2
-
-general:
-  artifacts:
-    - build/libs
-
 jobs:
   build:
     docker:
@@ -47,3 +42,7 @@ jobs:
 
       # run tests!
       - run: ./gradlew build
+
+general:
+  artifacts:
+    - build/libs
