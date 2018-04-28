@@ -3,6 +3,11 @@
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
 version: 2
+
+general:
+    artifacts:
+        - build/libs
+
 jobs:
   build:
     docker:
@@ -42,13 +47,3 @@ jobs:
 
       # run tests!
       - run: ./gradlew build
-
-      - run: ls build/libs
-
-      - store_artifacts:
-          path: build/libs/rpgmode-1.12.2-0.0.2.jar
-          destination: artifacts/
-
-      - store_artifacts:
-          path: build/libs/rpgmode-1.12.2-0.0.2-sources.jar
-          destination: artifacts/
