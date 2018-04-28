@@ -5,8 +5,8 @@
 version: 2
 
 general:
-    artifacts:
-        - build/libs
+  artifacts:
+    - build/libs
 
 jobs:
   build:
