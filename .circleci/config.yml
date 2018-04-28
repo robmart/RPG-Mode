@@ -43,7 +43,7 @@ jobs:
       # run tests!
       - run: ./gradlew build
 
-      - run: cd build/libs
+      - run: cd /build/libs
 
       - run: ls
 
