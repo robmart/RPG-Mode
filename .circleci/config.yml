@@ -45,4 +45,4 @@ jobs:
 
 general:
   artifacts:
-    - build/libs
+    - "build/libs"
