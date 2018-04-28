@@ -49,7 +49,7 @@ public class MaxHealthImplementation implements IMaxHealth {
     /**
      * The minimum max health a player can have.
      */
-    protected static final float MIN_AMOUNT = 2.0f;
+    protected static final float MIN_AMOUNT = 10.0f;
     /**
      * The entity this is attached to.
      */
@@ -144,16 +144,6 @@ public class MaxHealthImplementation implements IMaxHealth {
 
         AttributeModifier modifier = createModifier();
         dummyMaxHealthAttribute.applyModifier(modifier);
-
-        // Increment bonus max health by 0.5 until the max health is at least 2.0 (1 heart).
-        // We do this to avoid setting the entity's max health to 0, which would kill it (and prevent it from respawning if it's a player).
-        // The attribute itself will prevent its value from exceeding the maximum, so adding more than the maximum max health is harmless.
-        while (dummyMaxHealthAttribute.getAttributeValue() < MIN_AMOUNT) {
-            dummyMaxHealthAttribute.removeModifier(modifier);
-            bonusMaxHealth += 0.5f;
-            modifier = createModifier();
-            dummyMaxHealthAttribute.applyModifier(modifier);
-        }
 
         final float newAmount = getBonusMaxHealth();
         final float oldAmount;

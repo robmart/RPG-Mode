@@ -5,10 +5,9 @@ import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ChatType;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.*;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -90,7 +89,19 @@ public class CapabilityHandler {
             PacketDispatcher.sendTo(new SyncPlayerMana((EntityPlayer) event.getEntity()), (EntityPlayerMP) event.getEntity());
         }
 
-        if (event.getEntity() instanceof EntityLivingBase)
-            AttributeCapability.get((EntityLivingBase) event.getEntity()).setAttributes(5, 5, 5, 5, 5);
+        if (!(event.getEntity() instanceof EntityPlayer) && event.getEntity() instanceof EntityLivingBase){
+            final EntityLivingBase entity = (EntityLivingBase) event.getEntity();
+
+            final NBTTagCompound entityData = entity.getEntityData();
+            final NBTTagCompound persistedData = entityData.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+            entityData.setTag(EntityPlayer.PERSISTED_NBT_TAG, persistedData);
+
+            final String key = Reference.MOD_ID + ":JoinedWorld";
+
+            if (!persistedData.getBoolean(key)) {
+                persistedData.setBoolean(key, true);
+                AttributeCapability.get(entity).setAttributes(5, 5, 5, 5, 5);
+            }
+        }
     }
 }

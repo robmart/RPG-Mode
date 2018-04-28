@@ -185,7 +185,7 @@ public class AttributeImplementation implements IAttribute {
         this.constitution = value;
 
         //Set max health
-        MaxHealthCapability.get(entity).setBonusMaxHealth(((float)(10 * getConstitution())));
+        MaxHealthCapability.get(entity).setBonusMaxHealth(((10.0F * getConstitution())));
 
         //Increases hostile mobs walk speed
         if (!(entity instanceof EntityPlayer) && entity.isCreatureType(EnumCreatureType.MONSTER, false))
