@@ -43,4 +43,4 @@ jobs:
 
       - store_artifacts:
         path:
-          - /build/libs/*
+          option1: /build/libs/*
