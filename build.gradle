@@ -26,6 +26,11 @@ version = "${config.mc_version}-${config.mod_version}"
 group= "robmart.rpgmode"
 archivesBaseName = config.mod_name
 
+if (System.getenv().CIRCLE_BUILD_NUM != null) {
+    //adds the build number to the end of the version string if on a build server
+    version += ".${System.getenv().CIRCLE_BUILD_NUM}"
+}
+
 sourceCompatibility = targetCompatibility = "1.8"
 compileJava {
     sourceCompatibility = targetCompatibility = "1.8"
