@@ -79,11 +79,6 @@ task incrementBuildNumber(dependsOn: 'reobfJar') << {
     configFile.withWriter {
         config.toProperties().store(it, "")
     }
-
-    // todo make this flexibile - collection of supported mc versions
-
-    file('web/versions.ini').append("\n${version}=${minecraft.version}")
-    file("${config.dir_repo}/version/${minecraft.version}.txt").write("${version}")
 }
 
 def parseConfig(File config) {
