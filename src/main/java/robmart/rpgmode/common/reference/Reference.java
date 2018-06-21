@@ -22,8 +22,9 @@ package robmart.rpgmode.common.reference;
 public class Reference {
     public static final String MOD_ID = "rpgmode";
     public static final String MOD_NAME = "Rob's RPG Mode";
-    public static final String MOD_VERSION = "1.12-0.0.2";
-    public static final String MINECRAFT_VERSION = "1.12";
+    public static final String BUILD = "GRADLE:BUILD";
+    public static final String MOD_VERSION = "GRADLE:VERSION-" + BUILD;
+    public static final String MINECRAFT_VERSION = "GRADLE:MCVERSION";
 
     public static final String CLIENT_PROXY = "robmart.rpgmode.client.ClientProxy";
     public static final String SERVER_PROXY = "robmart.rpgmode.server.ServerProxy";

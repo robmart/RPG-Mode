@@ -31,11 +31,6 @@ if (System.getenv().CIRCLE_BUILD_NUM != null) {
     version += ".${System.getenv().CIRCLE_BUILD_NUM}"
 }
 
-sourceCompatibility = targetCompatibility = "1.8"
-compileJava {
-    sourceCompatibility = targetCompatibility = "1.8"
-}
-
 minecraft {
     version = "${mc_version}-${forge_version}"
     runDir = "run"
@@ -43,29 +38,52 @@ minecraft {
     if (project.hasProperty('mappings_version'))
         mappings = project.mappings_version
 
+    replace 'GRADLE:BUILD', config.build_number
+    replace 'GRADLE:VERSION', config.mod_version
+    replace 'GRADLE:MCVERSION', config.mod_version
+
+    replaceIn 'Reference.java'
+
+    useDepAts = true
     makeObfSourceJar = true
 }
 
+compileJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 processResources {
-
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
-
+    // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
-
         include 'mcmod.info'
 
-        expand "version": project.version, "mcversion": project.minecraft.version
+        // replace version and mcversion
+        expand 'version': config.mod_version, 'mcversion': config.mc_version
     }
+
+    // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
 }
 
-dependencies {
-    compile files(
-    )
+/**
+ * Increments the buildnumber in your config file, and saves it
+ */
+task incrementBuildNumber(dependsOn: 'reobfJar') << {
+    config.build_number = (config.build_number.toString().toInteger()) + 1
+    configFile.withWriter {
+        config.toProperties().store(it, "")
+    }
+
+    // todo make this flexibile - collection of supported mc versions
+
+    file('web/versions.ini').append("\n${version}=${minecraft.version}")
+    file("${config.dir_repo}/version/${minecraft.version}.txt").write("${version}")
 }
 
 def parseConfig(File config) {

@@ -1,1 +1,1 @@
-cmd /k gradlew clean setupDecompWorkspace idea
+cmd /k gradlew clean setupDecompWorkspace idea genIntellijRuns
