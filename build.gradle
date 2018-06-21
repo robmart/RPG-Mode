@@ -26,9 +26,9 @@ version = "${config.mc_version}-${config.mod_version}"
 group= "robmart.rpgmode"
 archivesBaseName = config.mod_name
 
-if (System.getenv().CIRCLE_BUILD_NUM != null) {
+if (System.getenv("CIRCLE_BUILD_NUM") != null) {
     //adds the build number to the end of the version string if on a build server
-    version += ".${System.getenv().CIRCLE_BUILD_NUM}"
+    version += ".${System.getenv("CIRCLE_BUILD_NUM")}"
 }
 
 minecraft {
