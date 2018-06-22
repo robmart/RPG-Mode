@@ -13,17 +13,14 @@ import net.minecraft.util.IThreadListener;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import robmart.rpgmode.common.creativetab.CreativeTabBrewing;
 import robmart.rpgmode.common.handlers.ConfigurationHandler;
 import robmart.rpgmode.common.init.InitCapabilities;
 import robmart.rpgmode.common.init.InitCommands;
 import robmart.rpgmode.common.network.PacketDispatcher;
-import robmart.rpgmode.creativetab.CreativeTabBrewing;
 
 /**
  * Created by Robmart.
@@ -64,7 +61,6 @@ public abstract class CommonProxy implements IGuiHandler{
 
     public void init(FMLInitializationEvent event){
         RPGMode.logger.info("Initialization starting");
-        CreativeTabBrewing.instance.Init();
     }
 
     public void postInit(FMLPostInitializationEvent event){

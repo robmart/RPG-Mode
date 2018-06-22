@@ -18,9 +18,10 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: "com.matthewprenger.cursegradle"
 
 ext.configFile = file('gradle.properties')
+ext.privFile = file('private.properties')
 
 ext.config = parseConfig(configFile)
-ext.priv = parseConfig(file('private.properties'))
+ext.priv = parseConfig(privFile)
 
 version = "${config.mc_version}-${config.mod_version}"
 group= "robmart.rpgmode"
@@ -74,10 +75,12 @@ processResources {
 /**
  * Increments the buildnumber in your config file, and saves it
  */
-task incrementBuildNumber(dependsOn: 'reobfJar') << {
-    config.build_number = (config.build_number.toString().toInteger()) + 1
-    configFile.withWriter {
-        config.toProperties().store(it, "")
+task incrementBuildNumber(dependsOn: reobfJar) {
+    doLast {
+        config.build_number = (config.build_number.toString().toInteger()) + 1
+        configFile.withWriter {
+            config.toProperties().store(it, "")
+        }
     }
 }
 
@@ -89,6 +92,6 @@ def parseConfig(File config) {
             return (new ConfigSlurper().parse(prop))
         }
     } else {
-        return null;
+        return null
     }
 }

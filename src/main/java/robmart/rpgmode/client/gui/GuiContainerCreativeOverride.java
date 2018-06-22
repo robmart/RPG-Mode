@@ -37,7 +37,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-import robmart.rpgmode.creativetab.CreativeTabBrewing;
+import robmart.rpgmode.common.creativetab.CreativeTabBrewing;
 
 import javax.annotation.Nullable;
 import java.io.IOException;

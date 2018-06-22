@@ -5,7 +5,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLFingerprintViolationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -52,10 +54,9 @@ public class EventHandler {
             message = "Player has joined before.";
         } else {
             persistedData.setBoolean(key, true);
+            AttributeCapability.get(player).setAttributes(5, 5, 5, 5, 5);
 
             message = "Player hasn't joined before.";
-
-            AttributeCapability.get(player).setAttributes(5, 5, 5, 5, 5);
         }
 
         final ITextComponent chatComponent = new TextComponentTranslation(message);
