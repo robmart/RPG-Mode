@@ -43,10 +43,5 @@ jobs:
       # run tests!
       - run: ./gradlew build
 
-      - run: echo $CIRCLE_BUILD_NUM
-
       - store_artifacts:
-          path: build/libs/rpgmode-1.12.2-0.0.2.jar
-
-      - store_artifacts:
-          path: build/libs/rpgmode-1.12.2-0.0.2-sources.jar
+          path: build/libs/
