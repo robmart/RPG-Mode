@@ -37,10 +37,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-import robmart.rpgmode.common.creativetab.CreativeTabBrewing;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -48,7 +48,6 @@ import java.util.Map;
 @SideOnly(Side.CLIENT)
 public class GuiContainerCreativeOverride extends InventoryEffectRenderer
 {
-    //TODO: Remove all hardcoded stuff at the EDIT comments
     /** The location of the creative inventory tabs texture */
     private static final ResourceLocation CREATIVE_INVENTORY_TABS = new ResourceLocation("textures/gui/container/creative_inventory/tabs.png");
     private static final InventoryBasic basicInventory = new InventoryBasic("tmp", true, 45);
@@ -67,6 +66,8 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer
     private CreativeCrafting listener;
     private static int tabPage = 0;
     private int maxPages = 0;
+
+    private static Map<CreativeTabs, CreativeTabs> ReplacedTabs = new HashMap<>();
 
     public GuiContainerCreativeOverride(EntityPlayer player)
     {
@@ -286,45 +287,8 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer
         }
     }
 
-    /**
-     * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the
-     * window resizes, the buttonList is cleared beforehand.
-     */
-    public void initGui()
-    {
-        if (this.mc.playerController.isInCreativeMode())
-        {
-            super.initGui();
-            this.buttonList.clear();
-            Keyboard.enableRepeatEvents(true);
-            this.searchField = new GuiTextField(0, this.fontRenderer, this.guiLeft + 82, this.guiTop + 6, 80, this.fontRenderer.FONT_HEIGHT);
-            this.searchField.setMaxStringLength(50);
-            this.searchField.setEnableBackgroundDrawing(false);
-            this.searchField.setVisible(false);
-            this.searchField.setTextColor(16777215);
-            int i = selectedTabIndex;
-            selectedTabIndex = -1;
-            //EDIT
-            if (i == CreativeTabs.BREWING.getTabIndex()) {
-                this.setCurrentCreativeTab(CreativeTabBrewing.instance);
-                selectedTabIndex = CreativeTabs.BREWING.getTabIndex();
-            } else
-                this.setCurrentCreativeTab(CreativeTabs.CREATIVE_TAB_ARRAY[i]);
-            this.listener = new CreativeCrafting(this.mc);
-            this.mc.player.inventoryContainer.addListener(this.listener);
-            int tabCount = CreativeTabs.CREATIVE_TAB_ARRAY.length;
-            //EDIT
-            if (tabCount - 1 > 12)
-            {
-                buttonList.add(new GuiButton(101, guiLeft,              guiTop - 50, 20, 20, "<"));
-                buttonList.add(new GuiButton(102, guiLeft + xSize - 20, guiTop - 50, 20, 20, ">"));
-                maxPages = (int) Math.ceil((tabCount - 12) / 10D);
-            }
-        }
-        else
-        {
-            this.mc.displayGuiScreen(new GuiInventory(this.mc.player));
-        }
+    public static void addCreativeTabReplacement(CreativeTabs replaced, CreativeTabs replacer) {
+        ReplacedTabs.put(replaced, replacer);
     }
 
     /**
@@ -469,6 +433,45 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer
     }
 
     /**
+     * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the
+     * window resizes, the buttonList is cleared beforehand.
+     */
+    public void initGui() {
+        if (this.mc.playerController.isInCreativeMode()) {
+            super.initGui();
+            this.buttonList.clear();
+            Keyboard.enableRepeatEvents(true);
+            this.searchField = new GuiTextField(0, this.fontRenderer, this.guiLeft + 82, this.guiTop + 6, 80, this.fontRenderer.FONT_HEIGHT);
+            this.searchField.setMaxStringLength(50);
+            this.searchField.setEnableBackgroundDrawing(false);
+            this.searchField.setVisible(false);
+            this.searchField.setTextColor(16777215);
+            int i = selectedTabIndex;
+            selectedTabIndex = -1;
+            this.setCurrentCreativeTab(CreativeTabs.CREATIVE_TAB_ARRAY[i]);
+            this.listener = new CreativeCrafting(this.mc);
+            this.mc.player.inventoryContainer.addListener(this.listener);
+            int tabCount = CreativeTabs.CREATIVE_TAB_ARRAY.length;
+            //EDIT Fixed
+            if (tabCount - ReplacedTabs.size() > 12) {
+                buttonList.add(new GuiButton(101, guiLeft, guiTop - 50, 20, 20, "<"));
+                buttonList.add(new GuiButton(102, guiLeft + xSize - 20, guiTop - 50, 20, 20, ">"));
+                maxPages = (int) Math.ceil((tabCount - 12) / 10D);
+            }
+        } else {
+            this.mc.displayGuiScreen(new GuiInventory(this.mc.player));
+        }
+    }
+
+    /**
+     * returns (if you are not on the inventoryTab) and (the flag isn't set) and (you have more than 1 page of items)
+     */
+    private boolean needsScrollBars() {
+        if (CreativeTabs.CREATIVE_TAB_ARRAY[selectedTabIndex] == null) return false;
+        return selectedTabIndex != CreativeTabs.INVENTORY.getTabIndex() && CreativeTabs.CREATIVE_TAB_ARRAY[selectedTabIndex].shouldHidePlayerInventory() && ((GuiContainerCreativeOverride.ContainerCreative) this.inventorySlots).canScroll();
+    }
+
+    /**
      * Called when a mouse button is released.
      */
     protected void mouseReleased(int mouseX, int mouseY, int state)
@@ -482,165 +485,21 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer
             {
                 if (creativetabs != null && this.isMouseOverTab(creativetabs, i, j))
                 {
-                    //EDIT
-                    if (creativetabs == CreativeTabs.BREWING)
-                        this.setCurrentCreativeTab(CreativeTabBrewing.instance);
-                    else if (creativetabs == CreativeTabBrewing.instance)
-                        return;
-                    else
-                        this.setCurrentCreativeTab(creativetabs);
+                    //EDIT Fixed
+                    for (Map.Entry<CreativeTabs, CreativeTabs> entry : ReplacedTabs.entrySet())
+                        if (creativetabs == entry.getKey()) {
+                            this.setCurrentCreativeTab(entry.getValue());
+                            return;
+                        } else if (creativetabs == entry.getValue())
+                            return;
+
+                    this.setCurrentCreativeTab(creativetabs);
                     return;
                 }
             }
         }
 
         super.mouseReleased(mouseX, mouseY, state);
-    }
-
-    /**
-     * returns (if you are not on the inventoryTab) and (the flag isn't set) and (you have more than 1 page of items)
-     */
-    private boolean needsScrollBars()
-    {
-        if (CreativeTabs.CREATIVE_TAB_ARRAY[selectedTabIndex] == null) return false;
-        return selectedTabIndex != CreativeTabs.INVENTORY.getTabIndex() && CreativeTabs.CREATIVE_TAB_ARRAY[selectedTabIndex].shouldHidePlayerInventory() && ((GuiContainerCreativeOverride.ContainerCreative)this.inventorySlots).canScroll();
-    }
-
-    /**
-     * Sets the current creative tab, restructuring the GUI as needed.
-     */
-    private void setCurrentCreativeTab(CreativeTabs tab)
-    {
-        if (tab == null) return;
-        int i = selectedTabIndex;
-        //EDIT
-        if (tab == CreativeTabBrewing.instance)
-            selectedTabIndex = CreativeTabs.BREWING.getTabIndex();
-        else
-            selectedTabIndex = tab.getTabIndex();
-        GuiContainerCreativeOverride.ContainerCreative guicontainercreative$containercreative = (GuiContainerCreativeOverride.ContainerCreative)this.inventorySlots;
-        this.dragSplittingSlots.clear();
-        guicontainercreative$containercreative.itemList.clear();
-
-        if (tab == CreativeTabs.HOTBAR)
-        {
-            for (int j = 0; j < 9; ++j)
-            {
-                HotbarSnapshot hotbarsnapshot = this.mc.creativeSettings.getHotbarSnapshot(j);
-
-                if (hotbarsnapshot.isEmpty())
-                {
-                    for (int k = 0; k < 9; ++k)
-                    {
-                        if (k == j)
-                        {
-                            ItemStack itemstack = new ItemStack(Items.PAPER);
-                            itemstack.getOrCreateSubCompound("CustomCreativeLock");
-                            String s = GameSettings.getKeyDisplayString(this.mc.gameSettings.keyBindsHotbar[j].getKeyCode());
-                            String s1 = GameSettings.getKeyDisplayString(this.mc.gameSettings.keyBindSaveToolbar.getKeyCode());
-                            itemstack.setStackDisplayName((new TextComponentTranslation("inventory.hotbarInfo", s1, s)).getUnformattedText());
-                            guicontainercreative$containercreative.itemList.add(itemstack);
-                        }
-                        else
-                        {
-                            guicontainercreative$containercreative.itemList.add(ItemStack.EMPTY);
-                        }
-                    }
-                }
-                else
-                {
-                    guicontainercreative$containercreative.itemList.addAll(hotbarsnapshot);
-                }
-            }
-        }
-        else if (tab != CreativeTabs.SEARCH)
-        {
-            tab.displayAllRelevantItems(guicontainercreative$containercreative.itemList);
-        }
-
-        if (tab == CreativeTabs.INVENTORY)
-        {
-            Container container = this.mc.player.inventoryContainer;
-
-            if (this.originalSlots == null)
-            {
-                this.originalSlots = guicontainercreative$containercreative.inventorySlots;
-            }
-
-            guicontainercreative$containercreative.inventorySlots = Lists.newArrayList();
-
-            for (int l = 0; l < container.inventorySlots.size(); ++l)
-            {
-                Slot slot = new GuiContainerCreativeOverride.CreativeSlot(container.inventorySlots.get(l), l);
-                guicontainercreative$containercreative.inventorySlots.add(slot);
-
-                if (l >= 5 && l < 9)
-                {
-                    int j1 = l - 5;
-                    int l1 = j1 / 2;
-                    int j2 = j1 % 2;
-                    slot.xPos = 54 + l1 * 54;
-                    slot.yPos = 6 + j2 * 27;
-                }
-                else if (l >= 0 && l < 5)
-                {
-                    slot.xPos = -2000;
-                    slot.yPos = -2000;
-                }
-                else if (l == 45)
-                {
-                    slot.xPos = 35;
-                    slot.yPos = 20;
-                }
-                else if (l < container.inventorySlots.size())
-                {
-                    int i1 = l - 9;
-                    int k1 = i1 % 9;
-                    int i2 = i1 / 9;
-                    slot.xPos = 9 + k1 * 18;
-
-                    if (l >= 36)
-                    {
-                        slot.yPos = 112;
-                    }
-                    else
-                    {
-                        slot.yPos = 54 + i2 * 18;
-                    }
-                }
-            }
-
-            this.destroyItemSlot = new Slot(basicInventory, 0, 173, 112);
-            guicontainercreative$containercreative.inventorySlots.add(this.destroyItemSlot);
-        }
-        else if (i == CreativeTabs.INVENTORY.getTabIndex())
-        {
-            guicontainercreative$containercreative.inventorySlots = this.originalSlots;
-            this.originalSlots = null;
-        }
-
-        if (this.searchField != null)
-        {
-            if (tab.hasSearchBar())
-            {
-                this.searchField.setVisible(true);
-                this.searchField.setCanLoseFocus(false);
-                this.searchField.setFocused(true);
-                this.searchField.setText("");
-                this.searchField.width = tab.getSearchbarWidth();
-                this.searchField.x = this.guiLeft + (82 /*default left*/ + 89 /*default width*/) - this.searchField.width;
-                this.updateCreativeSearch();
-            }
-            else
-            {
-                this.searchField.setVisible(false);
-                this.searchField.setCanLoseFocus(true);
-                this.searchField.setFocused(false);
-            }
-        }
-
-        this.currentScroll = 0.0F;
-        guicontainercreative$containercreative.scrollTo(0.0F);
     }
 
     /**
@@ -909,14 +768,127 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer
     }
 
     /**
+     * Sets the current creative tab, restructuring the GUI as needed.
+     */
+    private void setCurrentCreativeTab(CreativeTabs tab) {
+        if (tab == null) return;
+        int i = selectedTabIndex;
+        //EDIT Fixed
+        boolean changed = false;
+        for (Map.Entry<CreativeTabs, CreativeTabs> entry : ReplacedTabs.entrySet())
+            if (tab == entry.getValue()) {
+                selectedTabIndex = entry.getKey().getTabIndex();
+                changed = true;
+            }
+
+        if (!changed)
+            selectedTabIndex = tab.getTabIndex();
+
+        GuiContainerCreativeOverride.ContainerCreative guicontainercreative$containercreative = (GuiContainerCreativeOverride.ContainerCreative) this.inventorySlots;
+        this.dragSplittingSlots.clear();
+        guicontainercreative$containercreative.itemList.clear();
+
+        if (tab == CreativeTabs.HOTBAR) {
+            for (int j = 0; j < 9; ++j) {
+                HotbarSnapshot hotbarsnapshot = this.mc.creativeSettings.getHotbarSnapshot(j);
+
+                if (hotbarsnapshot.isEmpty()) {
+                    for (int k = 0; k < 9; ++k) {
+                        if (k == j) {
+                            ItemStack itemstack = new ItemStack(Items.PAPER);
+                            itemstack.getOrCreateSubCompound("CustomCreativeLock");
+                            String s = GameSettings.getKeyDisplayString(this.mc.gameSettings.keyBindsHotbar[j].getKeyCode());
+                            String s1 = GameSettings.getKeyDisplayString(this.mc.gameSettings.keyBindSaveToolbar.getKeyCode());
+                            itemstack.setStackDisplayName((new TextComponentTranslation("inventory.hotbarInfo", s1, s)).getUnformattedText());
+                            guicontainercreative$containercreative.itemList.add(itemstack);
+                        } else {
+                            guicontainercreative$containercreative.itemList.add(ItemStack.EMPTY);
+                        }
+                    }
+                } else {
+                    guicontainercreative$containercreative.itemList.addAll(hotbarsnapshot);
+                }
+            }
+        } else if (tab != CreativeTabs.SEARCH) {
+            tab.displayAllRelevantItems(guicontainercreative$containercreative.itemList);
+        }
+
+        if (tab == CreativeTabs.INVENTORY) {
+            Container container = this.mc.player.inventoryContainer;
+
+            if (this.originalSlots == null) {
+                this.originalSlots = guicontainercreative$containercreative.inventorySlots;
+            }
+
+            guicontainercreative$containercreative.inventorySlots = Lists.newArrayList();
+
+            for (int l = 0; l < container.inventorySlots.size(); ++l) {
+                Slot slot = new GuiContainerCreativeOverride.CreativeSlot(container.inventorySlots.get(l), l);
+                guicontainercreative$containercreative.inventorySlots.add(slot);
+
+                if (l >= 5 && l < 9) {
+                    int j1 = l - 5;
+                    int l1 = j1 / 2;
+                    int j2 = j1 % 2;
+                    slot.xPos = 54 + l1 * 54;
+                    slot.yPos = 6 + j2 * 27;
+                } else if (l >= 0 && l < 5) {
+                    slot.xPos = -2000;
+                    slot.yPos = -2000;
+                } else if (l == 45) {
+                    slot.xPos = 35;
+                    slot.yPos = 20;
+                } else if (l < container.inventorySlots.size()) {
+                    int i1 = l - 9;
+                    int k1 = i1 % 9;
+                    int i2 = i1 / 9;
+                    slot.xPos = 9 + k1 * 18;
+
+                    if (l >= 36) {
+                        slot.yPos = 112;
+                    } else {
+                        slot.yPos = 54 + i2 * 18;
+                    }
+                }
+            }
+
+            this.destroyItemSlot = new Slot(basicInventory, 0, 173, 112);
+            guicontainercreative$containercreative.inventorySlots.add(this.destroyItemSlot);
+        } else if (i == CreativeTabs.INVENTORY.getTabIndex()) {
+            guicontainercreative$containercreative.inventorySlots = this.originalSlots;
+            this.originalSlots = null;
+        }
+
+        if (this.searchField != null) {
+            if (tab.hasSearchBar()) {
+                this.searchField.setVisible(true);
+                this.searchField.setCanLoseFocus(false);
+                this.searchField.setFocused(true);
+                this.searchField.setText("");
+                this.searchField.width = tab.getSearchbarWidth();
+                this.searchField.x = this.guiLeft + (82 /*default left*/ + 89 /*default width*/) - this.searchField.width;
+                this.updateCreativeSearch();
+            } else {
+                this.searchField.setVisible(false);
+                this.searchField.setCanLoseFocus(true);
+                this.searchField.setFocused(false);
+            }
+        }
+
+        this.currentScroll = 0.0F;
+        guicontainercreative$containercreative.scrollTo(0.0F);
+    }
+
+    /**
      * Renders the creative inventory hovering text if mouse is over it. Returns true if did render or false otherwise.
      * Params: current creative tab to be checked, current mouse x position, current mouse y position.
      */
     protected boolean renderCreativeInventoryHoveringText(CreativeTabs tab, int mouseX, int mouseY)
     {
-        //Edit
-        if (tab == CreativeTabBrewing.instance)
-            return false;
+        //Edit Fixed
+        for (Map.Entry<CreativeTabs, CreativeTabs> entry : ReplacedTabs.entrySet())
+            if (tab == entry.getValue())
+                return false;
 
         int i = tab.getTabColumn();
         int j = 28 * i;
@@ -952,13 +924,62 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer
     }
 
     /**
+     * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
+     */
+    protected void actionPerformed(GuiButton button) {
+        if (button.id == 1) {
+            this.mc.displayGuiScreen(new GuiStats(this, this.mc.player.getStatFileWriter()));
+        }
+
+        if (button.id == 101) {
+            tabPage = Math.max(tabPage - 1, 0);
+        } else if (button.id == 102) {
+            tabPage = Math.min(tabPage + 1, maxPages);
+        }
+    }
+
+    /**
+     * Returns the index of the currently selected tab.
+     */
+    public int getSelectedTabIndex() {
+        return selectedTabIndex;
+    }
+
+    public static void handleHotbarSnapshots(Minecraft p_192044_0_, int p_192044_1_, boolean p_192044_2_, boolean p_192044_3_) {
+        EntityPlayerSP entityplayersp = p_192044_0_.player;
+        CreativeSettings creativesettings = p_192044_0_.creativeSettings;
+        HotbarSnapshot hotbarsnapshot = creativesettings.getHotbarSnapshot(p_192044_1_);
+
+        if (p_192044_2_) {
+            for (int i = 0; i < InventoryPlayer.getHotbarSize(); ++i) {
+                ItemStack itemstack = hotbarsnapshot.get(i).copy();
+                entityplayersp.inventory.setInventorySlotContents(i, itemstack);
+                p_192044_0_.playerController.sendSlotPacket(itemstack, 36 + i);
+            }
+
+            entityplayersp.inventoryContainer.detectAndSendChanges();
+        } else if (p_192044_3_) {
+            for (int j = 0; j < InventoryPlayer.getHotbarSize(); ++j) {
+                hotbarsnapshot.set(j, entityplayersp.inventory.getStackInSlot(j).copy());
+            }
+
+            String s = GameSettings.getKeyDisplayString(p_192044_0_.gameSettings.keyBindsHotbar[p_192044_1_].getKeyCode());
+            String s1 = GameSettings.getKeyDisplayString(p_192044_0_.gameSettings.keyBindLoadToolbar.getKeyCode());
+            p_192044_0_.ingameGUI.setOverlayMessage(new TextComponentTranslation("inventory.hotbarSaved", s1, s), false);
+            creativesettings.write();
+        }
+    }
+
+    /**
      * Draws the given tab and its background, deciding whether to highlight the tab or not based off of the selected
      * index.
      */
     protected void drawTab(CreativeTabs tab)
     {
-        //EDIT
-        if (tab == CreativeTabBrewing.instance) return;
+        //EDIT Fixed
+        for (Map.Entry<CreativeTabs, CreativeTabs> entry : ReplacedTabs.entrySet())
+            if (tab == entry.getValue())
+                return;
 
         boolean flag = tab.getTabIndex() == selectedTabIndex;
         boolean flag1 = tab.isTabInFirstRow();
@@ -1009,64 +1030,6 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer
         GlStateManager.disableLighting();
         this.itemRender.zLevel = 0.0F;
         this.zLevel = 0.0F;
-    }
-
-    /**
-     * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
-     */
-    protected void actionPerformed(GuiButton button) {
-        if (button.id == 1)
-        {
-            this.mc.displayGuiScreen(new GuiStats(this, this.mc.player.getStatFileWriter()));
-        }
-
-        if (button.id == 101)
-        {
-            tabPage = Math.max(tabPage - 1, 0);
-        }
-        else if (button.id == 102)
-        {
-            tabPage = Math.min(tabPage + 1, maxPages);
-        }
-    }
-
-    /**
-     * Returns the index of the currently selected tab.
-     */
-    public int getSelectedTabIndex()
-    {
-        return selectedTabIndex;
-    }
-
-    public static void handleHotbarSnapshots(Minecraft p_192044_0_, int p_192044_1_, boolean p_192044_2_, boolean p_192044_3_)
-    {
-        EntityPlayerSP entityplayersp = p_192044_0_.player;
-        CreativeSettings creativesettings = p_192044_0_.creativeSettings;
-        HotbarSnapshot hotbarsnapshot = creativesettings.getHotbarSnapshot(p_192044_1_);
-
-        if (p_192044_2_)
-        {
-            for (int i = 0; i < InventoryPlayer.getHotbarSize(); ++i)
-            {
-                ItemStack itemstack = hotbarsnapshot.get(i).copy();
-                entityplayersp.inventory.setInventorySlotContents(i, itemstack);
-                p_192044_0_.playerController.sendSlotPacket(itemstack, 36 + i);
-            }
-
-            entityplayersp.inventoryContainer.detectAndSendChanges();
-        }
-        else if (p_192044_3_)
-        {
-            for (int j = 0; j < InventoryPlayer.getHotbarSize(); ++j)
-            {
-                hotbarsnapshot.set(j, entityplayersp.inventory.getStackInSlot(j).copy());
-            }
-
-            String s = GameSettings.getKeyDisplayString(p_192044_0_.gameSettings.keyBindsHotbar[p_192044_1_].getKeyCode());
-            String s1 = GameSettings.getKeyDisplayString(p_192044_0_.gameSettings.keyBindLoadToolbar.getKeyCode());
-            p_192044_0_.ingameGUI.setOverlayMessage(new TextComponentTranslation("inventory.hotbarSaved", s1, s), false);
-            creativesettings.write();
-        }
     }
 
     @SideOnly(Side.CLIENT)
