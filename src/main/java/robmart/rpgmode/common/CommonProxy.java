@@ -60,6 +60,7 @@ public abstract class CommonProxy implements IGuiHandler{
 
     public void postInit(FMLPostInitializationEvent event){
         RPGMode.logger.info("Post initialization starting");
+        InitItems.registerOreDictionary();
     }
 
     public void serverStarting(FMLServerStartingEvent event){

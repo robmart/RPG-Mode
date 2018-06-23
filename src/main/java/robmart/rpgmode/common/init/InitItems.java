@@ -1,12 +1,17 @@
 package robmart.rpgmode.common.init;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
+import net.minecraft.init.PotionTypes;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 import robmart.rpgmode.common.RPGMode;
+import robmart.rpgmode.common.helper.PotionHelper;
 import robmart.rpgmode.common.item.ItemBase;
 import robmart.rpgmode.common.reference.Reference;
 
@@ -33,6 +38,8 @@ import robmart.rpgmode.common.reference.Reference;
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID)
 @SuppressWarnings("unused")
 public class InitItems {
+    private static int oreDictCounter = 0;
+
     public static final ItemBase BAT_WING = new ItemBase("bat_wing", CreativeTabs.BREWING);
 
     @SubscribeEvent
@@ -42,5 +49,34 @@ public class InitItems {
                 BAT_WING
         );
         RPGMode.logger.info(String.format("%s items added", ItemBase.itemCounter));
+    }
+
+    public static void registerOreDictionary() {
+        RPGMode.logger.info("Adding ore dictionary entries");
+
+        //Items
+        registerOre("wingBat", new ItemStack(BAT_WING));
+
+        //Potions
+        registerOre("potionStrength", PotionHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.STRENGTH));
+        registerOre("potionLongStrength", PotionHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.LONG_STRENGTH));
+        registerOre("potionStrongStrength", PotionHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.STRONG_STRENGTH));
+
+        registerOre("potionStrength", PotionHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.STRENGTH));
+        registerOre("potionLongStrength", PotionHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.LONG_STRENGTH));
+        registerOre("potionStrongStrength", PotionHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.STRONG_STRENGTH));
+
+        registerOre("potionWeakness", PotionHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.WEAKNESS));
+        registerOre("potionLongWeakness", PotionHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.LONG_WEAKNESS));
+
+        registerOre("potionWeakness", PotionHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.WEAKNESS));
+        registerOre("potionLongWeakness", PotionHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.LONG_WEAKNESS));
+
+        RPGMode.logger.info(String.format("%s ore dictionary entries added", oreDictCounter));
+    }
+
+    private static void registerOre(String name, ItemStack ore) {
+        OreDictionary.registerOre(name, ore);
+        oreDictCounter++;
     }
 }
