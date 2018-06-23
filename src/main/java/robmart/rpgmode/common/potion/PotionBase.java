@@ -34,6 +34,11 @@ import java.util.Objects;
  */
 public class PotionBase extends Potion {
     /**
+     * Counts how many potions have been added so far
+     */
+    public static int potionCounter = 0;
+
+    /**
      * The icon texture to use in the HUD and inventory GUI.
      */
     private final ResourceLocation iconTexture;
@@ -42,6 +47,7 @@ public class PotionBase extends Potion {
         super(isBadEffect, liquidColor);
         setPotionName(this, name);
         iconTexture = new ResourceLocation(Reference.MOD_ID, "textures/potions/" + name + ".png");
+        potionCounter++;
     }
 
     public PotionBase(final boolean isBadEffect, final int liquidR, final int liquidG, final int liquidB, final String name) {

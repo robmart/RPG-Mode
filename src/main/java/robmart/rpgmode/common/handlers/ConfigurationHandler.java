@@ -30,6 +30,7 @@ import java.io.File;
 public class ConfigurationHandler {
 
     public static Configuration config;
+
     public static boolean displayManaValue = false;
     public static boolean displayHealthValue = false;
     public static boolean moveManaBar = true;

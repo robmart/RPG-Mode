@@ -1,6 +1,8 @@
 package robmart.rpgmode.common.init;
 
+import net.minecraft.command.ICommand;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import robmart.rpgmode.common.RPGMode;
 import robmart.rpgmode.common.command.*;
 
 /**
@@ -24,14 +26,21 @@ import robmart.rpgmode.common.command.*;
  */
 
 public class InitCommands {
-
+    private static int commandCounter = 0;
     public static void init(FMLServerStartingEvent event){
-        event.registerServerCommand(new CommandManaInfo());
-        event.registerServerCommand(new CommandSetMana());
-        event.registerServerCommand(new CommandRestore());
-        event.registerServerCommand(new CommandSetHealth());
-        event.registerServerCommand(new CommandHealthInfo());
-        event.registerServerCommand(new CommandAttributeInfo());
-        event.registerServerCommand(new CommandSetAttribute());
+        RPGMode.logger.info("Adding commands");
+        registerCommand(event, new CommandManaInfo());
+        registerCommand(event, new CommandSetMana());
+        registerCommand(event, new CommandRestore());
+        registerCommand(event, new CommandSetHealth());
+        registerCommand(event, new CommandHealthInfo());
+        registerCommand(event, new CommandAttributeInfo());
+        registerCommand(event, new CommandSetAttribute());
+        RPGMode.logger.info(String.format("%s commands added", commandCounter));
+    }
+
+    private static void registerCommand(FMLServerStartingEvent event, ICommand command) {
+        event.registerServerCommand(command);
+        commandCounter++;
     }
 }

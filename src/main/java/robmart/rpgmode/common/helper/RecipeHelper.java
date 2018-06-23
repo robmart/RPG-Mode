@@ -38,12 +38,11 @@ public class RecipeHelper {
     /**
      * Remove a crafting recipe
      * @param resultItem - the recipe's output Item
-     * @param stacksize - the recipe's output stack size
+     * @param stackSize - the recipe's output stack size
      * @param meta - the recipe's output metadata
      */
-    public static void RemoveRecipe(Item resultItem, int stacksize, int meta) {
-        ItemStack resultStack = new ItemStack(resultItem, stacksize, meta);
-        RemoveRecipe(resultStack);
+    public static void RemoveRecipe(Item resultItem, int stackSize, int meta) {
+        RemoveRecipe(new ItemStack(resultItem, stackSize, meta));
     }
 
     /**

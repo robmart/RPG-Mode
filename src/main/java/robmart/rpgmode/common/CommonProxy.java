@@ -1,22 +1,15 @@
 package robmart.rpgmode.common;
 
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.init.PotionTypes;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.IThreadListener;
-import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import robmart.rpgmode.common.creativetab.CreativeTabBrewing;
 import robmart.rpgmode.common.handlers.ConfigurationHandler;
 import robmart.rpgmode.common.init.InitCapabilities;
 import robmart.rpgmode.common.init.InitCommands;
@@ -47,10 +40,12 @@ public abstract class CommonProxy implements IGuiHandler{
         RPGMode.logger.info("Pre initialization starting");
 
         try {
+            RPGMode.logger.info("Loading configuration");
             ConfigurationHandler.initialize(event.getSuggestedConfigurationFile());
+        } catch (Exception e) {
             RPGMode.logger.error("Problem loading configuration");
         } finally {
-            if (ConfigurationHandler.config!=null) ConfigurationHandler.save();
+            if (ConfigurationHandler.config != null) ConfigurationHandler.save();
         }
 
         InitCapabilities.init();

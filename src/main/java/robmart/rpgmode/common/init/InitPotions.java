@@ -5,6 +5,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import robmart.rpgmode.common.RPGMode;
 import robmart.rpgmode.common.potion.*;
 import robmart.rpgmode.common.reference.Reference;
 
@@ -44,6 +45,7 @@ public class InitPotions {
 
     @SubscribeEvent
     public static void registerPotions(final RegistryEvent.Register<Potion> event) {
+        RPGMode.logger.info("Adding potions");
         event.getRegistry().registerAll(
                 STRENGTH,
                 WEAKNESS,
@@ -60,5 +62,6 @@ public class InitPotions {
                 WISDOM,
                 FOOLISHNESS
         );
+        RPGMode.logger.info(String.format("%s potions added", PotionBase.potionCounter));
     }
 }

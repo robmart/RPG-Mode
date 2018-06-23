@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
+import robmart.rpgmode.common.RPGMode;
 import robmart.rpgmode.common.helper.RegistryHelper;
 import robmart.rpgmode.common.reference.Reference;
 
@@ -38,6 +39,8 @@ import javax.annotation.Nullable;
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID)
 public class InitPotionTypes {
+    private static int potionTypeCounter = 0;
+
     public static final PotionType STRENGTH;
     public static final PotionType LONG_STRENGTH;
     public static final PotionType STRONG_STRENGTH;
@@ -102,6 +105,7 @@ public class InitPotionTypes {
         final Potion wisdom = RegistryHelper.getRegistryEntry(potionRegistry, "wisdom");
         final Potion foolishness = RegistryHelper.getRegistryEntry(potionRegistry, "foolishness");
 
+        RPGMode.logger.info("Adding potion types");
         STRENGTH = createPotionType(new PotionEffect(strength, HELPFUL_DURATION_STANDARD));
         LONG_STRENGTH = createPotionType(new PotionEffect(strength, HELPFUL_DURATION_LONG), LONG_PREFIX);
         STRONG_STRENGTH = createPotionType(new PotionEffect(strength, HELPFUL_DURATION_STRONG, 1), STRONG_PREFIX);
@@ -159,6 +163,8 @@ public class InitPotionTypes {
             potionTypeName = potionName;
 
         assert potionName != null;
+
+        potionTypeCounter++;
         return new PotionType(potionName.toString(), effect).setRegistryName(potionTypeName);
     }
 
@@ -205,5 +211,6 @@ public class InitPotionTypes {
                 LONG_FOOLISHNESS,
                 STRONG_FOOLISHNESS
         );
+        RPGMode.logger.info(String.format("%s potion types added", potionTypeCounter));
     }
 }
