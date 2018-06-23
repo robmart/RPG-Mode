@@ -19,10 +19,13 @@ commands.rpgmode.setmana.usage=/sethealth <fält> <värde> [spelare]
 commands.rpgmode.sethealth.success1=Din %s är nu %s
 commands.rpgmode.sethealth.success2=%ss %s är nu %s
 
+# Items
+item.rpgmode:bat_wing.name=Fladdermus Vinge
+
 # Config stuff
 category.rpgmode.general=Allmänt
 category.rpgmode.client=Klient
-tooltip.rpgmode.general.tooltip=Allmänna saker som applicerar rill alla. Mest gameplay ändrande alternativ.
+tooltip.rpgmode.general.tooltip=Allmänna saker som applicerar till alla. Mest gameplay ändrande alternativ.
 tooltip.rpgmode.client.tooltip=Saker som bara applicerar till klienten. Mest UI och andra grafiska alternativ.
 healthValueRender.enabled=Rendera Hälsa Värde
 manaValueRender.enabled=Rendera Mana Värde

@@ -85,6 +85,9 @@ lingering_potion.effect.rpgmode:foolishness=Lingering Potion of Foolishness
 tipped_arrow.effect.rpgmode:foolishness=Arrow of Foolishness
 effect.rpgmode:foolishness=Foolishness
 
+# Items
+item.rpgmode:bat_wing.name=Bat Wing
+
 # Config stuff
 category.rpgmode.general=General
 category.rpgmode.client=Client
