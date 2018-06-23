@@ -41,5 +41,6 @@ public class InitItems {
         event.getRegistry().registerAll(
                 BAT_WING
         );
+        RPGMode.logger.info(String.format("%s items added", ItemBase.itemCounter));
     }
 }
