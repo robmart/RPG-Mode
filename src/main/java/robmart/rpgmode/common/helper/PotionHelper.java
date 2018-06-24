@@ -2,6 +2,11 @@ package robmart.rpgmode.common.helper;
 
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.PotionType;
+import net.minecraft.potion.PotionUtils;
 import robmart.rpgmode.common.reference.Reference;
 
 /**
@@ -29,4 +34,11 @@ public class PotionHelper {
     public static final IAttribute FORTITUDE = (new RangedAttribute(null, Reference.MOD_ID + ".fortitude", 0, -10, 10)).setDescription("Constitution").setShouldWatch(true);
     public static final IAttribute INTELLIGENCE = (new RangedAttribute(null, Reference.MOD_ID + ".intelligence", 0, -10, 10)).setDescription("Intelligence").setShouldWatch(true);
     public static final IAttribute WISDOM = (new RangedAttribute(null, Reference.MOD_ID + ".wisdom", 0, -10, 10)).setDescription("Wisdom").setShouldWatch(true);
+
+    public static ItemStack getItemStackOfPotion(Item it, PotionType pt) {
+        ItemStack res = new ItemStack(it);
+        res.setTagCompound(new NBTTagCompound());
+        PotionUtils.addPotionToItemStack(res, pt);
+        return res;
+    }
 }
