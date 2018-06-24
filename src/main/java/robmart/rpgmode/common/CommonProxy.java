@@ -13,7 +13,10 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import robmart.rpgmode.common.handlers.ConfigurationHandler;
 import robmart.rpgmode.common.init.InitCapabilities;
 import robmart.rpgmode.common.init.InitCommands;
+import robmart.rpgmode.common.init.InitItems;
 import robmart.rpgmode.common.network.PacketDispatcher;
+
+//import robmart.rpgmode.common.init.InitRecipes;
 
 /**
  * Created by Robmart.

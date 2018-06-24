@@ -448,7 +448,15 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer
             this.searchField.setTextColor(16777215);
             int i = selectedTabIndex;
             selectedTabIndex = -1;
-            this.setCurrentCreativeTab(CreativeTabs.CREATIVE_TAB_ARRAY[i]);
+            //EDIT Fixed
+            boolean hasChangedTab = false;
+            for (Map.Entry<CreativeTabs, CreativeTabs> entry : ReplacedTabs.entrySet())
+                if (CreativeTabs.CREATIVE_TAB_ARRAY[i] == entry.getKey()) {
+                    this.setCurrentCreativeTab(entry.getValue());
+                    hasChangedTab = true;
+                }
+            if (!hasChangedTab)
+                this.setCurrentCreativeTab(CreativeTabs.CREATIVE_TAB_ARRAY[i]);
             this.listener = new CreativeCrafting(this.mc);
             this.mc.player.inventoryContainer.addListener(this.listener);
             int tabCount = CreativeTabs.CREATIVE_TAB_ARRAY.length;
