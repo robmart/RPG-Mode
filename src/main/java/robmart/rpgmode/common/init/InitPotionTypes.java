@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 import robmart.rpgmode.common.RPGMode;
 import robmart.rpgmode.common.helper.RegistryHelper;
+import robmart.rpgmode.common.reference.RefPotionNames;
 import robmart.rpgmode.common.reference.Reference;
 
 import javax.annotation.Nullable;
@@ -96,17 +97,17 @@ public class InitPotionTypes {
         final int HARMFUL_DURATION_STRONG = 900;
 
         final IForgeRegistry<Potion> potionRegistry = ForgeRegistries.POTIONS;
-        final Potion lava = RegistryHelper.getRegistryEntry(potionRegistry, "lava");
-        final Potion strength = RegistryHelper.getRegistryEntry(potionRegistry, "strength");
-        final Potion weakness = RegistryHelper.getRegistryEntry(potionRegistry, "weakness");
-        final Potion dexterousness = RegistryHelper.getRegistryEntry(potionRegistry, "dexterousness");
-        final Potion clumsiness = RegistryHelper.getRegistryEntry(potionRegistry, "clumsiness");
-        final Potion fortitude = RegistryHelper.getRegistryEntry(potionRegistry, "fortitude");
-        final Potion lethargy = RegistryHelper.getRegistryEntry(potionRegistry, "lethargy");
-        final Potion intelligence = RegistryHelper.getRegistryEntry(potionRegistry, "intelligence");
-        final Potion stupidity = RegistryHelper.getRegistryEntry(potionRegistry, "stupidity");
-        final Potion wisdom = RegistryHelper.getRegistryEntry(potionRegistry, "wisdom");
-        final Potion foolishness = RegistryHelper.getRegistryEntry(potionRegistry, "foolishness");
+        final Potion lava = RegistryHelper.getRegistryEntry(potionRegistry, RefPotionNames.LAVA);
+        final Potion strength = RegistryHelper.getRegistryEntry(potionRegistry, RefPotionNames.STRENGTH);
+        final Potion weakness = RegistryHelper.getRegistryEntry(potionRegistry, RefPotionNames.WEAKNESS);
+        final Potion dexterousness = RegistryHelper.getRegistryEntry(potionRegistry, RefPotionNames.DEXTEROUSNESS);
+        final Potion clumsiness = RegistryHelper.getRegistryEntry(potionRegistry, RefPotionNames.CLUMSINESS);
+        final Potion fortitude = RegistryHelper.getRegistryEntry(potionRegistry, RefPotionNames.FORTITUDE);
+        final Potion lethargy = RegistryHelper.getRegistryEntry(potionRegistry, RefPotionNames.LETHARGY);
+        final Potion intelligence = RegistryHelper.getRegistryEntry(potionRegistry, RefPotionNames.INTELLIGENCE);
+        final Potion stupidity = RegistryHelper.getRegistryEntry(potionRegistry, RefPotionNames.STUPIDITY);
+        final Potion wisdom = RegistryHelper.getRegistryEntry(potionRegistry, RefPotionNames.WISDOM);
+        final Potion foolishness = RegistryHelper.getRegistryEntry(potionRegistry, RefPotionNames.FOOLISHNESS);
 
         RPGMode.logger.info("Adding potion types");
         LAVA = createPotionType(new PotionEffect(lava, -1));

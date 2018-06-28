@@ -2,6 +2,7 @@ package robmart.rpgmode.common.potion;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import robmart.rpgmode.common.reference.RefPotionNames;
 
 import javax.annotation.Nullable;
 
@@ -27,7 +28,7 @@ import javax.annotation.Nullable;
 public class PotionLava extends PotionBase {
 
     public PotionLava() {
-        super(true, -2860526, "lava", false);
+        super(true, -2860526, RefPotionNames.LAVA, false);
     }
 
     @Override

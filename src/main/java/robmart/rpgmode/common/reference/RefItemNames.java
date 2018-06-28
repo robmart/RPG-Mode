@@ -21,7 +21,6 @@ package robmart.rpgmode.common.reference;
  */
 public class RefItemNames {
     public static final String BAT_WING = getName("bat_wing");
-    public static final String LAVA_BOTTLE = getName("lava_bottle");
 
     private static String getName(String name) {
         return String.format("%s:%s", Reference.MOD_ID, name);
