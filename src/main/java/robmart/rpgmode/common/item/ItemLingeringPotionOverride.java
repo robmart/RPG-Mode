@@ -1,12 +1,14 @@
 package robmart.rpgmode.common.item;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemLingeringPotion;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import robmart.rpgmode.client.render.IModelRegister;
+import robmart.rpgmode.common.init.InitItems;
 
 import java.util.Objects;
 
@@ -29,26 +31,24 @@ import java.util.Objects;
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+public class ItemLingeringPotionOverride extends ItemLingeringPotion implements IModelRegister {
 
-public class ItemBase extends Item implements IModelRegister {
-    public static int itemCounter = 0;
-
-    public ItemBase(String name, CreativeTabs creativeTab) {
-        this.setUnlocalizedName(name);
-        this.setRegistryName(name);
-        this.setCreativeTab(creativeTab);
-
-        incrementCounter();
+    public ItemLingeringPotionOverride() {
+        this.setUnlocalizedName("lingering_potion");
+        this.setRegistryName("lingering_potion");
     }
 
-    public ItemBase(String name, CreativeTabs creativeTab, int stackSize) {
-        this(name, creativeTab);
-
-        this.setMaxStackSize(stackSize);
-    }
-
-    protected static void incrementCounter() {
-        itemCounter++;
+    /**
+     * Returns true if this item has an enchantment glint. By default, this returns
+     * <code>stack.isItemEnchanted()</code>, but other items can override it (for instance, written books always return
+     * true).
+     * <p>
+     * Note that if you override this method, you generally want to also call the super version (on {@link Item}) to get
+     * the glint for enchanted items. Of course, that is unnecessary if the overwritten version always returns true.
+     */
+    @SideOnly(Side.CLIENT)
+    public boolean hasEffect(ItemStack stack) {
+        return InitItems.POTION.hasEffect(stack);
     }
 
     @SideOnly(Side.CLIENT)

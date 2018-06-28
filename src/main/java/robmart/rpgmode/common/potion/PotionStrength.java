@@ -22,17 +22,9 @@ import robmart.rpgmode.common.helper.PotionHelper;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class PotionStrength extends PotionBase {
-    public static final String TAG_NAME = "rpgmode - strength";
-    public static PotionStrength instance = null;
 
     public PotionStrength() {
         super(false, 155, 24, 24, "strength");
         this.registerPotionAttributeModifier(PotionHelper.STRENGTH, "2f6f5f5f-172b-4f95-97e3-d976823ed50e", 2, 0);
-        instance = this;
-    }
-
-    @Override
-    public boolean isReady(int duration, int amplifier) {
-        return true;
     }
 }

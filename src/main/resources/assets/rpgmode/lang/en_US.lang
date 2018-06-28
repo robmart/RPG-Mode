@@ -20,6 +20,9 @@ commands.rpgmode.sethealth.success1=Your %s is now %s
 commands.rpgmode.sethealth.success2=%s's %s is now %s
 
 # Potions
+potion.effect.rpgmode:lava=Lava Bottle
+effect.rpgmode:lava=Fire
+
 potion.effect.rpgmode:strength=Potion of Strength
 splash_potion.effect.rpgmode:strength=Splash Potion of Strength
 lingering_potion.effect.rpgmode:strength=Lingering Potion of Strength

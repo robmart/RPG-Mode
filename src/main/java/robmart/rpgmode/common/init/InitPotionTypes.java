@@ -41,6 +41,8 @@ import javax.annotation.Nullable;
 public class InitPotionTypes {
     private static int potionTypeCounter = 0;
 
+    public static final PotionType LAVA;
+
     public static final PotionType STRENGTH;
     public static final PotionType LONG_STRENGTH;
     public static final PotionType STRONG_STRENGTH;
@@ -94,6 +96,7 @@ public class InitPotionTypes {
         final int HARMFUL_DURATION_STRONG = 900;
 
         final IForgeRegistry<Potion> potionRegistry = ForgeRegistries.POTIONS;
+        final Potion lava = RegistryHelper.getRegistryEntry(potionRegistry, "lava");
         final Potion strength = RegistryHelper.getRegistryEntry(potionRegistry, "strength");
         final Potion weakness = RegistryHelper.getRegistryEntry(potionRegistry, "weakness");
         final Potion dexterousness = RegistryHelper.getRegistryEntry(potionRegistry, "dexterousness");
@@ -106,6 +109,8 @@ public class InitPotionTypes {
         final Potion foolishness = RegistryHelper.getRegistryEntry(potionRegistry, "foolishness");
 
         RPGMode.logger.info("Adding potion types");
+        LAVA = createPotionType(new PotionEffect(lava, -1));
+
         STRENGTH = createPotionType(new PotionEffect(strength, HELPFUL_DURATION_STANDARD));
         LONG_STRENGTH = createPotionType(new PotionEffect(strength, HELPFUL_DURATION_LONG), LONG_PREFIX);
         STRONG_STRENGTH = createPotionType(new PotionEffect(strength, HELPFUL_DURATION_STRONG, 1), STRONG_PREFIX);
@@ -171,6 +176,8 @@ public class InitPotionTypes {
     @SubscribeEvent
     public static void registerPotionTypes(final RegistryEvent.Register<PotionType> event) {
         event.getRegistry().registerAll(
+                LAVA,
+
                 STRENGTH,
                 LONG_STRENGTH,
                 STRONG_STRENGTH,

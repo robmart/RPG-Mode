@@ -1,12 +1,10 @@
-package robmart.rpgmode.common.potion;
-
-import robmart.rpgmode.common.helper.PotionHelper;
+package robmart.rpgmode.common.reference;
 
 /**
- * Created by Robmart.
+ * @author Robmart.
  * <p>
  * This software is a modification for the game Minecraft, intended to give the game RPG elements.
- * Copyright (C) 2017 Robmart
+ * Copyright (C) 2018 Robmart
  * <p>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -21,10 +19,5 @@ import robmart.rpgmode.common.helper.PotionHelper;
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class PotionWeakness extends PotionBase {
-
-    public PotionWeakness() {
-        super(true, 61, 171, 234, "weakness");
-        this.registerPotionAttributeModifier(PotionHelper.STRENGTH, "2f6f5f5f-172b-4f95-97e3-d976823ed50e", -2, 0);
-    }
+public class RefPotionNames {
 }

@@ -34,6 +34,21 @@ import java.util.Objects;
  */
 public class PotionBase extends Potion {
     /**
+     * Wheather the potion will "glint" or not
+     */
+    public boolean useEnchantedEffect;
+
+    /**
+     * The instance of the potion
+     */
+    public PotionBase instance = null;
+
+    /**
+     * The tag used to store the effect on the entity
+     */
+    public String TAG_NAME;
+
+    /**
      * Counts how many potions have been added so far
      */
     public static int potionCounter = 0;
@@ -43,15 +58,31 @@ public class PotionBase extends Potion {
      */
     private final ResourceLocation iconTexture;
 
-    public PotionBase(final boolean isBadEffect, final int liquidColor, final String name) {
+    public PotionBase(final boolean isBadEffect, final int liquidColor, final String name, boolean useGlint) {
         super(isBadEffect, liquidColor);
         setPotionName(this, name);
-        iconTexture = new ResourceLocation(Reference.MOD_ID, "textures/potions/" + name + ".png");
+        this.iconTexture = new ResourceLocation(Reference.MOD_ID, "textures/potions/" + name + ".png");
+        this.TAG_NAME = String.format("%s - %s", Reference.MOD_ID, name);
+        this.useEnchantedEffect = useGlint;
+        this.instance = this;
         potionCounter++;
+    }
+
+    public PotionBase(final boolean isBadEffect, final int liquidR, final int liquidG, final int liquidB, final String name, boolean useGlint) {
+        this(isBadEffect, new Color(liquidR, liquidG, liquidB).getRGB(), name, useGlint);
+    }
+
+    public PotionBase(final boolean isBadEffect, final int liquidColor, final String name) {
+        this(isBadEffect, liquidColor, name, true);
     }
 
     public PotionBase(final boolean isBadEffect, final int liquidR, final int liquidG, final int liquidB, final String name) {
         this(isBadEffect, new Color(liquidR, liquidG, liquidB).getRGB(), name);
+    }
+
+    @Override
+    public boolean isReady(int duration, int amplifier) {
+        return true;
     }
 
     /**
@@ -69,6 +100,16 @@ public class PotionBase extends Potion {
     @Override
     public boolean hasStatusIcon() {
         return false;
+    }
+
+    @Override
+    public boolean shouldRender(PotionEffect effect) {
+        return effect.getDuration() > 0;
+    }
+
+    @Override
+    public boolean shouldRenderHUD(PotionEffect effect) {
+        return effect.getDuration() > 0;
     }
 
     /**

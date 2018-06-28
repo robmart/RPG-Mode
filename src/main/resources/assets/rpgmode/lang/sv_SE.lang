@@ -19,6 +19,10 @@ commands.rpgmode.setmana.usage=/sethealth <fält> <värde> [spelare]
 commands.rpgmode.sethealth.success1=Din %s är nu %s
 commands.rpgmode.sethealth.success2=%ss %s är nu %s
 
+# Potions
+potion.effect.rpgmode:lava=Lavaflaska
+effect.rpgmode:lava=Eld
+
 # Items
 item.rpgmode:bat_wing.name=Fladdermus Vinge
 

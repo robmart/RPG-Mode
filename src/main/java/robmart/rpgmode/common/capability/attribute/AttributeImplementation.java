@@ -152,6 +152,8 @@ public class AttributeImplementation implements IAttribute {
     public void setIntelligence(int value){
         //TODO: Intelligence: Int based weapon damage, spell dmg
         this.intelligence = value;
+
+        ManaCapability.get(entity).setMaxMana(((10.0F * getIntelligence())));
     }
 
     /**
@@ -232,8 +234,7 @@ public class AttributeImplementation implements IAttribute {
     @Override
     public void setWisdom(int value){
         //TODO: Wisdom: Taming, spell amount
-        this.wisdom = value + getWisMod();
-        ManaCapability.get(entity).setMaxMana(10 * getWisdom());
+        this.wisdom = value;
     }
 
     /**

@@ -22,17 +22,9 @@ import robmart.rpgmode.common.helper.PotionHelper;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class PotionFortitude extends PotionBase {
-    public static final String TAG_NAME = "rpgmode - fortitude";
-    public static PotionFortitude instance = null;
 
     public PotionFortitude() {
         super(false, 234, 10, 40, "fortitude");
         this.registerPotionAttributeModifier(PotionHelper.FORTITUDE, "fe0e866a-2602-40ac-b22f-a477adad20a7", 2, 0);
-        instance = this;
-    }
-
-    @Override
-    public boolean isReady(int duration, int amplifier) {
-        return true;
     }
 }

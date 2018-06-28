@@ -22,17 +22,9 @@ import robmart.rpgmode.common.helper.PotionHelper;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class PotionStupidity extends PotionBase {
-    public static final String TAG_NAME = "rpgmode - stupidity";
-    public static PotionBase instance = null;
 
     public PotionStupidity() {
         super(true, 223, 155, 32, "stupidity");
         this.registerPotionAttributeModifier(PotionHelper.INTELLIGENCE, "40e166b0-68ff-4072-ae0f-ff2f0c55702f", -2, 0);
-        instance = this;
-    }
-
-    @Override
-    public boolean isReady(int duration, int amplifier) {
-        return true;
     }
 }

@@ -32,21 +32,24 @@ import robmart.rpgmode.common.reference.Reference;
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID)
 @SuppressWarnings("unused")
 public class InitPotions {
-    private static final PotionBase STRENGTH = new PotionStrength();
-    private static final PotionBase WEAKNESS = new PotionWeakness();
-    private static final PotionBase DEXTEROUSNESS = new PotionDexterousness();
-    private static final PotionBase CLUMSINESS = new PotionClumsiness();
-    private static final PotionBase FORTITUDE = new PotionFortitude();
-    private static final PotionBase LETHARGY = new PotionLethargy();
-    private static final PotionBase INTELLIGENCE = new PotionIntelligence();
-    private static final PotionBase STUPIDITY = new PotionStupidity();
-    private static final PotionBase WISDOM = new PotionWisdom();
-    private static final PotionBase FOOLISHNESS = new PotionFoolishness();
+    public static final PotionBase LAVA = new PotionLava();
+    public static final PotionBase STRENGTH = new PotionStrength();
+    public static final PotionBase WEAKNESS = new PotionWeakness();
+    public static final PotionBase DEXTEROUSNESS = new PotionDexterousness();
+    public static final PotionBase CLUMSINESS = new PotionClumsiness();
+    public static final PotionBase FORTITUDE = new PotionFortitude();
+    public static final PotionBase LETHARGY = new PotionLethargy();
+    public static final PotionBase INTELLIGENCE = new PotionIntelligence();
+    public static final PotionBase STUPIDITY = new PotionStupidity();
+    public static final PotionBase WISDOM = new PotionWisdom();
+    public static final PotionBase FOOLISHNESS = new PotionFoolishness();
 
     @SubscribeEvent
     public static void registerPotions(final RegistryEvent.Register<Potion> event) {
         RPGMode.logger.info("Adding potions");
         event.getRegistry().registerAll(
+                LAVA,
+
                 STRENGTH,
                 WEAKNESS,
 

@@ -22,17 +22,9 @@ import robmart.rpgmode.common.helper.PotionHelper;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class PotionClumsiness extends PotionBase {
-    public static final String TAG_NAME = "rpgmode - clumsiness";
-    public static PotionClumsiness instance = null;
 
     public PotionClumsiness() {
         super(true, 149, 64, 167, "clumsiness");
         this.registerPotionAttributeModifier(PotionHelper.DEXTEROUSNESS, "309bf477-d48d-41ae-a829-33caa0f604e0", -2, 0);
-        instance = this;
-    }
-
-    @Override
-    public boolean isReady(int duration, int amplifier) {
-        return true;
     }
 }

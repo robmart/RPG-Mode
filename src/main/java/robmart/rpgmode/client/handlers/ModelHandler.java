@@ -1,12 +1,18 @@
 package robmart.rpgmode.client.handlers;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.color.BlockColors;
+import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.item.Item;
+import net.minecraft.potion.PotionUtils;
+import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import robmart.rpgmode.client.render.IModelRegister;
+import robmart.rpgmode.common.init.InitItems;
 import robmart.rpgmode.common.reference.Reference;
 
 /**
@@ -45,5 +51,20 @@ public class ModelHandler {
             if (item instanceof IModelRegister)
                 ((IModelRegister) item).registerModels();
         }
+    }
+
+    /**
+     * Register the {@link IItemColor} handlers
+     *
+     * @param event The event
+     */
+    @SubscribeEvent
+    public static void registerItemColorHandlers(final ColorHandlerEvent.Item event) {
+        final BlockColors blockColors = event.getBlockColors();
+        final ItemColors itemColors = event.getItemColors();
+
+        final IItemColor potionColorHandler = (stack, tintIndex) -> tintIndex > 0 ? -1 : PotionUtils.getColor(stack);
+
+        itemColors.registerItemColorHandler(potionColorHandler, InitItems.POTION, InitItems.SPLASH_POTION, InitItems.LINGERING_POTION);
     }
 }

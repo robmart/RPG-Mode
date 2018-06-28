@@ -1,6 +1,10 @@
-package robmart.rpgmode.common.potion;
+package robmart.rpgmode.common.helper;
 
-import robmart.rpgmode.common.helper.PotionHelper;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.stats.StatList;
+
+import java.util.Objects;
 
 /**
  * @author Robmart.
@@ -21,10 +25,21 @@ import robmart.rpgmode.common.helper.PotionHelper;
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class PotionIntelligence extends PotionBase {
+public class ItemHelper {
+    public static ItemStack turnBottleIntoItem(ItemStack itemStackInput, EntityPlayer player, ItemStack itemStackOutput) {
+        if (!player.isCreative())
+            itemStackInput.shrink(1);
 
-    public PotionIntelligence() {
-        super(false, 42, 7, 220, "intelligence");
-        this.registerPotionAttributeModifier(PotionHelper.INTELLIGENCE, "40e166b0-68ff-4072-ae0f-ff2f0c55702f", 2, 0);
+        player.addStat(Objects.requireNonNull(StatList.getObjectUseStats(itemStackInput.getItem())));
+
+        if (itemStackInput.isEmpty()) {
+            return itemStackOutput;
+        } else {
+            if (!player.inventory.addItemStackToInventory(itemStackOutput)) {
+                player.dropItem(itemStackOutput, false);
+            }
+
+            return itemStackInput;
+        }
     }
 }

@@ -5,7 +5,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistry;
 import robmart.rpgmode.common.RPGMode;
@@ -62,29 +61,6 @@ public class RecipeHelper {
                 recipeRegistry.remove(recipe.getRegistryName());
             }
         }
-    }
-
-    /**
-     * Adds a brewing recipe
-     * @param resultItem - the smelting output Item
-     * @param ingredientStack - the ingredient stack, including metadata and size
-     * @param baseStack - the base potion stack, including metadata and size
-     * @param stacksize - the smelting output stack size
-     * @param meta - the smelting output metadata
-     */
-    public static void AddBrewing(Item resultItem, int stacksize, int meta, ItemStack baseStack, ItemStack ingredientStack) {
-        ItemStack resultStack = new ItemStack(resultItem, stacksize, meta);
-        AddBrewing(baseStack, ingredientStack, resultStack);
-    }
-
-    /**
-     * Adds a brewing recipe
-     * @param resultStack - the output result stack, including metadata and size
-     * @param baseStack - the base potion stack, including metadata and size
-     * @param ingredientStack - the ingredient stack, including metadata and size
-     */
-    public static void AddBrewing(ItemStack baseStack, ItemStack ingredientStack, ItemStack resultStack) {
-        BrewingRecipeRegistry.addRecipe(baseStack, ingredientStack, resultStack);
     }
 
     /**

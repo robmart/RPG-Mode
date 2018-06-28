@@ -1,17 +1,27 @@
 package robmart.rpgmode.common.handlers;
 
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemGlassBottle;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.FMLFingerprintViolationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import robmart.rpgmode.common.capability.attribute.AttributeCapability;
+import robmart.rpgmode.common.helper.ItemHelper;
+import robmart.rpgmode.common.helper.PlayerHelper;
+import robmart.rpgmode.common.helper.PotionHelper;
+import robmart.rpgmode.common.init.InitItems;
+import robmart.rpgmode.common.init.InitPotionTypes;
 import robmart.rpgmode.common.reference.Reference;
 
 /**
@@ -62,5 +72,19 @@ public class EventHandler {
         final ITextComponent chatComponent = new TextComponentTranslation(message);
         chatComponent.getStyle().setColor(TextFormatting.LIGHT_PURPLE);
         player.sendMessage(chatComponent);
+    }
+
+    @SubscribeEvent
+    public static void onPlayerRightClickBlock(final PlayerInteractEvent.RightClickItem event) {
+        RayTraceResult look = PlayerHelper.rayTrace(event.getWorld(), event.getEntityPlayer(), true);
+        if (look == null) return;
+        if (look.typeOfHit != RayTraceResult.Type.BLOCK) return;
+
+        IBlockState state = event.getWorld().getBlockState(look.getBlockPos());
+
+        if (event.getItemStack().getItem() instanceof ItemGlassBottle && state.getMaterial() == Material.LAVA) {
+            event.getWorld().playSound(event.getEntityPlayer(), event.getEntityPlayer().posX, event.getEntityPlayer().posY, event.getEntityPlayer().posZ, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+            ItemHelper.turnBottleIntoItem(event.getItemStack(), event.getEntityPlayer(), PotionHelper.getItemStackOfPotion(InitItems.POTION, InitPotionTypes.LAVA));
+        }
     }
 }

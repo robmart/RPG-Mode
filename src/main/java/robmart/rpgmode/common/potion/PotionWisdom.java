@@ -22,17 +22,9 @@ import robmart.rpgmode.common.helper.PotionHelper;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class PotionWisdom extends PotionBase {
-    public static final String TAG_NAME = "rpgmode - wisdom";
-    public static PotionBase instance = null;
 
     public PotionWisdom() {
         super(false, 102, 32, 201, "wisdom");
         this.registerPotionAttributeModifier(PotionHelper.WISDOM, "308dbe5f-d86b-4e85-aff0-df6559d0d325", 2, 0);
-        instance = this;
-    }
-
-    @Override
-    public boolean isReady(int duration, int amplifier) {
-        return true;
     }
 }
