@@ -91,6 +91,9 @@ effect.rpgmode:foolishness=Foolishness
 # Items
 item.rpgmode:bat_wing.name=Bat Wing
 
+# Blocks
+tile.rpgmode:hell_flower.name=Hell Flower
+
 # Config stuff
 category.rpgmode.general=General
 category.rpgmode.client=Client
