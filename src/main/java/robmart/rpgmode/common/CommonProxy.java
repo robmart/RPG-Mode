@@ -3,6 +3,8 @@ package robmart.rpgmode.common;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -15,8 +17,7 @@ import robmart.rpgmode.common.init.InitCapabilities;
 import robmart.rpgmode.common.init.InitCommands;
 import robmart.rpgmode.common.init.InitItems;
 import robmart.rpgmode.common.network.PacketDispatcher;
-
-//import robmart.rpgmode.common.init.InitRecipes;
+import robmart.rpgmode.common.world.biome.BiomeHellDecoratorWrapper;
 
 /**
  * Created by Robmart.
@@ -64,6 +65,9 @@ public abstract class CommonProxy implements IGuiHandler{
     public void postInit(FMLPostInitializationEvent event){
         RPGMode.logger.info("Post initialization starting");
         InitItems.registerOreDictionary();
+
+        for (Biome biome : BiomeDictionary.getBiomes(BiomeDictionary.Type.NETHER))
+            biome.decorator = new BiomeHellDecoratorWrapper(biome.decorator);
     }
 
     public void serverStarting(FMLServerStartingEvent event){
