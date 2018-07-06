@@ -63,7 +63,6 @@ public class BiomeHellDecoratorWrapper extends BiomeHellDecorator {
 
                     if (worldIn.isAirBlock(pos2) && InitBlocks.HELL_FLOWER.canPlaceBlockAt(worldIn, pos2)) {
                         worldIn.setBlockState(pos2, InitBlocks.HELL_FLOWER.getDefaultState());
-                        System.out.println("Placed flower " + pos2);
                     }
                 }
             }
