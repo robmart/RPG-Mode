@@ -40,7 +40,6 @@ public class InitBlocks {
 
     @SubscribeEvent
     public static void registerItems(final RegistryEvent.Register<Block> event) {
-        System.out.println("wasd");
         event.getRegistry().registerAll(
                 HELL_FLOWER
         );

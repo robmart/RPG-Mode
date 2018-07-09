@@ -2,6 +2,8 @@ package robmart.rpgmode.common.handlers;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityBat;
+import net.minecraft.entity.passive.EntityParrot;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -42,5 +44,12 @@ public class MobHandler {
         if (event.getEntityLiving() instanceof EntityBat)
             if (random.nextInt(10) < 3)
                 event.getDrops().add(new EntityItem(event.getEntityLiving().world, event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, new ItemStack(InitItems.BAT_WING)));
+
+        if (event.getEntityLiving() instanceof EntityParrot) {
+            if (random.nextInt(10) < 3)
+                event.getDrops().add(new EntityItem(event.getEntityLiving().world, event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, new ItemStack(InitItems.PARROT_FEATHER)));
+
+            event.getDrops().removeIf(entityItem -> entityItem.getItem().getItem() == Items.FEATHER);
+        }
     }
 }

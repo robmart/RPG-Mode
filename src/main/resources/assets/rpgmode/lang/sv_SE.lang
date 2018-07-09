@@ -25,6 +25,7 @@ effect.rpgmode:lava=Eld
 
 # Items
 item.rpgmode:bat_wing.name=Fladdermus Vinge
+item.rpgmode:parrot_feather.name=Papegojfjäder
 
 # Config stuff
 category.rpgmode.general=Allmänt

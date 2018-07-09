@@ -46,6 +46,7 @@ public class InitItems {
     private static int oreDictCounter = 0;
 
     public static final ItemBase BAT_WING = new ItemBase(RefItemNames.BAT_WING, CreativeTabs.BREWING);
+    public static final ItemBase PARROT_FEATHER = new ItemBase(RefItemNames.PARROT_FEATHER, CreativeTabs.BREWING);
     public static final Item POTION = new ItemPotionOverride();
     public static final Item SPLASH_POTION = new ItemSplashPotionOverride();
     public static final Item LINGERING_POTION = new ItemLingeringPotionOverride();
@@ -55,6 +56,7 @@ public class InitItems {
         RPGMode.logger.info("Adding Items");
         event.getRegistry().registerAll(
                 BAT_WING,
+                PARROT_FEATHER,
 
                 POTION,
                 SPLASH_POTION,
