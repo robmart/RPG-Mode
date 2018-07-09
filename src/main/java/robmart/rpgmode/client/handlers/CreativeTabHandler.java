@@ -1,17 +1,4 @@
-package robmart.rpgmode.client.handlers;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.inventory.GuiContainerCreative;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraftforge.client.event.GuiOpenEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import robmart.rpgmode.client.gui.GuiContainerCreativeOverride;
-import robmart.rpgmode.common.reference.Reference;
-
-/**
- * @author Robmart.
+/*
  * <p>
  * This software is a modification for the game Minecraft, intended to give the game RPG elements.
  * Copyright (C) 2018 Robmart
@@ -28,6 +15,21 @@ import robmart.rpgmode.common.reference.Reference;
  * <p>
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package robmart.rpgmode.client.handlers;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.inventory.GuiContainerCreative;
+import net.minecraftforge.client.event.GuiOpenEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import robmart.rpgmode.client.gui.GuiContainerCreativeOverride;
+import robmart.rpgmode.common.reference.Reference;
+
+/**
+ * @author Robmart
  */
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID)

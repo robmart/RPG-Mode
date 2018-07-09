@@ -1,20 +1,4 @@
-package robmart.rpgmode.common.helper;
-
-import com.google.common.collect.Lists;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.registries.ForgeRegistry;
-import robmart.rpgmode.common.RPGMode;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
-
-/**
- * @author Robmart.
+/*
  * <p>
  * This software is a modification for the game Minecraft, intended to give the game RPG elements.
  * Copyright (C) 2018 Robmart
@@ -31,6 +15,25 @@ import java.util.Map;
  * <p>
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package robmart.rpgmode.common.helper;
+
+import com.google.common.collect.Lists;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistry;
+import robmart.rpgmode.common.RPGMode;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
+
+/**
+ * @author Robmart
  */
 public class RecipeHelper {
 

@@ -1,19 +1,4 @@
-package robmart.rpgmode.common.item;
-
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemSplashPotion;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import robmart.rpgmode.client.render.IModelRegister;
-import robmart.rpgmode.common.init.InitItems;
-
-import java.util.Objects;
-
-/**
- * @author Robmart.
+/*
  * <p>
  * This software is a modification for the game Minecraft, intended to give the game RPG elements.
  * Copyright (C) 2018 Robmart
@@ -30,6 +15,24 @@ import java.util.Objects;
  * <p>
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package robmart.rpgmode.common.item;
+
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemSplashPotion;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import robmart.rpgmode.client.render.IModelRegister;
+import robmart.rpgmode.common.init.InitItems;
+
+import java.util.Objects;
+
+/**
+ * @author Robmart
  */
 public class ItemSplashPotionOverride extends ItemSplashPotion implements IModelRegister {
 

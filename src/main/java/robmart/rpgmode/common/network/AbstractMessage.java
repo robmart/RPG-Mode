@@ -1,3 +1,22 @@
+/*
+ * <p>
+ * This software is a modification for the game Minecraft, intended to give the game RPG elements.
+ * Copyright (C) 2018 Robmart
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package robmart.rpgmode.common.network;
 
 import com.google.common.base.Throwables;
@@ -14,23 +33,7 @@ import robmart.rpgmode.common.RPGMode;
 import java.io.IOException;
 
 /**
- * Created by Robmart.
- *
- *   This software is a modification for the game Minecraft, intended to give the game RPG elements.
- *   Copyright (C) 2017 Robmart
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU Lesser General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU Lesser General Public License for more details.
- *
- *   You should have received a copy of the GNU Lesser General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * @author Robmart
  */
 public abstract class AbstractMessage<T extends AbstractMessage<T>> implements IMessage, IMessageHandler <T, IMessage> {
     /**
@@ -88,15 +91,15 @@ public abstract class AbstractMessage<T extends AbstractMessage<T>> implements I
     }
 
     //=====================================================================//
-	/*
-	 * Make the implementation final so child classes don't need to bother
-	 * with it, since the message class shouldn't have anything to do with
-	 * the handler. This is simply to avoid having to have:
-	 *
-	 * public static class Handler extends GenericMessageHandler<OpenGuiMessage> {}
-	 *
-	 * in every single message class for the sole purpose of registration.
-	 */
+    /*
+     * Make the implementation final so child classes don't need to bother
+     * with it, since the message class shouldn't have anything to do with
+     * the handler. This is simply to avoid having to have:
+     *
+     * public static class Handler extends GenericMessageHandler<OpenGuiMessage> {}
+     *
+     * in every single message class for the sole purpose of registration.
+     */
     @Override
     public final IMessage onMessage(T msg, MessageContext ctx) {
         if (!msg.isValidOnSide(ctx.side)) {

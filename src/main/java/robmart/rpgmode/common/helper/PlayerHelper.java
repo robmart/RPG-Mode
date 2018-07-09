@@ -1,13 +1,4 @@
-package robmart.rpgmode.common.helper;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
-
-/**
- * @author Robmart.
+/*
  * <p>
  * This software is a modification for the game Minecraft, intended to give the game RPG elements.
  * Copyright (C) 2018 Robmart
@@ -24,6 +15,18 @@ import net.minecraft.world.World;
  * <p>
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package robmart.rpgmode.common.helper;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
+
+/**
+ * @author Robmart
  */
 public class PlayerHelper {
     public static RayTraceResult rayTrace(World worldIn, EntityPlayer playerIn, boolean useLiquids) {

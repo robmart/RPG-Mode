@@ -1,20 +1,4 @@
-package robmart.rpgmode.common.creativetab;
-
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
-import net.minecraft.item.*;
-import net.minecraft.util.NonNullList;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import robmart.rpgmode.common.item.ItemLingeringPotionOverride;
-import robmart.rpgmode.common.item.ItemPotionOverride;
-import robmart.rpgmode.common.item.ItemSplashPotionOverride;
-import robmart.rpgmode.common.reference.Reference;
-
-import java.util.Objects;
-
-/**
- * @author Robmart.
+/*
  * <p>
  * This software is a modification for the game Minecraft, intended to give the game RPG elements.
  * Copyright (C) 2018 Robmart
@@ -31,6 +15,25 @@ import java.util.Objects;
  * <p>
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package robmart.rpgmode.common.creativetab;
+
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
+import net.minecraft.item.*;
+import net.minecraft.util.NonNullList;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import robmart.rpgmode.common.item.ItemLingeringPotionOverride;
+import robmart.rpgmode.common.item.ItemPotionOverride;
+import robmart.rpgmode.common.item.ItemSplashPotionOverride;
+import robmart.rpgmode.common.reference.Reference;
+
+import java.util.Objects;
+
+/**
+ * @author Robmart
  */
 public class CreativeTabBrewing extends CreativeTabs {
 

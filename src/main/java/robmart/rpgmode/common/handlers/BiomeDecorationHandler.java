@@ -1,16 +1,4 @@
-package robmart.rpgmode.common.handlers;
-
-import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
-import net.minecraftforge.fml.common.eventhandler.Event;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import robmart.rpgmode.common.init.InitBlocks;
-import robmart.rpgmode.common.reference.Reference;
-
-/**
- * @author Robmart.
+/*
  * <p>
  * This software is a modification for the game Minecraft, intended to give the game RPG elements.
  * Copyright (C) 2018 Robmart
@@ -27,6 +15,21 @@ import robmart.rpgmode.common.reference.Reference;
  * <p>
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package robmart.rpgmode.common.handlers;
+
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
+import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import robmart.rpgmode.common.init.InitBlocks;
+import robmart.rpgmode.common.reference.Reference;
+
+/**
+ * @author Robmart
  */
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
 @SuppressWarnings("unused")

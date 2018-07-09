@@ -1,19 +1,4 @@
-package robmart.rpgmode.common.init;
-
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraftforge.common.EnumPlantType;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import robmart.rpgmode.common.block.BlockRPGFlower;
-import robmart.rpgmode.common.item.block.ItemRPGBlock;
-import robmart.rpgmode.common.reference.RefBlockNames;
-import robmart.rpgmode.common.reference.Reference;
-
-/**
- * @author Robmart.
+/*
  * <p>
  * This software is a modification for the game Minecraft, intended to give the game RPG elements.
  * Copyright (C) 2018 Robmart
@@ -32,6 +17,23 @@ import robmart.rpgmode.common.reference.Reference;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+package robmart.rpgmode.common.init;
+
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraftforge.common.EnumPlantType;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import robmart.rpgmode.common.block.BlockRPGFlower;
+import robmart.rpgmode.common.item.block.ItemRPGBlock;
+import robmart.rpgmode.common.reference.RefBlockNames;
+import robmart.rpgmode.common.reference.Reference;
+
+/**
+ * @author Robmart
+ */
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID)
 @SuppressWarnings("unused")

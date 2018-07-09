@@ -1,19 +1,7 @@
-package robmart.rpgmode.common.helper;
-
-import net.minecraft.entity.ai.attributes.IAttribute;
-import net.minecraft.entity.ai.attributes.RangedAttribute;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.PotionType;
-import net.minecraft.potion.PotionUtils;
-import robmart.rpgmode.common.reference.Reference;
-
-/**
- * Created by Robmart.
+/*
  * <p>
  * This software is a modification for the game Minecraft, intended to give the game RPG elements.
- * Copyright (C) 2017 Robmart
+ * Copyright (C) 2018 Robmart
  * <p>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -27,6 +15,21 @@ import robmart.rpgmode.common.reference.Reference;
  * <p>
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package robmart.rpgmode.common.helper;
+
+import net.minecraft.entity.ai.attributes.IAttribute;
+import net.minecraft.entity.ai.attributes.RangedAttribute;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.PotionType;
+import net.minecraft.potion.PotionUtils;
+import robmart.rpgmode.common.reference.Reference;
+
+/**
+ * @author Robmart
  */
 public class PotionHelper {
     public static final IAttribute STRENGTH = (new RangedAttribute(null, Reference.MOD_ID + ".strength", 0, -10, 10)).setDescription("Strength").setShouldWatch(true);

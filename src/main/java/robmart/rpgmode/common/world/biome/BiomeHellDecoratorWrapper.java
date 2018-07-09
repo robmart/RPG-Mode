@@ -1,18 +1,4 @@
-package robmart.rpgmode.common.world.biome;
-
-import net.minecraft.init.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeDecorator;
-import net.minecraft.world.biome.BiomeHellDecorator;
-import robmart.rpgmode.common.helper.WorldHelper;
-import robmart.rpgmode.common.init.InitBlocks;
-
-import java.util.Random;
-
-/**
- * @author Robmart.
+/*
  * <p>
  * This software is a modification for the game Minecraft, intended to give the game RPG elements.
  * Copyright (C) 2018 Robmart
@@ -29,6 +15,23 @@ import java.util.Random;
  * <p>
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package robmart.rpgmode.common.world.biome;
+
+import net.minecraft.init.Blocks;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeDecorator;
+import net.minecraft.world.biome.BiomeHellDecorator;
+import robmart.rpgmode.common.helper.WorldHelper;
+import robmart.rpgmode.common.init.InitBlocks;
+
+import java.util.Random;
+
+/**
+ * @author Robmart
  */
 public class BiomeHellDecoratorWrapper extends BiomeHellDecorator {
     private BiomeDecorator wrappedDecorator;

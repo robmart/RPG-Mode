@@ -1,3 +1,11 @@
+/*
+ * Copyright 2015-2017, Choonster
+ *
+ * This work is licensed under the MIT license
+ *
+ * To view the license visit https://github.com/Choonster-Minecraft-Mods/TestMod3/blob/1.12.2/LICENSE.txt
+ */
+
 package robmart.rpgmode.common.helper;
 
 import com.google.common.base.Preconditions;

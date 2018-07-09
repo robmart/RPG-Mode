@@ -1,10 +1,4 @@
-package robmart.rpgmode.common.item.block;
-
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
-
-/**
- * @author Robmart.
+/*
  * <p>
  * This software is a modification for the game Minecraft, intended to give the game RPG elements.
  * Copyright (C) 2018 Robmart
@@ -22,9 +16,20 @@ import net.minecraft.item.ItemBlock;
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+package robmart.rpgmode.common.item.block;
+
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemBlock;
+
+import java.util.Objects;
+
+/**
+ * @author Robmart
+ */
 public class ItemRPGBlock extends ItemBlock {
     public ItemRPGBlock(Block block) {
         super(block);
-        this.setRegistryName(block.getRegistryName());
+        this.setRegistryName(Objects.requireNonNull(block.getRegistryName()));
     }
 }

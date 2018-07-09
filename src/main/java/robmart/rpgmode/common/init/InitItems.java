@@ -1,3 +1,22 @@
+/*
+ * <p>
+ * This software is a modification for the game Minecraft, intended to give the game RPG elements.
+ * Copyright (C) 2018 Robmart
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package robmart.rpgmode.common.init;
 
 import net.minecraft.creativetab.CreativeTabs;
@@ -21,23 +40,7 @@ import robmart.rpgmode.common.reference.RefOreDict;
 import robmart.rpgmode.common.reference.Reference;
 
 /**
- * @author Robmart.
- * <p>
- * This software is a modification for the game Minecraft, intended to give the game RPG elements.
- * Copyright (C) 2018 Robmart
- * <p>
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * <p>
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- * <p>
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * @author Robmart
  */
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID)
@@ -47,6 +50,7 @@ public class InitItems {
 
     public static final ItemBase BAT_WING = new ItemBase(RefItemNames.BAT_WING, CreativeTabs.BREWING);
     public static final ItemBase PARROT_FEATHER = new ItemBase(RefItemNames.PARROT_FEATHER, CreativeTabs.BREWING);
+
     public static final Item POTION = new ItemPotionOverride();
     public static final Item SPLASH_POTION = new ItemSplashPotionOverride();
     public static final Item LINGERING_POTION = new ItemLingeringPotionOverride();

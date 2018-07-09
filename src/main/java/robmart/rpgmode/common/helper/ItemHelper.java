@@ -1,13 +1,4 @@
-package robmart.rpgmode.common.helper;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.stats.StatList;
-
-import java.util.Objects;
-
-/**
- * @author Robmart.
+/*
  * <p>
  * This software is a modification for the game Minecraft, intended to give the game RPG elements.
  * Copyright (C) 2018 Robmart
@@ -24,6 +15,18 @@ import java.util.Objects;
  * <p>
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package robmart.rpgmode.common.helper;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.stats.StatList;
+
+import java.util.Objects;
+
+/**
+ * @author Robmart
  */
 public class ItemHelper {
     public static ItemStack turnBottleIntoItem(ItemStack itemStackInput, EntityPlayer player, ItemStack itemStackOutput) {
