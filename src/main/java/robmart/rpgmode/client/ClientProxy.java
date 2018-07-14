@@ -43,12 +43,12 @@ public class ClientProxy extends CommonProxy {
     private final Minecraft mc = Minecraft.getMinecraft();
 
     @Override
-    public void preInit(FMLPreInitializationEvent event){
+    public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
     }
 
     @Override
-    public void init(FMLInitializationEvent event){
+    public void init(FMLInitializationEvent event) {
         super.init(event);
 
         InitGui.init();
@@ -56,12 +56,12 @@ public class ClientProxy extends CommonProxy {
     }
 
     @Override
-    public void postInit(FMLPostInitializationEvent event){
+    public void postInit(FMLPostInitializationEvent event) {
         super.postInit(event);
     }
 
     @Override
-    public void serverStarting(FMLServerStartingEvent event){
+    public void serverStarting(FMLServerStartingEvent event) {
         super.serverStarting(event);
     }
 

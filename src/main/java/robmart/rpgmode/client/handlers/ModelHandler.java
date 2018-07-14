@@ -65,8 +65,9 @@ public class ModelHandler {
         }
     }
 
-    private static final Map<IRegistryDelegate<Block>, IStateMapper> customStateMappers = ReflectionHelper.getPrivateValue(ModelLoader.class, null, "customStateMappers");
-    private static final DefaultStateMapper fallbackMapper = new DefaultStateMapper();
+    private static final Map<IRegistryDelegate<Block>, IStateMapper> customStateMappers = ReflectionHelper
+            .getPrivateValue(ModelLoader.class, null, "customStateMappers");
+    private static final DefaultStateMapper                          fallbackMapper     = new DefaultStateMapper();
 
     private static ModelResourceLocation getMrlForState(IBlockState state) {
         return customStateMappers
@@ -80,7 +81,7 @@ public class ModelHandler {
                 Item.getItemFromBlock(b),
                 meta,
                 getMrlForState(state)
-        );
+                                                  );
     }
 
     /**
@@ -95,7 +96,8 @@ public class ModelHandler {
 
         final IItemColor potionColorHandler = (stack, tintIndex) -> tintIndex > 0 ? -1 : PotionUtils.getColor(stack);
 
-        itemColors.registerItemColorHandler(potionColorHandler, InitItems.POTION, InitItems.SPLASH_POTION, InitItems.LINGERING_POTION);
+        itemColors.registerItemColorHandler(potionColorHandler, InitItems.POTION, InitItems.SPLASH_POTION,
+                                            InitItems.LINGERING_POTION);
     }
 
     public static void registerCustomItemblock(Block block, String path) {
@@ -108,7 +110,7 @@ public class ModelHandler {
             ModelLoader.setCustomModelResourceLocation(
                     item, i,
                     new ModelResourceLocation(Reference.MOD_ID + ":itemblock/" + metaToPath.apply(i), "inventory")
-            );
+                                                      );
         }
     }
 }

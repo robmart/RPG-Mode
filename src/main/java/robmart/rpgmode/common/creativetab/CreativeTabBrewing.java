@@ -40,7 +40,7 @@ public class CreativeTabBrewing extends CreativeTabs {
     public static CreativeTabBrewing instance = new CreativeTabBrewing();
 
     private CreativeTabBrewing() {
-        super(Reference.MOD_ID+":brewing");
+        super(Reference.MOD_ID + ":brewing");
     }
 
     @SideOnly(Side.CLIENT)
@@ -57,7 +57,7 @@ public class CreativeTabBrewing extends CreativeTabs {
     @SideOnly(Side.CLIENT)
     public void displayAllRelevantItems(NonNullList<ItemStack> itemList) {
         //TODO: Clean
-        String[] blocked = new String[]{"strength", "weakness"};
+        String[] blocked = new String[] {"strength", "weakness"};
         NonNullList<ItemStack> list = NonNullList.create();
         NonNullList<ItemStack> listBanned = NonNullList.create();
         for (Item item : Item.REGISTRY) {
@@ -68,20 +68,34 @@ public class CreativeTabBrewing extends CreativeTabs {
         for (ItemStack itemStack : list) {
             for (String aBlocked : blocked)
                 if (itemStack.getItem() instanceof ItemPotion)
-                    if (Objects.requireNonNull(itemStack.getItem().getNBTShareTag(itemStack)).getString("Potion").contains("minecraft:") &&
-                            Objects.requireNonNull(itemStack.getItem().getNBTShareTag(itemStack)).getString("Potion").contains(aBlocked))
+                    if (Objects.requireNonNull(itemStack.getItem().getNBTShareTag(itemStack)).getString("Potion")
+                               .contains("minecraft:") &&
+                        Objects.requireNonNull(itemStack.getItem().getNBTShareTag(itemStack)).getString("Potion")
+                               .contains(aBlocked))
                         listBanned.add(itemStack);
 
-            if (itemStack.getItem() instanceof ItemPotion && !((itemStack.getItem() instanceof ItemPotionOverride) || itemStack.getItem() instanceof ItemSplashPotionOverride || itemStack.getItem() instanceof ItemLingeringPotionOverride))
+            if (itemStack.getItem() instanceof ItemPotion && !((itemStack.getItem() instanceof ItemPotionOverride) ||
+                                                               itemStack
+                                                                       .getItem() instanceof ItemSplashPotionOverride ||
+                                                               itemStack
+                                                                       .getItem() instanceof ItemLingeringPotionOverride))
                 listBanned.add(itemStack);
-            if (itemStack.getItem() instanceof ItemSplashPotion && !((itemStack.getItem() instanceof ItemSplashPotionOverride) || itemStack.getItem() instanceof ItemPotionOverride || itemStack.getItem() instanceof ItemLingeringPotionOverride))
+            if (itemStack.getItem() instanceof ItemSplashPotion &&
+                !((itemStack.getItem() instanceof ItemSplashPotionOverride) ||
+                  itemStack.getItem() instanceof ItemPotionOverride ||
+                  itemStack.getItem() instanceof ItemLingeringPotionOverride))
                 listBanned.add(itemStack);
-            if (itemStack.getItem() instanceof ItemLingeringPotion && !((itemStack.getItem() instanceof ItemLingeringPotionOverride) || itemStack.getItem() instanceof ItemSplashPotionOverride || itemStack.getItem() instanceof ItemPotionOverride))
+            if (itemStack.getItem() instanceof ItemLingeringPotion &&
+                !((itemStack.getItem() instanceof ItemLingeringPotionOverride) ||
+                  itemStack.getItem() instanceof ItemSplashPotionOverride ||
+                  itemStack.getItem() instanceof ItemPotionOverride))
                 listBanned.add(itemStack);
 
             if (itemStack.getItem() instanceof ItemSplashPotion || itemStack.getItem() instanceof ItemLingeringPotion)
-                if (Objects.requireNonNull(itemStack.getItem().getNBTShareTag(itemStack)).getString("Potion").contains("rpgmode:") &&
-                        Objects.requireNonNull(itemStack.getItem().getNBTShareTag(itemStack)).getString("Potion").contains("lava"))
+                if (Objects.requireNonNull(itemStack.getItem().getNBTShareTag(itemStack)).getString("Potion")
+                           .contains("rpgmode:") &&
+                    Objects.requireNonNull(itemStack.getItem().getNBTShareTag(itemStack)).getString("Potion")
+                           .contains("lava"))
                     listBanned.add(itemStack);
         }
 

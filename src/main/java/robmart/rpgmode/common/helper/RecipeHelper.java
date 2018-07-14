@@ -39,9 +39,10 @@ public class RecipeHelper {
 
     /**
      * Remove a crafting recipe
+     *
      * @param resultItem - the recipe's output Item
-     * @param stackSize - the recipe's output stack size
-     * @param meta - the recipe's output metadata
+     * @param stackSize  - the recipe's output stack size
+     * @param meta       - the recipe's output metadata
      */
     public static void RemoveRecipe(Item resultItem, int stackSize, int meta) {
         RemoveRecipe(new ItemStack(resultItem, stackSize, meta));
@@ -49,6 +50,7 @@ public class RecipeHelper {
 
     /**
      * Remove a crafting recipe
+     *
      * @param resultStack - the output result stack, including metadata and size
      */
     public static void RemoveRecipe(ItemStack resultStack) {
@@ -67,11 +69,12 @@ public class RecipeHelper {
     }
 
     /**
+     * @param resultItem - the smelting output Item
+     * @param stacksize  - the smelting output stack size
+     * @param meta       - the smelting output metadata
+     *
      * @author Draco18s
      * Remove a smelting recipe
-     * @param resultItem - the smelting output Item
-     * @param stacksize - the smelting output stack size
-     * @param meta - the smelting output metadata
      */
     public static void RemoveSmelting(Item resultItem, int stacksize, int meta) {
         ItemStack resultStack = new ItemStack(resultItem, stacksize, meta);
@@ -79,15 +82,16 @@ public class RecipeHelper {
     }
 
     /**
+     * @param resultStack - the output result stack, including metadata and size
+     *
      * @author Draco18s
      * Remove a smelting recipe
-     * @param resultStack - the output result stack, including metadata and size
      */
     public static void RemoveSmelting(ItemStack resultStack) {
         ItemStack recipeResult;
-        Map<ItemStack,ItemStack> recipes = FurnaceRecipes.instance().getSmeltingList();
+        Map<ItemStack, ItemStack> recipes = FurnaceRecipes.instance().getSmeltingList();
         Iterator<ItemStack> iterator = recipes.keySet().iterator();
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             ItemStack tmpRecipe = iterator.next();
             recipeResult = recipes.get(tmpRecipe);
             if (ItemStack.areItemStacksEqual(resultStack, recipeResult)) {

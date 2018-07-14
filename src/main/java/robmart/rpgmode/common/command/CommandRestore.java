@@ -28,7 +28,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
-import robmart.rpgmode.common.capability.mana.IMana;
+import robmart.rpgmode.api.capability.mana.IMana;
 import robmart.rpgmode.common.capability.mana.ManaCapability;
 import robmart.rpgmode.common.reference.Reference;
 
@@ -40,36 +40,36 @@ import java.util.List;
  * @author Robmart
  */
 public class CommandRestore extends CommandBase {
-    private final String name = "restore";
-    private final int permissionLevel = 2;
-    private final String commandUsage = "commands." + Reference.MOD_ID.toLowerCase() + ".restore.usage";
+    private final String name            = "restore";
+    private final int    permissionLevel = 2;
+    private final String commandUsage    = "commands." + Reference.MOD_ID.toLowerCase() + ".restore.usage";
 
     @Override
     public String getName() {
         return name;
     }
 
-    public int getPermissionLevel(){
+    public int getPermissionLevel() {
         return permissionLevel;
     }
 
     @Override
-    public String getUsage(ICommandSender sender){
+    public String getUsage(ICommandSender sender) {
         return commandUsage;
     }
 
-    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException{
+    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         EntityPlayer player;
         IMana mana;
 
         if (args.length > 1)
-            throw  new WrongUsageException(commandUsage);
+            throw new WrongUsageException(commandUsage);
         else if (args.length == 1)
             player = getPlayer(server, sender, args[0]);
         else
             player = getCommandSenderAsPlayer(sender);
 
-        mana = ManaCapability.get(player);
+        mana = ManaCapability.getMana(player);
         player.setHealth(player.getMaxHealth());
         mana.restoreMana();
         player.getFoodStats().addStats(20, 20);
@@ -87,7 +87,9 @@ public class CommandRestore extends CommandBase {
             notifyCommandListener(sender, this, "commands.rpgmode.restore.success2", player.getName());
     }
 
-    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
-        return args.length == 1 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()): Collections.emptyList();
+    public List<String> getTabCompletions(
+            MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
+        return args.length == 1 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) :
+               Collections.emptyList();
     }
 }

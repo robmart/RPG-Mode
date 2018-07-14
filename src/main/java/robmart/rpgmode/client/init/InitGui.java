@@ -29,7 +29,7 @@ import robmart.rpgmode.client.gui.*;
 
 public class InitGui {
     //TODO: Get rid of this
-    public static void init(){
+    public static void init() {
         MinecraftForge.EVENT_BUS.register(new GuiHealth(Minecraft.getMinecraft()));
         MinecraftForge.EVENT_BUS.register(new GuiMana(Minecraft.getMinecraft()));
         MinecraftForge.EVENT_BUS.register(new GuiAir(Minecraft.getMinecraft()));

@@ -8,53 +8,45 @@
 
 package robmart.rpgmode.common.capability;
 
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 import javax.annotation.Nullable;
 
 /**
+ * A simple implementation of {@link ICapabilityProvider} that supports a single {@link Capability} handler instance.
+ *
  * @author Choonster
  */
-public class CapabilityProvider<HANDLER> implements ICapabilitySerializable<NBTBase> {
+public class CapabilityProviderSimple<HANDLER> implements ICapabilityProvider {
+
     /**
      * The {@link Capability} instance to provide the handler for.
      */
-    private final Capability<HANDLER> capability;
+    protected final Capability<HANDLER> capability;
 
     /**
      * The {@link EnumFacing} to provide the handler for.
      */
-    private final EnumFacing facing;
+    protected final EnumFacing facing;
 
     /**
      * The handler instance to provide.
      */
-    private final HANDLER instance;
+    protected final HANDLER instance;
 
-    /**
-     * Create a provider for the default handler instance.
-     *
-     * @param capability The Capability instance to provide the handler for
-     * @param facing     The EnumFacing to provide the handler for
-     */
-    public CapabilityProvider(Capability<HANDLER> capability, @Nullable EnumFacing facing) {
-        this(capability, facing, capability.getDefaultInstance());
+    @Deprecated
+    public CapabilityProviderSimple(
+            @Nullable final HANDLER instance, final Capability<HANDLER> capability, @Nullable final EnumFacing facing) {
+        this(capability, facing, instance);
     }
 
-    /**
-     * Create a provider for the specified handler instance.
-     *
-     * @param capability The Capability instance to provide the handler for
-     * @param facing     The EnumFacing to provide the handler for
-     * @param instance   The handler instance to provide
-     */
-    public CapabilityProvider(Capability<HANDLER> capability, @Nullable EnumFacing facing, HANDLER instance) {
+    public CapabilityProviderSimple(
+            final Capability<HANDLER> capability, @Nullable final EnumFacing facing, @Nullable final HANDLER instance) {
         this.capability = capability;
-        this.instance = instance;
         this.facing = facing;
+        this.instance = instance;
     }
 
     /**
@@ -74,7 +66,7 @@ public class CapabilityProvider<HANDLER> implements ICapabilitySerializable<NBTB
      * @return True if this object supports the capability.
      */
     @Override
-    public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+    public boolean hasCapability(final Capability<?> capability, @Nullable final EnumFacing facing) {
         return capability == getCapability();
     }
 
@@ -91,7 +83,7 @@ public class CapabilityProvider<HANDLER> implements ICapabilitySerializable<NBTB
      */
     @Override
     @Nullable
-    public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+    public <T> T getCapability(final Capability<T> capability, @Nullable final EnumFacing facing) {
         if (capability == getCapability()) {
             return getCapability().cast(getInstance());
         }
@@ -99,14 +91,14 @@ public class CapabilityProvider<HANDLER> implements ICapabilitySerializable<NBTB
         return null;
     }
 
-    @Override
-    public NBTBase serializeNBT() {
-        return getCapability().writeNBT(getInstance(), getFacing());
-    }
-
-    @Override
-    public void deserializeNBT(NBTBase nbt) {
-        getCapability().readNBT(getInstance(), getFacing(), nbt);
+    /**
+     * Get the handler instance.
+     *
+     * @return The handler instance
+     */
+    @Nullable
+    public final HANDLER getInstance() {
+        return instance;
     }
 
     /**
@@ -126,14 +118,5 @@ public class CapabilityProvider<HANDLER> implements ICapabilitySerializable<NBTB
     @Nullable
     public EnumFacing getFacing() {
         return facing;
-    }
-
-    /**
-     * Get the handler instance.
-     *
-     * @return The handler instance
-     */
-    public final HANDLER getInstance() {
-        return instance;
     }
 }

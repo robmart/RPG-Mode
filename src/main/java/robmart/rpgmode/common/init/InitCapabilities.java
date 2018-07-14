@@ -30,7 +30,7 @@ import robmart.rpgmode.common.handlers.CapabilityHandler;
  */
 public class InitCapabilities {
 
-    public static void init(){
+    public static void init() {
         ManaCapability.register();
         MaxHealthCapability.register();
         AttributeCapability.register();

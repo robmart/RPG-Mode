@@ -23,7 +23,7 @@ package robmart.rpgmode.common.reference;
  * @author Robmart
  */
 public class RefItemNames {
-    public static final String BAT_WING = getName("bat_wing");
+    public static final String BAT_WING       = getName("bat_wing");
     public static final String PARROT_FEATHER = getName("parrot_feather");
 
     private static String getName(String name) {

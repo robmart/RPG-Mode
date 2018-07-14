@@ -41,9 +41,9 @@ import robmart.rpgmode.common.world.biome.BiomeHellDecoratorWrapper;
 /**
  * @author Robmart
  */
-public abstract class CommonProxy implements IGuiHandler{
+public abstract class CommonProxy implements IGuiHandler {
 
-    public void preInit(FMLPreInitializationEvent event){
+    public void preInit(FMLPreInitializationEvent event) {
         RPGMode.logger.info("Pre initialization starting");
 
         try {
@@ -61,11 +61,11 @@ public abstract class CommonProxy implements IGuiHandler{
         PacketDispatcher.registerPackets();
     }
 
-    public void init(FMLInitializationEvent event){
+    public void init(FMLInitializationEvent event) {
         RPGMode.logger.info("Initialization starting");
     }
 
-    public void postInit(FMLPostInitializationEvent event){
+    public void postInit(FMLPostInitializationEvent event) {
         RPGMode.logger.info("Post initialization starting");
         InitItems.registerOreDictionary();
 
@@ -73,7 +73,7 @@ public abstract class CommonProxy implements IGuiHandler{
             biome.decorator = new BiomeHellDecoratorWrapper(biome.decorator);
     }
 
-    public void serverStarting(FMLServerStartingEvent event){
+    public void serverStarting(FMLServerStartingEvent event) {
         InitCommands.init(event);
     }
 

@@ -26,7 +26,7 @@ import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
-import robmart.rpgmode.common.capability.mana.IMana;
+import robmart.rpgmode.api.capability.mana.IMana;
 import robmart.rpgmode.common.capability.mana.ManaCapability;
 import robmart.rpgmode.common.reference.Reference;
 
@@ -38,8 +38,8 @@ import java.util.List;
  * @author Robmart
  */
 public class CommandSetMana extends CommandBase {
-    public String name = "setmana";
-    public int permissionLevel = 2;
+    public String name            = "setmana";
+    public int    permissionLevel = 2;
     String commandUsage = "commands." + Reference.MOD_ID.toLowerCase() + ".setmana.usage";
 
     @Override
@@ -47,12 +47,12 @@ public class CommandSetMana extends CommandBase {
         return name;
     }
 
-    public int getPermissionLevel(){
+    public int getPermissionLevel() {
         return permissionLevel;
     }
 
     @Override
-    public String getUsage(ICommandSender sender){
+    public String getUsage(ICommandSender sender) {
         return commandUsage;
     }
 
@@ -68,7 +68,7 @@ public class CommandSetMana extends CommandBase {
         else
             player = getCommandSenderAsPlayer(sender);
 
-        mana = ManaCapability.get(player);
+        mana = ManaCapability.getMana(player);
 
         setMana(args[0], Float.valueOf(args[1]), mana);
         info = getInfoFromString(args[0], mana);
@@ -79,25 +79,26 @@ public class CommandSetMana extends CommandBase {
         notifyCommandListener(player, this, "commands.rpgmode.setmana.success1", info[0], info[1]);
 
         if (!player.getName().equalsIgnoreCase(getCommandSenderAsPlayer(sender).getName()))
-            notifyCommandListener(sender, this, "commands.rpgmode.setmana.success2", player.getName(), info[0], info[1]);
+            notifyCommandListener(
+                    sender, this, "commands.rpgmode.setmana.success2", player.getName(), info[0], info[1]);
     }
 
-    private String[] getInfoFromString(String string, IMana mana){
+    private String[] getInfoFromString(String string, IMana mana) {
         switch (string.toLowerCase()) {
             case "mana":
-                return new String[]{"mana", floatToString(mana.getMana())};
+                return new String[] {"mana", floatToString(mana.getMana())};
             case "m":
                 return getInfoFromString("mana", mana);
             case "maxmana":
-                return new String[]{"max mana", floatToString(mana.getMaxMana())};
+                return new String[] {"max mana", floatToString(mana.getMaxMana())};
             case "max":
                 return getInfoFromString("maxmana", mana);
             case "regenspeed":
-                return new String[]{"regeneration speed", floatToString(mana.getRegenSpeed())};
+                return new String[] {"regeneration speed", floatToString(mana.getRegenSpeed())};
             case "speed":
                 return getInfoFromString("regenspeed", mana);
             case "regenamount":
-                return new String[]{"regeneration amount", floatToString(mana.getRegenAmount())};
+                return new String[] {"regeneration amount", floatToString(mana.getRegenAmount())};
             case "amount":
                 return getInfoFromString("regenamount", mana);
         }
@@ -137,7 +138,11 @@ public class CommandSetMana extends CommandBase {
         return String.valueOf(value);
     }
 
-    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
-        return args.length == 1 ? getListOfStringsMatchingLastWord(args, "mana", "maxmana", "regenspeed", "regenamount") : (args.length == 3 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()): Collections.emptyList());
+    public List<String> getTabCompletions(
+            MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
+        return args.length == 1 ?
+               getListOfStringsMatchingLastWord(args, "mana", "maxmana", "regenspeed", "regenamount") :
+               (args.length == 3 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) :
+                Collections.emptyList());
     }
 }

@@ -31,17 +31,16 @@ import net.minecraft.world.GameType;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import robmart.rpgmode.common.capability.health.MaxHealthCapability;
 import robmart.rpgmode.common.handlers.ConfigurationHandler;
 import robmart.rpgmode.common.reference.Reference;
-
-import java.text.DecimalFormat;
 
 /**
  * @author Robmart
  */
 public class GuiHealth extends Gui {
     private static final ResourceLocation texture = new ResourceLocation(Reference.MOD_ID, "textures/gui/bars.png");
-    private Minecraft mc;
+    private              Minecraft        mc;
 
 
     public GuiHealth(Minecraft mc) {
@@ -69,7 +68,8 @@ public class GuiHealth extends Gui {
         if (event.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE)
             return;
 
-        if (mc.playerController.getCurrentGameType() == GameType.CREATIVE || mc.playerController.getCurrentGameType() == GameType.SPECTATOR)
+        if (mc.playerController.getCurrentGameType() == GameType.CREATIVE ||
+            mc.playerController.getCurrentGameType() == GameType.SPECTATOR)
             return;
 
         ScaledResolution scaledResolution = new ScaledResolution(mc);
@@ -85,7 +85,6 @@ public class GuiHealth extends Gui {
         int barLength = 77;
         int healthBarWidth = (int) ((player.getHealth() / player.getMaxHealth()) * barLength);
         FontRenderer fontRenderer = this.mc.fontRenderer;
-        DecimalFormat decimalFormat = new DecimalFormat("#");
 
         this.mc.mcProfiler.startSection("health");
 
@@ -103,15 +102,8 @@ public class GuiHealth extends Gui {
 
         drawTexturedModalRect(xPos, yPos, 0, 9 * 2, healthBarWidth * 2, 6 * 2 - 2);
 
-        String health = String.valueOf(player.getHealth());
-        health = !health.contains(".") ? health : health.replaceAll("0*$", "").replaceAll("\\.$", "");
-        if (((health.lastIndexOf(".") + 3) >= 0) && (health.lastIndexOf(".") + 3) < health.length())
-            health = !health.contains(".") ? health : health.replace(health.substring(health.lastIndexOf(".") + 3), "");
-        String maxHealth = String.valueOf(player.getMaxHealth());
-        maxHealth = !maxHealth.contains(".") ? maxHealth : maxHealth.replaceAll("0*$", "").replaceAll("\\.$", "");
-        if (((maxHealth.lastIndexOf(".") + 3) >= 0) && (maxHealth.lastIndexOf(".") + 3) < maxHealth.length())
-            maxHealth = !maxHealth.contains(".") ? maxHealth : maxHealth.replace(maxHealth.substring(maxHealth.lastIndexOf(".") + 3), "");
-        String message = "Health " + health + "/" + maxHealth;
+        String message = String.format("%s / %s", MaxHealthCapability.formatMaxHealth(player.getHealth()),
+                                       MaxHealthCapability.formatMaxHealth(player.getMaxHealth()));
 
         xPos += (barLength) - (fontRenderer.getStringWidth(message) / 2);
         yPos += 1;

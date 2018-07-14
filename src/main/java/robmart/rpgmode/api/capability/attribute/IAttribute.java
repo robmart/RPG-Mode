@@ -17,7 +17,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package robmart.rpgmode.common.capability.attribute;
+/*
+ * <p>
+ * This software is a modification for the game Minecraft, intended to give the game RPG elements.
+ * Copyright (C) 2018 Robmart
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package robmart.rpgmode.api.capability.attribute;
 
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -25,9 +44,6 @@ import net.minecraft.nbt.NBTTagCompound;
  * @author Robmart
  */
 public interface IAttribute {
-
-    String getOwnerType();
-
     /**
      * Get the strength value
      *
@@ -135,11 +151,12 @@ public interface IAttribute {
 
     /**
      * Sets all attributes
-     * @param strength New strength value
-     * @param dexterity New dexterity value
+     *
+     * @param strength     New strength value
+     * @param dexterity    New dexterity value
      * @param intelligence New intelligence value
      * @param constitution New constitution value
-     * @param wisdom new wisdom value
+     * @param wisdom       new wisdom value
      */
     void setAttributes(int strength, int dexterity, int intelligence, int constitution, int wisdom);
 
@@ -158,6 +175,11 @@ public interface IAttribute {
     void setAttributePoint(int value);
 
     /**
+     * Synchronise the entity's attributes to watching clients.
+     */
+    void synchronise();
+
+    /**
      * Saves the NBT data
      *
      * @return The saved NBT Data
@@ -168,6 +190,7 @@ public interface IAttribute {
      * Saves the NBT data into specified NBT compound
      *
      * @param compound The compound
+     *
      * @return The saved nbt data
      */
     NBTTagCompound saveNBTData(NBTTagCompound compound);

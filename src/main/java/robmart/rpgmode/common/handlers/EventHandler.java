@@ -64,9 +64,11 @@ public class EventHandler {
 
         if (persistedData.getBoolean(key)) {
             message = "Player has joined before.";
-        } else {
+        }
+        else {
             persistedData.setBoolean(key, true);
-            AttributeCapability.get(player).setAttributes(5, 5, 5, 5, 5);
+            AttributeCapability.getAttributes(player).setAttributes(5, 5, 5, 5, 5);
+            player.setHealth(player.getMaxHealth());
 
             message = "Player hasn't joined before.";
         }
@@ -85,8 +87,12 @@ public class EventHandler {
         IBlockState state = event.getWorld().getBlockState(look.getBlockPos());
 
         if (event.getItemStack().getItem() instanceof ItemGlassBottle && state.getMaterial() == Material.LAVA) {
-            event.getWorld().playSound(event.getEntityPlayer(), event.getEntityPlayer().posX, event.getEntityPlayer().posY, event.getEntityPlayer().posZ, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-            ItemHelper.turnBottleIntoItem(event.getItemStack(), event.getEntityPlayer(), PotionHelper.getItemStackOfPotion(InitItems.POTION, InitPotionTypes.LAVA));
+            event.getWorld()
+                 .playSound(event.getEntityPlayer(), event.getEntityPlayer().posX, event.getEntityPlayer().posY,
+                            event.getEntityPlayer().posZ, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F,
+                            1.0F);
+            ItemHelper.turnBottleIntoItem(event.getItemStack(), event.getEntityPlayer(),
+                                          PotionHelper.getItemStackOfPotion(InitItems.POTION, InitPotionTypes.LAVA));
         }
     }
 }

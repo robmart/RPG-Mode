@@ -27,10 +27,13 @@ public class RegistryHelper {
      * @param registry The registry
      * @param name     The name of the entry
      * @param <T>      The registry type
+     *
      * @return The registry entry
+     *
      * @throws NullPointerException When the entry doesn't exist
      */
-    public static <T extends IForgeRegistryEntry<T>> T getRegistryEntry(final IForgeRegistry<T> registry, final String name) {
+    public static <T extends IForgeRegistryEntry<T>> T getRegistryEntry(
+            final IForgeRegistry<T> registry, final String name) {
         return getRegistryEntry(registry, Reference.MOD_ID, name);
     }
 
@@ -41,12 +44,16 @@ public class RegistryHelper {
      * @param modid    The mod ID of the entry
      * @param name     The name of the entry
      * @param <T>      The registry type
+     *
      * @return The registry entry
+     *
      * @throws NullPointerException When the entry doesn't exist
      */
-    public static <T extends IForgeRegistryEntry<T>> T getRegistryEntry(final IForgeRegistry<T> registry, final String modid, final String name) {
+    public static <T extends IForgeRegistryEntry<T>> T getRegistryEntry(
+            final IForgeRegistry<T> registry, final String modid, final String name) {
         final ResourceLocation key = new ResourceLocation(modid, name);
         final T registryEntry = registry.getValue(key);
-        return Preconditions.checkNotNull(registryEntry, "%s doesn't exist in registry %s", key, RegistryManager.ACTIVE.getName(registry));
+        return Preconditions.checkNotNull(registryEntry, "%s doesn't exist in registry %s", key,
+                                          RegistryManager.ACTIVE.getName(registry));
     }
 }

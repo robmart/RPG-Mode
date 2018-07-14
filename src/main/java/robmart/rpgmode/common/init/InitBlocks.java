@@ -38,19 +38,20 @@ import robmart.rpgmode.common.reference.Reference;
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID)
 @SuppressWarnings("unused")
 public class InitBlocks {
-    public static final BlockRPGFlower HELL_FLOWER = new BlockRPGFlower(RefBlockNames.HELL_FLOWER, EnumPlantType.Nether);
+    public static final BlockRPGFlower HELL_FLOWER = new BlockRPGFlower(
+            RefBlockNames.HELL_FLOWER, EnumPlantType.Nether);
 
     @SubscribeEvent
     public static void registerItems(final RegistryEvent.Register<Block> event) {
         event.getRegistry().registerAll(
                 HELL_FLOWER
-        );
+                                       );
     }
 
     @SubscribeEvent
     public static void registerItemBlocks(RegistryEvent.Register<Item> event) {
         event.getRegistry().registerAll(
                 new ItemRPGBlock(HELL_FLOWER)
-        );
+                                       );
     }
 }

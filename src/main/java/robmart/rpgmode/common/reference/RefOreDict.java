@@ -27,10 +27,10 @@ public class RefOreDict {
     public static final String WING_BAT = "wingBat";
 
     //Potions
-    public static final String POTION_STRENGTH = "potionStrength";
-    public static final String POTION_LONG_STRENGTH = "potionLongStrength";
+    public static final String POTION_STRENGTH        = "potionStrength";
+    public static final String POTION_LONG_STRENGTH   = "potionLongStrength";
     public static final String POTION_STRONG_STRENGTH = "potionStrongStrength";
 
-    public static final String POTION_WEAKNESS = "potionWeakness";
+    public static final String POTION_WEAKNESS      = "potionWeakness";
     public static final String POTION_LONG_WEAKNESS = "potionLongWeakness";
 }

@@ -23,23 +23,24 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.relauncher.Side;
-import robmart.rpgmode.common.capability.mana.ManaCapability;
+import robmart.rpgmode.common.capability.attribute.AttributeCapability;
 import robmart.rpgmode.common.network.AbstractMessage;
 
 import java.io.IOException;
 
 /**
  * @author Robmart
+ * Created on 7/10/2018
  */
-public class SyncPlayerMana extends AbstractMessage.AbstractClientMessage<SyncPlayerMana> {
+public class SyncPlayerAttributes extends AbstractMessage.AbstractClientMessage<SyncPlayerAttributes> {
     private NBTTagCompound data;
 
-    public SyncPlayerMana() {
+    public SyncPlayerAttributes() {
     }
 
-    public SyncPlayerMana(EntityPlayer player) {
+    public SyncPlayerAttributes(EntityPlayer player) {
         data = new NBTTagCompound();
-        ManaCapability.getMana(player).saveNBTData(data);
+        AttributeCapability.getAttributes(player).saveNBTData(data);
     }
 
     @Override
@@ -54,6 +55,6 @@ public class SyncPlayerMana extends AbstractMessage.AbstractClientMessage<SyncPl
 
     @Override
     public void process(EntityPlayer player, Side side) {
-        ManaCapability.getMana(player).loadNBTData(data);
+        AttributeCapability.getAttributes(player).loadNBTData(data);
     }
 }

@@ -38,17 +38,37 @@ import robmart.rpgmode.common.reference.Reference;
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID)
 @SuppressWarnings("unused")
 public class InitPotions {
-    public static final PotionBase LAVA = new PotionLava();
-    public static final PotionBase STRENGTH = new PotionBase(false, 155, 24, 24, RefPotionNames.STRENGTH, PotionHelper.STRENGTH, "2f6f5f5f-172b-4f95-97e3-d976823ed50e", 2, 0);
-    public static final PotionBase WEAKNESS = new PotionBase(true, 61, 171, 234, RefPotionNames.WEAKNESS, PotionHelper.STRENGTH, "2f6f5f5f-172b-4f95-97e3-d976823ed50e", -2, 0);
-    public static final PotionBase DEXTEROUSNESS = new PotionBase(false, 59, 101, 10, RefPotionNames.DEXTEROUSNESS, PotionHelper.DEXTEROUSNESS, "64591a96-d9f5-4f7d-b39e-ceb834c38649", 2, 0);
-    public static final PotionBase CLUMSINESS = new PotionBase(true, 149, 64, 167, RefPotionNames.CLUMSINESS, PotionHelper.DEXTEROUSNESS, "309bf477-d48d-41ae-a829-33caa0f604e0", -2, 0);
-    public static final PotionBase FORTITUDE = new PotionBase(false, 234, 10, 40, RefPotionNames.FORTITUDE, PotionHelper.FORTITUDE, "fe0e866a-2602-40ac-b22f-a477adad20a7", 2, 0);
-    public static final PotionBase LETHARGY = new PotionBase(true, 56, 81, 7, RefPotionNames.LETHARGY, PotionHelper.FORTITUDE, "a64eab83-d3a8-4813-acd6-44914a46e0a5", -2, 0);
-    public static final PotionBase INTELLIGENCE = new PotionBase(false, 42, 7, 220, RefPotionNames.INTELLIGENCE, PotionHelper.INTELLIGENCE, "40e166b0-68ff-4072-ae0f-ff2f0c55702f", 2, 0);
-    public static final PotionBase STUPIDITY = new PotionBase(true, 223, 155, 32, RefPotionNames.STUPIDITY, PotionHelper.INTELLIGENCE, "40e166b0-68ff-4072-ae0f-ff2f0c55702f", -2, 0);
-    public static final PotionBase WISDOM = new PotionBase(false, 102, 32, 201, RefPotionNames.WISDOM, PotionHelper.WISDOM, "308dbe5f-d86b-4e85-aff0-df6559d0d325", 2, 0);
-    public static final PotionBase FOOLISHNESS = new PotionBase(true, 116, 196, 42, RefPotionNames.FOOLISHNESS, PotionHelper.WISDOM, "47544add-a921-4b4d-b247-c5da8db72cd1", -2, 0);
+    public static final PotionBase LAVA          = new PotionLava();
+    public static final PotionBase STRENGTH      = new PotionBase(
+            false, 155, 24, 24, RefPotionNames.STRENGTH, PotionHelper.STRENGTH, "2f6f5f5f-172b-4f95-97e3-d976823ed50e",
+            2, 0);
+    public static final PotionBase WEAKNESS      = new PotionBase(
+            true, 61, 171, 234, RefPotionNames.WEAKNESS, PotionHelper.STRENGTH, "2f6f5f5f-172b-4f95-97e3-d976823ed50e",
+            -2, 0);
+    public static final PotionBase DEXTEROUSNESS = new PotionBase(
+            false, 59, 101, 10, RefPotionNames.DEXTEROUSNESS, PotionHelper.DEXTEROUSNESS,
+            "64591a96-d9f5-4f7d-b39e-ceb834c38649", 2, 0);
+    public static final PotionBase CLUMSINESS    = new PotionBase(
+            true, 149, 64, 167, RefPotionNames.CLUMSINESS, PotionHelper.DEXTEROUSNESS,
+            "309bf477-d48d-41ae-a829-33caa0f604e0", -2, 0);
+    public static final PotionBase FORTITUDE     = new PotionBase(
+            false, 234, 10, 40, RefPotionNames.FORTITUDE, PotionHelper.FORTITUDE,
+            "fe0e866a-2602-40ac-b22f-a477adad20a7", 2, 0);
+    public static final PotionBase LETHARGY      = new PotionBase(
+            true, 56, 81, 7, RefPotionNames.LETHARGY, PotionHelper.FORTITUDE, "a64eab83-d3a8-4813-acd6-44914a46e0a5",
+            -2, 0);
+    public static final PotionBase INTELLIGENCE  = new PotionBase(
+            false, 42, 7, 220, RefPotionNames.INTELLIGENCE, PotionHelper.INTELLIGENCE,
+            "40e166b0-68ff-4072-ae0f-ff2f0c55702f", 2, 0);
+    public static final PotionBase STUPIDITY     = new PotionBase(
+            true, 223, 155, 32, RefPotionNames.STUPIDITY, PotionHelper.INTELLIGENCE,
+            "40e166b0-68ff-4072-ae0f-ff2f0c55702f", -2, 0);
+    public static final PotionBase WISDOM        = new PotionBase(
+            false, 102, 32, 201, RefPotionNames.WISDOM, PotionHelper.WISDOM, "308dbe5f-d86b-4e85-aff0-df6559d0d325", 2,
+            0);
+    public static final PotionBase FOOLISHNESS   = new PotionBase(
+            true, 116, 196, 42, RefPotionNames.FOOLISHNESS, PotionHelper.WISDOM, "47544add-a921-4b4d-b247-c5da8db72cd1",
+            -2, 0);
 
     @SubscribeEvent
     public static void registerPotions(final RegistryEvent.Register<Potion> event) {
@@ -70,7 +90,7 @@ public class InitPotions {
 
                 WISDOM,
                 FOOLISHNESS
-        );
+                                       );
         RPGMode.logger.info(String.format("%s potions added", PotionBase.potionCounter));
     }
 }

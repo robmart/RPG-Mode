@@ -48,11 +48,11 @@ import robmart.rpgmode.common.reference.Reference;
 public class InitItems {
     private static int oreDictCounter = 0;
 
-    public static final ItemBase BAT_WING = new ItemBase(RefItemNames.BAT_WING, CreativeTabs.BREWING);
+    public static final ItemBase BAT_WING       = new ItemBase(RefItemNames.BAT_WING, CreativeTabs.BREWING);
     public static final ItemBase PARROT_FEATHER = new ItemBase(RefItemNames.PARROT_FEATHER, CreativeTabs.BREWING);
 
-    public static final Item POTION = new ItemPotionOverride();
-    public static final Item SPLASH_POTION = new ItemSplashPotionOverride();
+    public static final Item POTION           = new ItemPotionOverride();
+    public static final Item SPLASH_POTION    = new ItemSplashPotionOverride();
     public static final Item LINGERING_POTION = new ItemLingeringPotionOverride();
 
     @SubscribeEvent
@@ -65,7 +65,7 @@ public class InitItems {
                 POTION,
                 SPLASH_POTION,
                 LINGERING_POTION
-        );
+                                       );
         RPGMode.logger.info(String.format("%s items added", ItemBase.itemCounter));
     }
 
@@ -76,19 +76,37 @@ public class InitItems {
         registerOre(RefOreDict.WING_BAT, new ItemStack(BAT_WING));
 
         //Potions
-        registerOre(RefOreDict.POTION_STRENGTH, PotionHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.STRENGTH));
-        registerOre(RefOreDict.POTION_LONG_STRENGTH, PotionHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.LONG_STRENGTH));
-        registerOre(RefOreDict.POTION_STRONG_STRENGTH, PotionHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.STRONG_STRENGTH));
+        registerOre(
+                RefOreDict.POTION_STRENGTH, PotionHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.STRENGTH));
+        registerOre(
+                RefOreDict.POTION_LONG_STRENGTH,
+                PotionHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.LONG_STRENGTH));
+        registerOre(
+                RefOreDict.POTION_STRONG_STRENGTH,
+                PotionHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.STRONG_STRENGTH));
 
-        registerOre(RefOreDict.POTION_STRENGTH, PotionHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.STRENGTH));
-        registerOre(RefOreDict.POTION_LONG_STRENGTH, PotionHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.LONG_STRENGTH));
-        registerOre(RefOreDict.POTION_STRONG_STRENGTH, PotionHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.STRONG_STRENGTH));
+        registerOre(
+                RefOreDict.POTION_STRENGTH,
+                PotionHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.STRENGTH));
+        registerOre(
+                RefOreDict.POTION_LONG_STRENGTH,
+                PotionHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.LONG_STRENGTH));
+        registerOre(
+                RefOreDict.POTION_STRONG_STRENGTH,
+                PotionHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.STRONG_STRENGTH));
 
-        registerOre(RefOreDict.POTION_WEAKNESS, PotionHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.WEAKNESS));
-        registerOre(RefOreDict.POTION_LONG_WEAKNESS, PotionHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.LONG_WEAKNESS));
+        registerOre(
+                RefOreDict.POTION_WEAKNESS, PotionHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.WEAKNESS));
+        registerOre(
+                RefOreDict.POTION_LONG_WEAKNESS,
+                PotionHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.LONG_WEAKNESS));
 
-        registerOre(RefOreDict.POTION_WEAKNESS, PotionHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.WEAKNESS));
-        registerOre(RefOreDict.POTION_LONG_WEAKNESS, PotionHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.LONG_WEAKNESS));
+        registerOre(
+                RefOreDict.POTION_WEAKNESS,
+                PotionHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.WEAKNESS));
+        registerOre(
+                RefOreDict.POTION_LONG_WEAKNESS,
+                PotionHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.LONG_WEAKNESS));
 
         RPGMode.logger.info(String.format("%s ore dictionary entries added", oreDictCounter));
     }

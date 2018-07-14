@@ -37,8 +37,8 @@ import robmart.rpgmode.common.reference.Reference;
 public class CreativeTabHandler {
 
     @SubscribeEvent
-    public static void onGuiOpen(GuiOpenEvent event){
-        if (event.getGui() instanceof GuiContainerCreative){
+    public static void onGuiOpen(GuiOpenEvent event) {
+        if (event.getGui() instanceof GuiContainerCreative) {
             event.setGui(new GuiContainerCreativeOverride(Minecraft.getMinecraft().player));
         }
     }

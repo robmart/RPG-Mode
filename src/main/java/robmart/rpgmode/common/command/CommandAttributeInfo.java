@@ -26,8 +26,8 @@ import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
+import robmart.rpgmode.api.capability.attribute.IAttribute;
 import robmart.rpgmode.common.capability.attribute.AttributeCapability;
-import robmart.rpgmode.common.capability.attribute.IAttribute;
 import robmart.rpgmode.common.reference.Reference;
 
 import javax.annotation.Nullable;
@@ -39,20 +39,20 @@ import java.util.List;
  */
 public class CommandAttributeInfo extends CommandBase {
     protected final String name = "attributeinfo";
-    private final int permissionLevel = 1;
-    private final String commandUsage = "commands." + Reference.MOD_ID.toLowerCase() + ".attributeinfo.usage";
+    private final   int    permissionLevel = 1;
+    private final   String commandUsage = "commands." + Reference.MOD_ID.toLowerCase() + ".attributeinfo.usage";
 
     @Override
     public String getName() {
         return name;
     }
 
-    public int getPermissionLevel(){
+    public int getPermissionLevel() {
         return permissionLevel;
     }
 
     @Override
-    public String getUsage(ICommandSender sender){
+    public String getUsage(ICommandSender sender) {
         return commandUsage;
     }
 
@@ -68,39 +68,40 @@ public class CommandAttributeInfo extends CommandBase {
         else
             player = getCommandSenderAsPlayer(sender);
 
-        attribute = AttributeCapability.get(player);
+        attribute = AttributeCapability.getAttributes(player);
         info = getInfoFromString(args[0], attribute);
 
         if (info == null)
             throw new WrongUsageException(commandUsage);
 
-        notifyCommandListener(sender, this, "commands.rpgmode.attributeinfo.success", player.getName(), info[0], info[1]);
+        notifyCommandListener(
+                sender, this, "commands.rpgmode.attributeinfo.success", player.getName(), info[0], info[1]);
     }
 
-    private String[] getInfoFromString(String string, IAttribute attribute){
-        switch (string.toLowerCase()){
+    private String[] getInfoFromString(String string, IAttribute attribute) {
+        switch (string.toLowerCase()) {
             case "strength":
-                return new String[]{"strength", floatToString(attribute.getStrength())};
+                return new String[] {"strength", floatToString(attribute.getStrength())};
             case "str":
                 return getInfoFromString("strength", attribute);
             case "dexterity":
-                return new String[]{"dexterity", floatToString(attribute.getDexterity())};
+                return new String[] {"dexterity", floatToString(attribute.getDexterity())};
             case "dex":
                 return getInfoFromString("dexterity", attribute);
             case "intelligence":
-                return new String[]{"intelligence", floatToString(attribute.getIntelligence())};
+                return new String[] {"intelligence", floatToString(attribute.getIntelligence())};
             case "int":
                 return getInfoFromString("intelligence", attribute);
             case "constitution":
-                return new String[]{"constitution", floatToString(attribute.getConstitution())};
+                return new String[] {"constitution", floatToString(attribute.getConstitution())};
             case "con":
                 return getInfoFromString("constitution", attribute);
             case "wisdom":
-                return new String[]{"wisdom", floatToString(attribute.getWisdom())};
+                return new String[] {"wisdom", floatToString(attribute.getWisdom())};
             case "wis":
                 return getInfoFromString("wisdom", attribute);
             case "attributepoints":
-                return new String[]{"attribute points", floatToString(attribute.getAttributePoint())};
+                return new String[] {"attribute points", floatToString(attribute.getAttributePoint())};
             case "points":
                 return getInfoFromString("attributepoints", attribute);
         }
@@ -111,7 +112,12 @@ public class CommandAttributeInfo extends CommandBase {
         return String.valueOf(value);
     }
 
-    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
-        return args.length == 1 ? getListOfStringsMatchingLastWord(args, "strength", "dexterity", "intelligence", "constitution", "wisdom", "attributepoints") : (args.length == 2 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()): Collections.emptyList());
+    public List<String> getTabCompletions(
+            MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
+        return args.length == 1 ?
+               getListOfStringsMatchingLastWord(args, "strength", "dexterity", "intelligence", "constitution", "wisdom",
+                                                "attributepoints") :
+               (args.length == 2 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) :
+                Collections.emptyList());
     }
 }

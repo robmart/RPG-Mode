@@ -57,7 +57,8 @@ public class GuiArmor extends Gui {
         if (event.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE)
             return;
 
-        if (mc.playerController.getCurrentGameType() == GameType.CREATIVE || mc.playerController.getCurrentGameType() == GameType.SPECTATOR)
+        if (mc.playerController.getCurrentGameType() == GameType.CREATIVE ||
+            mc.playerController.getCurrentGameType() == GameType.SPECTATOR)
             return;
 
         this.mc.getTextureManager().bindTexture(ICONS);

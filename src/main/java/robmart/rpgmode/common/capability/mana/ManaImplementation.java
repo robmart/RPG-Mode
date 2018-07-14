@@ -23,6 +23,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
+import robmart.rpgmode.api.capability.mana.IMana;
 import robmart.rpgmode.client.network.SyncPlayerMana;
 import robmart.rpgmode.common.network.PacketDispatcher;
 
@@ -56,17 +57,12 @@ public class ManaImplementation implements IMana {
      */
     private final EntityLivingBase entity;
 
-    ManaImplementation(){
+    ManaImplementation() {
         this.entity = null;
     }
 
     ManaImplementation(EntityLivingBase entity) {
         this.entity = entity;
-    }
-
-    @Override
-    public String getOwnerType(){
-        return "Default Implementation";
     }
 
     /**
@@ -89,7 +85,7 @@ public class ManaImplementation implements IMana {
         this.maxMana = amount > 0 ? amount : 1;
         setMana(getMaxMana() < getMana() ? getMaxMana() : getMana());
         if (this.entity instanceof EntityPlayerMP)
-            PacketDispatcher.sendTo(new SyncPlayerMana((EntityPlayer) this.entity), (EntityPlayerMP) this.entity);
+            this.synchronise();
     }
 
     /**
@@ -111,7 +107,7 @@ public class ManaImplementation implements IMana {
     public void setMana(float amount) {
         this.mana = amount > 0 ? (amount < getMaxMana() ? amount : getMaxMana()) : 0;
         if (this.entity instanceof EntityPlayerMP)
-            PacketDispatcher.sendTo(new SyncPlayerMana((EntityPlayer) this.entity), (EntityPlayerMP) this.entity);
+            this.synchronise();
     }
 
     /**
@@ -160,8 +156,8 @@ public class ManaImplementation implements IMana {
      * Call this from LivingUpdateEvent or a Tickhandler
      */
     @Override
-    public void onUpdate(EntityPlayer player) {
-        if (!player.world.isRemote && updateManaTimer())
+    public void onUpdate(EntityLivingBase entity) {
+        if (!entity.world.isRemote && updateManaTimer())
             regenMana(getRegenAmount());
     }
 
@@ -196,7 +192,7 @@ public class ManaImplementation implements IMana {
      * Sets the current mana value to the max amount of mana
      */
     @Override
-    public void restoreMana(){
+    public void restoreMana() {
         setMana(getMaxMana());
     }
 
@@ -204,6 +200,7 @@ public class ManaImplementation implements IMana {
      * Consumes mana mana
      *
      * @param amount The amount that will be removed
+     *
      * @return If the mana can be consumed
      */
     @Override
@@ -216,6 +213,11 @@ public class ManaImplementation implements IMana {
 
         return false;
 
+    }
+
+    @Override
+    public void synchronise() {
+        PacketDispatcher.sendTo(new SyncPlayerMana((EntityPlayer) this.entity), (EntityPlayerMP) this.entity);
     }
 
     /**
@@ -237,6 +239,7 @@ public class ManaImplementation implements IMana {
      * Saves the NBT data into specified NBT compound
      *
      * @param nbt The compound
+     *
      * @return The saved nbt data
      */
     @Override

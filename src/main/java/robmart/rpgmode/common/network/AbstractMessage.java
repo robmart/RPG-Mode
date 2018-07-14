@@ -35,7 +35,7 @@ import java.io.IOException;
 /**
  * @author Robmart
  */
-public abstract class AbstractMessage<T extends AbstractMessage<T>> implements IMessage, IMessageHandler <T, IMessage> {
+public abstract class AbstractMessage<T extends AbstractMessage<T>> implements IMessage, IMessageHandler<T, IMessage> {
     /**
      * Some PacketBuffer methods throw IOException - default handling propagates the exception.
      * if an IOException is expected but should not be fatal, handle it within this method.
@@ -56,12 +56,28 @@ public abstract class AbstractMessage<T extends AbstractMessage<T>> implements I
      */
     public abstract void process(EntityPlayer player, Side side);
 
-    /**
-     * If message is sent to the wrong side, an exception will be thrown during handling
-     * @return True if the message is allowed to be handled on the given side
+    //=====================================================================//
+    /*
+     * Make the implementation final so child classes don't need to bother
+     * with it, since the message class shouldn't have anything to do with
+     * the handler. This is simply to avoid having to have:
+     *
+     * public static class Handler extends GenericMessageHandler<OpenGuiMessage> {}
+     *
+     * in every single message class for the sole purpose of registration.
      */
-    protected boolean isValidOnSide(Side side) {
-        return true; // default allows handling on both sides, i.e. a bidirectional packet
+    @Override
+    public final IMessage onMessage(T msg, MessageContext ctx) {
+        if (!msg.isValidOnSide(ctx.side)) {
+            throw new RuntimeException("Invalid side " + ctx.side.name() + " for " + msg.getClass().getSimpleName());
+        }
+        else if (msg.requiresMainThread()) {
+            checkThreadAndEnqueue(msg, ctx);
+        }
+        else {
+            msg.process(RPGMode.proxy.getPlayerEntity(ctx), ctx.side);
+        }
+        return null;
     }
 
     /**
@@ -90,39 +106,23 @@ public abstract class AbstractMessage<T extends AbstractMessage<T>> implements I
         }
     }
 
-    //=====================================================================//
-    /*
-     * Make the implementation final so child classes don't need to bother
-     * with it, since the message class shouldn't have anything to do with
-     * the handler. This is simply to avoid having to have:
+    /**
+     * If message is sent to the wrong side, an exception will be thrown during handling
      *
-     * public static class Handler extends GenericMessageHandler<OpenGuiMessage> {}
-     *
-     * in every single message class for the sole purpose of registration.
+     * @return True if the message is allowed to be handled on the given side
      */
-    @Override
-    public final IMessage onMessage(T msg, MessageContext ctx) {
-        if (!msg.isValidOnSide(ctx.side)) {
-            throw new RuntimeException("Invalid side " + ctx.side.name() + " for " + msg.getClass().getSimpleName());
-        } else if (msg.requiresMainThread()) {
-            checkThreadAndEnqueue(msg, ctx);
-        } else {
-            msg.process(RPGMode.proxy.getPlayerEntity(ctx), ctx.side);
-        }
-        return null;
+    protected boolean isValidOnSide(Side side) {
+        return true; // default allows handling on both sides, i.e. a bidirectional packet
     }
 
     /**
      * 1.8 ONLY: Ensures that the message is being handled on the main thread
      */
-    private static final <T extends AbstractMessage<T>> void checkThreadAndEnqueue(final AbstractMessage<T> msg, final MessageContext ctx) {
+    private static final <T extends AbstractMessage<T>> void checkThreadAndEnqueue(
+            final AbstractMessage<T> msg, final MessageContext ctx) {
         IThreadListener thread = RPGMode.proxy.getThreadFromContext(ctx);
         // pretty much copied straight from vanilla code, see {@link PacketThreadUtil#checkThreadAndEnqueue}
-        thread.addScheduledTask(new Runnable() {
-            public void run() {
-                msg.process(RPGMode.proxy.getPlayerEntity(ctx), ctx.side);
-            }
-        });
+        thread.addScheduledTask(() -> msg.process(RPGMode.proxy.getPlayerEntity(ctx), ctx.side));
     }
 
     /**

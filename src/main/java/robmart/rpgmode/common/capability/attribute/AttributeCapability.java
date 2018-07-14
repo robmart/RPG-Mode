@@ -1,79 +1,161 @@
 /*
- * <p>
- * This software is a modification for the game Minecraft, intended to give the game RPG elements.
- * Copyright (C) 2018 Robmart
- * <p>
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * <p>
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- * <p>
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * Copyright 2015-2017, Choonster
+ *
+ * This work is licensed under the MIT license
+ *
+ * To view the license visit https://github.com/Choonster-Minecraft-Mods/TestMod3/blob/1.12.2/LICENSE.txt
+ *
+ * Edited for attributes
  */
 
 package robmart.rpgmode.common.capability.attribute;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import robmart.rpgmode.common.capability.CapabilityProvider;
-import robmart.rpgmode.common.helper.CapabilityHelper;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import robmart.rpgmode.api.capability.attribute.IAttribute;
+import robmart.rpgmode.common.capability.CapabilityProviderSerializable;
+import robmart.rpgmode.common.reference.Reference;
+import robmart.rpgmode.common.util.CapabilityUtils;
+
+import javax.annotation.Nullable;
 
 /**
- * @author Robmart
+ * @author Choonster
  */
-public class AttributeCapability {
+public final class AttributeCapability {
 
     /**
      * The {@link Capability} instance.
      */
     @CapabilityInject(IAttribute.class)
-    private static final Capability<IAttribute> ATTRIBUTE_CAPABILITY = null;
+    public static final Capability<IAttribute> ATTRIBUTE_CAPABILITY = null;
 
-    private IAttribute attributeCap = null;
+    /**
+     * The default {@link EnumFacing} to use for this capability.
+     */
+    public static final EnumFacing DEFAULT_FACING = null;
 
-    public AttributeCapability() {
-        this.attributeCap = new AttributeImplementation();
-    }
-
-    public AttributeCapability(EntityLivingBase enitity) {
-        this.attributeCap = new AttributeImplementation(enitity);
-    }
-
-    public AttributeCapability(IAttribute attribute) {
-        this.attributeCap = attribute;
-    }
-
-    public static IAttribute get(EntityLivingBase entity) {
-        return CapabilityHelper.getCapability(entity, ATTRIBUTE_CAPABILITY, null);
-    }
-
-    public ICapabilityProvider createProvider() {
-        return new CapabilityProvider<>(ATTRIBUTE_CAPABILITY, null, attributeCap);
-    }
+    /**
+     * The ID of this capability.
+     */
+    public static final ResourceLocation ID = new ResourceLocation(Reference.MOD_ID, "Attribute");
 
     public static void register() {
         CapabilityManager.INSTANCE.register(IAttribute.class, new Capability.IStorage<IAttribute>() {
             @Override
-            public NBTBase writeNBT(Capability<IAttribute> capability, IAttribute instance, EnumFacing side) {
+            public NBTBase writeNBT(
+                    final Capability<IAttribute> capability, final IAttribute instance, final EnumFacing side) {
                 return instance.saveNBTData();
             }
 
             @Override
-            public void readNBT(Capability<IAttribute> capability, IAttribute instance, EnumFacing side, NBTBase nbt) {
+            public void readNBT(
+                    final Capability<IAttribute> capability, final IAttribute instance, final EnumFacing side,
+                    final NBTBase nbt) {
                 instance.loadNBTData((NBTTagCompound) nbt);
             }
         }, () -> new AttributeImplementation(null));
+    }
+
+    /**
+     * Get the {@link IAttribute} from the specified entity.
+     *
+     * @param entity The entity
+     *
+     * @return The IAttribute
+     */
+    @Nullable
+    public static IAttribute getAttributes(final EntityLivingBase entity) {
+        return CapabilityUtils.getCapability(entity, ATTRIBUTE_CAPABILITY, DEFAULT_FACING);
+    }
+
+    /**
+     * Create a provider for the specified {@link IAttribute} instance.
+     *
+     * @param attribute The IAttribute
+     *
+     * @return The provider
+     */
+    public static ICapabilityProvider createProvider(final IAttribute attribute) {
+        return new CapabilityProviderSerializable<>(ATTRIBUTE_CAPABILITY, DEFAULT_FACING, attribute);
+    }
+
+    /**
+     * Event handler for the {@link IAttribute} capability.
+     */
+    @SuppressWarnings("unused")
+    @Mod.EventBusSubscriber(modid = Reference.MOD_ID)
+    private static class EventHandler {
+
+        /**
+         * Attach the {@link IAttribute} capability to all living entities.
+         *
+         * @param event The event
+         */
+        @SubscribeEvent
+        public static void attachCapabilities(final AttachCapabilitiesEvent<Entity> event) {
+            if (event.getObject() instanceof EntityLivingBase) {
+                final AttributeImplementation attribute = new AttributeImplementation(
+                        (EntityLivingBase) event.getObject());
+                event.addCapability(ID, createProvider(attribute));
+            }
+        }
+
+        /**
+         * Copy the player's attributes when they respawn after dying or returning from the end.
+         *
+         * @param event The event
+         */
+        @SubscribeEvent
+        public static void playerClone(final PlayerEvent.Clone event) {
+            final IAttribute oldAttribute = getAttributes(event.getOriginal());
+            final IAttribute newAttribute = getAttributes(event.getEntityPlayer());
+
+            if (newAttribute != null && oldAttribute != null) {
+                newAttribute.loadNBTData(oldAttribute.saveNBTData());
+            }
+        }
+
+        /**
+         * Synchronise a player's attributes to watching clients when they change dimensions.
+         *
+         * @param event The event
+         */
+        @SubscribeEvent
+        public static void playerChangeDimension(
+                final net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent event) {
+            final IAttribute attribute = getAttributes(event.player);
+
+            if (attribute != null) {
+                attribute.synchronise();
+            }
+        }
+
+        /**
+         * Synchronise a player's attributes to watching clients when they join world.
+         *
+         * @param event The event
+         */
+        @SubscribeEvent
+        public void onEntityJoinWorld(EntityJoinWorldEvent event) {
+            if (event.getEntity() instanceof EntityPlayerMP) {
+                final IAttribute attribute = getAttributes((EntityLivingBase) event.getEntity());
+                attribute.synchronise();
+            }
+        }
     }
 }

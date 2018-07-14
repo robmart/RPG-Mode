@@ -40,9 +40,9 @@ import java.util.Random;
  * @author Robmart
  */
 public class GuiFood extends Gui {
-    private final Random rand = new Random();
-    private Minecraft mc;
-    private int updateCounter;
+    private final Random    rand = new Random();
+    private       Minecraft mc;
+    private       int       updateCounter;
 
 
     public GuiFood(Minecraft mc) {
@@ -54,7 +54,7 @@ public class GuiFood extends Gui {
      */
     @SubscribeEvent(priority = EventPriority.NORMAL)
     @SuppressWarnings("unused")
-    public void onRenderFoodBar(RenderGameOverlayEvent.Pre event){
+    public void onRenderFoodBar(RenderGameOverlayEvent.Pre event) {
         if (event.getType() == RenderGameOverlayEvent.ElementType.FOOD)
             event.setCanceled(true);
     }
@@ -64,21 +64,22 @@ public class GuiFood extends Gui {
      *
      * @param event
      */
-    @SubscribeEvent(priority =  EventPriority.NORMAL)
+    @SubscribeEvent(priority = EventPriority.NORMAL)
     @SuppressWarnings("unused")
     public void onRenderExperienceBar(RenderGameOverlayEvent.Post event) {
         if (event.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE)
             return;
 
-        if (mc.playerController.getCurrentGameType() == GameType.CREATIVE || mc.playerController.getCurrentGameType() == GameType.SPECTATOR)
+        if (mc.playerController.getCurrentGameType() == GameType.CREATIVE ||
+            mc.playerController.getCurrentGameType() == GameType.SPECTATOR)
             return;
 
         this.mc.getTextureManager().bindTexture(ICONS);
 
-        EntityPlayer entityplayer = (EntityPlayer)this.mc.getRenderViewEntity();
+        EntityPlayer entityplayer = (EntityPlayer) this.mc.getRenderViewEntity();
         ScaledResolution scaledRes = new ScaledResolution(this.mc);
 
-        this.rand.setSeed((long)(this.updateCounter * 312871));
+        this.rand.setSeed((long) (this.updateCounter * 312871));
         FoodStats foodstats = entityplayer.getFoodStats();
         int k = foodstats.getFoodLevel();
         int i1 = scaledRes.getScaledWidth() / 2 + 91;
@@ -125,7 +126,7 @@ public class GuiFood extends Gui {
 
     @SubscribeEvent
     @SuppressWarnings("unused")
-    public void onClientTick(TickEvent.ClientTickEvent event){
+    public void onClientTick(TickEvent.ClientTickEvent event) {
         ++this.updateCounter;
     }
 }

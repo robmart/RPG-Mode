@@ -36,9 +36,9 @@ import java.util.List;
  * @author Robmart
  */
 public class CommandHealthInfo extends CommandBase {
-    protected final String name = "healthinfo";
-    private final int permissionLevel = 1;
-    private final String commandUsage = "commands." + Reference.MOD_ID.toLowerCase() + ".healthinfo.usage";
+    protected final String name            = "healthinfo";
+    private final   int    permissionLevel = 1;
+    private final   String commandUsage    = "commands." + Reference.MOD_ID.toLowerCase() + ".healthinfo.usage";
 
     @Override
     public String getName() {
@@ -76,11 +76,11 @@ public class CommandHealthInfo extends CommandBase {
     private String[] getInfoFromString(String string, EntityPlayer player) {
         switch (string.toLowerCase()) {
             case "health":
-                return new String[]{"health", floatToString(player.getHealth())};
+                return new String[] {"health", floatToString(player.getHealth())};
             case "h":
                 return getInfoFromString("health", player);
             case "maxhealth":
-                return new String[]{"max health", floatToString(player.getMaxHealth())};
+                return new String[] {"max health", floatToString(player.getMaxHealth())};
             case "max":
                 return getInfoFromString("maxhealth", player);
         }
@@ -91,7 +91,10 @@ public class CommandHealthInfo extends CommandBase {
         return String.valueOf(value);
     }
 
-    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
-        return args.length == 1 ? getListOfStringsMatchingLastWord(args, "health", "maxhealth") : (args.length == 2 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) : Collections.emptyList());
+    public List<String> getTabCompletions(
+            MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
+        return args.length == 1 ? getListOfStringsMatchingLastWord(args, "health", "maxhealth") :
+               (args.length == 2 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) :
+                Collections.emptyList());
     }
 }

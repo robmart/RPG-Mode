@@ -50,17 +50,17 @@ public class ConfigurationHandler {
     static void load() {
         String desc = "Set this to true to display the amount of health you have left.";
         displayHealthValue = config.getBoolean("healthValueRender.enabled",
-                Configuration.CATEGORY_CLIENT, displayHealthValue, desc);
+                                               Configuration.CATEGORY_CLIENT, displayHealthValue, desc);
 
         desc = "Set this to true to display the amount of mana you have left.";
         displayManaValue = config.getBoolean("manaValueRender.enabled",
-                Configuration.CATEGORY_CLIENT, displayManaValue, desc);
+                                             Configuration.CATEGORY_CLIENT, displayManaValue, desc);
 
         desc = "Set this to false to disable the mana bar and food switching places.";
         moveManaBar = config.getBoolean("moveManaBar.enabled",
-                Configuration.CATEGORY_CLIENT, moveManaBar, desc);
+                                        Configuration.CATEGORY_CLIENT, moveManaBar, desc);
 
-        if(config.hasChanged())
+        if (config.hasChanged())
             config.save();
     }
 
@@ -73,7 +73,7 @@ public class ConfigurationHandler {
         @SubscribeEvent
         @SuppressWarnings("unused")
         public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent eventArgs) {
-            if(eventArgs.getModID().equals(Reference.MOD_ID))
+            if (eventArgs.getModID().equals(Reference.MOD_ID))
                 load();
         }
     }

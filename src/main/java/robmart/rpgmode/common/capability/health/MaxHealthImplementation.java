@@ -10,14 +10,15 @@ package robmart.rpgmode.common.capability.health;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeMap;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.play.server.SPacketEntityProperties;
+import net.minecraft.world.WorldServer;
+import robmart.rpgmode.api.capability.health.IMaxHealth;
 import robmart.rpgmode.common.RPGMode;
 
 import javax.annotation.Nullable;
+import java.util.Collections;
 import java.util.UUID;
 
 /**
@@ -30,52 +31,26 @@ public class MaxHealthImplementation implements IMaxHealth {
      * Add the modifier's amount to the attribute's amount.
      */
     public static final int ATTRIBUTE_MODIFIER_OPERATION_ADD = 0;
+
     /**
      * The ID of the {@link AttributeModifier}.
      */
-    protected static final UUID MODIFIER_ID = UUID.fromString("d5d0d878-b3c2-469b-ba89-ac01c0635a9c");
+    protected static final UUID             MODIFIER_ID   = UUID.fromString("a0aab9c7-15f0-40fd-a5ac-f2987668b683");
     /**
      * The name of the {@link AttributeModifier}.
      */
-    protected static final String MODIFIER_NAME = "Bonus Max Health";
-    /**
-     * The minimum max health a player can have.
-     */
-    protected static final float MIN_AMOUNT = 10.0f;
+    protected static final String           MODIFIER_NAME = "Bonus Max Health";
     /**
      * The entity this is attached to.
      */
-    private final EntityLivingBase entity;
-    /**
-     * The dummy max health attribute. Used to avoid setting the entity's actual attribute to an invalid value.
-     */
-    private final IAttributeInstance dummyMaxHealthAttribute = new AttributeMap().registerAttribute(SharedMonsterAttributes.MAX_HEALTH);
+    private final          EntityLivingBase entity;
     /**
      * The bonus max health.
      */
-    private float bonusMaxHealth;
-
-    @Override
-    public String getOwnerType(){
-        return "Default Implementation";
-    }
-
-    MaxHealthImplementation() {
-        entity = null;
-    }
+    private                float            bonusMaxHealth;
 
     MaxHealthImplementation(@Nullable EntityLivingBase entity) {
         this.entity = entity;
-    }
-
-    /**
-     * Format a max health value.
-     *
-     * @param maxHealth The max health value
-     * @return The formatted text.
-     */
-    public static String formatMaxHealth(float maxHealth) {
-        return ItemStack.DECIMALFORMAT.format(maxHealth);
     }
 
     /**
@@ -111,12 +86,17 @@ public class MaxHealthImplementation implements IMaxHealth {
     }
 
     /**
-     * Create the {@link AttributeModifier}.
-     *
-     * @return The AttributeModifier
+     * Synchronise the entity's max health to watching clients.
      */
-    protected AttributeModifier createModifier() {
-        return new AttributeModifier(MODIFIER_ID, MODIFIER_NAME, getBonusMaxHealth() - entity.getMaxHealth(), ATTRIBUTE_MODIFIER_OPERATION_ADD);
+    @Override
+    public void synchronise() {
+        if (entity != null && !entity.getEntityWorld().isRemote) {
+            final IAttributeInstance entityMaxHealthAttribute = entity
+                    .getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH);
+            final SPacketEntityProperties packet = new SPacketEntityProperties(
+                    entity.getEntityId(), Collections.singleton(entityMaxHealthAttribute));
+            ((WorldServer) entity.getEntityWorld()).getEntityTracker().sendToTrackingAndSelf(entity, packet);
+        }
     }
 
     /**
@@ -125,71 +105,50 @@ public class MaxHealthImplementation implements IMaxHealth {
     protected void onBonusMaxHealthChanged() {
         if (entity == null) return;
 
-        final IAttributeInstance entityMaxHealthAttribute = entity.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH);
-
-        // Remove all modifiers from the dummy attribute
-        dummyMaxHealthAttribute.getModifiers().forEach(dummyMaxHealthAttribute::removeModifier);
-
-        // Copy the base value and modifiers except this class's from the entity's attribute to the dummy attribute
-        dummyMaxHealthAttribute.setBaseValue(entityMaxHealthAttribute.getBaseValue());
-        entityMaxHealthAttribute.getModifiers().stream().filter(modifier -> !modifier.getID().equals(MODIFIER_ID)).forEach(dummyMaxHealthAttribute::applyModifier);
+        final IAttributeInstance entityMaxHealthAttribute = entity
+                .getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH);
 
         AttributeModifier modifier = createModifier();
-        dummyMaxHealthAttribute.applyModifier(modifier);
 
-        final float newAmount = getBonusMaxHealth();
-        final float oldAmount;
+        float newAmount = 0f;
+        float oldAmount = 0f;
 
         final AttributeModifier oldModifier = entityMaxHealthAttribute.getModifier(MODIFIER_ID);
         if (oldModifier != null) {
             entityMaxHealthAttribute.removeModifier(oldModifier);
 
             modifier = createModifier();
+            newAmount = getBonusMaxHealth();
 
             oldAmount = (float) oldModifier.getAmount();
 
-            RPGMode.logger.debug("Max Health Changed! Entity: %s - Old: %s - New: %s", entity, formatMaxHealth(oldAmount), formatMaxHealth(newAmount));
-        } else {
-            RPGMode.logger.debug("Max Health Added! Entity: %s - New: %s", entity, formatMaxHealth(newAmount));
+            RPGMode.logger.debug("Max Health Changed! Entity: %s - Old: %s - New: %s", entity,
+                                 MaxHealthCapability.formatMaxHealth(oldAmount),
+                                 MaxHealthCapability.formatMaxHealth(newAmount));
+        }
+        else {
+            oldAmount = 0.0f;
+
+            RPGMode.logger.debug("Max Health Added! Entity: %s - New: %s", entity,
+                                 MaxHealthCapability.formatMaxHealth(newAmount));
         }
 
         entityMaxHealthAttribute.applyModifier(modifier);
 
-        if (entity.getHealth() > entity.getMaxHealth())
-            entity.setHealth(entity.getMaxHealth());
+        final float amountToHeal = newAmount - oldAmount;
+        if (amountToHeal > 0) {
+            entity.heal(amountToHeal);
+        }
     }
 
     /**
-     * Saves the NBT data
+     * Create the {@link AttributeModifier}.
      *
-     * @return The saved NBT Data
+     * @return The AttributeModifier
      */
-    @Override
-    public NBTTagCompound saveNBTData() {
-        NBTTagCompound nbt = new NBTTagCompound();
-        nbt.setFloat("bonusMaxHealth", this.getBonusMaxHealth());
-        return nbt;
-    }
-
-    /**
-     * Saves the NBT data into specified NBT compound
-     *
-     * @param nbt The compound
-     * @return The saved nbt data
-     */
-    @Override
-    public NBTTagCompound saveNBTData(NBTTagCompound nbt) {
-        nbt.setFloat("bonusMaxHealth", this.getBonusMaxHealth());
-        return nbt;
-    }
-
-    /**
-     * Loads the NBT data from NBT compound
-     *
-     * @param nbt The compound
-     */
-    @Override
-    public void loadNBTData(NBTTagCompound nbt) {
-        this.setBonusMaxHealth(nbt.getFloat("bonusMaxHealth"));
+    protected AttributeModifier createModifier() {
+        return new AttributeModifier(
+                MODIFIER_ID, MODIFIER_NAME, getBonusMaxHealth() - entity.getMaxHealth(),
+                ATTRIBUTE_MODIFIER_OPERATION_ADD);
     }
 }

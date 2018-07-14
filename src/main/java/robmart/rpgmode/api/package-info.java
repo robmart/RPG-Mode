@@ -17,37 +17,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package robmart.rpgmode.common.potion;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import robmart.rpgmode.common.reference.RefPotionNames;
-
-import javax.annotation.Nullable;
-
 /**
  * @author Robmart
+ * Created on 7/9/2018
  */
-public class PotionLava extends PotionBase {
+@API(owner = "RPGMode", apiVersion = "1", provides = "RPGModeAPI")
+package robmart.rpgmode.api;
 
-    public PotionLava() {
-        super(true, -2860526, RefPotionNames.LAVA, false);
-    }
-
-    @Override
-    public boolean isReady(int duration, int amplifier) {
-        return false;
-    }
-
-    @Override
-    public boolean isInstant() {
-        return true;
-    }
-
-    @Override
-    public void affectEntity(
-            @Nullable Entity source, @Nullable Entity indirectSource, EntityLivingBase entityLivingBaseIn,
-            int amplifier, double health) {
-        entityLivingBaseIn.setFire(10);
-    }
-}
+import net.minecraftforge.fml.common.API;

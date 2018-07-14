@@ -29,7 +29,8 @@ import java.util.Objects;
  * @author Robmart
  */
 public class ItemHelper {
-    public static ItemStack turnBottleIntoItem(ItemStack itemStackInput, EntityPlayer player, ItemStack itemStackOutput) {
+    public static ItemStack turnBottleIntoItem(
+            ItemStack itemStackInput, EntityPlayer player, ItemStack itemStackOutput) {
         if (!player.isCreative())
             itemStackInput.shrink(1);
 
@@ -37,7 +38,8 @@ public class ItemHelper {
 
         if (itemStackInput.isEmpty()) {
             return itemStackOutput;
-        } else {
+        }
+        else {
             if (!player.inventory.addItemStackToInventory(itemStackOutput)) {
                 player.dropItem(itemStackOutput, false);
             }

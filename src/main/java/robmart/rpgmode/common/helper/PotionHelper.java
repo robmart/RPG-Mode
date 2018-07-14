@@ -32,11 +32,16 @@ import robmart.rpgmode.common.reference.Reference;
  * @author Robmart
  */
 public class PotionHelper {
-    public static final IAttribute STRENGTH = (new RangedAttribute(null, Reference.MOD_ID + ".strength", 0, -10, 10)).setDescription("Strength").setShouldWatch(true);
-    public static final IAttribute DEXTEROUSNESS = (new RangedAttribute(null, Reference.MOD_ID + ".dexterousness", 0, -10, 10)).setDescription("Dexterity").setShouldWatch(true);
-    public static final IAttribute FORTITUDE = (new RangedAttribute(null, Reference.MOD_ID + ".fortitude", 0, -10, 10)).setDescription("Constitution").setShouldWatch(true);
-    public static final IAttribute INTELLIGENCE = (new RangedAttribute(null, Reference.MOD_ID + ".intelligence", 0, -10, 10)).setDescription("Intelligence").setShouldWatch(true);
-    public static final IAttribute WISDOM = (new RangedAttribute(null, Reference.MOD_ID + ".wisdom", 0, -10, 10)).setDescription("Wisdom").setShouldWatch(true);
+    public static final IAttribute STRENGTH      = (new RangedAttribute(
+            null, Reference.MOD_ID + ".strength", 0, -10, 10)).setDescription("Strength").setShouldWatch(true);
+    public static final IAttribute DEXTEROUSNESS = (new RangedAttribute(
+            null, Reference.MOD_ID + ".dexterousness", 0, -10, 10)).setDescription("Dexterity").setShouldWatch(true);
+    public static final IAttribute FORTITUDE     = (new RangedAttribute(
+            null, Reference.MOD_ID + ".fortitude", 0, -10, 10)).setDescription("Constitution").setShouldWatch(true);
+    public static final IAttribute INTELLIGENCE  = (new RangedAttribute(
+            null, Reference.MOD_ID + ".intelligence", 0, -10, 10)).setDescription("Intelligence").setShouldWatch(true);
+    public static final IAttribute WISDOM        = (new RangedAttribute(null, Reference.MOD_ID + ".wisdom", 0, -10, 10))
+            .setDescription("Wisdom").setShouldWatch(true);
 
     public static ItemStack getItemStackOfPotion(Item it, PotionType pt) {
         ItemStack res = new ItemStack(it);

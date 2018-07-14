@@ -57,6 +57,9 @@ public class ItemSplashPotionOverride extends ItemSplashPotion implements IModel
     @SideOnly(Side.CLIENT)
     @Override
     public void registerModels() {
-        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(Objects.requireNonNull(getRegistryName()), "inventory"));
+        ModelLoader.setCustomModelResourceLocation(this, 0,
+                                                   new ModelResourceLocation(
+                                                           Objects.requireNonNull(getRegistryName()),
+                                                           "inventory"));
     }
 }

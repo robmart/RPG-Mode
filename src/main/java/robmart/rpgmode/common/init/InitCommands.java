@@ -30,7 +30,7 @@ import robmart.rpgmode.common.command.*;
 public class InitCommands {
     private static int commandCounter = 0;
 
-    public static void init(FMLServerStartingEvent event){
+    public static void init(FMLServerStartingEvent event) {
         RPGMode.logger.info("Adding commands");
         registerCommand(event, new CommandManaInfo());
         registerCommand(event, new CommandSetMana());

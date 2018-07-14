@@ -36,13 +36,13 @@ import java.util.List;
  */
 public class RPGGuiConfig extends DefaultGuiFactory {
 
-    public RPGGuiConfig(){
+    public RPGGuiConfig() {
         super(Reference.MOD_ID, GuiConfig.getAbridgedConfigPath(ConfigurationHandler.config.toString()));
     }
 
 
     @Override
-    public GuiScreen createConfigGui(GuiScreen parent){
+    public GuiScreen createConfigGui(GuiScreen parent) {
         return new GuiConfig(parent, getConfigElements(), this.modid, false, false, this.title);
     }
 
@@ -50,11 +50,11 @@ public class RPGGuiConfig extends DefaultGuiFactory {
         List<IConfigElement> list = new ArrayList<>();
 
         list.addAll(new ConfigElement(ConfigurationHandler.config
-                .getCategory(Configuration.CATEGORY_GENERAL))
-                .getChildElements());
+                                              .getCategory(Configuration.CATEGORY_GENERAL))
+                            .getChildElements());
         list.addAll(new ConfigElement(ConfigurationHandler.config
-                .getCategory(Configuration.CATEGORY_CLIENT))
-                .getChildElements());
+                                              .getCategory(Configuration.CATEGORY_CLIENT))
+                            .getChildElements());
 
         return list;
     }

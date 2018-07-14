@@ -72,7 +72,9 @@ public class PotionBase extends Potion {
         potionCounter++;
     }
 
-    public PotionBase(final boolean isBadEffect, final int liquidColor, final String name, boolean useGlint, IAttribute attribute, String UUID, double amount, int operation) {
+    public PotionBase(
+            final boolean isBadEffect, final int liquidColor, final String name, boolean useGlint, IAttribute attribute,
+            String UUID, double amount, int operation) {
         this(isBadEffect, liquidColor, name, useGlint);
         this.registerPotionAttributeModifier(attribute, UUID, amount, operation);
     }
@@ -81,27 +83,36 @@ public class PotionBase extends Potion {
         this(isBadEffect, liquidColor, name, true);
     }
 
-    public PotionBase(final boolean isBadEffect, final int liquidColor, final String name, IAttribute attribute, String UUID, double amount, int operation) {
+    public PotionBase(
+            final boolean isBadEffect, final int liquidColor, final String name, IAttribute attribute, String UUID,
+            double amount, int operation) {
         this(isBadEffect, liquidColor, name);
         this.registerPotionAttributeModifier(attribute, UUID, amount, operation);
     }
 
-    public PotionBase(final boolean isBadEffect, final int liquidR, final int liquidG, final int liquidB, final String name, boolean useGlint) {
-        this(isBadEffect, new Color(liquidR, liquidG, liquidB).getRGB(), name, useGlint);
-    }
-
-    public PotionBase(final boolean isBadEffect, final int liquidR, final int liquidG, final int liquidB, final String name, boolean useGlint, IAttribute attribute, String UUID, double amount, int operation) {
+    public PotionBase(
+            final boolean isBadEffect, final int liquidR, final int liquidG, final int liquidB, final String name,
+            boolean useGlint, IAttribute attribute, String UUID, double amount, int operation) {
         this(isBadEffect, liquidR, liquidG, liquidB, name, useGlint);
         this.registerPotionAttributeModifier(attribute, UUID, amount, operation);
     }
 
-    public PotionBase(final boolean isBadEffect, final int liquidR, final int liquidG, final int liquidB, final String name) {
-        this(isBadEffect, liquidR, liquidG, liquidB, name, true);
+    public PotionBase(
+            final boolean isBadEffect, final int liquidR, final int liquidG, final int liquidB, final String name,
+            boolean useGlint) {
+        this(isBadEffect, new Color(liquidR, liquidG, liquidB).getRGB(), name, useGlint);
     }
 
-    public PotionBase(final boolean isBadEffect, final int liquidR, final int liquidG, final int liquidB, final String name, IAttribute attribute, String UUID, double amount, int operation) {
+    public PotionBase(
+            final boolean isBadEffect, final int liquidR, final int liquidG, final int liquidB, final String name,
+            IAttribute attribute, String UUID, double amount, int operation) {
         this(isBadEffect, liquidR, liquidG, liquidB, name);
         this.registerPotionAttributeModifier(attribute, UUID, amount, operation);
+    }
+
+    public PotionBase(
+            final boolean isBadEffect, final int liquidR, final int liquidG, final int liquidB, final String name) {
+        this(isBadEffect, liquidR, liquidG, liquidB, name, true);
     }
 
     @Override
@@ -168,7 +179,8 @@ public class PotionBase extends Potion {
      */
     @SideOnly(Side.CLIENT)
     @Override
-    public void renderHUDEffect(final int x, final int y, final PotionEffect effect, final Minecraft mc, final float alpha) {
+    public void renderHUDEffect(
+            final int x, final int y, final PotionEffect effect, final Minecraft mc, final float alpha) {
         mc.getTextureManager().bindTexture(iconTexture);
         GlStateManager.scale(0.25, 0.25, 0.25);
         Gui.drawModalRectWithCustomSizedTexture((x + 4) * 4, (y + 4) * 4, 0, 0, 64, 64, 64, 64);

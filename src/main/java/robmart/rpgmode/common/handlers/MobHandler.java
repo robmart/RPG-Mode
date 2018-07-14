@@ -46,11 +46,15 @@ public class MobHandler {
     public static void onLivingDrop(LivingDropsEvent event) {
         if (event.getEntityLiving() instanceof EntityBat)
             if (random.nextInt(10) < 3)
-                event.getDrops().add(new EntityItem(event.getEntityLiving().world, event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, new ItemStack(InitItems.BAT_WING)));
+                event.getDrops().add(new EntityItem(event.getEntityLiving().world, event.getEntityLiving().posX,
+                                                    event.getEntityLiving().posY, event.getEntityLiving().posZ,
+                                                    new ItemStack(InitItems.BAT_WING)));
 
         if (event.getEntityLiving() instanceof EntityParrot) {
             if (random.nextInt(10) < 3)
-                event.getDrops().add(new EntityItem(event.getEntityLiving().world, event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, new ItemStack(InitItems.PARROT_FEATHER)));
+                event.getDrops().add(new EntityItem(event.getEntityLiving().world, event.getEntityLiving().posX,
+                                                    event.getEntityLiving().posY, event.getEntityLiving().posZ,
+                                                    new ItemStack(InitItems.PARROT_FEATHER)));
 
             event.getDrops().removeIf(entityItem -> entityItem.getItem().getItem() == Items.FEATHER);
         }

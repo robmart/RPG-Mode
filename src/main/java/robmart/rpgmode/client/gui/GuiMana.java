@@ -30,19 +30,18 @@ import net.minecraft.world.GameType;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import robmart.rpgmode.common.capability.mana.IMana;
+import robmart.rpgmode.api.capability.mana.IMana;
+import robmart.rpgmode.common.capability.health.MaxHealthCapability;
 import robmart.rpgmode.common.capability.mana.ManaCapability;
 import robmart.rpgmode.common.handlers.ConfigurationHandler;
 import robmart.rpgmode.common.reference.Reference;
-
-import java.text.DecimalFormat;
 
 /**
  * @author Robmart
  */
 public class GuiMana extends Gui {
     private static final ResourceLocation texture = new ResourceLocation(Reference.MOD_ID, "textures/gui/bars.png");
-    private Minecraft mc;
+    private              Minecraft        mc;
 
     public GuiMana(Minecraft mc) {
         super();
@@ -54,13 +53,14 @@ public class GuiMana extends Gui {
      */
     @SubscribeEvent(priority = EventPriority.NORMAL)
     @SuppressWarnings("unused")
-    public void onRenderExperienceBar(RenderGameOverlayEvent.Post event){
+    public void onRenderExperienceBar(RenderGameOverlayEvent.Post event) {
         if (event.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE) return;
 
-        if (mc.playerController.getCurrentGameType() == GameType.CREATIVE || mc.playerController.getCurrentGameType() == GameType.SPECTATOR) return;
+        if (mc.playerController.getCurrentGameType() == GameType.CREATIVE ||
+            mc.playerController.getCurrentGameType() == GameType.SPECTATOR) return;
 
         ScaledResolution scaledResolution = new ScaledResolution(this.mc);
-        IMana mana = ManaCapability.get(this.mc.player);
+        IMana mana = ManaCapability.getMana(this.mc.player);
 
         Entity entity = this.mc.player.getRidingEntity();
 
@@ -72,7 +72,6 @@ public class GuiMana extends Gui {
         int barLength = 77;
         int manaBarWidth = (int) ((mana.getMana() / mana.getMaxMana()) * barLength);
         FontRenderer fontRenderer = this.mc.fontRenderer;
-        DecimalFormat decimalFormat = new DecimalFormat("#");
 
         GlStateManager.pushAttrib();
         GlStateManager.color(1.0F, 1.0F, 1.0F);
@@ -84,22 +83,15 @@ public class GuiMana extends Gui {
         if (!ConfigurationHandler.moveManaBar)
             yPos -= 10 * 2;
 
-        drawTexturedModalRect(xPos, yPos, 0, 0, 81 * 2 , 9 * 2);
+        drawTexturedModalRect(xPos, yPos, 0, 0, 81 * 2, 9 * 2);
 
         xPos += 2 * 2;
         yPos += 2 * 2;
 
         drawTexturedModalRect(xPos, yPos, 0, 14 * 2, manaBarWidth * 2, 6 * 2 - 2);
 
-        String manaValue = String.valueOf(mana.getMana());
-        manaValue = !manaValue.contains(".") ? manaValue : manaValue.replaceAll("0*$", "").replaceAll("\\.$", "");
-        if (((manaValue.lastIndexOf(".") + 3) >= 0) && (manaValue.lastIndexOf(".") + 3) < manaValue.length())
-            manaValue = !manaValue.contains(".") ? manaValue : manaValue.replace(manaValue.substring(manaValue.lastIndexOf(".") + 3), "");
-        String maxMana = String.valueOf(mana.getMaxMana());
-        maxMana = !maxMana.contains(".") ? maxMana : maxMana.replaceAll("0*$", "").replaceAll("\\.$", "");
-        if (((maxMana.lastIndexOf(".") + 3) >= 0) && (maxMana.lastIndexOf(".") + 3) < maxMana.length())
-            maxMana = !maxMana.contains(".") ? maxMana : maxMana.replace(maxMana.substring(maxMana.lastIndexOf(".") + 3), "");
-        String message = "Mana " + manaValue + "/" + maxMana;
+        String message = String.format("%s / %s", MaxHealthCapability.formatMaxHealth(mana.getMana()),
+                                       MaxHealthCapability.formatMaxHealth(mana.getMaxMana()));
 
         xPos += (barLength) - (fontRenderer.getStringWidth(message) / 2);
         yPos += 1;

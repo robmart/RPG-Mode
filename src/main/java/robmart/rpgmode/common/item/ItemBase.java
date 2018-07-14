@@ -56,6 +56,9 @@ public class ItemBase extends Item implements IModelRegister {
     @SideOnly(Side.CLIENT)
     @Override
     public void registerModels() {
-        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(Objects.requireNonNull(getRegistryName()), "inventory"));
+        ModelLoader.setCustomModelResourceLocation(this, 0,
+                                                   new ModelResourceLocation(
+                                                           Objects.requireNonNull(getRegistryName()),
+                                                           "inventory"));
     }
 }

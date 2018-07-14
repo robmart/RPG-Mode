@@ -40,9 +40,10 @@ import robmart.rpgmode.client.render.IModelRegister;
  * @author Robmart
  */
 public class BlockRPGFlower extends BlockBush implements IModelRegister {
-    protected static final AxisAlignedBB FLOWER_AABB = new AxisAlignedBB(0.30000001192092896D, 0.0D, 0.30000001192092896D, 0.699999988079071D, 1.0D, 0.699999988079071D);
-    protected EnumPlantType plantType;
-    protected String name;
+    protected static final AxisAlignedBB FLOWER_AABB = new AxisAlignedBB(
+            0.30000001192092896D, 0.0D, 0.30000001192092896D, 0.699999988079071D, 1.0D, 0.699999988079071D);
+    protected              EnumPlantType plantType;
+    protected              String        name;
 
     public BlockRPGFlower(String name, EnumPlantType plantType) {
         super(Material.PLANTS);
@@ -70,13 +71,17 @@ public class BlockRPGFlower extends BlockBush implements IModelRegister {
     protected boolean canSustainBush(IBlockState state) {
         switch (plantType) {
             case Desert:
-                return state.getBlock() == net.minecraft.init.Blocks.SAND || state.getBlock() == net.minecraft.init.Blocks.HARDENED_CLAY || state.getBlock() == net.minecraft.init.Blocks.STAINED_HARDENED_CLAY;
+                return state.getBlock() == net.minecraft.init.Blocks.SAND ||
+                       state.getBlock() == net.minecraft.init.Blocks.HARDENED_CLAY ||
+                       state.getBlock() == net.minecraft.init.Blocks.STAINED_HARDENED_CLAY;
             case Nether:
                 return state.getBlock() == net.minecraft.init.Blocks.SOUL_SAND;
             case Crop:
                 return state.getBlock() == net.minecraft.init.Blocks.FARMLAND;
             case Plains:
-                return state.getBlock() == net.minecraft.init.Blocks.GRASS || state.getBlock() == net.minecraft.init.Blocks.DIRT || state.getBlock() == net.minecraft.init.Blocks.FARMLAND;
+                return state.getBlock() == net.minecraft.init.Blocks.GRASS ||
+                       state.getBlock() == net.minecraft.init.Blocks.DIRT ||
+                       state.getBlock() == net.minecraft.init.Blocks.FARMLAND;
             case Water:
                 return state.getMaterial() == Material.WATER && state.getValue(BlockLiquid.LEVEL) == 0;
             //TODO: Cave, beach

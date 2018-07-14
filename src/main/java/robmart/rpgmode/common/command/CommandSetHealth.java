@@ -37,8 +37,8 @@ import java.util.List;
  * @author Robmart
  */
 public class CommandSetHealth extends CommandBase {
-    public String name = "sethealth";
-    public int permissionLevel = 2;
+    public String name            = "sethealth";
+    public int    permissionLevel = 2;
     String commandUsage = "commands." + Reference.MOD_ID.toLowerCase() + ".sethealth.usage";
 
     @Override
@@ -75,17 +75,18 @@ public class CommandSetHealth extends CommandBase {
         notifyCommandListener(player, this, "commands.rpgmode.sethealth.success1", info[0], info[1]);
 
         if (!player.getName().equalsIgnoreCase(getCommandSenderAsPlayer(sender).getName()))
-            notifyCommandListener(sender, this, "commands.rpgmode.sethealth.success2", player.getName(), info[0], info[1]);
+            notifyCommandListener(
+                    sender, this, "commands.rpgmode.sethealth.success2", player.getName(), info[0], info[1]);
     }
 
     private String[] getInfoFromString(String string, EntityPlayer player) {
         switch (string.toLowerCase()) {
             case "health":
-                return new String[]{"health", floatToString(player.getHealth())};
+                return new String[] {"health", floatToString(player.getHealth())};
             case "h":
                 return getInfoFromString("health", player);
             case "maxhealth":
-                return new String[]{"max health", floatToString(player.getMaxHealth())};
+                return new String[] {"max health", floatToString(player.getMaxHealth())};
             case "max":
                 return getInfoFromString("maxhealth", player);
         }
@@ -93,7 +94,7 @@ public class CommandSetHealth extends CommandBase {
     }
 
     private void setHealth(String string, float amount, EntityPlayer player) {
-        switch (string.toLowerCase()){
+        switch (string.toLowerCase()) {
             case "health":
                 player.setHealth(amount);
                 break;
@@ -101,7 +102,7 @@ public class CommandSetHealth extends CommandBase {
                 setHealth("health", amount, player);
                 break;
             case "maxhealth":
-                MaxHealthCapability.get(player).setBonusMaxHealth(amount);
+                MaxHealthCapability.getMaxHealth(player).setBonusMaxHealth(amount);
                 break;
             case "max":
                 setHealth("maxhealth", amount, player);
@@ -112,7 +113,10 @@ public class CommandSetHealth extends CommandBase {
         return String.valueOf(value);
     }
 
-    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
-        return args.length == 1 ? getListOfStringsMatchingLastWord(args, "health", "maxhealth") : (args.length == 3 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) : Collections.emptyList());
+    public List<String> getTabCompletions(
+            MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
+        return args.length == 1 ? getListOfStringsMatchingLastWord(args, "health", "maxhealth") :
+               (args.length == 3 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) :
+                Collections.emptyList());
     }
 }

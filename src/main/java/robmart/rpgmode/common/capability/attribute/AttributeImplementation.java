@@ -22,10 +22,14 @@ package robmart.rpgmode.common.capability.attribute;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
+import robmart.rpgmode.api.capability.attribute.IAttribute;
+import robmart.rpgmode.client.network.SyncPlayerAttributes;
 import robmart.rpgmode.common.capability.health.MaxHealthCapability;
 import robmart.rpgmode.common.capability.mana.ManaCapability;
 import robmart.rpgmode.common.helper.PotionHelper;
+import robmart.rpgmode.common.network.PacketDispatcher;
 
 /**
  * @author Robmart
@@ -61,17 +65,12 @@ public class AttributeImplementation implements IAttribute {
      */
     private EntityLivingBase entity;
 
-    AttributeImplementation(){
+    AttributeImplementation() {
         this.entity = null;
     }
 
-    AttributeImplementation(EntityLivingBase entity){
+    AttributeImplementation(EntityLivingBase entity) {
         this.entity = entity;
-    }
-
-    @Override
-    public String getOwnerType(){
-        return "Default Implementation";
     }
 
     /**
@@ -80,7 +79,7 @@ public class AttributeImplementation implements IAttribute {
      * @return Current strength value
      */
     @Override
-    public int getStrength(){
+    public int getStrength() {
         return this.strength + getStrMod();
     }
 
@@ -93,6 +92,8 @@ public class AttributeImplementation implements IAttribute {
     public void setStrength(int value) {
         //TODO: Strength: Str based weapon damage
         this.strength = value;
+
+        this.synchronise();
     }
 
     /**
@@ -111,7 +112,7 @@ public class AttributeImplementation implements IAttribute {
      * @return Current dexterity value
      */
     @Override
-    public int getDexterity(){
+    public int getDexterity() {
         return this.dexterity + getDexMod();
     }
 
@@ -121,9 +122,11 @@ public class AttributeImplementation implements IAttribute {
      * @param value The new dexterity value
      */
     @Override
-    public void setDexterity(int value){
+    public void setDexterity(int value) {
         //TODO: Dexterity: Dex based weapon damage, defence
         this.dexterity = value;
+
+        this.synchronise();
     }
 
     /**
@@ -142,7 +145,7 @@ public class AttributeImplementation implements IAttribute {
      * @return Current intelligence value
      */
     @Override
-    public int getIntelligence(){
+    public int getIntelligence() {
         return this.intelligence + getIntMod();
     }
 
@@ -152,11 +155,13 @@ public class AttributeImplementation implements IAttribute {
      * @param value The new intelligence value
      */
     @Override
-    public void setIntelligence(int value){
+    public void setIntelligence(int value) {
         //TODO: Intelligence: Int based weapon damage, spell dmg
         this.intelligence = value;
 
-        ManaCapability.get(entity).setMaxMana(((10.0F * getIntelligence())));
+        ManaCapability.getMana(entity).setMaxMana(((10.0F * getIntelligence())));
+
+        this.synchronise();
     }
 
     /**
@@ -175,7 +180,7 @@ public class AttributeImplementation implements IAttribute {
      * @return Current constitution value
      */
     @Override
-    public int getConstitution(){
+    public int getConstitution() {
         return this.constitution + getConMod();
     }
 
@@ -185,12 +190,12 @@ public class AttributeImplementation implements IAttribute {
      * @param value The new constitution value
      */
     @Override
-    public void setConstitution(int value){
+    public void setConstitution(int value) {
         //TODO: Constitution: Breathing, poison resistance
         this.constitution = value;
 
         //Set max health
-        MaxHealthCapability.get(entity).setBonusMaxHealth(((10.0F * getConstitution())));
+        MaxHealthCapability.getMaxHealth(entity).setBonusMaxHealth(((10.0F * getConstitution())));
 
         //Increases hostile mobs walk speed
         if (!(entity instanceof EntityPlayer) && entity.isCreatureType(EnumCreatureType.MONSTER, false))
@@ -203,10 +208,12 @@ public class AttributeImplementation implements IAttribute {
         //Increases player walk speed
         if (entity instanceof EntityPlayer)
             if (getConstitution() <= 20)
-                ((EntityPlayer)entity).capabilities.setPlayerWalkSpeed((0.1F + (0.0025F * getConstitution())));
+                ((EntityPlayer) entity).capabilities.setPlayerWalkSpeed((0.1F + (0.0025F * getConstitution())));
             else
                 //Cap at 50% boost
-                ((EntityPlayer)entity).capabilities.setPlayerWalkSpeed((0.1F + (0.0025F * 20)));
+                ((EntityPlayer) entity).capabilities.setPlayerWalkSpeed((0.1F + (0.0025F * 20)));
+
+        this.synchronise();
     }
 
     /**
@@ -225,7 +232,7 @@ public class AttributeImplementation implements IAttribute {
      * @return Current wisdom value
      */
     @Override
-    public int getWisdom(){
+    public int getWisdom() {
         return this.wisdom + getWisMod();
     }
 
@@ -235,9 +242,11 @@ public class AttributeImplementation implements IAttribute {
      * @param value The new wisdom value
      */
     @Override
-    public void setWisdom(int value){
+    public void setWisdom(int value) {
         //TODO: Wisdom: Taming, spell amount
         this.wisdom = value;
+
+        this.synchronise();
     }
 
     /**
@@ -252,14 +261,15 @@ public class AttributeImplementation implements IAttribute {
 
     /**
      * Sets all attributes
-     * @param strength New strength value
-     * @param dexterity New dexterity value
+     *
+     * @param strength     New strength value
+     * @param dexterity    New dexterity value
      * @param intelligence New intelligence value
      * @param constitution New constitution value
-     * @param wisdom new wisdom value
+     * @param wisdom       new wisdom value
      */
     @Override
-    public void setAttributes(int strength, int dexterity, int intelligence, int constitution, int wisdom){
+    public void setAttributes(int strength, int dexterity, int intelligence, int constitution, int wisdom) {
         setStrength(strength);
         setDexterity(dexterity);
         setIntelligence(intelligence);
@@ -273,7 +283,7 @@ public class AttributeImplementation implements IAttribute {
      * @return Current attribute point value
      */
     @Override
-    public int getAttributePoint(){
+    public int getAttributePoint() {
         return this.attributePoint;
     }
 
@@ -283,8 +293,15 @@ public class AttributeImplementation implements IAttribute {
      * @param value The new attribute point value
      */
     @Override
-    public void setAttributePoint(int value){
+    public void setAttributePoint(int value) {
         this.attributePoint = value;
+
+        this.synchronise();
+    }
+
+    @Override
+    public void synchronise() {
+        PacketDispatcher.sendTo(new SyncPlayerAttributes((EntityPlayer) this.entity), (EntityPlayerMP) this.entity);
     }
 
     /**
@@ -308,6 +325,7 @@ public class AttributeImplementation implements IAttribute {
      * Saves the NBT data into specified NBT compound
      *
      * @param nbt The compound
+     *
      * @return The saved nbt data
      */
     @Override

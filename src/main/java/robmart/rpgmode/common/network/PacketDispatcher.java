@@ -26,14 +26,14 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
+import robmart.rpgmode.client.network.SyncPlayerAttributes;
 import robmart.rpgmode.client.network.SyncPlayerMana;
 import robmart.rpgmode.common.reference.Reference;
 
 /**
  * @author Robmart
  */
-public class PacketDispatcher
-{
+public class PacketDispatcher {
     // a simple counter will allow us to get rid of 'magic' numbers used during packet registration
     private static byte packetId = 0;
 
@@ -50,6 +50,7 @@ public class PacketDispatcher
     public static final void registerPackets() {
         // Packets handled on CLIENT
         registerMessage(SyncPlayerMana.class);
+        registerMessage(SyncPlayerAttributes.class);
 
         // Packets handled on SERVER
 
@@ -59,7 +60,8 @@ public class PacketDispatcher
     /**
      * Registers an {@link AbstractMessage} to the appropriate side(s)
      */
-    private static final <T extends AbstractMessage<T> & IMessageHandler<T, IMessage>> void registerMessage(Class<T> clazz) {
+    private static final <T extends AbstractMessage<T> & IMessageHandler<T, IMessage>> void registerMessage(
+            Class<T> clazz) {
         // We can tell by the message class which side to register it on by using #isAssignableFrom (google it)
 
         // Also, one can see the convenience of using a static counter 'packetId' to keep
@@ -67,9 +69,11 @@ public class PacketDispatcher
         // parameter to pass.
         if (AbstractMessage.AbstractClientMessage.class.isAssignableFrom(clazz)) {
             PacketDispatcher.dispatcher.registerMessage(clazz, clazz, packetId++, Side.CLIENT);
-        } else if (AbstractMessage.AbstractServerMessage.class.isAssignableFrom(clazz)) {
+        }
+        else if (AbstractMessage.AbstractServerMessage.class.isAssignableFrom(clazz)) {
             PacketDispatcher.dispatcher.registerMessage(clazz, clazz, packetId++, Side.SERVER);
-        } else {
+        }
+        else {
             // hopefully you didn't forget to extend the right class, or you will get registered on both sides
             PacketDispatcher.dispatcher.registerMessage(clazz, clazz, packetId, Side.CLIENT);
             PacketDispatcher.dispatcher.registerMessage(clazz, clazz, packetId++, Side.SERVER);
@@ -107,19 +111,22 @@ public class PacketDispatcher
     }
 
     /**
-     * Sends a message to everyone within a certain range of the coordinates in the same dimension.
-     * Shortcut to {@link SimpleNetworkWrapper#sendToAllAround(IMessage, NetworkRegistry.TargetPoint)}
-     */
-    public static final void sendToAllAround(IMessage message, int dimension, double x, double y, double z, double range) {
-        PacketDispatcher.sendToAllAround(message, new NetworkRegistry.TargetPoint(dimension, x, y, z, range));
-    }
-
-    /**
      * Sends a message to everyone within a certain range of the player provided.
      * Shortcut to {@link SimpleNetworkWrapper#sendToAllAround(IMessage, NetworkRegistry.TargetPoint)}
      */
     public static final void sendToAllAround(IMessage message, EntityPlayer player, double range) {
-        PacketDispatcher.sendToAllAround(message, player.world.provider.getDimension(), player.posX, player.posY, player.posZ, range);
+        PacketDispatcher
+                .sendToAllAround(message, player.world.provider.getDimension(), player.posX, player.posY, player.posZ,
+                                 range);
+    }
+
+    /**
+     * Sends a message to everyone within a certain range of the coordinates in the same dimension.
+     * Shortcut to {@link SimpleNetworkWrapper#sendToAllAround(IMessage, NetworkRegistry.TargetPoint)}
+     */
+    public static final void sendToAllAround(
+            IMessage message, int dimension, double x, double y, double z, double range) {
+        PacketDispatcher.sendToAllAround(message, new NetworkRegistry.TargetPoint(dimension, x, y, z, range));
     }
 
     /**

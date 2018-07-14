@@ -34,10 +34,10 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  * @author Robmart
  */
 
-public class GuiAir extends Gui{
+public class GuiAir extends Gui {
     private Minecraft mc;
 
-    public GuiAir(Minecraft mc){
+    public GuiAir(Minecraft mc) {
         this.mc = mc;
     }
 
@@ -46,7 +46,7 @@ public class GuiAir extends Gui{
      */
     @SubscribeEvent(priority = EventPriority.NORMAL)
     @SuppressWarnings("unused")
-    public void onRenderAir(RenderGameOverlayEvent.Pre event){
+    public void onRenderAir(RenderGameOverlayEvent.Pre event) {
         if (event.getType() == RenderGameOverlayEvent.ElementType.AIR)
             event.setCanceled(true);
     }
@@ -54,17 +54,18 @@ public class GuiAir extends Gui{
     /**
      * Render air bubbles in the right position
      */
-    @SubscribeEvent(priority =  EventPriority.NORMAL)
+    @SubscribeEvent(priority = EventPriority.NORMAL)
     @SuppressWarnings("unused")
     public void onRenderExperienceBar(RenderGameOverlayEvent.Post event) {
         if (event.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE)
             return;
 
-        if (mc.playerController.getCurrentGameType() == GameType.CREATIVE || mc.playerController.getCurrentGameType() == GameType.SPECTATOR)
+        if (mc.playerController.getCurrentGameType() == GameType.CREATIVE ||
+            mc.playerController.getCurrentGameType() == GameType.SPECTATOR)
             return;
 
         this.mc.getTextureManager().bindTexture(ICONS);
-        EntityPlayer  entityPlayer = (EntityPlayer)this.mc.getRenderViewEntity();
+        EntityPlayer entityPlayer = (EntityPlayer) this.mc.getRenderViewEntity();
         ScaledResolution scaledRes = new ScaledResolution(this.mc);
 
         int i1 = scaledRes.getScaledWidth() / 2 + 91;
@@ -80,7 +81,8 @@ public class GuiAir extends Gui{
             for (int k7 = 0; k7 < k6 + i7; ++k7) {
                 if (k7 < k6) {
                     this.drawTexturedModalRect(i1 - k7 * 8 - 9, j1, 16, 18, 9, 9);
-                } else {
+                }
+                else {
                     this.drawTexturedModalRect(i1 - k7 * 8 - 9, j1, 25, 18, 9, 9);
                 }
             }

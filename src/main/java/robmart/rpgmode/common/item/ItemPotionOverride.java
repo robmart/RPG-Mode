@@ -60,7 +60,8 @@ public class ItemPotionOverride extends ItemPotion implements IModelRegister {
             if (!(effect.getPotion() instanceof PotionBase)) {
                 modPotions = false;
                 break;
-            } else {
+            }
+            else {
                 if (((PotionBase) effect.getPotion()).useEnchantedEffect) useGlint = true;
             }
         }
@@ -74,7 +75,10 @@ public class ItemPotionOverride extends ItemPotion implements IModelRegister {
     @SideOnly(Side.CLIENT)
     @Override
     public void registerModels() {
-        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(Objects.requireNonNull(getRegistryName()), "inventory"));
+        ModelLoader.setCustomModelResourceLocation(this, 0,
+                                                   new ModelResourceLocation(
+                                                           Objects.requireNonNull(getRegistryName()),
+                                                           "inventory"));
     }
 
 }

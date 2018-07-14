@@ -17,17 +17,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package robmart.rpgmode.common.capability.mana;
+package robmart.rpgmode.api.capability.mana;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * @author Robmart
  */
 public interface IMana {
-    String getOwnerType();
-
     /**
      * Get the max mana
      *
@@ -45,7 +43,7 @@ public interface IMana {
     /**
      * Get mana
      *
-     * @return The players amount of mana
+     * @return The entity's current amount of mana
      */
     float getMana();
 
@@ -73,7 +71,7 @@ public interface IMana {
     /**
      * Get regen amount
      *
-     * @return The amount of mana the player regens every time
+     * @return The amount of mana the entity regens every time
      */
     float getRegenAmount();
 
@@ -88,7 +86,7 @@ public interface IMana {
      * Updates anything that needs to be updated each tick
      * Call this from LivingUpdateEvent or a Tickhandler
      */
-    void onUpdate(EntityPlayer player);
+    void onUpdate(EntityLivingBase entity);
 
     /**
      * Sets the current mana value to the max amount of mana
@@ -99,9 +97,15 @@ public interface IMana {
      * Consumes mana mana
      *
      * @param amount The amount that will be removed
+     *
      * @return If the mana can be consumed
      */
     boolean consumeMana(float amount);
+
+    /**
+     * Synchronise the entity's mana to watching clients.
+     */
+    void synchronise();
 
     /**
      * Saves the NBT data
@@ -114,6 +118,7 @@ public interface IMana {
      * Saves the NBT data into specified NBT compound
      *
      * @param compound The compound
+     *
      * @return The saved nbt data
      */
     NBTTagCompound saveNBTData(NBTTagCompound compound);

@@ -37,7 +37,8 @@ public final class BiomeDecorationHandler {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onWorldDecoration(DecorateBiomeEvent.Decorate event) {
-        if ((event.getResult() == Event.Result.ALLOW || event.getResult() == Event.Result.DEFAULT) && event.getType() == DecorateBiomeEvent.Decorate.EventType.SHROOM) {
+        if ((event.getResult() == Event.Result.ALLOW || event.getResult() == Event.Result.DEFAULT) &&
+            event.getType() == DecorateBiomeEvent.Decorate.EventType.SHROOM) {
             if (event.getWorld().provider.isNether()) {
                 int dist = Math.min(8, Math.max(1, 4));
                 for (int i = 0; i < 1; i++) {
@@ -51,7 +52,8 @@ public final class BiomeDecorationHandler {
                             int y1 = y + event.getRand().nextInt(4) - event.getRand().nextInt(4);
                             int z1 = z + event.getRand().nextInt(dist * 2) - dist;
                             BlockPos pos2 = new BlockPos(x1, y1, z1);
-                            if (event.getWorld().isAirBlock(pos2) && InitBlocks.HELL_FLOWER.canPlaceBlockAt(event.getWorld(), pos2)) {
+                            if (event.getWorld().isAirBlock(pos2) &&
+                                InitBlocks.HELL_FLOWER.canPlaceBlockAt(event.getWorld(), pos2)) {
                                 event.getWorld().setBlockState(pos2, InitBlocks.HELL_FLOWER.getDefaultState());
                                 System.out.println("Placed flower " + pos2);
                             }

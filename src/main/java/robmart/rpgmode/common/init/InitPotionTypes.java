@@ -125,7 +125,8 @@ public class InitPotionTypes {
 
         DEXTEROUSNESS = createPotionType(new PotionEffect(dexterousness, HELPFUL_DURATION_STANDARD));
         LONG_DEXTEROUSNESS = createPotionType(new PotionEffect(dexterousness, HELPFUL_DURATION_LONG), LONG_PREFIX);
-        STRONG_DEXTEROUSNESS = createPotionType(new PotionEffect(dexterousness, HELPFUL_DURATION_STRONG, 1), STRONG_PREFIX);
+        STRONG_DEXTEROUSNESS = createPotionType(
+                new PotionEffect(dexterousness, HELPFUL_DURATION_STRONG, 1), STRONG_PREFIX);
 
         CLUMSINESS = createPotionType(new PotionEffect(clumsiness, HARMFUL_DURATION_STANDARD));
         LONG_CLUMSINESS = createPotionType(new PotionEffect(clumsiness, HARMFUL_DURATION_LONG), LONG_PREFIX);
@@ -141,7 +142,8 @@ public class InitPotionTypes {
 
         INTELLIGENCE = createPotionType(new PotionEffect(intelligence, HELPFUL_DURATION_STANDARD));
         LONG_INTELLIGENCE = createPotionType(new PotionEffect(intelligence, HELPFUL_DURATION_LONG), LONG_PREFIX);
-        STRONG_INTELLIGENCE = createPotionType(new PotionEffect(intelligence, HELPFUL_DURATION_STRONG, 1), STRONG_PREFIX);
+        STRONG_INTELLIGENCE = createPotionType(
+                new PotionEffect(intelligence, HELPFUL_DURATION_STRONG, 1), STRONG_PREFIX);
 
         STUPIDITY = createPotionType(new PotionEffect(stupidity, HARMFUL_DURATION_STANDARD));
         LONG_STUPIDITY = createPotionType(new PotionEffect(stupidity, HARMFUL_DURATION_LONG), LONG_PREFIX);
@@ -166,8 +168,10 @@ public class InitPotionTypes {
 
         if (namePrefix != null) {
             assert potionName != null;
-            potionTypeName = new ResourceLocation(potionName.getResourceDomain(), namePrefix + potionName.getResourcePath());
-        } else
+            potionTypeName = new ResourceLocation(
+                    potionName.getResourceDomain(), namePrefix + potionName.getResourcePath());
+        }
+        else
             potionTypeName = potionName;
 
         assert potionName != null;
@@ -220,7 +224,7 @@ public class InitPotionTypes {
                 FOOLISHNESS,
                 LONG_FOOLISHNESS,
                 STRONG_FOOLISHNESS
-        );
+                                       );
         RPGMode.logger.info(String.format("%s potion types added", potionTypeCounter));
     }
 }
