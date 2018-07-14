@@ -301,7 +301,8 @@ public class AttributeImplementation implements IAttribute {
 
     @Override
     public void synchronise() {
-        PacketDispatcher.sendTo(new SyncPlayerAttributes((EntityPlayer) this.entity), (EntityPlayerMP) this.entity);
+        if (this.entity instanceof EntityPlayerMP)
+            PacketDispatcher.sendTo(new SyncPlayerAttributes((EntityPlayer) this.entity), (EntityPlayerMP) this.entity);
     }
 
     /**

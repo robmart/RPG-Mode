@@ -217,7 +217,8 @@ public class ManaImplementation implements IMana {
 
     @Override
     public void synchronise() {
-        PacketDispatcher.sendTo(new SyncPlayerMana((EntityPlayer) this.entity), (EntityPlayerMP) this.entity);
+        if (this.entity instanceof EntityPlayerMP)
+            PacketDispatcher.sendTo(new SyncPlayerMana((EntityPlayer) this.entity), (EntityPlayerMP) this.entity);
     }
 
     /**
