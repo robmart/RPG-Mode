@@ -50,6 +50,7 @@ public class InitItems {
 
     public static final ItemBase BAT_WING       = new ItemBase(RefItemNames.BAT_WING, CreativeTabs.BREWING);
     public static final ItemBase PARROT_FEATHER = new ItemBase(RefItemNames.PARROT_FEATHER, CreativeTabs.BREWING);
+    public static final ItemBase OBSIDIAN_DUST  = new ItemBase(RefItemNames.OBSIDIAN_DUST, CreativeTabs.BREWING);
 
     public static final Item POTION           = new ItemPotionOverride();
     public static final Item SPLASH_POTION    = new ItemSplashPotionOverride();
@@ -61,6 +62,7 @@ public class InitItems {
         event.getRegistry().registerAll(
                 BAT_WING,
                 PARROT_FEATHER,
+                OBSIDIAN_DUST,
 
                 POTION,
                 SPLASH_POTION,

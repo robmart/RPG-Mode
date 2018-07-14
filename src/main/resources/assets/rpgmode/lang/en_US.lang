@@ -91,6 +91,7 @@ effect.rpgmode:foolishness=Foolishness
 # Items
 item.rpgmode:bat_wing.name=Bat Wing
 item.rpgmode:parrot_feather.name=Parrot Feather
+item.rpgmode:obsidian_dust.name=Obsidian Dust
 
 # Blocks
 tile.rpgmode:hell_flower.name=Hell Flower
