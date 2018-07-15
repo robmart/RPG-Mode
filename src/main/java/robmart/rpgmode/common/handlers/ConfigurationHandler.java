@@ -34,6 +34,8 @@ public class ConfigurationHandler {
 
     public static Configuration config;
 
+    public static boolean debug = false;
+
     public static boolean displayManaValue = false;
     public static boolean displayHealthValue = false;
     public static boolean moveManaBar = true;
@@ -48,7 +50,11 @@ public class ConfigurationHandler {
     }
 
     static void load() {
-        String desc = "Set this to true to display the amount of health you have left.";
+        String desc = "Debug stuff.";
+        debug = config.getBoolean("healthValueRender.enabled",
+                                  Configuration.CATEGORY_GENERAL, debug, desc);
+
+        desc = "Set this to true to display the amount of health you have left.";
         displayHealthValue = config.getBoolean("healthValueRender.enabled",
                                                Configuration.CATEGORY_CLIENT, displayHealthValue, desc);
 

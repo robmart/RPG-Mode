@@ -25,6 +25,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -36,7 +37,10 @@ import robmart.rpgmode.common.init.InitCapabilities;
 import robmart.rpgmode.common.init.InitCommands;
 import robmart.rpgmode.common.init.InitItems;
 import robmart.rpgmode.common.network.PacketDispatcher;
+import robmart.rpgmode.common.reference.Reference;
 import robmart.rpgmode.common.world.biome.BiomeHellDecoratorWrapper;
+
+import java.io.File;
 
 /**
  * @author Robmart
@@ -48,7 +52,8 @@ public abstract class CommonProxy implements IGuiHandler {
 
         try {
             RPGMode.logger.info("Loading configuration");
-            ConfigurationHandler.initialize(event.getSuggestedConfigurationFile());
+            ConfigurationHandler.initialize(new File(Loader.instance().getConfigDir(), Reference.MOD_ID + "/config" +
+                                                                                       ".cfg"));
         } catch (Exception e) {
             RPGMode.logger.error("Problem loading configuration");
         } finally {
