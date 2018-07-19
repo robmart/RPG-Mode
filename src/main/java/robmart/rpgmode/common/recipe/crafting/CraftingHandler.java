@@ -13,6 +13,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import org.apache.commons.io.FileUtils;
 import robmart.rpgmode.common.reference.Reference;
 
 import java.io.File;
@@ -24,9 +25,10 @@ import java.util.*;
  * @author williewillus
  */
 public class CraftingHandler {
-    private static final Gson        GSON          = new GsonBuilder().setPrettyPrinting().create();
-    private static final Set<String> USED_OD_NAMES = new TreeSet<>();
-    private static       File        RECIPE_DIR    = null;
+    private static final Gson        GSON           = new GsonBuilder().setPrettyPrinting().create();
+    private static final Set<String> USED_OD_NAMES  = new TreeSet<>();
+    private static       File        RECIPE_DIR     = null;
+    private static       File        RECIPE_OUT_DIR = null;
 
     private static File getMcDir() {
         if (FMLCommonHandler.instance().getMinecraftServerInstance() != null &&
@@ -36,20 +38,46 @@ public class CraftingHandler {
         return Minecraft.getMinecraft().mcDataDir;
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     private static void setupDir() {
         if (RECIPE_DIR == null) {
             RECIPE_DIR = new File(
-                    getMcDir(), String.format("../src/main/resources/assets/%s/recipes/", Reference.MOD_ID));
-            String[] entries = RECIPE_DIR.list();
-            for (String s : entries) {
-                File currentFile = new File(RECIPE_DIR.getPath(), s);
-                currentFile.delete();
+                    getMcDir(), String.format("../out/production/RPG-Mode_main/assets/%s/recipes/", Reference.MOD_ID));
+
+            if (RECIPE_DIR.exists()) {
+                String[] entries = RECIPE_DIR.list();
+                if (entries != null)
+                    for (String s : entries) {
+                        File currentFile = new File(RECIPE_DIR.getPath(), s);
+                        currentFile.delete();
+                    }
+                RECIPE_DIR.delete();
             }
-            RECIPE_DIR.delete();
         }
 
         if (!RECIPE_DIR.exists()) {
             RECIPE_DIR.mkdir();
+        }
+    }
+
+    // Call this after you are done generating
+    public static void generateConstants() {
+        setupOutDir();
+
+        List<Map<String, Object>> json = new ArrayList<>();
+        for (String s : USED_OD_NAMES) {
+            Map<String, Object> entry = new HashMap<>();
+            entry.put("name", s.toUpperCase(Locale.ROOT));
+            entry.put("ingredient", ImmutableMap.of("type", "forge:ore_dict", "ore", s));
+            json.add(entry);
+        }
+
+        try (FileWriter w = new FileWriter(new File(RECIPE_DIR, "_constants.json"))) {
+            GSON.toJson(json, w);
+
+            FileUtils.copyDirectory(RECIPE_DIR, RECIPE_OUT_DIR);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -181,20 +209,25 @@ public class CraftingHandler {
         throw new IllegalArgumentException("Not a block, item, stack, or od name");
     }
 
-    // Call this after you are done generating
-    public static void generateConstants() {
-        List<Map<String, Object>> json = new ArrayList<>();
-        for (String s : USED_OD_NAMES) {
-            Map<String, Object> entry = new HashMap<>();
-            entry.put("name", s.toUpperCase(Locale.ROOT));
-            entry.put("ingredient", ImmutableMap.of("type", "forge:ore_dict", "ore", s));
-            json.add(entry);
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    private static void setupOutDir() {
+        if (RECIPE_OUT_DIR == null) {
+            RECIPE_OUT_DIR = new File(
+                    getMcDir(), String.format("../src/main/resources/assets/%s/recipes/", Reference.MOD_ID));
+
+            if (RECIPE_DIR.exists()) {
+                String[] entries = RECIPE_OUT_DIR.list();
+                if (entries != null)
+                    for (String s : entries) {
+                        File currentFile = new File(RECIPE_OUT_DIR.getPath(), s);
+                        currentFile.delete();
+                    }
+                RECIPE_OUT_DIR.delete();
+            }
         }
 
-        try (FileWriter w = new FileWriter(new File(RECIPE_DIR, "_constants.json"))) {
-            GSON.toJson(json, w);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!RECIPE_OUT_DIR.exists()) {
+            RECIPE_OUT_DIR.mkdir();
         }
     }
 }

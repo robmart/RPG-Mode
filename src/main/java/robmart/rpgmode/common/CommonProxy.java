@@ -20,6 +20,7 @@
 package robmart.rpgmode.common;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.launchwrapper.Launch;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -64,6 +65,7 @@ public abstract class CommonProxy implements IGuiHandler {
         MinecraftForge.EVENT_BUS.register(new ConfigurationHandler());
 
         PacketDispatcher.registerPackets();
+
     }
 
     public void init(FMLInitializationEvent event) {

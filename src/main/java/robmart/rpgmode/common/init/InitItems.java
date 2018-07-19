@@ -77,6 +77,8 @@ public class InitItems {
         //Items
         registerOre(RefOreDict.WING_BAT, new ItemStack(BAT_WING));
 
+        registerOre(RefOreDict.OBSIDIAN_DUST, new ItemStack(OBSIDIAN_DUST));
+
         //Potions
         registerOre(
                 RefOreDict.POTION_STRENGTH, PotionHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.STRENGTH));

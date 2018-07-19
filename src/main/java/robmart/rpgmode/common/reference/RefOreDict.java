@@ -24,7 +24,8 @@ package robmart.rpgmode.common.reference;
  */
 public class RefOreDict {
     //Items
-    public static final String WING_BAT = "wingBat";
+    public static final String WING_BAT      = "wingBat";
+    public static final String OBSIDIAN_DUST = "dustObsidian";
 
     //Potions
     public static final String POTION_STRENGTH        = "potionStrength";
