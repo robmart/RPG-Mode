@@ -37,6 +37,7 @@ import robmart.rpgmode.common.handlers.ConfigurationHandler;
 import robmart.rpgmode.common.init.InitCapabilities;
 import robmart.rpgmode.common.init.InitCommands;
 import robmart.rpgmode.common.init.InitItems;
+import robmart.rpgmode.common.init.InitRecipes;
 import robmart.rpgmode.common.network.PacketDispatcher;
 import robmart.rpgmode.common.reference.Reference;
 import robmart.rpgmode.common.world.biome.BiomeHellDecoratorWrapper;
@@ -70,6 +71,11 @@ public abstract class CommonProxy implements IGuiHandler {
 
     public void init(FMLInitializationEvent event) {
         RPGMode.logger.info("Initialization starting");
+
+        if ((Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment"))
+            InitRecipes.generateRecipes();
+
+        InitRecipes.generateBrewing();
     }
 
     public void postInit(FMLPostInitializationEvent event) {
