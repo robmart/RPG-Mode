@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "minecraft:obsidian"
+  },
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "#": {
+      "item": "#DUSTOBSIDIAN"
+    }
+  }
+}

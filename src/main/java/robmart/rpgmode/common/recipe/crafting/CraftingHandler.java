@@ -42,7 +42,7 @@ public class CraftingHandler {
     private static void setupDir() {
         if (RECIPE_DIR == null) {
             RECIPE_DIR = new File(
-                    getMcDir(), String.format("../out/production/RPG-Mode_main/assets/%s/recipes/", Reference.MOD_ID));
+                    getMcDir(), String.format("../src/main/resources/assets/%s/recipes/", Reference.MOD_ID));
 
             if (RECIPE_DIR.exists()) {
                 String[] entries = RECIPE_DIR.list();
@@ -60,8 +60,8 @@ public class CraftingHandler {
         }
     }
 
-    // Call this after you are done generating
     public static void generateConstants() {
+        System.out.println("Generate constants");
         setupOutDir();
 
         List<Map<String, Object>> json = new ArrayList<>();
@@ -74,7 +74,11 @@ public class CraftingHandler {
 
         try (FileWriter w = new FileWriter(new File(RECIPE_DIR, "_constants.json"))) {
             GSON.toJson(json, w);
+        } catch (IOException e) {
+            e.printStackTrace();
 
+        }
+        try {
             FileUtils.copyDirectory(RECIPE_DIR, RECIPE_OUT_DIR);
         } catch (IOException e) {
             e.printStackTrace();
@@ -213,9 +217,9 @@ public class CraftingHandler {
     private static void setupOutDir() {
         if (RECIPE_OUT_DIR == null) {
             RECIPE_OUT_DIR = new File(
-                    getMcDir(), String.format("../src/main/resources/assets/%s/recipes/", Reference.MOD_ID));
+                    getMcDir(), String.format("../out/production/RPG-Mode_main/assets/%s/recipes/", Reference.MOD_ID));
 
-            if (RECIPE_DIR.exists()) {
+            if (RECIPE_OUT_DIR.exists()) {
                 String[] entries = RECIPE_OUT_DIR.list();
                 if (entries != null)
                     for (String s : entries) {
