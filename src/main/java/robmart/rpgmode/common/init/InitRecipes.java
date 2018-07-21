@@ -29,7 +29,6 @@ import robmart.rpgmode.common.RPGMode;
 import robmart.rpgmode.common.helper.PotionHelper;
 import robmart.rpgmode.common.helper.RecipeHelper;
 import robmart.rpgmode.common.recipe.brewing.BrewRecipe;
-import robmart.rpgmode.common.recipe.brewing.BrewingRecipeWrapper;
 import robmart.rpgmode.common.recipe.crafting.CraftingHandler;
 
 import java.util.List;
