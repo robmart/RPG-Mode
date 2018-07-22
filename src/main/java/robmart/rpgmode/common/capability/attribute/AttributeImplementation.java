@@ -28,8 +28,8 @@ import robmart.rpgmode.api.capability.attribute.IAttribute;
 import robmart.rpgmode.client.network.SyncPlayerAttributes;
 import robmart.rpgmode.common.capability.health.MaxHealthCapability;
 import robmart.rpgmode.common.capability.mana.ManaCapability;
-import robmart.rpgmode.common.helper.PotionHelper;
 import robmart.rpgmode.common.network.PacketDispatcher;
+import robmart.rpgmode.common.potion.PotionBase;
 
 /**
  * @author Robmart
@@ -103,7 +103,7 @@ public class AttributeImplementation implements IAttribute {
      */
     @Override
     public int getStrMod() {
-        return (int) entity.getEntityAttribute(PotionHelper.STRENGTH).getAttributeValue();
+        return (int) entity.getEntityAttribute(PotionBase.STRENGTH).getAttributeValue();
     }
 
     /**
@@ -136,7 +136,7 @@ public class AttributeImplementation implements IAttribute {
      */
     @Override
     public int getDexMod() {
-        return (int) entity.getEntityAttribute(PotionHelper.DEXTEROUSNESS).getAttributeValue();
+        return (int) entity.getEntityAttribute(PotionBase.DEXTEROUSNESS).getAttributeValue();
     }
 
     /**
@@ -171,7 +171,7 @@ public class AttributeImplementation implements IAttribute {
      */
     @Override
     public int getIntMod() {
-        return (int) entity.getEntityAttribute(PotionHelper.INTELLIGENCE).getAttributeValue();
+        return (int) entity.getEntityAttribute(PotionBase.INTELLIGENCE).getAttributeValue();
     }
 
     /**
@@ -223,7 +223,7 @@ public class AttributeImplementation implements IAttribute {
      */
     @Override
     public int getConMod() {
-        return (int) entity.getEntityAttribute(PotionHelper.FORTITUDE).getAttributeValue();
+        return (int) entity.getEntityAttribute(PotionBase.FORTITUDE).getAttributeValue();
     }
 
     /**
@@ -256,7 +256,7 @@ public class AttributeImplementation implements IAttribute {
      */
     @Override
     public int getWisMod() {
-        return (int) entity.getEntityAttribute(PotionHelper.WISDOM).getAttributeValue();
+        return (int) entity.getEntityAttribute(PotionBase.WISDOM).getAttributeValue();
     }
 
     /**

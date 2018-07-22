@@ -14,7 +14,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
@@ -26,6 +28,7 @@ import net.minecraftforge.common.brewing.IBrewingRecipe;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import robmart.rpgmode.common.RPGMode;
 import robmart.rpgmode.common.helper.ItemHelper;
+import robmart.rpgmode.common.init.InitItems;
 
 import java.util.*;
 
@@ -48,7 +51,7 @@ public class BrewingHelper {
         List<ItemStack> potionIngredients = getAllPotionIngredients();
         List<ItemStack> knownPotions = new ArrayList<>();
 
-        knownPotions.add(robmart.rpgmode.common.helper.PotionHelper.getItemStackOfPotion(
+        knownPotions.add(getItemStackOfPotion(
                 Items.POTIONITEM,
                 PotionTypes.WATER));
 
@@ -60,26 +63,11 @@ public class BrewingHelper {
         } while (foundNewPotions);
     }
 
-    public static void addAllModdedBrewingRecipes(Collection<BrewingRecipeWrapper> recipes) {
-        for (IBrewingRecipe iBrewingRecipe : BrewingRecipeRegistry.getRecipes()) {
-            if (iBrewingRecipe instanceof AbstractBrewingRecipe) {
-                AbstractBrewingRecipe brewingRecipe = (AbstractBrewingRecipe) iBrewingRecipe;
-                ItemStack ingredient = ((ItemStack) ((AbstractBrewingRecipe) iBrewingRecipe).getIngredient());
-
-                if (!ingredient.isEmpty()) {
-                    ItemStack input = brewingRecipe.getInput();
-                    // AbstractBrewingRecipe.isInput treats any uncraftable potion here as a water bottle in the brewing stand
-                    if (ItemStack.areItemStacksEqual(input, new ItemStack(Items.POTIONITEM))) {
-                        input = robmart.rpgmode.common.helper.PotionHelper.getItemStackOfPotion(
-                                Items.POTIONITEM,
-                                PotionTypes.WATER);
-                    }
-                    ItemStack output = brewingRecipe.getOutput();
-                    BrewingRecipeWrapper recipe = new BrewingRecipeWrapper(ingredient, input, output);
-                    recipes.add(recipe);
-                }
-            }
-        }
+    public static ItemStack getItemStackOfPotion(Item it, PotionType pt) {
+        ItemStack res = new ItemStack(it);
+        res.setTagCompound(new NBTTagCompound());
+        PotionUtils.addPotionToItemStack(res, pt);
+        return res;
     }
 
     /**
@@ -168,5 +156,52 @@ public class BrewingHelper {
             }
         }
         return newPotions;
+    }
+
+    public static void addAllModdedBrewingRecipes(Collection<BrewingRecipeWrapper> recipes) {
+        for (IBrewingRecipe iBrewingRecipe : BrewingRecipeRegistry.getRecipes()) {
+            if (iBrewingRecipe instanceof AbstractBrewingRecipe) {
+                AbstractBrewingRecipe brewingRecipe = (AbstractBrewingRecipe) iBrewingRecipe;
+                ItemStack ingredient = ((ItemStack) ((AbstractBrewingRecipe) iBrewingRecipe).getIngredient());
+
+                if (!ingredient.isEmpty()) {
+                    ItemStack input = brewingRecipe.getInput();
+                    // AbstractBrewingRecipe.isInput treats any uncraftable potion here as a water bottle in the brewing stand
+                    if (ItemStack.areItemStacksEqual(input, new ItemStack(Items.POTIONITEM))) {
+                        input = getItemStackOfPotion(
+                                Items.POTIONITEM,
+                                PotionTypes.WATER);
+                    }
+                    ItemStack output = brewingRecipe.getOutput();
+                    BrewingRecipeWrapper recipe = new BrewingRecipeWrapper(ingredient, input, output);
+                    recipes.add(recipe);
+                }
+            }
+        }
+    }
+
+    public static boolean isItemPotion(Item item) {
+        return (item == Items.POTIONITEM || item == Items.SPLASH_POTION || item == Items.LINGERING_POTION);
+    }
+
+    public static ItemStack convertPotionStack(ItemStack itemStack) {
+        return getItemStackOfPotion(
+                BrewingHelper.getOverridePotion(itemStack.getItem()), PotionUtils.getPotionFromItem(itemStack));
+    }
+
+    public static Item getOverridePotion(Item item) {
+        if (!(item instanceof ItemPotion))
+            throw new IllegalArgumentException();
+
+        Item potionItem = item;
+
+        if (item == Items.POTIONITEM)
+            potionItem = InitItems.POTION;
+        if (item == Items.SPLASH_POTION)
+            potionItem = InitItems.SPLASH_POTION;
+        if (item == Items.LINGERING_POTION)
+            potionItem = InitItems.LINGERING_POTION;
+
+        return potionItem;
     }
 }

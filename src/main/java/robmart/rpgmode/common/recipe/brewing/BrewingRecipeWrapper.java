@@ -15,8 +15,6 @@ import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import robmart.rpgmode.common.helper.ItemHelper;
-import robmart.rpgmode.common.helper.PotionHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +41,8 @@ public class BrewingRecipeWrapper {
      * @author Robmart
      */
     public boolean needConverting() {
-        return ItemHelper.isItemPotion(getPotionInput().getItem()) ||
-               ItemHelper.isItemPotion(getIngredient().getItem());
+        return BrewingHelper.isItemPotion(getPotionInput().getItem()) ||
+               BrewingHelper.isItemPotion(getIngredient().getItem());
     }
 
     public ItemStack getPotionInput() {
@@ -67,30 +65,22 @@ public class BrewingRecipeWrapper {
         ItemStack newIngredient;
         ItemStack newInput;
 
-        if (ItemHelper.isItemPotion(getIngredient().getItem()) &&
-            !ItemHelper.isItemPotion(getPotionInput().getItem())) {
-            newIngredient = PotionHelper.getItemStackOfPotion(
-                    ItemHelper.getOverridePotion(getIngredient().getItem()),
-                    PotionUtils.getPotionFromItem(getIngredient()));
+        if (BrewingHelper.isItemPotion(getIngredient().getItem()) &&
+            !BrewingHelper.isItemPotion(getPotionInput().getItem())) {
+            newIngredient = BrewingHelper.convertPotionStack(getIngredient());
             newRecipes.add(new BrewingRecipeWrapper(newIngredient, getPotionInput(), getPotionOutput()));
         }
-        else if (ItemHelper.isItemPotion(getPotionInput().getItem()) &&
-                 !ItemHelper.isItemPotion(getIngredient().getItem())) {
-            newInput = PotionHelper.getItemStackOfPotion(
-                    ItemHelper.getOverridePotion(getPotionInput().getItem()),
-                    PotionUtils.getPotionFromItem(getPotionInput()));
+        else if (BrewingHelper.isItemPotion(getPotionInput().getItem()) &&
+                 !BrewingHelper.isItemPotion(getIngredient().getItem())) {
+            newInput = BrewingHelper.convertPotionStack(getPotionInput());
             newRecipes.add(new BrewingRecipeWrapper(getIngredient(), newInput, getPotionOutput()));
         }
-        else if (ItemHelper.isItemPotion(getIngredient().getItem()) &&
-                 ItemHelper.isItemPotion(getPotionInput().getItem())) {
-            newIngredient = PotionHelper.getItemStackOfPotion(
-                    ItemHelper.getOverridePotion(getIngredient().getItem()),
-                    PotionUtils.getPotionFromItem(getIngredient()));
+        else if (BrewingHelper.isItemPotion(getIngredient().getItem()) &&
+                 BrewingHelper.isItemPotion(getPotionInput().getItem())) {
+            newIngredient = BrewingHelper.convertPotionStack(getIngredient());
             newRecipes.add(new BrewingRecipeWrapper(newIngredient, getPotionInput(), getPotionOutput()));
 
-            newInput = PotionHelper.getItemStackOfPotion(
-                    ItemHelper.getOverridePotion(getPotionInput().getItem()),
-                    PotionUtils.getPotionFromItem(getPotionInput()));
+            newInput = BrewingHelper.convertPotionStack(getPotionInput());
             newRecipes.add(new BrewingRecipeWrapper(getIngredient(), newInput, getPotionOutput()));
 
             newRecipes.add(new BrewingRecipeWrapper(newIngredient, newInput, getPotionOutput()));

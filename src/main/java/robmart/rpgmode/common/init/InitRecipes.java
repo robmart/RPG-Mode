@@ -23,14 +23,16 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionType;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.common.brewing.IBrewingRecipe;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import robmart.rpgmode.common.RPGMode;
-import robmart.rpgmode.common.helper.PotionHelper;
 import robmart.rpgmode.common.recipe.brewing.BrewRecipe;
 import robmart.rpgmode.common.recipe.brewing.BrewingHelper;
 import robmart.rpgmode.common.recipe.brewing.BrewingRecipeWrapper;
 import robmart.rpgmode.common.recipe.crafting.CraftingHandler;
+import robmart.rpgmode.common.reference.Reference;
 
 import java.util.List;
 
@@ -97,7 +99,7 @@ public class InitRecipes {
         //Stupidity
         addBrewingRecipe(
                 new BrewRecipe(
-                        PotionTypes.AWKWARD, PotionHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.LAVA),
+                        PotionTypes.AWKWARD, BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.LAVA),
                         InitPotionTypes.STUPIDITY));
         addBrewingRecipe(new BrewRecipe(InitPotionTypes.STUPIDITY, new ItemStack(Items.REDSTONE),
                                         InitPotionTypes.LONG_STUPIDITY));
@@ -120,6 +122,17 @@ public class InitRecipes {
                                         InitPotionTypes.LONG_FOOLISHNESS));
         addBrewingRecipe(new BrewRecipe(InitPotionTypes.FOOLISHNESS, new ItemStack(Items.GLOWSTONE_DUST),
                                         InitPotionTypes.STRONG_FOOLISHNESS));
+
+        //Splash
+        for (PotionType type : ForgeRegistries.POTION_TYPES)
+            if (type.getRegistryName().getResourceDomain() != null && type.getRegistryName().getResourceDomain()
+                                                                          .contains(Reference.MOD_ID)) {
+                addBrewingRecipe(new BrewRecipe(type, new ItemStack(Items.GUNPOWDER), type, Items.POTIONITEM, Items
+                        .SPLASH_POTION));
+                addBrewingRecipe(
+                        new BrewRecipe(type, new ItemStack(Items.DRAGON_BREATH), type, Items.SPLASH_POTION, Items
+                                .LINGERING_POTION));
+            }
 
         RPGMode.logger.info(String.format("%s brewing recipes added", brewingCounter));
     }

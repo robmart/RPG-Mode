@@ -21,15 +21,12 @@ package robmart.rpgmode.common.helper;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.oredict.OreDictionary;
 import robmart.rpgmode.common.RPGMode;
-import robmart.rpgmode.common.init.InitItems;
 
 import java.util.Objects;
 
@@ -54,26 +51,6 @@ public class ItemHelper {
 
             return itemStackInput;
         }
-    }
-
-    public static boolean isItemPotion(Item item) {
-        return (item == Items.POTIONITEM || item == Items.SPLASH_POTION || item == Items.LINGERING_POTION);
-    }
-
-    public static Item getOverridePotion(Item item) {
-        if (!(item instanceof ItemPotion))
-            throw new IllegalArgumentException();
-
-        Item potionItem = item;
-
-        if (item == Items.POTIONITEM)
-            potionItem = InitItems.POTION;
-        if (item == Items.SPLASH_POTION)
-            potionItem = InitItems.SPLASH_POTION;
-        if (item == Items.LINGERING_POTION)
-            potionItem = InitItems.LINGERING_POTION;
-
-        return potionItem;
     }
 
     /**

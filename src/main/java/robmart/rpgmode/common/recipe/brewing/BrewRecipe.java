@@ -25,7 +25,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
 import net.minecraftforge.common.brewing.BrewingRecipe;
-import robmart.rpgmode.common.helper.PotionHelper;
 
 /**
  * @author Robmart
@@ -35,18 +34,18 @@ public class BrewRecipe extends BrewingRecipe {
 
     public BrewRecipe(PotionType input, ItemStack ingredient, PotionType output, Item typeIn, Item typeOut) {
         super(
-                PotionHelper.getItemStackOfPotion(typeIn, input), ingredient,
-                PotionHelper.getItemStackOfPotion(typeOut, output));
+                BrewingHelper.getItemStackOfPotion(typeIn, input), ingredient,
+                BrewingHelper.getItemStackOfPotion(typeOut, output));
     }
 
     public BrewRecipe(PotionType input, ItemStack ingredient, PotionType output) {
         super(
-                PotionHelper.getItemStackOfPotion(Items.POTIONITEM, input), ingredient,
-                PotionHelper.getItemStackOfPotion(Items.POTIONITEM, output));
+                BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, input), ingredient,
+                BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, output));
     }
 
     public BrewRecipe(PotionType input, ItemStack ingredient, ItemStack output) {
-        super(PotionHelper.getItemStackOfPotion(Items.POTIONITEM, input), ingredient, output);
+        super(BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, input), ingredient, output);
     }
 
     public BrewRecipe(ItemStack input, ItemStack ingredient, ItemStack output) {

@@ -30,11 +30,11 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import robmart.rpgmode.common.RPGMode;
-import robmart.rpgmode.common.helper.PotionHelper;
 import robmart.rpgmode.common.item.ItemBase;
 import robmart.rpgmode.common.item.ItemLingeringPotionOverride;
 import robmart.rpgmode.common.item.ItemPotionOverride;
 import robmart.rpgmode.common.item.ItemSplashPotionOverride;
+import robmart.rpgmode.common.recipe.brewing.BrewingHelper;
 import robmart.rpgmode.common.reference.RefItemNames;
 import robmart.rpgmode.common.reference.RefOreDict;
 import robmart.rpgmode.common.reference.Reference;
@@ -81,36 +81,36 @@ public class InitItems {
 
         //Potions
         registerOre(
-                RefOreDict.POTION_STRENGTH, PotionHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.STRENGTH));
+                RefOreDict.POTION_STRENGTH, BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.STRENGTH));
         registerOre(
                 RefOreDict.POTION_LONG_STRENGTH,
-                PotionHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.LONG_STRENGTH));
+                BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.LONG_STRENGTH));
         registerOre(
                 RefOreDict.POTION_STRONG_STRENGTH,
-                PotionHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.STRONG_STRENGTH));
+                BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.STRONG_STRENGTH));
 
         registerOre(
                 RefOreDict.POTION_STRENGTH,
-                PotionHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.STRENGTH));
+                BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.STRENGTH));
         registerOre(
                 RefOreDict.POTION_LONG_STRENGTH,
-                PotionHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.LONG_STRENGTH));
+                BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.LONG_STRENGTH));
         registerOre(
                 RefOreDict.POTION_STRONG_STRENGTH,
-                PotionHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.STRONG_STRENGTH));
+                BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.STRONG_STRENGTH));
 
         registerOre(
-                RefOreDict.POTION_WEAKNESS, PotionHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.WEAKNESS));
+                RefOreDict.POTION_WEAKNESS, BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.WEAKNESS));
         registerOre(
                 RefOreDict.POTION_LONG_WEAKNESS,
-                PotionHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.LONG_WEAKNESS));
+                BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.LONG_WEAKNESS));
 
         registerOre(
                 RefOreDict.POTION_WEAKNESS,
-                PotionHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.WEAKNESS));
+                BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.WEAKNESS));
         registerOre(
                 RefOreDict.POTION_LONG_WEAKNESS,
-                PotionHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.LONG_WEAKNESS));
+                BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.LONG_WEAKNESS));
 
         RPGMode.logger.info(String.format("%s ore dictionary entries added", oreDictCounter));
     }

@@ -38,9 +38,9 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import robmart.rpgmode.common.capability.attribute.AttributeCapability;
 import robmart.rpgmode.common.helper.ItemHelper;
 import robmart.rpgmode.common.helper.PlayerHelper;
-import robmart.rpgmode.common.helper.PotionHelper;
 import robmart.rpgmode.common.init.InitItems;
 import robmart.rpgmode.common.init.InitPotionTypes;
+import robmart.rpgmode.common.recipe.brewing.BrewingHelper;
 import robmart.rpgmode.common.reference.Reference;
 
 /**
@@ -92,7 +92,7 @@ public class EventHandler {
                             event.getEntityPlayer().posZ, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F,
                             1.0F);
             ItemHelper.turnBottleIntoItem(event.getItemStack(), event.getEntityPlayer(),
-                                          PotionHelper.getItemStackOfPotion(InitItems.POTION, InitPotionTypes.LAVA));
+                                          BrewingHelper.getItemStackOfPotion(InitItems.POTION, InitPotionTypes.LAVA));
         }
     }
 }
