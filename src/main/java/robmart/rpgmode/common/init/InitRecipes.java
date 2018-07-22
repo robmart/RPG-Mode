@@ -27,8 +27,9 @@ import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.common.brewing.IBrewingRecipe;
 import robmart.rpgmode.common.RPGMode;
 import robmart.rpgmode.common.helper.PotionHelper;
-import robmart.rpgmode.common.helper.RecipeHelper;
 import robmart.rpgmode.common.recipe.brewing.BrewRecipe;
+import robmart.rpgmode.common.recipe.brewing.BrewingHelper;
+import robmart.rpgmode.common.recipe.brewing.BrewingRecipeWrapper;
 import robmart.rpgmode.common.recipe.crafting.CraftingHandler;
 
 import java.util.List;
@@ -121,6 +122,25 @@ public class InitRecipes {
                                         InitPotionTypes.STRONG_FOOLISHNESS));
 
         RPGMode.logger.info(String.format("%s brewing recipes added", brewingCounter));
+    }
+
+    public static void addCompatBrewingRecipes() {
+        brewingCounter = 0;
+
+        RPGMode.logger.info("Adding comparability brewing recipes");
+        List<BrewingRecipeWrapper> recipes = BrewingHelper.getAllBrewingRecipes();
+        for (BrewingRecipeWrapper recipe : recipes)
+            if (recipe.needConverting())
+                for (BrewingRecipeWrapper newRecipe : recipe.convertPotionType())
+                    addBrewingRecipe(newRecipe);
+
+        RPGMode.logger.info(String.format("%s comparability brewing recipes added", brewingCounter));
+    }
+
+    private static void addBrewingRecipe(BrewingRecipeWrapper wrapper) {
+        BrewingRecipeRegistry.addRecipe(
+                new BrewRecipe(wrapper.getPotionInput(), wrapper.getIngredient(), wrapper.getPotionOutput()));
+        brewingCounter++;
     }
 
     private static void addBrewingRecipe(IBrewingRecipe recipe) {

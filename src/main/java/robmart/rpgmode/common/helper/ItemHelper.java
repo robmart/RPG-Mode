@@ -19,9 +19,17 @@
 
 package robmart.rpgmode.common.helper;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
+import net.minecraft.util.NonNullList;
+import net.minecraftforge.oredict.OreDictionary;
+import robmart.rpgmode.common.RPGMode;
+import robmart.rpgmode.common.init.InitItems;
 
 import java.util.Objects;
 
@@ -46,5 +54,68 @@ public class ItemHelper {
 
             return itemStackInput;
         }
+    }
+
+    public static boolean isItemPotion(Item item) {
+        return (item == Items.POTIONITEM || item == Items.SPLASH_POTION || item == Items.LINGERING_POTION);
+    }
+
+    public static Item getOverridePotion(Item item) {
+        if (!(item instanceof ItemPotion))
+            throw new IllegalArgumentException();
+
+        Item potionItem = item;
+
+        if (item == Items.POTIONITEM)
+            potionItem = InitItems.POTION;
+        if (item == Items.SPLASH_POTION)
+            potionItem = InitItems.SPLASH_POTION;
+        if (item == Items.LINGERING_POTION)
+            potionItem = InitItems.LINGERING_POTION;
+
+        return potionItem;
+    }
+
+    /**
+     * Gets all subtypes of an item
+     *
+     * @param item      The item in question
+     * @param stackSize How large the stacks should be
+     *
+     * @return A list of the subtypes
+     *
+     * @author mezz
+     */
+    public static NonNullList<ItemStack> getSubtypes(final Item item, final int stackSize) {
+        NonNullList<ItemStack> itemStacks = NonNullList.create();
+
+        for (CreativeTabs itemTab : item.getCreativeTabs()) {
+            if (itemTab == null) {
+                itemStacks.add(new ItemStack(item, stackSize));
+            }
+            else {
+                NonNullList<ItemStack> subItems = NonNullList.create();
+                try {
+                    item.getSubItems(itemTab, subItems);
+                } catch (RuntimeException | LinkageError e) {
+                    RPGMode.logger.warn("Caught a crash while getting sub-items of {}", item, e);
+                }
+
+                for (ItemStack subItem : subItems) {
+                    if (!subItem.isEmpty() && subItem.getMetadata() != OreDictionary.WILDCARD_VALUE) {
+                        if (subItem.getCount() != stackSize) {
+                            ItemStack subItemCopy = subItem.copy();
+                            subItemCopy.setCount(stackSize);
+                            itemStacks.add(subItemCopy);
+                        }
+                        else {
+                            itemStacks.add(subItem);
+                        }
+                    }
+                }
+            }
+        }
+
+        return itemStacks;
     }
 }

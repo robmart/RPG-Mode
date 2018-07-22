@@ -84,6 +84,8 @@ public abstract class CommonProxy implements IGuiHandler {
         RPGMode.logger.info("Post initialization starting");
         InitItems.registerOreDictionary();
 
+        InitRecipes.addCompatBrewingRecipes();
+
         for (Biome biome : BiomeDictionary.getBiomes(BiomeDictionary.Type.NETHER))
             biome.decorator = new BiomeHellDecoratorWrapper(biome.decorator);
     }
