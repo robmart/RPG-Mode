@@ -80,16 +80,6 @@ public class CreativeTabBrewing extends CreativeTabs {
                                                                itemStack
                                                                        .getItem() instanceof ItemLingeringPotionOverride))
                 listBanned.add(itemStack);
-            if (itemStack.getItem() instanceof ItemSplashPotion &&
-                !((itemStack.getItem() instanceof ItemSplashPotionOverride) ||
-                  itemStack.getItem() instanceof ItemPotionOverride ||
-                  itemStack.getItem() instanceof ItemLingeringPotionOverride))
-                listBanned.add(itemStack);
-            if (itemStack.getItem() instanceof ItemLingeringPotion &&
-                !((itemStack.getItem() instanceof ItemLingeringPotionOverride) ||
-                  itemStack.getItem() instanceof ItemSplashPotionOverride ||
-                  itemStack.getItem() instanceof ItemPotionOverride))
-                listBanned.add(itemStack);
 
             if (itemStack.getItem() instanceof ItemSplashPotion || itemStack.getItem() instanceof ItemLingeringPotion)
                 if (Objects.requireNonNull(itemStack.getItem().getNBTShareTag(itemStack)).getString("Potion")

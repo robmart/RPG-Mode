@@ -22,19 +22,15 @@ package robmart.rpgmode.common.init;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
+import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionType;
+import net.minecraft.potion.PotionHelper;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.common.brewing.IBrewingRecipe;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import robmart.rpgmode.common.RPGMode;
 import robmart.rpgmode.common.recipe.brewing.BrewRecipe;
 import robmart.rpgmode.common.recipe.brewing.BrewingHelper;
-import robmart.rpgmode.common.recipe.brewing.BrewingRecipeWrapper;
 import robmart.rpgmode.common.recipe.crafting.CraftingHandler;
-import robmart.rpgmode.common.reference.Reference;
-
-import java.util.List;
 
 /**
  * @author Robmart
@@ -123,37 +119,13 @@ public class InitRecipes {
         addBrewingRecipe(new BrewRecipe(InitPotionTypes.FOOLISHNESS, new ItemStack(Items.GLOWSTONE_DUST),
                                         InitPotionTypes.STRONG_FOOLISHNESS));
 
-        //Splash
-        for (PotionType type : ForgeRegistries.POTION_TYPES)
-            if (type.getRegistryName().getResourceDomain() != null && type.getRegistryName().getResourceDomain()
-                                                                          .contains(Reference.MOD_ID)) {
-                addBrewingRecipe(new BrewRecipe(type, new ItemStack(Items.GUNPOWDER), type, Items.POTIONITEM, Items
-                        .SPLASH_POTION));
-                addBrewingRecipe(
-                        new BrewRecipe(type, new ItemStack(Items.DRAGON_BREATH), type, Items.SPLASH_POTION, Items
-                                .LINGERING_POTION));
-            }
+        //TODO: automatically add long and strong recipes
+        //Splash and Lingering
+        PotionHelper.addContainerRecipe((ItemPotion) InitItems.POTION, Items.GUNPOWDER, Items.SPLASH_POTION);
+        PotionHelper.addContainerRecipe((ItemPotion) InitItems.SPLASH_POTION, Items.DRAGON_BREATH, Items
+                .LINGERING_POTION);
 
         RPGMode.logger.info(String.format("%s brewing recipes added", brewingCounter));
-    }
-
-    public static void addCompatBrewingRecipes() {
-        brewingCounter = 0;
-
-        RPGMode.logger.info("Adding comparability brewing recipes");
-        List<BrewingRecipeWrapper> recipes = BrewingHelper.getAllBrewingRecipes();
-        for (BrewingRecipeWrapper recipe : recipes)
-            if (recipe.needConverting())
-                for (BrewingRecipeWrapper newRecipe : recipe.convertPotionType())
-                    addBrewingRecipe(newRecipe);
-
-        RPGMode.logger.info(String.format("%s comparability brewing recipes added", brewingCounter));
-    }
-
-    private static void addBrewingRecipe(BrewingRecipeWrapper wrapper) {
-        BrewingRecipeRegistry.addRecipe(
-                new BrewRecipe(wrapper.getPotionInput(), wrapper.getIngredient(), wrapper.getPotionOutput()));
-        brewingCounter++;
     }
 
     private static void addBrewingRecipe(IBrewingRecipe recipe) {

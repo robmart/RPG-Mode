@@ -19,28 +19,23 @@
 
 package robmart.rpgmode.common.item;
 
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import robmart.rpgmode.client.render.IModelRegister;
 import robmart.rpgmode.common.potion.PotionBase;
-
-import java.util.Objects;
 
 /**
  * @author Robmart
  */
-public class ItemPotionOverride extends ItemPotion implements IModelRegister {
+public class ItemPotionOverride extends ItemPotion {
 
     public ItemPotionOverride() {
-        this.setUnlocalizedName("potion");
-        this.setRegistryName("potion");
+        this.setUnlocalizedName(":potion");
+        this.setRegistryName("minecraft:potion");
     }
 
     /**
@@ -71,14 +66,4 @@ public class ItemPotionOverride extends ItemPotion implements IModelRegister {
 
         return super.hasEffect(stack) || !PotionUtils.getEffectsFromStack(stack).isEmpty();
     }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void registerModels() {
-        ModelLoader.setCustomModelResourceLocation(this, 0,
-                                                   new ModelResourceLocation(
-                                                           Objects.requireNonNull(getRegistryName()),
-                                                           "inventory"));
-    }
-
 }

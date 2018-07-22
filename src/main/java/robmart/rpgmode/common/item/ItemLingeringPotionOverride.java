@@ -19,26 +19,21 @@
 
 package robmart.rpgmode.common.item;
 
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemLingeringPotion;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import robmart.rpgmode.client.render.IModelRegister;
 import robmart.rpgmode.common.init.InitItems;
-
-import java.util.Objects;
 
 /**
  * @author Robmart
  */
-public class ItemLingeringPotionOverride extends ItemLingeringPotion implements IModelRegister {
+public class ItemLingeringPotionOverride extends ItemLingeringPotion {
 
     public ItemLingeringPotionOverride() {
         this.setUnlocalizedName("lingering_potion");
-        this.setRegistryName("lingering_potion");
+        this.setRegistryName("minecraft:lingering_potion");
     }
 
     /**
@@ -52,14 +47,5 @@ public class ItemLingeringPotionOverride extends ItemLingeringPotion implements 
     @SideOnly(Side.CLIENT)
     public boolean hasEffect(ItemStack stack) {
         return InitItems.POTION.hasEffect(stack);
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void registerModels() {
-        ModelLoader.setCustomModelResourceLocation(this, 0,
-                                                   new ModelResourceLocation(
-                                                           Objects.requireNonNull(getRegistryName()),
-                                                           "inventory"));
     }
 }
