@@ -61,7 +61,6 @@ public class CraftingHandler {
     }
 
     public static void generateConstants() {
-        System.out.println("Generate constants");
         setupOutDir();
 
         List<Map<String, Object>> json = new ArrayList<>();
