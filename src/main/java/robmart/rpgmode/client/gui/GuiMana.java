@@ -80,7 +80,7 @@ public class GuiMana extends Gui {
         GlStateManager.enableAlpha();
         GlStateManager.enableBlend();
 
-        if (!ConfigurationHandler.moveManaBar)
+        if (!ConfigurationHandler.shouldMoveManaBar())
             yPos -= 10 * 2;
 
         drawTexturedModalRect(xPos, yPos, 0, 0, 81 * 2, 9 * 2);
@@ -96,7 +96,7 @@ public class GuiMana extends Gui {
         xPos += (barLength) - (fontRenderer.getStringWidth(message) / 2);
         yPos += 1;
 
-        if (ConfigurationHandler.displayManaValue) {
+        if (ConfigurationHandler.shouldDisplayManaValue()) {
             fontRenderer.drawString(message, xPos + 1, yPos, 0);
             fontRenderer.drawString(message, xPos - 1, yPos, 0);
             fontRenderer.drawString(message, xPos, yPos + 1, 0);

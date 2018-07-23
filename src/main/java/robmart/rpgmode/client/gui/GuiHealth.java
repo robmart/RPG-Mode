@@ -108,7 +108,7 @@ public class GuiHealth extends Gui {
         xPos += (barLength) - (fontRenderer.getStringWidth(message) / 2);
         yPos += 1;
 
-        if (ConfigurationHandler.displayHealthValue) {
+        if (ConfigurationHandler.shouldDisplayHealthValue()) {
             fontRenderer.drawString(message, xPos + 1, yPos, 0);
             fontRenderer.drawString(message, xPos - 1, yPos, 0);
             fontRenderer.drawString(message, xPos, yPos + 1, 0);

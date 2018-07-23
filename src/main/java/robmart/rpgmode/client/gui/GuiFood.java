@@ -61,8 +61,6 @@ public class GuiFood extends Gui {
 
     /**
      * Renders hunger at new position
-     *
-     * @param event
      */
     @SubscribeEvent(priority = EventPriority.NORMAL)
     @SuppressWarnings("unused")
@@ -84,7 +82,7 @@ public class GuiFood extends Gui {
         int k = foodstats.getFoodLevel();
         int i1 = scaledRes.getScaledWidth() / 2 + 91;
         int j1 = scaledRes.getScaledHeight() - 49;
-        if (!ConfigurationHandler.moveManaBar)
+        if (!ConfigurationHandler.shouldMoveManaBar())
             j1 = scaledRes.getScaledHeight() - 39;
 
         int j6 = j1;
