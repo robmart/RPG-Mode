@@ -68,7 +68,7 @@ public class InitItems {
                 SPLASH_POTION,
                 LINGERING_POTION
                                        );
-        RPGMode.logger.info(String.format("%s items added", ItemBase.itemCounter));
+        RPGMode.logger.info(String.format("%s items added", ItemBase.getCounter()));
     }
 
     public static void registerOreDictionary() {

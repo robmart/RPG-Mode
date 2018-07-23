@@ -33,7 +33,7 @@ import java.util.Objects;
  * @author Robmart
  */
 public class ItemBase extends Item implements IModelRegister {
-    public static int itemCounter = 0;
+    private static int itemCounter = 0;
 
     public ItemBase(String name, CreativeTabs creativeTab) {
         this.setUnlocalizedName(name);
@@ -47,6 +47,10 @@ public class ItemBase extends Item implements IModelRegister {
         this(name, creativeTab);
 
         this.setMaxStackSize(stackSize);
+    }
+
+    public static int getCounter() {
+        return itemCounter;
     }
 
     protected static void incrementCounter() {

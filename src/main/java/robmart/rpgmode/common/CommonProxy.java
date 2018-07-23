@@ -65,10 +65,8 @@ public abstract class CommonProxy implements IGuiHandler {
         InitCapabilities.init();
         MinecraftForge.EVENT_BUS.register(new ConfigurationHandler());
 
-        if ((Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment")) {
-            System.out.println("RECIPES");
+        if ((Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment"))
             InitRecipes.generateRecipes();
-        }
 
         PacketDispatcher.registerPackets();
 

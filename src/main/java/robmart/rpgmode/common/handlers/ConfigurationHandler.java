@@ -34,11 +34,27 @@ public class ConfigurationHandler {
 
     public static Configuration config;
 
-    public static boolean debug = false;
+    private static boolean debug = false;
 
-    public static boolean displayManaValue = false;
-    public static boolean displayHealthValue = false;
-    public static boolean moveManaBar = true;
+    private static boolean displayManaValue   = false;
+    private static boolean displayHealthValue = false;
+    private static boolean moveManaBar        = true;
+
+    public static boolean debugModeActive() {
+        return debug;
+    }
+
+    public static boolean shouldDisplayManaValue() {
+        return displayManaValue;
+    }
+
+    public static boolean shouldDisplayHealthValue() {
+        return displayHealthValue;
+    }
+
+    public static boolean shouldMoveManaBar() {
+        return moveManaBar;
+    }
 
     public static void initialize(File file) {
         config = new Configuration(file);

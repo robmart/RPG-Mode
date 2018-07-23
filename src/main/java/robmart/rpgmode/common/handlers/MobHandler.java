@@ -40,7 +40,7 @@ import java.util.Random;
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID)
 @SuppressWarnings("unused")
 public class MobHandler {
-    public static Random random = new Random();
+    private static final Random random = new Random();
 
     @SubscribeEvent
     public static void onLivingDrop(LivingDropsEvent event) {

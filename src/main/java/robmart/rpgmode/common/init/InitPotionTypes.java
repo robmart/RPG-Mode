@@ -171,10 +171,10 @@ public class InitPotionTypes {
             potionTypeName = new ResourceLocation(
                     potionName.getResourceDomain(), namePrefix + potionName.getResourcePath());
         }
-        else
+        else {
+            assert potionName != null;
             potionTypeName = potionName;
-
-        assert potionName != null;
+        }
 
         potionTypeCounter++;
         return new PotionType(potionName.toString(), effect).setRegistryName(potionTypeName);

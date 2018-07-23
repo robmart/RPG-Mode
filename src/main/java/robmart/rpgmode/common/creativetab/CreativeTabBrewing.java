@@ -25,9 +25,6 @@ import net.minecraft.item.*;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import robmart.rpgmode.common.item.ItemLingeringPotionOverride;
-import robmart.rpgmode.common.item.ItemPotionOverride;
-import robmart.rpgmode.common.item.ItemSplashPotionOverride;
 import robmart.rpgmode.common.reference.Reference;
 
 import java.util.Objects;
@@ -37,7 +34,7 @@ import java.util.Objects;
  */
 public class CreativeTabBrewing extends CreativeTabs {
 
-    public static CreativeTabBrewing instance = new CreativeTabBrewing();
+    public static final CreativeTabBrewing instance = new CreativeTabBrewing();
 
     private CreativeTabBrewing() {
         super(Reference.MOD_ID + ":brewing");
@@ -73,13 +70,6 @@ public class CreativeTabBrewing extends CreativeTabs {
                         Objects.requireNonNull(itemStack.getItem().getNBTShareTag(itemStack)).getString("Potion")
                                .contains(aBlocked))
                         listBanned.add(itemStack);
-
-            if (itemStack.getItem() instanceof ItemPotion && !((itemStack.getItem() instanceof ItemPotionOverride) ||
-                                                               itemStack
-                                                                       .getItem() instanceof ItemSplashPotionOverride ||
-                                                               itemStack
-                                                                       .getItem() instanceof ItemLingeringPotionOverride))
-                listBanned.add(itemStack);
 
             if (itemStack.getItem() instanceof ItemSplashPotion || itemStack.getItem() instanceof ItemLingeringPotion)
                 if (Objects.requireNonNull(itemStack.getItem().getNBTShareTag(itemStack)).getString("Potion")

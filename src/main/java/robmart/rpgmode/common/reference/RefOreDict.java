@@ -29,9 +29,9 @@ public class RefOreDict {
 
     //Potions
     public static final String POTION_STRENGTH        = "potionStrength";
-    public static final String POTION_LONG_STRENGTH   = "potionLongStrength";
-    public static final String POTION_STRONG_STRENGTH = "potionStrongStrength";
+    public static final String POTION_LONG_STRENGTH   = "potionStrengthLong";
+    public static final String POTION_STRONG_STRENGTH = "potionStrengthStrong";
 
     public static final String POTION_WEAKNESS      = "potionWeakness";
-    public static final String POTION_LONG_WEAKNESS = "potionLongWeakness";
+    public static final String POTION_LONG_WEAKNESS = "potionWeaknessLong";
 }

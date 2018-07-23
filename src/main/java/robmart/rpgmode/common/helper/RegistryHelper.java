@@ -13,7 +13,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryManager;
-import robmart.rpgmode.common.reference.Reference;
 
 /**
  * Utility methods for Forge registries.
@@ -21,8 +20,9 @@ import robmart.rpgmode.common.reference.Reference;
  * @author Choonster
  */
 public class RegistryHelper {
+
     /**
-     * Get an entry from the provided registry, using <code>testmod3</code> as the mod ID.
+     * Get an entry from the provided registry.
      *
      * @param registry The registry
      * @param name     The name of the entry
@@ -34,24 +34,7 @@ public class RegistryHelper {
      */
     public static <T extends IForgeRegistryEntry<T>> T getRegistryEntry(
             final IForgeRegistry<T> registry, final String name) {
-        return getRegistryEntry(registry, Reference.MOD_ID, name);
-    }
-
-    /**
-     * Get an entry from the provided registry.
-     *
-     * @param registry The registry
-     * @param modid    The mod ID of the entry
-     * @param name     The name of the entry
-     * @param <T>      The registry type
-     *
-     * @return The registry entry
-     *
-     * @throws NullPointerException When the entry doesn't exist
-     */
-    public static <T extends IForgeRegistryEntry<T>> T getRegistryEntry(
-            final IForgeRegistry<T> registry, final String modid, final String name) {
-        final ResourceLocation key = new ResourceLocation(modid, name);
+        final ResourceLocation key = new ResourceLocation(name);
         final T registryEntry = registry.getValue(key);
         return Preconditions.checkNotNull(registryEntry, "%s doesn't exist in registry %s", key,
                                           RegistryManager.ACTIVE.getName(registry));

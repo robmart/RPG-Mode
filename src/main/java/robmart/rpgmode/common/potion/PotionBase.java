@@ -75,9 +75,11 @@ public class PotionBase extends Potion {
 
     public PotionBase(final boolean isBadEffect, final int liquidColor, final String name, boolean useGlint) {
         super(isBadEffect, liquidColor);
-        setPotionName(this, name);
-        this.iconTexture = new ResourceLocation(Reference.MOD_ID, "textures/potions/" + name + ".png");
-        this.TAG_NAME = String.format("%s - %s", Reference.MOD_ID, name);
+        setPotionName(name);
+        ResourceLocation resourceLocation = new ResourceLocation(name);
+        this.iconTexture = new ResourceLocation(Reference.MOD_ID, "textures/potions/" +
+                                                                  resourceLocation.getResourcePath() + ".png");
+        this.TAG_NAME = String.format("%s - %s", Reference.MOD_ID, resourceLocation.getResourcePath());
         this.useEnchantedEffect = useGlint;
         this.instance = this;
         potionCounter++;
@@ -134,13 +136,13 @@ public class PotionBase extends Potion {
     /**
      * Set the registry name of {@code potion} to {@code potionName} and the unlocalised name to the full registry name.
      *
-     * @param potion     The potion
      * @param potionName The potion's name
      */
-    public static void setPotionName(final Potion potion, final String potionName) {
-        potion.setRegistryName(Reference.MOD_ID, potionName);
-        final ResourceLocation registryName = Objects.requireNonNull(potion.getRegistryName());
-        potion.setPotionName("effect." + registryName.toString());
+    public Potion setPotionName(final String potionName) {
+        this.setRegistryName(potionName);
+        final ResourceLocation registryName = Objects.requireNonNull(this.getRegistryName());
+        super.setPotionName("effect." + registryName.toString());
+        return this;
     }
 
     @Override

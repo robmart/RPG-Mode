@@ -23,15 +23,22 @@ package robmart.rpgmode.common.reference;
  * @author Robmart
  */
 public class RefPotionNames {
-    public static final String LAVA          = "lava";
-    public static final String STRENGTH      = "strength";
-    public static final String WEAKNESS      = "weakness";
-    public static final String DEXTEROUSNESS = "dexterousness";
-    public static final String CLUMSINESS    = "clumsiness";
-    public static final String FORTITUDE     = "fortitude";
-    public static final String LETHARGY      = "lethargy";
-    public static final String INTELLIGENCE  = "intelligence";
-    public static final String STUPIDITY     = "stupidity";
-    public static final String WISDOM        = "wisdom";
-    public static final String FOOLISHNESS   = "foolishness";
+    public static final String LAVA          = getName("lava");
+    public static final String STRENGTH      = getName("strength");
+    public static final String WEAKNESS      = getName("weakness");
+    public static final String DEXTEROUSNESS = getName("dexterousness");
+    public static final String CLUMSINESS    = getName("clumsiness");
+    public static final String FORTITUDE     = getName("fortitude");
+    public static final String LETHARGY      = getName("lethargy");
+    public static final String INTELLIGENCE  = getName("intelligence");
+    public static final String STUPIDITY     = getName("stupidity");
+    public static final String WISDOM        = getName("wisdom");
+    public static final String FOOLISHNESS   = getName("foolishness");
+
+    private RefPotionNames() {
+    }
+
+    private static String getName(String name) {
+        return String.format("%s:%s", Reference.MOD_ID, name);
+    }
 }
