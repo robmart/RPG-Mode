@@ -19,17 +19,48 @@
 
 package robmart.rpgmode.common.recipe.brewing;
 
+import net.minecraft.init.PotionTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
+import net.minecraft.util.ResourceLocation;
 
 /**
  * @author Robmart
  */
 public class BrewingHelper {
 
+    public static ItemStack getItemStackOfPotion(Item it, PotionType pt, boolean wasd) {
+        ItemStack res = new ItemStack(it);
+        res.setTagCompound(new NBTTagCompound());
+        addPotionToItemStack(res, pt);
+        return res;
+    }
+
+    public static ItemStack addPotionToItemStack(ItemStack itemIn, PotionType potionIn) {
+        ResourceLocation resourcelocation = potionIn.getRegistryName();
+        System.out.println(resourcelocation);
+
+        if (potionIn == PotionTypes.EMPTY || resourcelocation == null) {
+            if (itemIn.hasTagCompound()) {
+                NBTTagCompound nbttagcompound = itemIn.getTagCompound();
+                nbttagcompound.removeTag("Potion");
+
+                if (nbttagcompound.hasNoTags()) {
+                    itemIn.setTagCompound(null);
+                }
+            }
+        }
+        else {
+            NBTTagCompound nbttagcompound1 = itemIn.hasTagCompound() ? itemIn.getTagCompound() : new NBTTagCompound();
+            nbttagcompound1.setString("Potion", resourcelocation.toString());
+            itemIn.setTagCompound(nbttagcompound1);
+        }
+
+        return itemIn;
+    }
     public static ItemStack getItemStackOfPotion(Item it, PotionType pt) {
         ItemStack res = new ItemStack(it);
         res.setTagCompound(new NBTTagCompound());

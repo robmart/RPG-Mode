@@ -33,6 +33,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import robmart.rpgmode.api.RPGModeAPI;
 import robmart.rpgmode.api.capability.attribute.IAttribute;
 import robmart.rpgmode.common.capability.CapabilityProviderSerializable;
+import robmart.rpgmode.common.helper.MathHelper;
 import robmart.rpgmode.common.reference.Reference;
 import robmart.rpgmode.common.util.CapabilityUtils;
 
@@ -173,6 +174,23 @@ public final class AttributeCapability {
             if (event.getEntity() instanceof EntityPlayerMP) {
                 final IAttribute attribute = getAttributes((EntityLivingBase) event.getEntity());
                 attribute.synchronise();
+            }
+        }
+
+        @SubscribeEvent
+        public static void moveEntity(LivingEvent.LivingUpdateEvent event) {
+            if (shouldHaveAttribute(event.getEntity())) {
+                EntityLivingBase Entity = (EntityLivingBase) event.getEntity();
+                if (Entity.world.isRemote) {
+                    if ((Entity.onGround || (Entity instanceof EntityPlayer && ((EntityPlayer) Entity).capabilities
+                            .isFlying)) && Entity.moveForward > 0F &&
+                        !Entity.isInsideOfMaterial(Material.WATER)) {
+                        Entity.moveRelative(
+                                0F, 0F, 1F, MathHelper.diminishingReturns(
+                                        getAttributes(Entity).getConstitution() +
+                                        getAttributes(Entity).getDexterity(), 0.00002f) - 0.01f);
+                    }
+                }
             }
         }
     }

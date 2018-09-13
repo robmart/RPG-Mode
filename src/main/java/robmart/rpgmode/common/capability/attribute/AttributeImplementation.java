@@ -20,7 +20,6 @@
 package robmart.rpgmode.common.capability.attribute;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
@@ -196,22 +195,6 @@ public class AttributeImplementation implements IAttribute {
 
         //Set max health
         MaxHealthCapability.getMaxHealth(entity).setBonusMaxHealth(10.0F * getConstitution());
-
-        //Increases hostile mobs walk speed
-        if (!(entity instanceof EntityPlayer) && entity.isCreatureType(EnumCreatureType.MONSTER, false))
-            if (getConstitution() <= 20)
-                entity.setAIMoveSpeed(0.1F + (0.0025F * getConstitution()));
-            else
-                //Cap at 50% boost
-                entity.setAIMoveSpeed(0.1F + (0.0025F * 20));
-
-        //Increases player walk speed
-        if (entity instanceof EntityPlayer)
-            if (getConstitution() <= 20)
-                ((EntityPlayer) entity).capabilities.setPlayerWalkSpeed((0.1F + (0.0025F * getConstitution())));
-            else
-                //Cap at 50% boost
-                ((EntityPlayer) entity).capabilities.setPlayerWalkSpeed((0.1F + (0.0025F * 20)));
 
         this.synchronise();
     }
