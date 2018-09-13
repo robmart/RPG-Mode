@@ -19,9 +19,9 @@
 
 package robmart.rpgmode.common.potion;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.potion.Potion;
@@ -75,6 +75,9 @@ public class PotionBase extends Potion {
 
     public PotionBase(final boolean isBadEffect, final int liquidColor, final String name, boolean useGlint) {
         super(isBadEffect, liquidColor);
+        if (!isBadEffect)
+            this.setBeneficial();
+
         setPotionName(name);
         ResourceLocation resourceLocation = new ResourceLocation(name);
         this.iconTexture = new ResourceLocation(Reference.MOD_ID, "textures/potions/" +
@@ -163,40 +166,47 @@ public class PotionBase extends Potion {
     /**
      * Called to draw the this Potion onto the player's inventory when it's active.
      * This can be used to e.g. render Potion icons from your own texture.
-     *
-     * @param x      the x coordinate
-     * @param y      the y coordinate
+     * @param x the x coordinate
+     * @param y the y coordinate
      * @param effect the active PotionEffect
-     * @param mc     the Minecraft instance, for convenience
+     * @param mc the Minecraft instance, for convenience
      */
     @SideOnly(Side.CLIENT)
-    @Override
-    public void renderInventoryEffect(final int x, final int y, final PotionEffect effect, final Minecraft mc) {
-        if (mc.currentScreen != null) {
-            mc.getTextureManager().bindTexture(iconTexture);
-            GlStateManager.scale(0.25, 0.25, 0.25);
-            Gui.drawModalRectWithCustomSizedTexture((x + 7) * 4, (y + 8) * 4, 0, 0, 64, 64, 64, 64);
-            GlStateManager.scale(4, 4, 4);
-        }
+    public void renderInventoryEffect(int x, int y, PotionEffect effect, net.minecraft.client.Minecraft mc) {
+        renderPotionIcon(x + 6, y + 7, mc);
     }
 
     /**
      * Called to draw the this Potion onto the player's ingame HUD when it's active.
      * This can be used to e.g. render Potion icons from your own texture.
-     *
-     * @param x      the x coordinate
-     * @param y      the y coordinate
+     * @param x the x coordinate
+     * @param y the y coordinate
      * @param effect the active PotionEffect
-     * @param mc     the Minecraft instance, for convenience
-     * @param alpha  the alpha value, blinks when the potion is about to run out
+     * @param mc the Minecraft instance, for convenience
+     * @param alpha the alpha value, blinks when the potion is about to run out
      */
     @SideOnly(Side.CLIENT)
-    @Override
-    public void renderHUDEffect(
-            final int x, final int y, final PotionEffect effect, final Minecraft mc, final float alpha) {
+    public void renderHUDEffect(int x, int y, PotionEffect effect, net.minecraft.client.Minecraft mc, float alpha) {
+        renderPotionIcon(x + 3, y + 3, mc);
+    }
+
+    @SideOnly(Side.CLIENT)
+    private void renderPotionIcon(int x, int y, net.minecraft.client.Minecraft mc) {
         mc.getTextureManager().bindTexture(iconTexture);
-        GlStateManager.scale(0.25, 0.25, 0.25);
-        Gui.drawModalRectWithCustomSizedTexture((x + 4) * 4, (y + 4) * 4, 0, 0, 64, 64, 64, 64);
-        GlStateManager.scale(4, 4, 4);
+        int width = 18;
+        int height = 18;
+        float widthRatio = 1.0f / 18.0f;
+        float heightRatio = 1.0f / 18.0f;
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder vertexBuffer = tessellator.getBuffer();
+        vertexBuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        vertexBuffer.pos((double) (x + 0), (double) (y + height), 0).tex(0, (double) ((float) height * heightRatio))
+                    .endVertex();
+        vertexBuffer.pos((double) (x + width), (double) (y + height), 0)
+                    .tex((double) ((float) width * widthRatio), (double) ((float) height * heightRatio)).endVertex();
+        vertexBuffer.pos((double) (x + width), (double) (y + 0), 0).tex((double) ((float) width * widthRatio), 0)
+                    .endVertex();
+        vertexBuffer.pos((double) (x + 0), (double) (y + 0), 0).tex(0, 0).endVertex();
+        tessellator.draw();
     }
 }
