@@ -10,8 +10,11 @@
 
 package robmart.rpgmode.common.capability.attribute;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -23,9 +26,11 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import robmart.rpgmode.api.RPGModeAPI;
 import robmart.rpgmode.api.capability.attribute.IAttribute;
 import robmart.rpgmode.common.capability.CapabilityProviderSerializable;
 import robmart.rpgmode.common.reference.Reference;
@@ -95,6 +100,19 @@ public final class AttributeCapability {
     }
 
     /**
+     * Checks if Entity should have the attribute
+     */
+    public static boolean shouldHaveAttribute(Entity entity) {
+        return entity instanceof EntityLivingBase && (entity instanceof EntityPlayer ||
+                                                      entity
+                                                              .isCreatureType(
+                                                                      EnumCreatureType.MONSTER,
+                                                                      false) || RPGModeAPI
+                                                              .shouldMobHaveAttributes(
+                                                                      entity.getClass()));
+    }
+
+    /**
      * Event handler for the {@link IAttribute} capability.
      */
     @SuppressWarnings("unused")
@@ -108,7 +126,7 @@ public final class AttributeCapability {
          */
         @SubscribeEvent
         public static void attachCapabilities(final AttachCapabilitiesEvent<Entity> event) {
-            if (event.getObject() instanceof EntityLivingBase) {
+            if (shouldHaveAttribute(event.getObject())) {
                 final AttributeImplementation attribute = new AttributeImplementation(
                         (EntityLivingBase) event.getObject());
                 event.addCapability(ID, createProvider(attribute));
@@ -151,7 +169,7 @@ public final class AttributeCapability {
          * @param event The event
          */
         @SubscribeEvent
-        public void onEntityJoinWorld(EntityJoinWorldEvent event) {
+        public static void onEntityJoinWorld(EntityJoinWorldEvent event) {
             if (event.getEntity() instanceof EntityPlayerMP) {
                 final IAttribute attribute = getAttributes((EntityLivingBase) event.getEntity());
                 attribute.synchronise();

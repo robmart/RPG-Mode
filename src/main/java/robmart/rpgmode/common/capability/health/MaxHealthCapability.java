@@ -10,6 +10,8 @@ package robmart.rpgmode.common.capability.health;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagFloat;
@@ -23,6 +25,7 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import robmart.rpgmode.api.RPGModeAPI;
 import robmart.rpgmode.api.capability.health.IMaxHealth;
 import robmart.rpgmode.common.capability.CapabilityProviderSerializable;
 import robmart.rpgmode.common.reference.Reference;
@@ -103,6 +106,19 @@ public final class MaxHealthCapability {
     }
 
     /**
+     * Checks if Entity should have the capability
+     */
+    public static boolean shouldHaveAttribute(Entity entity) {
+        return entity instanceof EntityLivingBase && (entity instanceof EntityPlayer ||
+                                                      entity
+                                                              .isCreatureType(
+                                                                      EnumCreatureType.MONSTER,
+                                                                      false) || RPGModeAPI
+                                                              .shouldMobHaveAttributes(
+                                                                      entity.getClass()));
+    }
+
+    /**
      * Event handler for the {@link IMaxHealth} capability.
      */
     @SuppressWarnings("unused")
@@ -116,7 +132,7 @@ public final class MaxHealthCapability {
          */
         @SubscribeEvent
         public static void attachCapabilities(final AttachCapabilitiesEvent<Entity> event) {
-            if (event.getObject() instanceof EntityLivingBase) {
+            if (shouldHaveAttribute(event.getObject())) {
                 final MaxHealthImplementation maxHealth = new MaxHealthImplementation(
                         (EntityLivingBase) event.getObject());
                 event.addCapability(ID, createProvider(maxHealth));

@@ -35,7 +35,8 @@ public class CapabilityHandler {
 
     @SubscribeEvent
     public void onEntityJoinWorld(EntityJoinWorldEvent event) {
-        if (!(event.getEntity() instanceof EntityPlayer) && event.getEntity() instanceof EntityLivingBase) {
+        if (!(event.getEntity() instanceof EntityPlayer) &&
+            AttributeCapability.shouldHaveAttribute(event.getEntity())) {
             final EntityLivingBase entity = (EntityLivingBase) event.getEntity();
 
             final NBTTagCompound entityData = entity.getEntityData();

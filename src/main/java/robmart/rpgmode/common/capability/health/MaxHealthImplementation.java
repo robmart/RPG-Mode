@@ -139,6 +139,8 @@ public class MaxHealthImplementation implements IMaxHealth {
         if (amountToHeal > 0) {
             entity.heal(amountToHeal);
         }
+        if (entity.getHealth() > newAmount)
+            entity.setHealth(newAmount);
     }
 
     /**
