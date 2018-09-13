@@ -26,12 +26,4 @@ public class RefOreDict {
     //Items
     public static final String WING_BAT      = "wingBat";
     public static final String OBSIDIAN_DUST = "dustObsidian";
-
-    //Potions
-    public static final String POTION_STRENGTH        = "potionStrength";
-    public static final String POTION_LONG_STRENGTH   = "potionStrengthLong";
-    public static final String POTION_STRONG_STRENGTH = "potionStrengthStrong";
-
-    public static final String POTION_WEAKNESS      = "potionWeakness";
-    public static final String POTION_LONG_WEAKNESS = "potionWeaknessLong";
 }

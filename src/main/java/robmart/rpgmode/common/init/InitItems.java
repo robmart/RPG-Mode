@@ -20,8 +20,6 @@
 package robmart.rpgmode.common.init;
 
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
-import net.minecraft.init.PotionTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.RegistryEvent;
@@ -34,7 +32,6 @@ import robmart.rpgmode.common.item.ItemBase;
 import robmart.rpgmode.common.item.ItemLingeringPotionOverride;
 import robmart.rpgmode.common.item.ItemPotionOverride;
 import robmart.rpgmode.common.item.ItemSplashPotionOverride;
-import robmart.rpgmode.common.recipe.brewing.BrewingHelper;
 import robmart.rpgmode.common.reference.RefItemNames;
 import robmart.rpgmode.common.reference.RefOreDict;
 import robmart.rpgmode.common.reference.Reference;
@@ -78,39 +75,6 @@ public class InitItems {
         registerOre(RefOreDict.WING_BAT, new ItemStack(BAT_WING));
 
         registerOre(RefOreDict.OBSIDIAN_DUST, new ItemStack(OBSIDIAN_DUST));
-
-        //Potions
-        registerOre(
-                RefOreDict.POTION_STRENGTH, BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.STRENGTH));
-        registerOre(
-                RefOreDict.POTION_LONG_STRENGTH,
-                BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.LONG_STRENGTH));
-        registerOre(
-                RefOreDict.POTION_STRONG_STRENGTH,
-                BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.STRONG_STRENGTH));
-
-        registerOre(
-                RefOreDict.POTION_STRENGTH,
-                BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.STRENGTH));
-        registerOre(
-                RefOreDict.POTION_LONG_STRENGTH,
-                BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.LONG_STRENGTH));
-        registerOre(
-                RefOreDict.POTION_STRONG_STRENGTH,
-                BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.STRONG_STRENGTH));
-
-        registerOre(
-                RefOreDict.POTION_WEAKNESS, BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.WEAKNESS));
-        registerOre(
-                RefOreDict.POTION_LONG_WEAKNESS,
-                BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.LONG_WEAKNESS));
-
-        registerOre(
-                RefOreDict.POTION_WEAKNESS,
-                BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.WEAKNESS));
-        registerOre(
-                RefOreDict.POTION_LONG_WEAKNESS,
-                BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.LONG_WEAKNESS));
 
         RPGMode.logger.info(String.format("%s ore dictionary entries added", oreDictCounter));
     }
