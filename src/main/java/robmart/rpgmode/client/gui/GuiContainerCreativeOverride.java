@@ -88,16 +88,16 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
     }
 
     public static void handleHotbarSnapshots(
-            Minecraft p_192044_0_, int p_192044_1_, boolean p_192044_2_, boolean p_192044_3_) {
-        EntityPlayerSP entityplayersp = p_192044_0_.player;
-        CreativeSettings creativesettings = p_192044_0_.creativeSettings;
+            Minecraft minecraft, int p_192044_1_, boolean p_192044_2_, boolean p_192044_3_) {
+        EntityPlayerSP entityplayersp = minecraft.player;
+        CreativeSettings creativesettings = minecraft.creativeSettings;
         HotbarSnapshot hotbarsnapshot = creativesettings.getHotbarSnapshot(p_192044_1_);
 
         if (p_192044_2_) {
             for (int i = 0; i < InventoryPlayer.getHotbarSize(); ++i) {
                 ItemStack itemstack = hotbarsnapshot.get(i).copy();
                 entityplayersp.inventory.setInventorySlotContents(i, itemstack);
-                p_192044_0_.playerController.sendSlotPacket(itemstack, 36 + i);
+                minecraft.playerController.sendSlotPacket(itemstack, 36 + i);
             }
 
             entityplayersp.inventoryContainer.detectAndSendChanges();
@@ -108,9 +108,9 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
             }
 
             String s = GameSettings
-                    .getKeyDisplayString(p_192044_0_.gameSettings.keyBindsHotbar[p_192044_1_].getKeyCode());
-            String s1 = GameSettings.getKeyDisplayString(p_192044_0_.gameSettings.keyBindLoadToolbar.getKeyCode());
-            p_192044_0_.ingameGUI
+                    .getKeyDisplayString(minecraft.gameSettings.keyBindsHotbar[p_192044_1_].getKeyCode());
+            String s1 = GameSettings.getKeyDisplayString(minecraft.gameSettings.keyBindLoadToolbar.getKeyCode());
+            minecraft.ingameGUI
                     .setOverlayMessage(new TextComponentTranslation("inventory.hotbarSaved", s1, s), false);
             creativesettings.write();
         }
@@ -119,6 +119,7 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
     /**
      * Draw the foreground layer for the GuiContainer (everything in front of the items)
      */
+    @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         CreativeTabs creativetabs = CreativeTabs.CREATIVE_TAB_ARRAY[selectedTabIndex];
 
@@ -198,6 +199,7 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
     /**
      * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
      */
+    @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         if (mouseButton == 0) {
             int i = mouseX - this.guiLeft;
@@ -218,6 +220,7 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
     /**
      * Called when a mouse button is released.
      */
+    @Override
     protected void mouseReleased(int mouseX, int mouseY, int state) {
         if (state == 0) {
             int i = mouseX - this.guiLeft;
@@ -246,6 +249,7 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
     /**
      * Called when the mouse is clicked over a slot or outside the gui.
      */
+    @Override
     protected void handleMouseClick(@Nullable Slot slotIn, int slotId, int mouseButton, ClickType type) {
         this.clearSearch = true;
         boolean flag = type == ClickType.QUICK_MOVE;
@@ -411,6 +415,7 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
      * Fired when a key is typed (except F11 which toggles full screen). This is the equivalent of
      * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
      */
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         if (!CreativeTabs.CREATIVE_TAB_ARRAY[selectedTabIndex].hasSearchBar()) {
             if (GameSettings.isKeyDown(this.mc.gameSettings.keyBindChat)) {
@@ -440,6 +445,7 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
     /**
      * Called when the screen is unloaded. Used to disable keyboard repeat events
      */
+    @Override
     public void onGuiClosed() {
         super.onGuiClosed();
 
@@ -453,6 +459,7 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
     /**
      * Called from the main game loop to update the screen.
      */
+    @Override
     public void updateScreen() {
         if (!this.mc.playerController.isInCreativeMode()) {
             this.mc.displayGuiScreen(new GuiInventory(this.mc.player));
@@ -479,7 +486,7 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
         GuiContainerCreativeOverride.ContainerCreative guicontainercreative$containercreative
                 = (GuiContainerCreativeOverride.ContainerCreative) this.inventorySlots;
         this.dragSplittingSlots.clear();
-        guicontainercreative$containercreative.itemList.clear();
+        ContainerCreative.itemList.clear();
 
         if (tab == CreativeTabs.HOTBAR) {
             for (int j = 0; j < 9; ++j) {
@@ -496,20 +503,20 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
                                     .getKeyDisplayString(this.mc.gameSettings.keyBindSaveToolbar.getKeyCode());
                             itemstack.setStackDisplayName(
                                     (new TextComponentTranslation("inventory.hotbarInfo", s1, s)).getUnformattedText());
-                            guicontainercreative$containercreative.itemList.add(itemstack);
+                            ContainerCreative.itemList.add(itemstack);
                         }
                         else {
-                            guicontainercreative$containercreative.itemList.add(ItemStack.EMPTY);
+                            ContainerCreative.itemList.add(ItemStack.EMPTY);
                         }
                     }
                 }
                 else {
-                    guicontainercreative$containercreative.itemList.addAll(hotbarsnapshot);
+                    ContainerCreative.itemList.addAll(hotbarsnapshot);
                 }
             }
         }
         else if (tab != CreativeTabs.SEARCH) {
-            tab.displayAllRelevantItems(guicontainercreative$containercreative.itemList);
+            tab.displayAllRelevantItems(ContainerCreative.itemList);
         }
 
         if (tab == CreativeTabs.INVENTORY) {
@@ -588,15 +595,15 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
     private void updateCreativeSearch() {
         GuiContainerCreativeOverride.ContainerCreative guicontainercreative$containercreative
                 = (GuiContainerCreativeOverride.ContainerCreative) this.inventorySlots;
-        guicontainercreative$containercreative.itemList.clear();
+        ContainerCreative.itemList.clear();
 
         CreativeTabs tab = CreativeTabs.CREATIVE_TAB_ARRAY[selectedTabIndex];
         if (tab.hasSearchBar() && tab != CreativeTabs.SEARCH) {
-            tab.displayAllRelevantItems(guicontainercreative$containercreative.itemList);
+            tab.displayAllRelevantItems(ContainerCreative.itemList);
             if (!this.searchField.getText().isEmpty()) {
                 //TODO: Make this a SearchTree not a manual search
                 String search = this.searchField.getText().toLowerCase(Locale.ROOT);
-                java.util.Iterator<ItemStack> itr = guicontainercreative$containercreative.itemList.iterator();
+                java.util.Iterator<ItemStack> itr = ContainerCreative.itemList.iterator();
                 while (itr.hasNext()) {
                     ItemStack stack = itr.next();
                     boolean matches = false;
@@ -620,12 +627,12 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
 
         if (this.searchField.getText().isEmpty()) {
             for (Item item : Item.REGISTRY) {
-                item.getSubItems(CreativeTabs.SEARCH, guicontainercreative$containercreative.itemList);
+                item.getSubItems(CreativeTabs.SEARCH, ContainerCreative.itemList);
             }
         }
         else {
-            guicontainercreative$containercreative.itemList.addAll(this.mc.getSearchTree(SearchTreeManager.ITEMS)
-                                                                          .search(this.searchField.getText()
+            ContainerCreative.itemList.addAll(this.mc.getSearchTree(SearchTreeManager.ITEMS)
+                                                     .search(this.searchField.getText()
                                                                                                   .toLowerCase(
                                                                                                           Locale.ROOT)));
         }
@@ -682,7 +689,6 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
         int k = 0;
         int l = this.guiLeft + 28 * i;
         int i1 = this.guiTop;
-        int j1 = 32;
 
         if (flag) {
             k += 32;
@@ -725,6 +731,7 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
      * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the
      * window resizes, the buttonList is cleared beforehand.
      */
+    @Override
     public void initGui() {
         if (this.mc.playerController.isInCreativeMode()) {
             super.initGui();
@@ -762,6 +769,7 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
         }
     }
 
+    @Override
     protected void updateActivePotionEffects() {
         int i = this.guiLeft;
         super.updateActivePotionEffects();
@@ -774,6 +782,7 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
     /**
      * Draws the screen and all the components in it.
      */
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         boolean flag = Mouse.isButtonDown(0);
@@ -877,6 +886,7 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
         }
     }
 
+    @Override
     protected void renderToolTip(ItemStack stack, int x, int y) {
         if (selectedTabIndex == CreativeTabs.SEARCH.getTabIndex()) {
             List<String> list = stack.getTooltip(this.mc.player, this.mc.gameSettings.advancedItemTooltips ?
@@ -927,6 +937,7 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
     /**
      * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
      */
+    @Override
     protected void actionPerformed(GuiButton button) {
         if (button.id == 1) {
             this.mc.displayGuiScreen(new GuiStats(this, this.mc.player.getStatFileWriter()));
@@ -950,12 +961,13 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
     /**
      * Handles mouse input.
      */
+    @Override
     public void handleMouseInput() throws IOException {
         super.handleMouseInput();
         int i = Mouse.getEventDWheel();
 
         if (i != 0 && this.needsScrollBars()) {
-            int j = (((GuiContainerCreativeOverride.ContainerCreative) this.inventorySlots).itemList.size() + 9 - 1) /
+            int j = (ContainerCreative.itemList.size() + 9 - 1) /
                     9 - 5;
 
             if (i > 0) {
@@ -987,7 +999,7 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
         /**
          * the list of items in this container
          */
-        public NonNullList<ItemStack> itemList = NonNullList.create();
+        protected static final NonNullList<ItemStack> itemList = NonNullList.create();
 
         public ContainerCreative(EntityPlayer player) {
             InventoryPlayer inventoryplayer = player.inventory;
@@ -1011,7 +1023,7 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
          * Updates the gui slots ItemStack's based on scroll position.
          */
         public void scrollTo(float pos) {
-            int i = (this.itemList.size() + 9 - 1) / 9 - 5;
+            int i = (itemList.size() + 9 - 1) / 9 - 5;
             int j = (int) ((double) (pos * (float) i) + 0.5D);
 
             if (j < 0) {
@@ -1022,9 +1034,9 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
                 for (int l = 0; l < 9; ++l) {
                     int i1 = l + (k + j) * 9;
 
-                    if (i1 >= 0 && i1 < this.itemList.size()) {
+                    if (i1 >= 0 && i1 < itemList.size()) {
                         GuiContainerCreativeOverride.basicInventory
-                                .setInventorySlotContents(l + k * 9, this.itemList.get(i1));
+                                .setInventorySlotContents(l + k * 9, itemList.get(i1));
                     }
                     else {
                         GuiContainerCreativeOverride.basicInventory
@@ -1035,13 +1047,14 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
         }
 
         public boolean canScroll() {
-            return this.itemList.size() > 45;
+            return itemList.size() > 45;
         }
 
         /**
          * Handle when the stack in slot {@code index} is shift-clicked. Normally this moves the stack between the
          * player inventory and the other inventory(s).
          */
+        @Override
         public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
             if (index >= this.inventorySlots.size() - 9 && index < this.inventorySlots.size()) {
                 Slot slot = this.inventorySlots.get(index);
@@ -1058,6 +1071,7 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
          * Called to determine if the current slot is valid for the stack merging (double-click) code. The stack
          * passed in is null for the initial slot that was double-clicked.
          */
+        @Override
         public boolean canMergeSlot(ItemStack stack, Slot slotIn) {
             return slotIn.yPos > 90;
         }
@@ -1073,6 +1087,7 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
          * Returns true if the player can "drag-spilt" items into this slot,. returns true by default. Called to
          * check if the slot can be added to a list of Slots to split the held ItemStack across.
          */
+        @Override
         public boolean canDragIntoSlot(Slot slotIn) {
             return slotIn.inventory instanceof InventoryPlayer || slotIn.yPos > 90 && slotIn.xPos <= 162;
         }
@@ -1080,13 +1095,14 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
 
     @SideOnly(Side.CLIENT)
     static class LockedSlot extends Slot {
-        public LockedSlot(IInventory p_i47453_1_, int p_i47453_2_, int p_i47453_3_, int p_i47453_4_) {
-            super(p_i47453_1_, p_i47453_2_, p_i47453_3_, p_i47453_4_);
+        public LockedSlot(IInventory inventory, int index, int xPos, int yPos) {
+            super(inventory, index, xPos, yPos);
         }
 
         /**
          * Return whether this slot's stack can be taken from this slot.
          */
+        @Override
         public boolean canTakeStack(EntityPlayer playerIn) {
             if (super.canTakeStack(playerIn) && this.getHasStack()) {
                 return this.getStack().getSubCompound("CustomCreativeLock") == null;
@@ -1098,14 +1114,15 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
     }
 
     @SideOnly(Side.CLIENT)
-    class CreativeSlot extends Slot {
+    static class CreativeSlot extends Slot {
         private final Slot slot;
 
-        public CreativeSlot(Slot p_i46313_2_, int index) {
-            super(p_i46313_2_.inventory, index, 0, 0);
-            this.slot = p_i46313_2_;
+        public CreativeSlot(Slot inventory, int index) {
+            super(inventory.inventory, index, 0, 0);
+            this.slot = inventory;
         }
 
+        @Override
         public ItemStack onTake(EntityPlayer thePlayer, ItemStack stack) {
             this.slot.onTake(thePlayer, stack);
             return stack;
@@ -1114,6 +1131,7 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
         /**
          * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
          */
+        @Override
         public boolean isItemValid(ItemStack stack) {
             return this.slot.isItemValid(stack);
         }
@@ -1121,6 +1139,7 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
         /**
          * Helper fnct to get the stack in the slot.
          */
+        @Override
         public ItemStack getStack() {
             return this.slot.getStack();
         }
@@ -1128,6 +1147,7 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
         /**
          * Returns if this slot contains a stack.
          */
+        @Override
         public boolean getHasStack() {
             return this.slot.getHasStack();
         }
@@ -1135,6 +1155,7 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
         /**
          * Helper method to put a stack in the slot.
          */
+        @Override
         public void putStack(ItemStack stack) {
             this.slot.putStack(stack);
         }
@@ -1142,6 +1163,7 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
         /**
          * Called when the stack in a Slot changes
          */
+        @Override
         public void onSlotChanged() {
             this.slot.onSlotChanged();
         }
@@ -1150,15 +1172,18 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
          * Returns the maximum stack size for a given slot (usually the same as getInventoryStackLimit(), but 1 in the
          * case of armor slots)
          */
+        @Override
         public int getSlotStackLimit() {
             return this.slot.getSlotStackLimit();
         }
 
+        @Override
         public int getItemStackLimit(ItemStack stack) {
             return this.slot.getItemStackLimit(stack);
         }
 
         @Nullable
+        @Override
         public String getSlotTexture() {
             return this.slot.getSlotTexture();
         }
@@ -1167,6 +1192,7 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
          * Decrease the size of the stack in slot (first int arg) by the amount of the second int arg. Returns the new
          * stack.
          */
+        @Override
         public ItemStack decrStackSize(int amount) {
             return this.slot.decrStackSize(amount);
         }
@@ -1174,6 +1200,7 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
         /**
          * returns true if the slot exists in the given inventory and location
          */
+        @Override
         public boolean isHere(IInventory inv, int slotIn) {
             return this.slot.isHere(inv, slotIn);
         }
@@ -1181,6 +1208,7 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
         /**
          * Return whether this slot's stack can be taken from this slot.
          */
+        @Override
         public boolean canTakeStack(EntityPlayer playerIn) {
             return this.slot.canTakeStack(playerIn);
         }
@@ -1189,6 +1217,7 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
          * Actualy only call when we want to render the white square effect over the slots. Return always True, except
          * for the armor slot of the Donkey/Mule (we can't interact with the Undead and Skeleton horses)
          */
+        @Override
         public boolean isEnabled() {
             return this.slot.isEnabled();
         }
@@ -1196,27 +1225,33 @@ public class GuiContainerCreativeOverride extends InventoryEffectRenderer {
 
 
         /*========================================= FORGE START =====================================*/
+        @Override
         public ResourceLocation getBackgroundLocation() {
             return this.slot.getBackgroundLocation();
         }
 
+        @Override
         public void setBackgroundLocation(ResourceLocation texture) {
             this.slot.setBackgroundLocation(texture);
         }
 
+        @Override
         public void setBackgroundName(@Nullable String name) {
             this.slot.setBackgroundName(name);
         }
 
         @Nullable
+        @Override
         public TextureAtlasSprite getBackgroundSprite() {
             return this.slot.getBackgroundSprite();
         }
 
+        @Override
         public int getSlotIndex() {
             return this.slot.getSlotIndex();
         }
 
+        @Override
         public boolean isSameInventory(Slot other) {
             return this.slot.isSameInventory(other);
         }

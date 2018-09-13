@@ -24,8 +24,8 @@ package robmart.rpgmode.common.reference;
  */
 public class RefPotionNames {
     public static final String LAVA          = getName("lava");
-    public static final String STRENGTH      = getName("strength");
-    public static final String WEAKNESS      = getName("weakness");
+    public static final String STRENGTH      = "minecraft:strength";
+    public static final String WEAKNESS      = "minecraft:weakness";
     public static final String DEXTEROUSNESS = getName("dexterousness");
     public static final String CLUMSINESS    = getName("clumsiness");
     public static final String FORTITUDE     = getName("fortitude");

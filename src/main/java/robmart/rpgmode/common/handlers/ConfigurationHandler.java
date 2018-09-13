@@ -35,7 +35,6 @@ public class ConfigurationHandler {
     public static Configuration config;
 
     private static boolean debug = false;
-
     private static boolean displayManaValue   = false;
     private static boolean displayHealthValue = false;
     private static boolean moveManaBar        = true;
@@ -65,9 +64,9 @@ public class ConfigurationHandler {
         MinecraftForge.EVENT_BUS.register(ConfigChangeListener.class);
     }
 
-    static void load() {
+    private static void load() {
         String desc = "Debug stuff.";
-        debug = config.getBoolean("healthValueRender.enabled",
+        debug = config.getBoolean("debug.enabled",
                                   Configuration.CATEGORY_GENERAL, debug, desc);
 
         desc = "Set this to true to display the amount of health you have left.";

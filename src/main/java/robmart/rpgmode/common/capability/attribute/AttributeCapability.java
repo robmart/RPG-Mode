@@ -158,4 +158,7 @@ public final class AttributeCapability {
             }
         }
     }
+
+    private AttributeCapability() {
+    }
 }

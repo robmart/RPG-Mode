@@ -38,17 +38,18 @@ import java.util.List;
  * @author Robmart
  */
 public class CommandAttributeInfo extends CommandBase {
-    protected final String name = "attributeinfo";
-    private final   int    permissionLevel = 1;
-    private final   String commandUsage = "commands." + Reference.MOD_ID.toLowerCase() + ".attributeinfo.usage";
+    protected static final String NAME             = "attributeinfo";
+    private static final   int    PERMISSION_LEVEL = 1;
+    private final          String commandUsage     = "commands." + Reference.MOD_ID.toLowerCase() +
+                                                     ".attributeinfo.usage";
 
     @Override
     public String getName() {
-        return name;
+        return NAME;
     }
 
     public int getPermissionLevel() {
-        return permissionLevel;
+        return PERMISSION_LEVEL;
     }
 
     @Override
@@ -104,14 +105,16 @@ public class CommandAttributeInfo extends CommandBase {
                 return new String[] {"attribute points", floatToString(attribute.getAttributePoint())};
             case "points":
                 return getInfoFromString("attributepoints", attribute);
+            default:
+                return new String[] {};
         }
-        return null;
     }
 
     private String floatToString(float value) {
         return String.valueOf(value);
     }
 
+    @Override
     public List<String> getTabCompletions(
             MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
         return args.length == 1 ?

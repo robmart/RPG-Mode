@@ -24,7 +24,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
-import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.item.Item;
@@ -91,7 +90,6 @@ public class ModelHandler {
      */
     @SubscribeEvent
     public static void registerItemColorHandlers(final ColorHandlerEvent.Item event) {
-        final BlockColors blockColors = event.getBlockColors();
         final ItemColors itemColors = event.getItemColors();
 
         final IItemColor potionColorHandler = (stack, tintIndex) -> tintIndex > 0 ? -1 : PotionUtils.getColor(stack);
@@ -112,5 +110,8 @@ public class ModelHandler {
                     new ModelResourceLocation(Reference.MOD_ID + ":itemblock/" + metaToPath.apply(i), "inventory")
                                                       );
         }
+    }
+
+    private ModelHandler() {
     }
 }

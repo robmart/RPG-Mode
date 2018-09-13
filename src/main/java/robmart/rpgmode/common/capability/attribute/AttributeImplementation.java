@@ -159,7 +159,7 @@ public class AttributeImplementation implements IAttribute {
         //TODO: Intelligence: Int based weapon damage, spell dmg
         this.intelligence = value;
 
-        ManaCapability.getMana(entity).setMaxMana(((10.0F * getIntelligence())));
+        ManaCapability.getMana(entity).setMaxMana(10.0F * getIntelligence());
 
         this.synchronise();
     }
@@ -195,7 +195,7 @@ public class AttributeImplementation implements IAttribute {
         this.constitution = value;
 
         //Set max health
-        MaxHealthCapability.getMaxHealth(entity).setBonusMaxHealth(((10.0F * getConstitution())));
+        MaxHealthCapability.getMaxHealth(entity).setBonusMaxHealth(10.0F * getConstitution());
 
         //Increases hostile mobs walk speed
         if (!(entity instanceof EntityPlayer) && entity.isCreatureType(EnumCreatureType.MONSTER, false))

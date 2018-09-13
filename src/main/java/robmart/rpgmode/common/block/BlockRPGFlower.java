@@ -56,18 +56,10 @@ public class BlockRPGFlower extends BlockBush implements IModelRegister {
         this.plantType = plantType;
     }
 
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-        return FLOWER_AABB;
-    }
-
-    @Override
-    public EnumPlantType getPlantType(net.minecraft.world.IBlockAccess world, BlockPos pos) {
-        return this.plantType;
-    }
-
     /**
      * Return true if the block can sustain a Bush
      */
+    @Override
     protected boolean canSustainBush(IBlockState state) {
         switch (plantType) {
             case Desert:
@@ -84,10 +76,24 @@ public class BlockRPGFlower extends BlockBush implements IModelRegister {
                        state.getBlock() == net.minecraft.init.Blocks.FARMLAND;
             case Water:
                 return state.getMaterial() == Material.WATER && state.getValue(BlockLiquid.LEVEL) == 0;
+            default:
+                return false;
             //TODO: Cave, beach
         }
+    }
 
-        return false;
+    /**
+     * @deprecated
+     */
+    @Deprecated
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return FLOWER_AABB;
+    }
+
+    @Override
+    public EnumPlantType getPlantType(net.minecraft.world.IBlockAccess world, BlockPos pos) {
+        return this.plantType;
     }
 
     @SideOnly(Side.CLIENT)

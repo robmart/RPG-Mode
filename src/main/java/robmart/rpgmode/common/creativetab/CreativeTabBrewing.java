@@ -21,7 +21,10 @@ package robmart.rpgmode.common.creativetab;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemLingeringPotion;
+import net.minecraft.item.ItemSplashPotion;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -54,7 +57,6 @@ public class CreativeTabBrewing extends CreativeTabs {
     @SideOnly(Side.CLIENT)
     public void displayAllRelevantItems(NonNullList<ItemStack> itemList) {
         //TODO: Clean
-        String[] blocked = new String[] {"strength", "weakness"};
         NonNullList<ItemStack> list = NonNullList.create();
         NonNullList<ItemStack> listBanned = NonNullList.create();
         for (Item item : Item.REGISTRY) {
@@ -63,14 +65,6 @@ public class CreativeTabBrewing extends CreativeTabs {
         }
 
         for (ItemStack itemStack : list) {
-            for (String aBlocked : blocked)
-                if (itemStack.getItem() instanceof ItemPotion)
-                    if (Objects.requireNonNull(itemStack.getItem().getNBTShareTag(itemStack)).getString("Potion")
-                               .contains("minecraft:") &&
-                        Objects.requireNonNull(itemStack.getItem().getNBTShareTag(itemStack)).getString("Potion")
-                               .contains(aBlocked))
-                        listBanned.add(itemStack);
-
             if (itemStack.getItem() instanceof ItemSplashPotion || itemStack.getItem() instanceof ItemLingeringPotion)
                 if (Objects.requireNonNull(itemStack.getItem().getNBTShareTag(itemStack)).getString("Potion")
                            .contains("rpgmode:") &&

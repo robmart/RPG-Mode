@@ -100,6 +100,9 @@ public final class ManaCapability {
         return new CapabilityProviderSerializable<>(MANA_CAPABILITY, DEFAULT_FACING, mana);
     }
 
+    private ManaCapability() {
+    }
+
     /**
      * Event handler for the {@link IMana} capability.
      */
@@ -164,12 +167,11 @@ public final class ManaCapability {
                 mana.onUpdate(entity);
 
                 //Restores mana after sleeping
-                if (entity instanceof EntityPlayer)
-                    if (((EntityPlayer) entity).isPlayerFullyAsleep()) {
-                        new GuiIngame(Minecraft.getMinecraft()).addChatMessage(ChatType.SYSTEM, new TextComponentString(
-                                TextFormatting.AQUA + "After a full nights rest, you feel completely restored!"));
-                        mana.restoreMana();
-                    }
+                if (entity instanceof EntityPlayer && ((EntityPlayer) entity).isPlayerFullyAsleep()) {
+                    new GuiIngame(Minecraft.getMinecraft()).addChatMessage(ChatType.SYSTEM, new TextComponentString(
+                            TextFormatting.AQUA + "After a full nights rest, you feel completely restored!"));
+                    mana.restoreMana();
+                }
             }
         }
 

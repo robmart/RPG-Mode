@@ -24,9 +24,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IThreadListener;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -43,26 +40,11 @@ public class ClientProxy extends CommonProxy {
     private final Minecraft mc = Minecraft.getMinecraft();
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
-        super.preInit(event);
-    }
-
-    @Override
     public void init(FMLInitializationEvent event) {
         super.init(event);
 
         InitGui.init();
         GuiContainerCreativeOverride.addCreativeTabReplacement(CreativeTabs.BREWING, CreativeTabBrewing.instance);
-    }
-
-    @Override
-    public void postInit(FMLPostInitializationEvent event) {
-        super.postInit(event);
-    }
-
-    @Override
-    public void serverStarting(FMLServerStartingEvent event) {
-        super.serverStarting(event);
     }
 
     @Override

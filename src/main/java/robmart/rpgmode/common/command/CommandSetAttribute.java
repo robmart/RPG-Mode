@@ -151,6 +151,8 @@ public class CommandSetAttribute extends CommandBase {
             case "points":
                 setAttribute("attributepoints", amount, attribute);
                 break;
+            default:
+                break;
         }
     }
 

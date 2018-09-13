@@ -22,6 +22,7 @@ package robmart.rpgmode.common.handlers;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemGlassBottle;
 import net.minecraft.nbt.NBTTagCompound;
@@ -38,7 +39,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import robmart.rpgmode.common.capability.attribute.AttributeCapability;
 import robmart.rpgmode.common.helper.ItemHelper;
 import robmart.rpgmode.common.helper.PlayerHelper;
-import robmart.rpgmode.common.init.InitItems;
 import robmart.rpgmode.common.init.InitPotionTypes;
 import robmart.rpgmode.common.recipe.brewing.BrewingHelper;
 import robmart.rpgmode.common.reference.Reference;
@@ -92,7 +92,7 @@ public class EventHandler {
                             event.getEntityPlayer().posZ, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F,
                             1.0F);
             ItemHelper.turnBottleIntoItem(event.getItemStack(), event.getEntityPlayer(),
-                                          BrewingHelper.getItemStackOfPotion(InitItems.POTION, InitPotionTypes.LAVA));
+                                          BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.LAVA));
         }
     }
 }

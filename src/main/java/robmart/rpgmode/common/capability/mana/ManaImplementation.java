@@ -105,7 +105,10 @@ public class ManaImplementation implements IMana {
      */
     @Override
     public void setMana(float amount) {
-        this.mana = amount > 0 ? (amount < getMaxMana() ? amount : getMaxMana()) : 0;
+        if (amount < 0)
+            this.mana = 0;
+        else
+            this.mana = amount < getMaxMana() ? amount : getMaxMana();
 
         this.synchronise();
     }

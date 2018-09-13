@@ -111,7 +111,7 @@ public class MaxHealthImplementation implements IMaxHealth {
         AttributeModifier modifier = createModifier();
 
         float newAmount = 0f;
-        float oldAmount = 0f;
+        float oldAmount;
 
         final AttributeModifier oldModifier = entityMaxHealthAttribute.getModifier(MODIFIER_ID);
         if (oldModifier != null) {

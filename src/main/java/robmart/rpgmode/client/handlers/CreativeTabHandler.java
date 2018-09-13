@@ -42,4 +42,7 @@ public class CreativeTabHandler {
             event.setGui(new GuiContainerCreativeOverride(Minecraft.getMinecraft().player));
         }
     }
+
+    private CreativeTabHandler() {
+    }
 }

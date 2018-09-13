@@ -45,6 +45,19 @@ import javax.annotation.Nullable;
 public class InitPotionTypes {
     private static int potionTypeCounter = 0;
 
+    public static String LONG_PREFIX   = "long_";
+    public static String STRONG_PREFIX = "strong_";
+
+    public static int HELPFUL_DURATION_STANDARD = 3600;
+    public static int HELPFUL_DURATION_LONG     = 9600;
+    public static int HELPFUL_DURATION_STRONG   = 1800;
+
+    public static int HARMFUL_DURATION_STANDARD = 1800;
+    public static int HARMFUL_DURATION_LONG     = 4800;
+    public static int HARMFUL_DURATION_STRONG   = 900;
+
+    public static IForgeRegistry<Potion> potionRegistry = ForgeRegistries.POTIONS;
+
     public static final PotionType LAVA;
 
     public static final PotionType STRENGTH;
@@ -88,18 +101,6 @@ public class InitPotionTypes {
     public static final PotionType STRONG_FOOLISHNESS;
 
     static {
-        final String LONG_PREFIX = "long_";
-        final String STRONG_PREFIX = "strong_";
-
-        final int HELPFUL_DURATION_STANDARD = 3600;
-        final int HELPFUL_DURATION_LONG = 9600;
-        final int HELPFUL_DURATION_STRONG = 1800;
-
-        final int HARMFUL_DURATION_STANDARD = 1800;
-        final int HARMFUL_DURATION_LONG = 4800;
-        final int HARMFUL_DURATION_STRONG = 900;
-
-        final IForgeRegistry<Potion> potionRegistry = ForgeRegistries.POTIONS;
         final Potion lava = RegistryHelper.getRegistryEntry(potionRegistry, RefPotionNames.LAVA);
         final Potion strength = RegistryHelper.getRegistryEntry(potionRegistry, RefPotionNames.STRENGTH);
         final Potion weakness = RegistryHelper.getRegistryEntry(potionRegistry, RefPotionNames.WEAKNESS);

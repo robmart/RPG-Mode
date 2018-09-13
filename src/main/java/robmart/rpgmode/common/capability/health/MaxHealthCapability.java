@@ -154,4 +154,7 @@ public final class MaxHealthCapability {
             }
         }
     }
+
+    private MaxHealthCapability() {
+    }
 }
