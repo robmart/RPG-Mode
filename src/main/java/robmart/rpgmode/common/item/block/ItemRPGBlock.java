@@ -28,8 +28,11 @@ import java.util.Objects;
  * @author Robmart
  */
 public class ItemRPGBlock extends ItemBlock {
+    public static int counter = 0;
+
     public ItemRPGBlock(Block block) {
         super(block);
         this.setRegistryName(Objects.requireNonNull(block.getRegistryName()));
+        counter++;
     }
 }

@@ -26,6 +26,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import robmart.rpgmode.common.RPGMode;
 import robmart.rpgmode.common.block.BlockRPGFlower;
 import robmart.rpgmode.common.item.block.ItemRPGBlock;
 import robmart.rpgmode.common.reference.RefBlockNames;
@@ -43,6 +44,7 @@ public class InitBlocks {
 
     @SubscribeEvent
     public static void registerItems(final RegistryEvent.Register<Block> event) {
+        RPGMode.logger.info("Adding Blocks");
         event.getRegistry().registerAll(
                 HELL_FLOWER
                                        );
@@ -53,5 +55,6 @@ public class InitBlocks {
         event.getRegistry().registerAll(
                 new ItemRPGBlock(HELL_FLOWER)
                                        );
+        RPGMode.logger.info(String.format("%s items added", ItemRPGBlock.counter));
     }
 }
