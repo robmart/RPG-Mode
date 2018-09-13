@@ -23,18 +23,18 @@ commands.rpgmode.sethealth.success2=%s's %s is now %s
 potion.effect.rpgmode:lava=Lava Bottle
 effect.rpgmode:lava=Fire
 
-potion.effect.rpgmode:strength=Potion of Strength
-splash_potion.effect.rpgmode:strength=Splash Potion of Strength
-lingering_potion.effect.rpgmode:strength=Lingering Potion of Strength
-tipped_arrow.effect.rpgmode:strength=Arrow of Strength
-effect.rpgmode:strength=Strength
+potion.effect.minecraft:strength=Potion of Strength
+splash_potion.effect.minecraft:strength=Splash Potion of Strength
+lingering_potion.effect.minecraft:strength=Lingering Potion of Strength
+tipped_arrow.effect.minecraft:strength=Arrow of Strength
+effect.minecraft:strength=Strength
 attribute.name.rpgmode.strength=Strength
 
-potion.effect.rpgmode:weakness=Potion of Weakness
-splash_potion.effect.rpgmode:weakness=Splash Potion of Weakness
-lingering_potion.effect.rpgmode:weakness=Lingering Potion of Weakness
-tipped_arrow.effect.rpgmode:weakness=Arrow of Weakness
-effect.rpgmode:weakness=Weakness
+potion.effect.minecraft:weakness=Potion of Weakness
+splash_potion.effect.minecraft:weakness=Splash Potion of Weakness
+lingering_potion.effect.minecraft:weakness=Lingering Potion of Weakness
+tipped_arrow.effect.minecraft:weakness=Arrow of Weakness
+effect.minecraft:weakness=Weakness
 
 potion.effect.rpgmode:dexterousness=Potion of Dexterousness
 splash_potion.effect.rpgmode:dexterousness=Splash Potion of Dexterousness
@@ -101,6 +101,7 @@ category.rpgmode.general=General
 category.rpgmode.client=Client
 tooltip.rpgmode.general.tooltip=General stuff that applies to everyone. Mostly gameplay changing options.
 tooltip.rpgmode.client.tooltip=Stuff that applies only to the client. Mostly UI and other graphical options.
+debug.enabled=Debug Mode
 healthValueRender.enabled=Render Health Value
 manaValueRender.enabled=Render Mana Value
 moveManaBar.enabled=Move Mana Bar
