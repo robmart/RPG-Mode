@@ -21,25 +21,15 @@ package robmart.rpgmode.common.handlers;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.init.PotionTypes;
-import net.minecraft.item.ItemPotion;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.brewing.PotionBrewEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import robmart.rpgmode.common.init.InitPotionTypes;
 import robmart.rpgmode.common.init.InitPotions;
 import robmart.rpgmode.common.potion.PotionBase;
-import robmart.rpgmode.common.recipe.brewing.BrewingHelper;
 import robmart.rpgmode.common.reference.Reference;
-
-import java.util.Objects;
 
 /**
  * @author Robmart
@@ -47,33 +37,7 @@ import java.util.Objects;
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID)
 @SuppressWarnings("unused")
-public class PotionHandler {
-
-    @SuppressWarnings("ConstantConditions")
-    @SubscribeEvent
-    public static void onAttemptBrew(PotionBrewEvent.Pre event) {
-        for (int i = 0; i <= event.getLength() - 3; i++) {
-            ItemStack output = BrewingRecipeRegistry.getOutput(event.getItem(i), event.getItem(3));
-            if (output.getItem() instanceof ItemPotion) {
-                if (Objects.equals(
-                        output.getTagCompound().getString("Potion"),
-                        BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.STRENGTH).getTagCompound()
-                                     .getString("Potion"))) {
-                    event.setItem(i, BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.STRENGTH));
-                    event.getItem(3).shrink(1);
-                    event.setCanceled(true);
-                }
-                else if (Objects.equals(
-                        output.getTagCompound().getString("Potion"),
-                        BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, PotionTypes.WEAKNESS).getTagCompound()
-                                     .getString("Potion"))) {
-                    event.setItem(i, BrewingHelper.getItemStackOfPotion(Items.POTIONITEM, InitPotionTypes.WEAKNESS));
-                    event.getItem(3).shrink(1);
-                    event.setCanceled(true);
-                }
-            }
-        }
-    }
+public class PotionEventHandler {
 
     @SubscribeEvent
     public static void onAttachCapabilities(AttachCapabilitiesEvent event) {
