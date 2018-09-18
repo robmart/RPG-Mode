@@ -17,25 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- * <p>
- * This software is a modification for the game Minecraft, intended to give the game RPG elements.
- * Copyright (C) 2018 Robmart
- * <p>
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * <p>
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- * <p>
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 package robmart.rpgmode.api.capability.attribute;
 
 import net.minecraft.nbt.NBTTagCompound;
@@ -49,14 +30,14 @@ public interface IAttribute {
      *
      * @return Current strength value
      */
-    int getStrength();
+    int getStrength(boolean withMod);
 
     /**
      * Set strength
      *
      * @param value The new strength value
      */
-    void setStrength(int value);
+    void setStrength(int value, boolean shouldSync);
 
     /**
      * Get the strength modifier
@@ -70,14 +51,14 @@ public interface IAttribute {
      *
      * @return Current dexterity value
      */
-    int getDexterity();
+    int getDexterity(boolean withMod);
 
     /**
      * Set dexterity
      *
      * @param value The new dexterity value
      */
-    void setDexterity(int value);
+    void setDexterity(int value, boolean shouldSync);
 
     /**
      * Get the dexterity modifier
@@ -91,14 +72,14 @@ public interface IAttribute {
      *
      * @return Current intelligence value
      */
-    int getIntelligence();
+    int getIntelligence(boolean withMod);
 
     /**
      * Set intelligence
      *
      * @param value The new intelligence value
      */
-    void setIntelligence(int value);
+    void setIntelligence(int value, boolean shouldSync);
 
     /**
      * Get the intelligence modifier
@@ -112,14 +93,14 @@ public interface IAttribute {
      *
      * @return Current constitution value
      */
-    int getConstitution();
+    int getConstitution(boolean withMod);
 
     /**
      * Set constitution
      *
      * @param value The new constitution value
      */
-    void setConstitution(int value);
+    void setConstitution(int value, boolean shouldSync);
 
     /**
      * Get the constitution modifier
@@ -133,14 +114,14 @@ public interface IAttribute {
      *
      * @return Current wisdom value
      */
-    int getWisdom();
+    int getWisdom(boolean withMod);
 
     /**
      * Set wisdom
      *
      * @param value The new wisdom value
      */
-    void setWisdom(int value);
+    void setWisdom(int value, boolean shouldSync);
 
     /**
      * Get the wisdom modifier
@@ -172,7 +153,7 @@ public interface IAttribute {
      *
      * @param value The new attribute point value
      */
-    void setAttributePoint(int value);
+    void setAttributePoint(int value, boolean shouldSync);
 
     /**
      * Synchronise the entity's attributes to watching clients.

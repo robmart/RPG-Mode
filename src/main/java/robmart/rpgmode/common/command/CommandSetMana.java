@@ -108,25 +108,25 @@ public class CommandSetMana extends CommandBase {
     private void setMana(String string, float amount, IMana mana) {
         switch (string.toLowerCase()) {
             case "mana":
-                mana.setMana(amount);
+                mana.setMana(amount, true);
                 break;
             case "m":
                 setMana("mana", amount, mana);
                 break;
             case "maxmana":
-                mana.setMaxMana(amount);
+                mana.setMaxMana(amount, true);
                 break;
             case "max":
                 setMana("maxmana", amount, mana);
                 break;
             case "regenspeed":
-                mana.setRegenSpeed(amount);
+                mana.setRegenSpeed(amount, true);
                 break;
             case "speed":
                 setMana("regenspeed", amount, mana);
                 break;
             case "regenamount":
-                mana.setRegenAmount(amount);
+                mana.setRegenAmount(amount, true);
                 break;
             case "amount":
                 setMana("regenamount", amount, mana);

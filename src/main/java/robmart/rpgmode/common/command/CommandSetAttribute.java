@@ -86,23 +86,23 @@ public class CommandSetAttribute extends CommandBase {
     private String[] getInfoFromString(String string, IAttribute attribute) {
         switch (string.toLowerCase()) {
             case "strength":
-                return new String[] {"strength", floatToString(attribute.getStrength())};
+                return new String[] {"strength", floatToString(attribute.getStrength(true))};
             case "str":
                 return getInfoFromString("strength", attribute);
             case "dexterity":
-                return new String[] {"dexterity", floatToString(attribute.getDexterity())};
+                return new String[] {"dexterity", floatToString(attribute.getDexterity(true))};
             case "dex":
                 return getInfoFromString("dexterity", attribute);
             case "intelligence":
-                return new String[] {"intelligence", floatToString(attribute.getIntelligence())};
+                return new String[] {"intelligence", floatToString(attribute.getIntelligence(true))};
             case "int":
                 return getInfoFromString("intelligence", attribute);
             case "constitution":
-                return new String[] {"constitution", floatToString(attribute.getConstitution())};
+                return new String[] {"constitution", floatToString(attribute.getConstitution(true))};
             case "con":
                 return getInfoFromString("constitution", attribute);
             case "wisdom":
-                return new String[] {"wisdom", floatToString(attribute.getWisdom())};
+                return new String[] {"wisdom", floatToString(attribute.getWisdom(true))};
             case "wis":
                 return getInfoFromString("wisdom", attribute);
             case "attributepoints":
@@ -116,37 +116,37 @@ public class CommandSetAttribute extends CommandBase {
     private void setAttribute(String string, int amount, IAttribute attribute) {
         switch (string.toLowerCase()) {
             case "strength":
-                attribute.setStrength(amount);
+                attribute.setStrength(amount, true);
                 break;
             case "str":
                 setAttribute("strength", amount, attribute);
                 break;
             case "dexterity":
-                attribute.setDexterity(amount);
+                attribute.setDexterity(amount, true);
                 break;
             case "dex":
                 setAttribute("dexterity", amount, attribute);
                 break;
             case "intelligence":
-                attribute.setIntelligence(amount);
+                attribute.setIntelligence(amount, true);
                 break;
             case "int":
                 setAttribute("intelligence", amount, attribute);
                 break;
             case "constitution":
-                attribute.setConstitution(amount);
+                attribute.setConstitution(amount, true);
                 break;
             case "con":
                 setAttribute("constitution", amount, attribute);
                 break;
             case "wisdom":
-                attribute.setWisdom(amount);
+                attribute.setWisdom(amount, true);
                 break;
             case "wis":
                 setAttribute("wisdom", amount, attribute);
                 break;
             case "attributepoints":
-                attribute.setAttributePoint(amount);
+                attribute.setAttributePoint(amount, true);
                 break;
             case "points":
                 setAttribute("attributepoints", amount, attribute);

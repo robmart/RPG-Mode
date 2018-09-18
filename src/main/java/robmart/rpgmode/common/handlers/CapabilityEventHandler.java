@@ -31,7 +31,7 @@ import robmart.rpgmode.common.reference.Reference;
  * @author Robmart
  */
 @SuppressWarnings("unused")
-public class CapabilityHandler {
+public class CapabilityEventHandler {
 
     @SubscribeEvent
     public void onEntityJoinWorld(EntityJoinWorldEvent event) {

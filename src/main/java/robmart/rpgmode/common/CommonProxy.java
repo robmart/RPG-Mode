@@ -22,7 +22,6 @@ package robmart.rpgmode.common;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.util.IThreadListener;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.MinecraftForge;
@@ -31,13 +30,14 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.common.network.IGuiHandler;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import robmart.rpgmode.common.handlers.ConfigurationHandler;
 import robmart.rpgmode.common.init.InitCapabilities;
 import robmart.rpgmode.common.init.InitCommands;
 import robmart.rpgmode.common.init.InitItems;
 import robmart.rpgmode.common.init.InitRecipes;
+import robmart.rpgmode.common.network.GuiHandler;
 import robmart.rpgmode.common.network.PacketDispatcher;
 import robmart.rpgmode.common.reference.Reference;
 import robmart.rpgmode.common.world.biome.BiomeHellDecoratorWrapper;
@@ -47,7 +47,7 @@ import java.io.File;
 /**
  * @author Robmart
  */
-public abstract class CommonProxy implements IGuiHandler {
+public abstract class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent event) {
         RPGMode.logger.info("Pre initialization starting");
@@ -75,6 +75,8 @@ public abstract class CommonProxy implements IGuiHandler {
     public void init(FMLInitializationEvent event) {
         RPGMode.logger.info("Initialization starting");
 
+        NetworkRegistry.INSTANCE.registerGuiHandler(RPGMode.instance, new GuiHandler());
+
         InitRecipes.generateBrewing();
     }
 
@@ -88,16 +90,6 @@ public abstract class CommonProxy implements IGuiHandler {
 
     public void serverStarting(FMLServerStartingEvent event) {
         InitCommands.init(event);
-    }
-
-    @Override
-    public Object getServerGuiElement(int guiId, EntityPlayer player, World world, int x, int y, int z) {
-        return null;
-    }
-
-    @Override
-    public Object getClientGuiElement(int guiId, EntityPlayer player, World world, int x, int y, int z) {
-        return null;
     }
 
     public EntityPlayer getPlayerEntity(MessageContext ctx) {

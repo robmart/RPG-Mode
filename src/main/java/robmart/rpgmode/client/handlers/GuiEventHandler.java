@@ -20,11 +20,15 @@
 package robmart.rpgmode.client.handlers;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
+import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraftforge.client.event.GuiOpenEvent;
+import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import robmart.rpgmode.client.gui.GuiAttributesButton;
 import robmart.rpgmode.client.gui.GuiContainerCreativeOverride;
 import robmart.rpgmode.common.reference.Reference;
 
@@ -34,15 +38,24 @@ import robmart.rpgmode.common.reference.Reference;
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID)
 @SuppressWarnings("unused")
-public class CreativeTabHandler {
+public class GuiEventHandler {
+
+    private GuiEventHandler() {
+    }
 
     @SubscribeEvent
     public static void onGuiOpen(GuiOpenEvent event) {
-        if (event.getGui() instanceof GuiContainerCreative) {
+        if (event.getGui() instanceof GuiContainerCreative)
             event.setGui(new GuiContainerCreativeOverride(Minecraft.getMinecraft().player));
-        }
     }
 
-    private CreativeTabHandler() {
+    @SubscribeEvent
+    public static void guiPostInit(GuiScreenEvent.InitGuiEvent.Post event) {
+        if (event.getGui() instanceof GuiInventory) {
+            GuiContainer gui = (GuiContainer) event.getGui();
+            event.getButtonList()
+                 .add(new GuiAttributesButton(
+                         event.getButtonList().size() + 1, gui, 132, gui.height / 2 - 22, 20, 18));
+        }
     }
 }

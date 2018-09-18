@@ -48,10 +48,11 @@ public class PotionBase extends Potion {
             null, Reference.MOD_ID + ".intelligence", 0, -10, 10)).setDescription("Intelligence").setShouldWatch(true);
     public static final IAttribute WISDOM        = (new RangedAttribute(null, Reference.MOD_ID + ".wisdom", 0, -10, 10))
             .setDescription("Wisdom").setShouldWatch(true);
+
     /**
      * Wheather the potion will "glint" or not
      */
-    public              boolean    useEnchantedEffect;
+    public boolean useEnchantedEffect;
 
     /**
      * The instance of the potion
@@ -80,7 +81,7 @@ public class PotionBase extends Potion {
 
         setPotionName(name);
         ResourceLocation resourceLocation = new ResourceLocation(name);
-        this.iconTexture = new ResourceLocation(Reference.MOD_ID, "textures/potions/" +
+        this.iconTexture = new ResourceLocation(Reference.MOD_ID, "textures/gui/icons/" +
                                                                   resourceLocation.getResourcePath() + ".png");
         this.TAG_NAME = String.format("%s - %s", Reference.MOD_ID, resourceLocation.getResourcePath());
         this.useEnchantedEffect = useGlint;
@@ -166,10 +167,11 @@ public class PotionBase extends Potion {
     /**
      * Called to draw the this Potion onto the player's inventory when it's active.
      * This can be used to e.g. render Potion icons from your own texture.
-     * @param x the x coordinate
-     * @param y the y coordinate
+     *
+     * @param x      the x coordinate
+     * @param y      the y coordinate
      * @param effect the active PotionEffect
-     * @param mc the Minecraft instance, for convenience
+     * @param mc     the Minecraft instance, for convenience
      */
     @SideOnly(Side.CLIENT)
     public void renderInventoryEffect(int x, int y, PotionEffect effect, net.minecraft.client.Minecraft mc) {
@@ -179,11 +181,12 @@ public class PotionBase extends Potion {
     /**
      * Called to draw the this Potion onto the player's ingame HUD when it's active.
      * This can be used to e.g. render Potion icons from your own texture.
-     * @param x the x coordinate
-     * @param y the y coordinate
+     *
+     * @param x      the x coordinate
+     * @param y      the y coordinate
      * @param effect the active PotionEffect
-     * @param mc the Minecraft instance, for convenience
-     * @param alpha the alpha value, blinks when the potion is about to run out
+     * @param mc     the Minecraft instance, for convenience
+     * @param alpha  the alpha value, blinks when the potion is about to run out
      */
     @SideOnly(Side.CLIENT)
     public void renderHUDEffect(int x, int y, PotionEffect effect, net.minecraft.client.Minecraft mc, float alpha) {

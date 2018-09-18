@@ -187,8 +187,8 @@ public final class AttributeCapability {
                         !Entity.isInsideOfMaterial(Material.WATER)) {
                         Entity.moveRelative(
                                 0F, 0F, 1F, MathHelper.diminishingReturns(
-                                        getAttributes(Entity).getConstitution() +
-                                        getAttributes(Entity).getDexterity(), 0.00002f) - 0.01f);
+                                        getAttributes(Entity).getConstitution(true) +
+                                        getAttributes(Entity).getDexterity(true), 0.00002f) - 0.01f);
                     }
                 }
             }

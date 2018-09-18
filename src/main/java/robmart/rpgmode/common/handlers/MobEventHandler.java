@@ -39,7 +39,7 @@ import java.util.Random;
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID)
 @SuppressWarnings("unused")
-public class MobHandler {
+public class MobEventHandler {
     private static final Random random = new Random();
 
     @SubscribeEvent

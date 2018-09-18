@@ -26,9 +26,9 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
-import robmart.rpgmode.client.network.SyncPlayerAttributes;
 import robmart.rpgmode.client.network.SyncPlayerMana;
 import robmart.rpgmode.common.reference.Reference;
+import robmart.rpgmode.server.network.OpenGuiMessage;
 
 /**
  * @author Robmart
@@ -50,11 +50,12 @@ public class PacketDispatcher {
     public static final void registerPackets() {
         // Packets handled on CLIENT
         registerMessage(SyncPlayerMana.class);
-        registerMessage(SyncPlayerAttributes.class);
 
         // Packets handled on SERVER
+        registerMessage(OpenGuiMessage.class);
 
         // Packets handled on both
+        registerMessage(SyncPlayerAttributes.class);
     }
 
     /**
@@ -62,11 +63,6 @@ public class PacketDispatcher {
      */
     private static final <T extends AbstractMessage<T> & IMessageHandler<T, IMessage>> void registerMessage(
             Class<T> clazz) {
-        // We can tell by the message class which side to register it on by using #isAssignableFrom (google it)
-
-        // Also, one can see the convenience of using a static counter 'packetId' to keep
-        // track of the current index, rather than hard-coding them all, plus it's one less
-        // parameter to pass.
         if (AbstractMessage.AbstractClientMessage.class.isAssignableFrom(clazz)) {
             PacketDispatcher.dispatcher.registerMessage(clazz, clazz, packetId++, Side.CLIENT);
         }
@@ -74,8 +70,7 @@ public class PacketDispatcher {
             PacketDispatcher.dispatcher.registerMessage(clazz, clazz, packetId++, Side.SERVER);
         }
         else {
-            // hopefully you didn't forget to extend the right class, or you will get registered on both sides
-            PacketDispatcher.dispatcher.registerMessage(clazz, clazz, packetId, Side.CLIENT);
+            PacketDispatcher.dispatcher.registerMessage(clazz, clazz, packetId++, Side.CLIENT);
             PacketDispatcher.dispatcher.registerMessage(clazz, clazz, packetId++, Side.SERVER);
         }
     }

@@ -19,15 +19,16 @@
 
 package robmart.rpgmode.common.capability.attribute;
 
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import robmart.rpgmode.api.capability.attribute.IAttribute;
-import robmart.rpgmode.client.network.SyncPlayerAttributes;
 import robmart.rpgmode.common.capability.health.MaxHealthCapability;
 import robmart.rpgmode.common.capability.mana.ManaCapability;
 import robmart.rpgmode.common.network.PacketDispatcher;
+import robmart.rpgmode.common.network.SyncPlayerAttributes;
 import robmart.rpgmode.common.potion.PotionBase;
 
 /**
@@ -78,8 +79,8 @@ public class AttributeImplementation implements IAttribute {
      * @return Current strength value
      */
     @Override
-    public int getStrength() {
-        return this.strength + getStrMod();
+    public int getStrength(boolean withMod) {
+        return this.strength + (withMod ? getStrMod() : 0);
     }
 
     /**
@@ -88,11 +89,12 @@ public class AttributeImplementation implements IAttribute {
      * @param value The new strength value
      */
     @Override
-    public void setStrength(int value) {
+    public void setStrength(int value, boolean shouldSync) {
         //TODO: Strength: Str based weapon damage
         this.strength = value;
 
-        this.synchronise();
+        if (shouldSync)
+            this.synchronise();
     }
 
     /**
@@ -111,8 +113,8 @@ public class AttributeImplementation implements IAttribute {
      * @return Current dexterity value
      */
     @Override
-    public int getDexterity() {
-        return this.dexterity + getDexMod();
+    public int getDexterity(boolean withMod) {
+        return this.dexterity + (withMod ? getDexMod() : 0);
     }
 
     /**
@@ -121,11 +123,12 @@ public class AttributeImplementation implements IAttribute {
      * @param value The new dexterity value
      */
     @Override
-    public void setDexterity(int value) {
+    public void setDexterity(int value, boolean shouldSync) {
         //TODO: Dexterity: Dex based weapon damage, defence
         this.dexterity = value;
 
-        this.synchronise();
+        if (shouldSync)
+            this.synchronise();
     }
 
     /**
@@ -144,8 +147,8 @@ public class AttributeImplementation implements IAttribute {
      * @return Current intelligence value
      */
     @Override
-    public int getIntelligence() {
-        return this.intelligence + getIntMod();
+    public int getIntelligence(boolean withMod) {
+        return this.intelligence + (withMod ? getIntMod() : 0);
     }
 
     /**
@@ -154,13 +157,14 @@ public class AttributeImplementation implements IAttribute {
      * @param value The new intelligence value
      */
     @Override
-    public void setIntelligence(int value) {
+    public void setIntelligence(int value, boolean shouldSync) {
         //TODO: Intelligence: Int based weapon damage, spell dmg
         this.intelligence = value;
 
-        ManaCapability.getMana(entity).setMaxMana(10.0F * getIntelligence());
+        ManaCapability.getMana(entity).setMaxMana(10.0F * getIntelligence(true), shouldSync);
 
-        this.synchronise();
+        if (shouldSync)
+            this.synchronise();
     }
 
     /**
@@ -179,8 +183,8 @@ public class AttributeImplementation implements IAttribute {
      * @return Current constitution value
      */
     @Override
-    public int getConstitution() {
-        return this.constitution + getConMod();
+    public int getConstitution(boolean withMod) {
+        return this.constitution + (withMod ? getConMod() : 0);
     }
 
     /**
@@ -189,14 +193,15 @@ public class AttributeImplementation implements IAttribute {
      * @param value The new constitution value
      */
     @Override
-    public void setConstitution(int value) {
+    public void setConstitution(int value, boolean shouldSync) {
         //TODO: Constitution: Breathing, poison resistance
         this.constitution = value;
 
         //Set max health
-        MaxHealthCapability.getMaxHealth(entity).setBonusMaxHealth(10.0F * getConstitution());
+        MaxHealthCapability.getMaxHealth(entity).setBonusMaxHealth(10.0F * getConstitution(true));
 
-        this.synchronise();
+        if (shouldSync)
+            this.synchronise();
     }
 
     /**
@@ -215,8 +220,8 @@ public class AttributeImplementation implements IAttribute {
      * @return Current wisdom value
      */
     @Override
-    public int getWisdom() {
-        return this.wisdom + getWisMod();
+    public int getWisdom(boolean withMod) {
+        return this.wisdom + (withMod ? getWisMod() : 0);
     }
 
     /**
@@ -225,11 +230,12 @@ public class AttributeImplementation implements IAttribute {
      * @param value The new wisdom value
      */
     @Override
-    public void setWisdom(int value) {
+    public void setWisdom(int value, boolean shouldSync) {
         //TODO: Wisdom: Taming, spell amount
         this.wisdom = value;
 
-        this.synchronise();
+        if (shouldSync)
+            this.synchronise();
     }
 
     /**
@@ -253,11 +259,11 @@ public class AttributeImplementation implements IAttribute {
      */
     @Override
     public void setAttributes(int strength, int dexterity, int intelligence, int constitution, int wisdom) {
-        setStrength(strength);
-        setDexterity(dexterity);
-        setIntelligence(intelligence);
-        setConstitution(constitution);
-        setWisdom(wisdom);
+        setStrength(strength, true);
+        setDexterity(dexterity, true);
+        setIntelligence(intelligence, true);
+        setConstitution(constitution, true);
+        setWisdom(wisdom, true);
     }
 
     /**
@@ -276,16 +282,19 @@ public class AttributeImplementation implements IAttribute {
      * @param value The new attribute point value
      */
     @Override
-    public void setAttributePoint(int value) {
+    public void setAttributePoint(int value, boolean shouldSync) {
         this.attributePoint = value;
 
-        this.synchronise();
+        if (shouldSync)
+            this.synchronise();
     }
 
     @Override
     public void synchronise() {
         if (this.entity instanceof EntityPlayerMP)
             PacketDispatcher.sendTo(new SyncPlayerAttributes((EntityPlayer) this.entity), (EntityPlayerMP) this.entity);
+        else if (this.entity instanceof EntityPlayerSP)
+            PacketDispatcher.sendToServer(new SyncPlayerAttributes((EntityPlayer) this.entity));
     }
 
     /**
@@ -330,11 +339,11 @@ public class AttributeImplementation implements IAttribute {
      */
     @Override
     public void loadNBTData(NBTTagCompound nbt) {
-        this.strength = nbt.getInteger("strength");
-        this.dexterity = nbt.getInteger("dexterity");
-        this.intelligence = nbt.getInteger("intelligence");
-        this.constitution = nbt.getInteger("constitution");
-        this.wisdom = nbt.getInteger("wisdom");
-        this.attributePoint = nbt.getInteger("attributePoint");
+        setStrength(nbt.getInteger("strength"), false);
+        setDexterity(nbt.getInteger("dexterity"), false);
+        setIntelligence(nbt.getInteger("intelligence"), false);
+        setConstitution(nbt.getInteger("constitution"), false);
+        setWisdom(nbt.getInteger("wisdom"), false);
+        setAttributePoint(nbt.getInteger("attributePoint"), false);
     }
 }

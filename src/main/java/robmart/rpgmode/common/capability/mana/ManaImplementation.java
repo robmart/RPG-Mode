@@ -81,11 +81,12 @@ public class ManaImplementation implements IMana {
      * @param amount The new max amount of mana
      */
     @Override
-    public void setMaxMana(float amount) {
+    public void setMaxMana(float amount, boolean shouldSync) {
         this.maxMana = amount > 0 ? amount : 1;
-        setMana(getMaxMana() < getMana() ? getMaxMana() : getMana());
+        setMana(getMaxMana() < getMana() ? getMaxMana() : getMana(), shouldSync);
 
-        this.synchronise();
+        if (shouldSync)
+            this.synchronise();
     }
 
     /**
@@ -104,13 +105,14 @@ public class ManaImplementation implements IMana {
      * @param amount The new mana value
      */
     @Override
-    public void setMana(float amount) {
+    public void setMana(float amount, boolean shouldSync) {
         if (amount < 0)
             this.mana = 0;
         else
             this.mana = amount < getMaxMana() ? amount : getMaxMana();
 
-        this.synchronise();
+        if (shouldSync)
+            this.synchronise();
     }
 
     /**
@@ -129,8 +131,11 @@ public class ManaImplementation implements IMana {
      * @param speed The speed at which the mana regenerates (in ms)
      */
     @Override
-    public void setRegenSpeed(float speed) {
+    public void setRegenSpeed(float speed, boolean shouldSync) {
         this.regenSpeed = speed;
+
+        if (shouldSync)
+            this.synchronise();
     }
 
     /**
@@ -149,8 +154,11 @@ public class ManaImplementation implements IMana {
      * @param amount The new generation amount
      */
     @Override
-    public void setRegenAmount(float amount) {
+    public void setRegenAmount(float amount, boolean shouldSync) {
         this.regenAmount = amount;
+
+        if (shouldSync)
+            this.synchronise();
     }
 
 
@@ -182,21 +190,11 @@ public class ManaImplementation implements IMana {
     }
 
     /**
-     * Regenerates the players mana
-     *
-     * @param amount The amount that will be regenerated
-     */
-    public final void regenMana(float amount) {
-        setMana(getMana() + amount);
-    }
-
-
-    /**
      * Sets the current mana value to the max amount of mana
      */
     @Override
     public void restoreMana() {
-        setMana(getMaxMana());
+        setMana(getMaxMana(), true);
     }
 
     /**
@@ -210,12 +208,21 @@ public class ManaImplementation implements IMana {
     public boolean consumeMana(float amount) {
 
         if (amount <= getMana() && getMana() != 0) {
-            setMana(getMana() - amount);
+            setMana(getMana() - amount, true);
             return true;
         }
 
         return false;
 
+    }
+
+    /**
+     * Regenerates the players mana
+     *
+     * @param amount The amount that will be regenerated
+     */
+    public final void regenMana(float amount) {
+        setMana(getMana() + amount, true);
     }
 
     @Override

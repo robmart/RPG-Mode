@@ -38,7 +38,7 @@ public interface IMana {
      *
      * @param amount The new max amount of mana
      */
-    void setMaxMana(float amount);
+    void setMaxMana(float amount, boolean shouldSync);
 
     /**
      * Get mana
@@ -52,7 +52,7 @@ public interface IMana {
      *
      * @param amount The new mana value
      */
-    void setMana(float amount);
+    void setMana(float amount, boolean shouldSync);
 
     /**
      * Get regen speed
@@ -66,7 +66,7 @@ public interface IMana {
      *
      * @param speed The speed at which the mana regenerates (in ms)
      */
-    void setRegenSpeed(float speed);
+    void setRegenSpeed(float speed, boolean shouldSync);
 
     /**
      * Get regen amount
@@ -80,7 +80,7 @@ public interface IMana {
      *
      * @param amount The new generation amount
      */
-    void setRegenAmount(float amount);
+    void setRegenAmount(float amount, boolean shouldSync);
 
     /**
      * Updates anything that needs to be updated each tick

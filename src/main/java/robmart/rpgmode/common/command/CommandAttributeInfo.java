@@ -82,23 +82,23 @@ public class CommandAttributeInfo extends CommandBase {
     private String[] getInfoFromString(String string, IAttribute attribute) {
         switch (string.toLowerCase()) {
             case "strength":
-                return new String[] {"strength", floatToString(attribute.getStrength())};
+                return new String[] {"strength", floatToString(attribute.getStrength(true))};
             case "str":
                 return getInfoFromString("strength", attribute);
             case "dexterity":
-                return new String[] {"dexterity", floatToString(attribute.getDexterity())};
+                return new String[] {"dexterity", floatToString(attribute.getDexterity(true))};
             case "dex":
                 return getInfoFromString("dexterity", attribute);
             case "intelligence":
-                return new String[] {"intelligence", floatToString(attribute.getIntelligence())};
+                return new String[] {"intelligence", floatToString(attribute.getIntelligence(true))};
             case "int":
                 return getInfoFromString("intelligence", attribute);
             case "constitution":
-                return new String[] {"constitution", floatToString(attribute.getConstitution())};
+                return new String[] {"constitution", floatToString(attribute.getConstitution(true))};
             case "con":
                 return getInfoFromString("constitution", attribute);
             case "wisdom":
-                return new String[] {"wisdom", floatToString(attribute.getWisdom())};
+                return new String[] {"wisdom", floatToString(attribute.getWisdom(true))};
             case "wis":
                 return getInfoFromString("wisdom", attribute);
             case "attributepoints":

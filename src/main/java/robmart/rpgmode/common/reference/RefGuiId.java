@@ -17,23 +17,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package robmart.rpgmode.common.init;
-
-import net.minecraftforge.common.MinecraftForge;
-import robmart.rpgmode.common.capability.attribute.AttributeCapability;
-import robmart.rpgmode.common.capability.health.MaxHealthCapability;
-import robmart.rpgmode.common.capability.mana.ManaCapability;
-import robmart.rpgmode.common.handlers.CapabilityEventHandler;
+package robmart.rpgmode.common.reference;
 
 /**
  * @author Robmart
+ * Created on 9/14/2018
  */
-public class InitCapabilities {
+public class RefGuiId {
 
-    public static void init() {
-        ManaCapability.register();
-        MaxHealthCapability.register();
-        AttributeCapability.register();
-        MinecraftForge.EVENT_BUS.register(new CapabilityEventHandler());
-    }
+    public static final int GuiAttributesId = 0;
 }
