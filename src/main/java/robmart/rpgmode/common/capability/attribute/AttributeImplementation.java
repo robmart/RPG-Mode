@@ -293,8 +293,9 @@ public class AttributeImplementation implements IAttribute {
     public void synchronise() {
         if (this.entity instanceof EntityPlayerMP)
             PacketDispatcher.sendTo(new SyncPlayerAttributes((EntityPlayer) this.entity), (EntityPlayerMP) this.entity);
-        else if (!this.entity.isServerWorld() && this.entity instanceof EntityPlayerSP)
+        else if (this.entity.world.isRemote && this.entity instanceof EntityPlayerSP) {
             PacketDispatcher.sendToServer(new SyncPlayerAttributes((EntityPlayer) this.entity));
+        }
     }
 
     /**
