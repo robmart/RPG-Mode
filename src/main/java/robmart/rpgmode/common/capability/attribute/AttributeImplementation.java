@@ -293,7 +293,7 @@ public class AttributeImplementation implements IAttribute {
     public void synchronise() {
         if (this.entity instanceof EntityPlayerMP)
             PacketDispatcher.sendTo(new SyncPlayerAttributes((EntityPlayer) this.entity), (EntityPlayerMP) this.entity);
-        else if (this.entity instanceof EntityPlayerSP)
+        else if (!this.entity.isServerWorld() && this.entity instanceof EntityPlayerSP)
             PacketDispatcher.sendToServer(new SyncPlayerAttributes((EntityPlayer) this.entity));
     }
 
@@ -305,13 +305,7 @@ public class AttributeImplementation implements IAttribute {
     @Override
     public NBTTagCompound saveNBTData() {
         NBTTagCompound nbt = new NBTTagCompound();
-        nbt.setInteger("strength", this.strength);
-        nbt.setInteger("dexterity", this.dexterity);
-        nbt.setInteger("intelligence", this.intelligence);
-        nbt.setInteger("constitution", this.constitution);
-        nbt.setInteger("wisdom", this.wisdom);
-        nbt.setInteger("attributePoint", getAttributePoint());
-        return nbt;
+        return saveNBTData(nbt);
     }
 
     /**

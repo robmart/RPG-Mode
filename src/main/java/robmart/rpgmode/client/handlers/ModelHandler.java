@@ -33,8 +33,9 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IRegistryDelegate;
 import robmart.rpgmode.client.render.IModelRegister;
 import robmart.rpgmode.common.init.InitItems;
@@ -46,8 +47,8 @@ import java.util.function.IntFunction;
 /**
  * @author Robmart
  */
-@GameRegistry.ObjectHolder(Reference.MOD_ID)
-@Mod.EventBusSubscriber(modid = Reference.MOD_ID)
+@Mod.EventBusSubscriber(value = Side.CLIENT, modid = Reference.MOD_ID)
+@SideOnly(Side.CLIENT)
 @SuppressWarnings("unused")
 public class ModelHandler {
 

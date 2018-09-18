@@ -35,19 +35,22 @@ public class MaxHealthImplementation implements IMaxHealth {
     /**
      * The ID of the {@link AttributeModifier}.
      */
-    protected static final UUID             MODIFIER_ID   = UUID.fromString("a0aab9c7-15f0-40fd-a5ac-f2987668b683");
+    protected static final UUID MODIFIER_ID = UUID.fromString("a0aab9c7-15f0-40fd-a5ac-f2987668b683");
+
     /**
      * The name of the {@link AttributeModifier}.
      */
-    protected static final String           MODIFIER_NAME = "Bonus Max Health";
+    protected static final String MODIFIER_NAME = "Bonus Max Health";
+
     /**
      * The entity this is attached to.
      */
-    private final          EntityLivingBase entity;
+    private final EntityLivingBase entity;
+
     /**
      * The bonus max health.
      */
-    private                float            bonusMaxHealth;
+    private float bonusMaxHealth;
 
     MaxHealthImplementation(@Nullable EntityLivingBase entity) {
         this.entity = entity;

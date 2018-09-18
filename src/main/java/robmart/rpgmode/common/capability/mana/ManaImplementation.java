@@ -239,11 +239,7 @@ public class ManaImplementation implements IMana {
     @Override
     public NBTTagCompound saveNBTData() {
         NBTTagCompound nbt = new NBTTagCompound();
-        nbt.setFloat("maxMana", getMaxMana());
-        nbt.setFloat("currentMana", getMana());
-        nbt.setFloat("regenSpeed", getRegenSpeed());
-        nbt.setFloat("regenAmount", getRegenAmount());
-        return nbt;
+        return saveNBTData(nbt);
     }
 
     /**

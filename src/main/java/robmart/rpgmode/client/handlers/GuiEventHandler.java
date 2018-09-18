@@ -27,7 +27,8 @@ import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import robmart.rpgmode.client.gui.GuiAttributesButton;
 import robmart.rpgmode.client.gui.GuiContainerCreativeOverride;
 import robmart.rpgmode.common.reference.Reference;
@@ -35,8 +36,8 @@ import robmart.rpgmode.common.reference.Reference;
 /**
  * @author Robmart
  */
-@GameRegistry.ObjectHolder(Reference.MOD_ID)
-@Mod.EventBusSubscriber(modid = Reference.MOD_ID)
+@Mod.EventBusSubscriber(value = Side.CLIENT, modid = Reference.MOD_ID)
+@SideOnly(Side.CLIENT)
 @SuppressWarnings("unused")
 public class GuiEventHandler {
 
