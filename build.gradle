@@ -40,7 +40,7 @@ minecraft {
         mappings = project.mappings_version
 
     replace 'GRADLE:BUILD', config.build_number
-    replace 'GRADLE:VERSION', config.mod_version
+    replace 'GRADLE:VERSION', this.version
     replace 'GRADLE:MCVERSION', config.mod_version
 
     replaceIn 'Reference.java'
