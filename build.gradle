@@ -23,7 +23,7 @@ ext.privFile = file('private.properties')
 ext.config = parseConfig(configFile)
 ext.priv = parseConfig(privFile)
 
-version = "${config.mc_version}-${config.mod_version}"
+version = "${config.mc_version}-${config.mod_version}.${config.build_number}"
 group= "robmart.rpgmode"
 archivesBaseName = config.mod_name
 

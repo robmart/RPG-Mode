@@ -182,4 +182,11 @@ public interface IAttribute {
      * @param compound The compound
      */
     void loadNBTData(NBTTagCompound compound);
+
+    /**
+     * Loads the NBT data from NBT compound received via packet
+     *
+     * @param compound The compound
+     */
+    void loadNBTDataFromPacket(NBTTagCompound compound);
 }

@@ -73,6 +73,6 @@ public class SyncPlayerAttributes extends AbstractMessage<SyncPlayerAttributes> 
 
     @Override
     public void process(EntityPlayer player, Side side) {
-        AttributeCapability.getAttributes(player).loadNBTData(data);
+        AttributeCapability.getAttributes(player).loadNBTDataFromPacket(data);
     }
 }

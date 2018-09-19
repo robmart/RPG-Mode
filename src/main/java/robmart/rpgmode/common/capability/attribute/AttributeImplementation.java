@@ -198,7 +198,8 @@ public class AttributeImplementation implements IAttribute {
         this.constitution = value;
 
         //Set max health
-        MaxHealthCapability.getMaxHealth(entity).setBonusMaxHealth(10.0F * getConstitution(true));
+        if (entity instanceof EntityPlayerMP)
+            MaxHealthCapability.getMaxHealth(entity).setBonusMaxHealth(10.0F * getConstitution(true));
 
         if (shouldSync)
             this.synchronise();
@@ -334,6 +335,16 @@ public class AttributeImplementation implements IAttribute {
      */
     @Override
     public void loadNBTData(NBTTagCompound nbt) {
+        this.strength = nbt.getInteger("strength");
+        this.dexterity = nbt.getInteger("dexterity");
+        this.intelligence = nbt.getInteger("intelligence");
+        this.constitution = nbt.getInteger("constitution");
+        this.wisdom = nbt.getInteger("wisdom");
+        this.attributePoint = nbt.getInteger("attributePoint");
+    }
+
+    @Override
+    public void loadNBTDataFromPacket(NBTTagCompound nbt) {
         setStrength(nbt.getInteger("strength"), false);
         setDexterity(nbt.getInteger("dexterity"), false);
         setIntelligence(nbt.getInteger("intelligence"), false);

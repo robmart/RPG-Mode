@@ -26,7 +26,7 @@ public class Reference {
     public static final String MOD_ID            = "rpgmode";
     public static final String MOD_NAME          = "Rob's RPG Mode";
     public static final String BUILD             = "GRADLE:BUILD";
-    public static final String MOD_VERSION       = "GRADLE:VERSION-" + BUILD;
+    public static final String MOD_VERSION       = "GRADLE:VERSION";
     public static final String MINECRAFT_VERSION = "GRADLE:MCVERSION";
 
     public static final String CLIENT_PROXY = "robmart.rpgmode.client.ClientProxy";
