@@ -238,8 +238,7 @@ public class ManaImplementation implements IMana {
      */
     @Override
     public NBTTagCompound saveNBTData() {
-        NBTTagCompound nbt = new NBTTagCompound();
-        return saveNBTData(nbt);
+        return saveNBTData(new NBTTagCompound());
     }
 
     /**
