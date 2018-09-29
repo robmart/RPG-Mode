@@ -26,6 +26,7 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import robmart.rpgmode.api.reference.Reference;
 import robmart.rpgmode.common.capability.attribute.AttributeCapability;
+import robmart.rpgmode.common.util.CapabilityUtils;
 
 /**
  * @author Robmart
@@ -36,7 +37,7 @@ public class CapabilityEventHandler {
     @SubscribeEvent
     public void onEntityJoinWorld(EntityJoinWorldEvent event) {
         if (!(event.getEntity() instanceof EntityPlayer) &&
-            AttributeCapability.shouldHaveAttribute(event.getEntity())) {
+            CapabilityUtils.shouldHaveAttribute(event.getEntity())) {
             final EntityLivingBase entity = (EntityLivingBase) event.getEntity();
 
             final NBTTagCompound entityData = entity.getEntityData();
