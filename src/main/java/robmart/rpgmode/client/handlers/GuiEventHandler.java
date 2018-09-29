@@ -29,9 +29,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import robmart.rpgmode.api.reference.Reference;
 import robmart.rpgmode.client.gui.GuiAttributesButton;
 import robmart.rpgmode.client.gui.GuiContainerCreativeOverride;
-import robmart.rpgmode.common.reference.Reference;
 
 /**
  * @author Robmart

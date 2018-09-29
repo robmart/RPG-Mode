@@ -26,11 +26,11 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import robmart.rpgmode.api.reference.RefBlockNames;
+import robmart.rpgmode.api.reference.Reference;
 import robmart.rpgmode.common.RPGMode;
 import robmart.rpgmode.common.block.BlockRPGFlower;
 import robmart.rpgmode.common.item.block.ItemRPGBlock;
-import robmart.rpgmode.common.reference.RefBlockNames;
-import robmart.rpgmode.common.reference.Reference;
 
 /**
  * @author Robmart

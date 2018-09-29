@@ -31,9 +31,9 @@ import net.minecraft.world.GameType;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import robmart.rpgmode.api.reference.Reference;
 import robmart.rpgmode.common.capability.health.MaxHealthCapability;
 import robmart.rpgmode.common.handlers.ConfigurationHandler;
-import robmart.rpgmode.common.reference.Reference;
 
 /**
  * @author Robmart

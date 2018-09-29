@@ -28,7 +28,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import robmart.rpgmode.common.reference.Reference;
+import robmart.rpgmode.api.reference.Reference;
 
 import java.util.Objects;
 

@@ -27,14 +27,14 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import robmart.rpgmode.api.reference.RefItemNames;
+import robmart.rpgmode.api.reference.RefOreDict;
+import robmart.rpgmode.api.reference.Reference;
 import robmart.rpgmode.common.RPGMode;
 import robmart.rpgmode.common.item.ItemBase;
 import robmart.rpgmode.common.item.ItemLingeringPotionOverride;
 import robmart.rpgmode.common.item.ItemPotionOverride;
 import robmart.rpgmode.common.item.ItemSplashPotionOverride;
-import robmart.rpgmode.common.reference.RefItemNames;
-import robmart.rpgmode.common.reference.RefOreDict;
-import robmart.rpgmode.common.reference.Reference;
 
 /**
  * @author Robmart

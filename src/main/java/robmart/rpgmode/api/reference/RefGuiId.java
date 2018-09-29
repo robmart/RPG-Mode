@@ -17,15 +17,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package robmart.rpgmode.common.reference;
+package robmart.rpgmode.api.reference;
 
 /**
  * @author Robmart
+ * Created on 9/14/2018
  */
-public class RefBlockNames {
-    public static final String HELL_FLOWER = getName("hell_flower");
+public class RefGuiId {
 
-    private static String getName(String name) {
-        return String.format("%s:%s", Reference.MOD_ID, name);
-    }
+    public static final int GuiAttributesId = 0;
 }

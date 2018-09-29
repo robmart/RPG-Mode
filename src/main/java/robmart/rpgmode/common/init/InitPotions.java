@@ -24,11 +24,11 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import robmart.rpgmode.api.reference.RefPotionNames;
+import robmart.rpgmode.api.reference.Reference;
 import robmart.rpgmode.common.RPGMode;
 import robmart.rpgmode.common.potion.PotionBase;
 import robmart.rpgmode.common.potion.PotionLava;
-import robmart.rpgmode.common.reference.RefPotionNames;
-import robmart.rpgmode.common.reference.Reference;
 
 /**
  * @author Robmart

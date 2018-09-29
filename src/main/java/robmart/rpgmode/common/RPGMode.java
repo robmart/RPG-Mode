@@ -28,7 +28,7 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static robmart.rpgmode.common.reference.Reference.*;
+import static robmart.rpgmode.api.reference.Reference.*;
 
 /**
  * @author Robmart

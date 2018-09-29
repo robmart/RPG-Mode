@@ -25,8 +25,8 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.DefaultGuiFactory;
 import net.minecraftforge.fml.client.config.GuiConfig;
 import net.minecraftforge.fml.client.config.IConfigElement;
+import robmart.rpgmode.api.reference.Reference;
 import robmart.rpgmode.common.handlers.ConfigurationHandler;
-import robmart.rpgmode.common.reference.Reference;
 
 import java.util.ArrayList;
 import java.util.List;

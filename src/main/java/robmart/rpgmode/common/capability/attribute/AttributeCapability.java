@@ -13,7 +13,6 @@ package robmart.rpgmode.common.capability.attribute;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTBase;
@@ -30,11 +29,10 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import robmart.rpgmode.api.RPGModeAPI;
 import robmart.rpgmode.api.capability.attribute.IAttribute;
+import robmart.rpgmode.api.reference.Reference;
 import robmart.rpgmode.common.capability.CapabilityProviderSerializable;
 import robmart.rpgmode.common.helper.MathHelper;
-import robmart.rpgmode.common.reference.Reference;
 import robmart.rpgmode.common.util.CapabilityUtils;
 
 import javax.annotation.Nullable;
@@ -48,7 +46,7 @@ public final class AttributeCapability {
      * The {@link Capability} instance.
      */
     @CapabilityInject(IAttribute.class)
-    public static final Capability<IAttribute> ATTRIBUTE_CAPABILITY = null;
+    private static final Capability<IAttribute> ATTRIBUTE_CAPABILITY = null;
 
     /**
      * The default {@link EnumFacing} to use for this capability.
@@ -101,19 +99,6 @@ public final class AttributeCapability {
     }
 
     /**
-     * Checks if Entity should have the attribute
-     */
-    public static boolean shouldHaveAttribute(Entity entity) {
-        return entity instanceof EntityLivingBase && (entity instanceof EntityPlayer ||
-                                                      entity
-                                                              .isCreatureType(
-                                                                      EnumCreatureType.MONSTER,
-                                                                      false) || RPGModeAPI
-                                                              .shouldMobHaveAttributes(
-                                                                      entity.getClass()));
-    }
-
-    /**
      * Event handler for the {@link IAttribute} capability.
      */
     @SuppressWarnings("unused")
@@ -127,7 +112,7 @@ public final class AttributeCapability {
          */
         @SubscribeEvent
         public static void attachCapabilities(final AttachCapabilitiesEvent<Entity> event) {
-            if (shouldHaveAttribute(event.getObject())) {
+            if (CapabilityUtils.shouldHaveAttribute(event.getObject())) {
                 final AttributeImplementation attribute = new AttributeImplementation(
                         (EntityLivingBase) event.getObject());
                 event.addCapability(ID, createProvider(attribute));
@@ -179,7 +164,7 @@ public final class AttributeCapability {
 
         @SubscribeEvent
         public static void moveEntity(LivingEvent.LivingUpdateEvent event) {
-            if (shouldHaveAttribute(event.getEntity())) {
+            if (CapabilityUtils.shouldHaveAttribute(event.getEntity())) {
                 EntityLivingBase Entity = (EntityLivingBase) event.getEntity();
                 if (Entity.world.isRemote) {
                     if ((Entity.onGround || (Entity instanceof EntityPlayer && ((EntityPlayer) Entity).capabilities

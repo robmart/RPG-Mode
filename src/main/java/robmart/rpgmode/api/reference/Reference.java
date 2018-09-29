@@ -17,13 +17,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package robmart.rpgmode.common.reference;
+package robmart.rpgmode.api.reference;
 
 /**
  * @author Robmart
  */
-public class RefOreDict {
-    //Items
-    public static final String WING_BAT      = "wingBat";
-    public static final String OBSIDIAN_DUST = "dustObsidian";
+public class Reference {
+    public static final String MOD_ID            = "rpgmode";
+    public static final String MOD_NAME          = "Rob's RPG Mode";
+    public static final String BUILD             = "GRADLE:BUILD";
+    public static final String MOD_VERSION       = "GRADLE:VERSION";
+    public static final String MINECRAFT_VERSION = "GRADLE:MCVERSION";
+
+    public static final String CLIENT_PROXY = "robmart.rpgmode.client.ClientProxy";
+    public static final String SERVER_PROXY = "robmart.rpgmode.server.ServerProxy";
+
+    public static final String GUI_FACTORY = "robmart.rpgmode.client.gui.RPGGuiConfig";
+
+    public static final String DEPENDENCIES = "";
 }

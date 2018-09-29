@@ -34,8 +34,8 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import robmart.rpgmode.api.capability.mana.IMana;
+import robmart.rpgmode.api.reference.Reference;
 import robmart.rpgmode.common.capability.CapabilityProviderSerializable;
-import robmart.rpgmode.common.reference.Reference;
 import robmart.rpgmode.common.util.CapabilityUtils;
 
 import javax.annotation.Nullable;
@@ -49,7 +49,7 @@ public final class ManaCapability {
      * The {@link Capability} instance.
      */
     @CapabilityInject(IMana.class)
-    public static final Capability<IMana> MANA_CAPABILITY = null;
+    private static final Capability<IMana> MANA_CAPABILITY = null;
 
     /**
      * The default {@link EnumFacing} to use for this capability.

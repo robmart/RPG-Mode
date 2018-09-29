@@ -37,9 +37,9 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IRegistryDelegate;
+import robmart.rpgmode.api.reference.Reference;
 import robmart.rpgmode.client.render.IModelRegister;
 import robmart.rpgmode.common.init.InitItems;
-import robmart.rpgmode.common.reference.Reference;
 
 import java.util.Map;
 import java.util.function.IntFunction;

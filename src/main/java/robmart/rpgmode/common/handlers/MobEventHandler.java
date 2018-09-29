@@ -28,8 +28,8 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import robmart.rpgmode.api.reference.Reference;
 import robmart.rpgmode.common.init.InitItems;
-import robmart.rpgmode.common.reference.Reference;
 
 import java.util.Random;
 

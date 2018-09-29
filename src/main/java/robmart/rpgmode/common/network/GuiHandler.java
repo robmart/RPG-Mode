@@ -23,8 +23,8 @@ import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
+import robmart.rpgmode.api.reference.RefGuiId;
 import robmart.rpgmode.client.gui.GuiAttributes;
-import robmart.rpgmode.common.reference.RefGuiId;
 
 import javax.annotation.Nullable;
 

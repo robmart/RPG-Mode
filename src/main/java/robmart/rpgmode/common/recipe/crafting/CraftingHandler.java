@@ -14,7 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import org.apache.commons.io.FileUtils;
-import robmart.rpgmode.common.reference.Reference;
+import robmart.rpgmode.api.reference.Reference;
 
 import java.io.File;
 import java.io.FileWriter;

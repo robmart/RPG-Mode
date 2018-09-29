@@ -1,8 +1,13 @@
 package robmart.rpgmode.common.util;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import robmart.rpgmode.api.RPGModeAPI;
 
 import javax.annotation.Nullable;
 
@@ -28,5 +33,14 @@ public class CapabilityUtils {
             @Nullable final EnumFacing facing) {
         return provider != null && provider.hasCapability(capability, facing) ?
                provider.getCapability(capability, facing) : null;
+    }
+
+    /**
+     * Checks if Entity should have the attribute
+     */
+    public static boolean shouldHaveAttribute(Entity entity) {
+        return entity instanceof EntityLivingBase &&
+               (entity instanceof EntityPlayer || entity.isCreatureType(EnumCreatureType.MONSTER, false) ||
+                RPGModeAPI.shouldMobHaveAttributes(entity.getClass()));
     }
 }

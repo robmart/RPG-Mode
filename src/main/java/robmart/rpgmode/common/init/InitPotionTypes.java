@@ -29,10 +29,10 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
+import robmart.rpgmode.api.reference.RefPotionNames;
+import robmart.rpgmode.api.reference.Reference;
 import robmart.rpgmode.common.RPGMode;
 import robmart.rpgmode.common.helper.RegistryHelper;
-import robmart.rpgmode.common.reference.RefPotionNames;
-import robmart.rpgmode.common.reference.Reference;
 
 import javax.annotation.Nullable;
 

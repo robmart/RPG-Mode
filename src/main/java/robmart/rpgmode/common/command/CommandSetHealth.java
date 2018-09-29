@@ -26,8 +26,8 @@ import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
+import robmart.rpgmode.api.reference.Reference;
 import robmart.rpgmode.common.capability.health.MaxHealthCapability;
-import robmart.rpgmode.common.reference.Reference;
 
 import javax.annotation.Nullable;
 import java.util.Collections;

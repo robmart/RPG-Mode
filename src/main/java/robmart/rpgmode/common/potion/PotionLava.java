@@ -21,7 +21,7 @@ package robmart.rpgmode.common.potion;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import robmart.rpgmode.common.reference.RefPotionNames;
+import robmart.rpgmode.api.reference.RefPotionNames;
 
 import javax.annotation.Nullable;
 

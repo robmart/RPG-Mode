@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package robmart.rpgmode.common.reference;
+package robmart.rpgmode.api.reference;
 
 /**
  * @author Robmart

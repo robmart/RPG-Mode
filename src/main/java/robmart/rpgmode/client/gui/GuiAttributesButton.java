@@ -27,9 +27,9 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
+import robmart.rpgmode.api.reference.RefGuiId;
+import robmart.rpgmode.api.reference.Reference;
 import robmart.rpgmode.common.RPGMode;
-import robmart.rpgmode.common.reference.RefGuiId;
-import robmart.rpgmode.common.reference.Reference;
 
 /**
  * @author Robmart

@@ -24,8 +24,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import robmart.rpgmode.api.reference.Reference;
 import robmart.rpgmode.common.capability.attribute.AttributeCapability;
-import robmart.rpgmode.common.reference.Reference;
 
 /**
  * @author Robmart

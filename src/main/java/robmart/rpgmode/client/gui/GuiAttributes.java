@@ -24,9 +24,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import robmart.rpgmode.api.capability.attribute.IAttribute;
+import robmart.rpgmode.api.reference.Reference;
 import robmart.rpgmode.common.capability.attribute.AttributeCapability;
 import robmart.rpgmode.common.capability.attribute.AttributeImplementation;
-import robmart.rpgmode.common.reference.Reference;
 
 /**
  * @author Robmart

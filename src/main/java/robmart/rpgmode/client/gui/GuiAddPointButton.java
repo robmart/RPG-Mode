@@ -24,7 +24,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import robmart.rpgmode.api.capability.attribute.IAttribute;
-import robmart.rpgmode.common.reference.Reference;
+import robmart.rpgmode.api.reference.Reference;
 
 import java.lang.reflect.Method;
 
