@@ -23,6 +23,7 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.EntityPolarBear;
 import net.minecraft.entity.monster.EntitySnowman;
+import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.EntityLlama;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.passive.IAnimals;
@@ -36,7 +37,7 @@ import java.util.List;
  */
 public class RPGModeAPI {
     /**
-     * List of mobs who are not classified as a monster {@link EnumCreatureType.MONSTER} but should still have the
+     * List of mobs who are not classified as a monster {@link EnumCreatureType#MONSTER} but should still have the
      * attributes capability.
      * <p>
      * Examples include: golems, wolfs.
@@ -57,7 +58,7 @@ public class RPGModeAPI {
      * @param mobClass Class of the mob in question
      */
     public static void addMobWithAttribute(Class<? extends IAnimals> mobClass) {
-        if (!mobWithAttributeList.contains(mobClass))
+        if (!mobWithAttributeList.contains(mobClass) && !mobClass.isAssignableFrom(IMob.class))
             mobWithAttributeList.add(mobClass);
     }
 
