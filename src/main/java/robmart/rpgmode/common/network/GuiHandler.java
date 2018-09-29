@@ -46,7 +46,7 @@ public class GuiHandler implements IGuiHandler {
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if (world instanceof WorldClient) {
             switch (ID) {
-                case RefGuiId.GuiAttributesId:
+                case RefGuiId.GUI_ATTRIBUTES_ID:
                     return new GuiAttributes(player);
             }
         }

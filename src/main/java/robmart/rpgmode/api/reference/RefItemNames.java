@@ -21,6 +21,7 @@ package robmart.rpgmode.api.reference;
 
 /**
  * @author Robmart
+ * Contains the names of all of the items from the mod
  */
 public class RefItemNames {
     public static final String BAT_WING       = getName("bat_wing");
@@ -29,5 +30,8 @@ public class RefItemNames {
 
     private static String getName(String name) {
         return String.format("%s:%s", Reference.MOD_ID, name);
+    }
+
+    private RefItemNames() {
     }
 }

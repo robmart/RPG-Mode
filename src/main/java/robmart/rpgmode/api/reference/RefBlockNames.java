@@ -21,11 +21,15 @@ package robmart.rpgmode.api.reference;
 
 /**
  * @author Robmart
+ * Contains the names of all of the blocks from the mod
  */
 public class RefBlockNames {
     public static final String HELL_FLOWER = getName("hell_flower");
 
     private static String getName(String name) {
         return String.format("%s:%s", Reference.MOD_ID, name);
+    }
+
+    private RefBlockNames() {
     }
 }

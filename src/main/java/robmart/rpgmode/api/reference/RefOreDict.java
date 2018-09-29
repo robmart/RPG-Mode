@@ -21,9 +21,13 @@ package robmart.rpgmode.api.reference;
 
 /**
  * @author Robmart
+ * Contains the names of all of the oredictionary names from the mod
  */
 public class RefOreDict {
     //Items
     public static final String WING_BAT      = "wingBat";
     public static final String OBSIDIAN_DUST = "dustObsidian";
+
+    private RefOreDict() {
+    }
 }

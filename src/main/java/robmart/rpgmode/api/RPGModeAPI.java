@@ -65,4 +65,7 @@ public class RPGModeAPI {
     public static boolean shouldMobHaveAttributes(Class mobClass) {
         return mobWithAttributeList.contains(mobClass);
     }
+
+    private RPGModeAPI() {
+    }
 }

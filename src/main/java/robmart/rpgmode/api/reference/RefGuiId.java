@@ -22,8 +22,12 @@ package robmart.rpgmode.api.reference;
 /**
  * @author Robmart
  * Created on 9/14/2018
+ * Contains all of the GUI ids from the mod
  */
 public class RefGuiId {
 
-    public static final int GuiAttributesId = 0;
+    public static final int GUI_ATTRIBUTES_ID = 0;
+
+    private RefGuiId() {
+    }
 }

@@ -21,6 +21,7 @@ package robmart.rpgmode.api.reference;
 
 /**
  * @author Robmart
+ * Contains the names of all of the potions from the mod
  */
 public class RefPotionNames {
     public static final String LAVA          = getName("lava");

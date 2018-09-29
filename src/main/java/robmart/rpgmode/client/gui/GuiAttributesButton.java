@@ -85,7 +85,7 @@ public class GuiAttributesButton extends GuiButton {
         boolean pressed = super.mousePressed(mc, mouseX, mouseY);
         if (pressed) {
             if (parentGui instanceof GuiInventory) {
-                mc.player.openGui(RPGMode.instance, RefGuiId.GuiAttributesId, mc.player.world, (int) mc.player.posX,
+                mc.player.openGui(RPGMode.instance, RefGuiId.GUI_ATTRIBUTES_ID, mc.player.world, (int) mc.player.posX,
                                   (int) mc.player.posY, (int) mc.player.posZ);
             }
             else {

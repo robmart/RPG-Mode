@@ -21,6 +21,7 @@ package robmart.rpgmode.api.reference;
 
 /**
  * @author Robmart
+ * Contains mod id, name, version and the like
  */
 public class Reference {
     public static final String MOD_ID            = "rpgmode";
@@ -35,4 +36,7 @@ public class Reference {
     public static final String GUI_FACTORY = "robmart.rpgmode.client.gui.RPGGuiConfig";
 
     public static final String DEPENDENCIES = "";
+
+    private Reference() {
+    }
 }
