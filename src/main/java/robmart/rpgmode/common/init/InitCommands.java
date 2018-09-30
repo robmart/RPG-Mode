@@ -39,6 +39,8 @@ public class InitCommands {
         registerCommand(event, new CommandHealthInfo());
         registerCommand(event, new CommandAttributeInfo());
         registerCommand(event, new CommandSetAttribute());
+        registerCommand(event, new CommandCharacterInfo());
+        registerCommand(event, new CommandSetCharacter());
         RPGMode.logger.info(String.format("%s commands added", commandCounter));
     }
 

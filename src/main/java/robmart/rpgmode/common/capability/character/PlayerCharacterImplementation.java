@@ -65,7 +65,7 @@ public class PlayerCharacterImplementation implements ICharacter {
     public void setEXP(int exp) {
         this.exp = exp;
 
-        if (getEXP() >= getEXPRequired()) {
+        while (getEXP() >= getEXPRequired()) {
             this.exp -= getEXPRequired();
             levelUp();
         }
@@ -108,7 +108,7 @@ public class PlayerCharacterImplementation implements ICharacter {
     @Override
     public void setLevel(int level) {
         if (level > getLevel())
-            while (level > getLevel())
+            while (level > this.level)
                 levelUp();
         else
             this.level = level;
@@ -116,7 +116,7 @@ public class PlayerCharacterImplementation implements ICharacter {
 
     @Override
     public void levelUp() {
-        setLevel(getLevel() + 1);
+        this.level++;
         IAttribute attribute = AttributeCapability.getAttributes(player);
         attribute.setAttributePoint(attribute.getAttributePoint() + 4, true);
     }

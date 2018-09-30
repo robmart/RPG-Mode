@@ -18,6 +18,10 @@ commands.rpgmode.healthinfo.success=%s's %s is %s
 commands.rpgmode.sethealth.usage=/sethealth <field> <value> [entity]
 commands.rpgmode.sethealth.success1=Your %s is now %s
 commands.rpgmode.sethealth.success2=%s's %s is now %s
+commands.rpgmode.characterinfo.usage=/characterinfo <field> [entity]
+commands.rpgmode.characterinfo.success=%s's %s is %s
+commands.rpgmode.setcharacter.success1=Your %s is now %s
+commands.rpgmode.setcharacter.success2=%s's %s is now %s
 
 # Potions
 potion.effect.rpgmode:lava=Lava Bottle
