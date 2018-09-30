@@ -20,10 +20,13 @@
 package robmart.rpgmode.common.capability.character;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import robmart.rpgmode.api.capability.attribute.IAttribute;
 import robmart.rpgmode.api.capability.character.ICharacter;
+import robmart.rpgmode.client.network.SyncPlayerCharacter;
 import robmart.rpgmode.common.capability.attribute.AttributeCapability;
+import robmart.rpgmode.common.network.PacketDispatcher;
 
 /**
  * @author Robmart
@@ -120,7 +123,8 @@ public class PlayerCharacterImplementation implements ICharacter {
 
     @Override
     public void synchronise() {
-        //TODO
+        if (player instanceof EntityPlayerMP)
+            PacketDispatcher.sendTo(new SyncPlayerCharacter(this.player), (EntityPlayerMP) this.player);
     }
 
     @Override
