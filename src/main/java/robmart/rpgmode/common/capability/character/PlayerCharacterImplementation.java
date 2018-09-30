@@ -72,6 +72,8 @@ public class PlayerCharacterImplementation implements ICharacter {
 
         if (this.exp < 0)
             this.exp = 0;
+
+        this.synchronise();
     }
 
     @Override
@@ -112,6 +114,8 @@ public class PlayerCharacterImplementation implements ICharacter {
                 levelUp();
         else
             this.level = level;
+
+        this.synchronise();
     }
 
     @Override
@@ -119,12 +123,15 @@ public class PlayerCharacterImplementation implements ICharacter {
         this.level++;
         IAttribute attribute = AttributeCapability.getAttributes(player);
         attribute.setAttributePoint(attribute.getAttributePoint() + 4, true);
+
+        this.synchronise();
     }
 
     @Override
     public void synchronise() {
-        if (player instanceof EntityPlayerMP)
+        if (player instanceof EntityPlayerMP) {
             PacketDispatcher.sendTo(new SyncPlayerCharacter(this.player), (EntityPlayerMP) this.player);
+        }
     }
 
     @Override
@@ -142,6 +149,6 @@ public class PlayerCharacterImplementation implements ICharacter {
     @Override
     public void loadNBTData(NBTTagCompound compound) {
         this.level = compound.getInteger("level");
-        setEXP(compound.getInteger("exp"));
+        this.exp = compound.getInteger("exp");
     }
 }

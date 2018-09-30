@@ -35,7 +35,7 @@ import robmart.rpgmode.common.RPGMode;
  * @author Robmart
  * Created on 9/14/2018
  */
-public class GuiAttributesButton extends GuiButton {
+public class GuiCharacterButton extends GuiButton {
     public static ResourceLocation icon = new ResourceLocation(Reference.MOD_ID, "textures/gui/character.png");
     public static ResourceLocation iconSelected = new ResourceLocation(
             Reference.MOD_ID,
@@ -43,7 +43,7 @@ public class GuiAttributesButton extends GuiButton {
     private       GuiContainer     parentGui;
     private       int              pos;
 
-    public GuiAttributesButton(int buttonId, GuiContainer parentGui, int x, int y, int width, int height) {
+    public GuiCharacterButton(int buttonId, GuiContainer parentGui, int x, int y, int width, int height) {
         super(buttonId, x, y, width, height, "");
         this.parentGui = parentGui;
         visible = true;

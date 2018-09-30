@@ -24,7 +24,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import robmart.rpgmode.api.reference.RefGuiId;
-import robmart.rpgmode.client.gui.GuiAttributes;
+import robmart.rpgmode.client.gui.GuiCharacter;
 
 import javax.annotation.Nullable;
 
@@ -47,7 +47,7 @@ public class GuiHandler implements IGuiHandler {
         if (world instanceof WorldClient) {
             switch (ID) {
                 case RefGuiId.GUI_ATTRIBUTES_ID:
-                    return new GuiAttributes(player);
+                    return new GuiCharacter(player);
             }
         }
         return null;

@@ -170,10 +170,13 @@ public class CharacterCapability {
          * @param event The event
          */
         @SubscribeEvent
-        public void onEntityJoinWorld(EntityJoinWorldEvent event) {
+        public static void onEntityJoinWorld(EntityJoinWorldEvent event) {
             if (event.getEntity() instanceof EntityPlayerMP) {
-                final ICharacter character = getCharacter((EntityLivingBase) event.getEntity());
-                character.synchronise();
+                final ICharacter character = getCharacter((EntityPlayerMP) event.getEntity());
+
+                if (character != null) {
+                    character.synchronise();
+                }
             }
         }
     }

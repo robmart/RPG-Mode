@@ -181,7 +181,7 @@ public final class ManaCapability {
          * @param event The event
          */
         @SubscribeEvent
-        public void onEntityJoinWorld(EntityJoinWorldEvent event) {
+        public static void onEntityJoinWorld(EntityJoinWorldEvent event) {
             if (event.getEntity() instanceof EntityPlayerMP) {
                 final IMana mana = getMana((EntityLivingBase) event.getEntity());
                 mana.synchronise();

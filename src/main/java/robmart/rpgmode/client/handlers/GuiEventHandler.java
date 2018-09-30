@@ -30,7 +30,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import robmart.rpgmode.api.reference.Reference;
-import robmart.rpgmode.client.gui.GuiAttributesButton;
+import robmart.rpgmode.client.gui.GuiCharacterButton;
 import robmart.rpgmode.client.gui.GuiContainerCreativeOverride;
 
 /**
@@ -55,7 +55,7 @@ public class GuiEventHandler {
         if (event.getGui() instanceof GuiInventory) {
             GuiContainer gui = (GuiContainer) event.getGui();
             event.getButtonList()
-                 .add(new GuiAttributesButton(
+                 .add(new GuiCharacterButton(
                          event.getButtonList().size() + 1, gui, 132, gui.height / 2 - 22, 20, 18));
         }
     }
