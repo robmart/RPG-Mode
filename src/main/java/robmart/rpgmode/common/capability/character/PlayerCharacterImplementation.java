@@ -109,13 +109,17 @@ public class PlayerCharacterImplementation implements ICharacter {
 
     @Override
     public void setLevel(int level) {
-        if (level > 100)
+        if (level > 100) {
+            setLevel(100);
             return;
+        }
         if (level > getLevel())
             while (level > this.level)
                 levelUp();
         else
             this.level = level;
+
+        setEXP(0);
 
         this.synchronise();
     }
@@ -127,7 +131,7 @@ public class PlayerCharacterImplementation implements ICharacter {
         else
             return;
         IAttribute attribute = AttributeCapability.getAttributes(player);
-        attribute.setAttributePoint(attribute.getAttributePoint() + 4, true);
+        attribute.setAttributePoint(attribute.getAttributePoint() + 2, true);
 
         this.synchronise();
     }
