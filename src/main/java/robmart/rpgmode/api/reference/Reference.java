@@ -35,7 +35,7 @@ public class Reference {
 
     public static final String GUI_FACTORY = "robmart.rpgmode.client.gui.RPGGuiConfig";
 
-    public static final String DEPENDENCIES = "";
+    public static final String DEPENDENCIES = "required-after:autoreglib@[1.3-20,]";
 
     private Reference() {
     }

@@ -14,6 +14,14 @@ buildscript {
         classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.0.10"
     }
 }
+
+repositories {
+    maven {
+        name = "CurseForge"
+        url = "https://minecraft.curseforge.com/api/maven/"
+    }
+}
+
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: "com.matthewprenger.cursegradle"
 
@@ -24,7 +32,7 @@ ext.config = parseConfig(configFile)
 ext.priv = parseConfig(privFile)
 
 version = "${config.mc_version}-${config.mod_version}.${config.build_number}"
-group= "robmart.rpgmode"
+group="${config.author}.${config.mod_name}".toLowerCase()
 archivesBaseName = config.mod_name
 
 if (System.getenv("CIRCLE_BUILD_NUM") != null) {
@@ -47,6 +55,10 @@ minecraft {
 
     useDepAts = true
     makeObfSourceJar = true
+}
+
+dependencies {
+    deobfCompile "autoreglib:AutoRegLib:1.3:20"
 }
 
 compileJava {
