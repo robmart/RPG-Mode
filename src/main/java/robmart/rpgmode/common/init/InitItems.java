@@ -22,9 +22,7 @@ package robmart.rpgmode.common.init;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import robmart.rpgmode.api.reference.RefItemNames;
@@ -52,21 +50,6 @@ public class InitItems {
     public static final Item POTION           = new ItemPotionOverride();
     public static final Item SPLASH_POTION    = new ItemSplashPotionOverride();
     public static final Item LINGERING_POTION = new ItemLingeringPotionOverride();
-
-    @SubscribeEvent
-    public static void registerItems(final RegistryEvent.Register<Item> event) {
-        RPGMode.logger.info("Adding Items");
-        event.getRegistry().registerAll(
-                BAT_WING,
-                PARROT_FEATHER,
-                OBSIDIAN_DUST,
-
-                POTION,
-                SPLASH_POTION,
-                LINGERING_POTION
-                                       );
-        RPGMode.logger.info(String.format("%s items added", ItemBase.getCounter()));
-    }
 
     public static void registerOreDictionary() {
         RPGMode.logger.info("Adding ore dictionary entries");

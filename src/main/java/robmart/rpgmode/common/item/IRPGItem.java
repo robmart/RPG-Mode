@@ -17,17 +17,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package robmart.rpgmode.api.reference;
+package robmart.rpgmode.common.item;
+
+import robmart.rpgmode.api.reference.Reference;
+import vazkii.arl.interf.IVariantHolder;
 
 /**
  * @author Robmart
- * Contains the names of all of the items from the mod
+ * Created on 11/9/2018
  */
-public class RefItemNames {
-    public static final String BAT_WING       = "bat_wing";
-    public static final String PARROT_FEATHER = "parrot_feather";
-    public static final String OBSIDIAN_DUST  = "obsidian_dust";
+public interface IRPGItem extends IVariantHolder {
 
-    private RefItemNames() {
+    @Override
+    default String getModNamespace() {
+        return Reference.MOD_ID;
     }
 }
