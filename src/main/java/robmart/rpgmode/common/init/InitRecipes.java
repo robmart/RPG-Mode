@@ -30,7 +30,7 @@ import net.minecraftforge.common.brewing.IBrewingRecipe;
 import robmart.rpgmode.common.RPGMode;
 import robmart.rpgmode.common.recipe.brewing.BrewRecipe;
 import robmart.rpgmode.common.recipe.brewing.BrewingHelper;
-import robmart.rpgmode.common.recipe.crafting.CraftingHandler;
+import vazkii.arl.recipe.RecipeHandler;
 
 /**
  * @author Robmart
@@ -134,8 +134,7 @@ public class InitRecipes {
     }
 
     public static void generateRecipes() {
-        CraftingHandler.addShapelessRecipe(new ItemStack(InitItems.OBSIDIAN_DUST, 4), Blocks.OBSIDIAN);
-        CraftingHandler.addShapedRecipe(new ItemStack(Blocks.OBSIDIAN), "##", "##", '#', "dustObsidian");
-        CraftingHandler.generateConstants();
+        RecipeHandler.addShapelessRecipe(new ItemStack(InitItems.OBSIDIAN_DUST, 4), new ItemStack(Blocks.OBSIDIAN));
+        RecipeHandler.addShapedRecipe(new ItemStack(Blocks.OBSIDIAN), "##", "##", '#', "dustObsidian");
     }
 }
