@@ -25,8 +25,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.biome.BiomeHellDecorator;
+import robmart.rpgmode.api.block.RPGBlocks;
 import robmart.rpgmode.common.helper.WorldHelper;
-import robmart.rpgmode.common.init.InitBlocks;
 
 import java.util.Random;
 
@@ -64,8 +64,8 @@ public class BiomeHellDecoratorWrapper extends BiomeHellDecorator {
                     int z1 = z + random.nextInt(dist * 2) - dist;
                     BlockPos pos2 = new BlockPos(x1, y, z1);
 
-                    if (worldIn.isAirBlock(pos2) && InitBlocks.HELL_FLOWER.canPlaceBlockAt(worldIn, pos2)) {
-                        worldIn.setBlockState(pos2, InitBlocks.HELL_FLOWER.getDefaultState());
+                    if (worldIn.isAirBlock(pos2) && RPGBlocks.HELL_FLOWER.canPlaceBlockAt(worldIn, pos2)) {
+                        worldIn.setBlockState(pos2, RPGBlocks.HELL_FLOWER.getDefaultState());
                     }
                 }
             }

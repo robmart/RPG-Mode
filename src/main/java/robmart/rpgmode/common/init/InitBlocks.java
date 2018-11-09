@@ -19,18 +19,13 @@
 
 package robmart.rpgmode.common.init;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraftforge.common.EnumPlantType;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import robmart.rpgmode.api.block.RPGBlocks;
 import robmart.rpgmode.api.reference.RefBlockNames;
 import robmart.rpgmode.api.reference.Reference;
-import robmart.rpgmode.common.RPGMode;
-import robmart.rpgmode.common.block.BlockRPGFlower;
-import robmart.rpgmode.common.item.block.ItemRPGBlock;
+import robmart.rpgmode.common.block.BlockRPGBush;
 
 /**
  * @author Robmart
@@ -39,22 +34,9 @@ import robmart.rpgmode.common.item.block.ItemRPGBlock;
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID)
 @SuppressWarnings("unused")
 public class InitBlocks {
-    public static final BlockRPGFlower HELL_FLOWER = new BlockRPGFlower(
-            RefBlockNames.HELL_FLOWER, EnumPlantType.Nether);
+    public static String load = "";
 
-    @SubscribeEvent
-    public static void registerItems(final RegistryEvent.Register<Block> event) {
-        RPGMode.logger.info("Adding Blocks");
-        event.getRegistry().registerAll(
-                HELL_FLOWER
-                                       );
-    }
-
-    @SubscribeEvent
-    public static void registerItemBlocks(RegistryEvent.Register<Item> event) {
-        event.getRegistry().registerAll(
-                new ItemRPGBlock(HELL_FLOWER)
-                                       );
-        RPGMode.logger.info(String.format("%s items added", ItemRPGBlock.counter));
+    static {
+        RPGBlocks.HELL_FLOWER = new BlockRPGBush(RefBlockNames.HELL_FLOWER, EnumPlantType.Nether);
     }
 }

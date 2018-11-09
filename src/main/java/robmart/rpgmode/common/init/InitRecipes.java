@@ -27,6 +27,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionHelper;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.common.brewing.IBrewingRecipe;
+import robmart.rpgmode.api.block.RPGBlocks;
 import robmart.rpgmode.common.RPGMode;
 import robmart.rpgmode.common.recipe.brewing.BrewRecipe;
 import robmart.rpgmode.common.recipe.brewing.BrewingHelper;
@@ -113,7 +114,7 @@ public class InitRecipes {
         //Foolishness
         addBrewingRecipe(
                 new BrewRecipe(
-                        PotionTypes.AWKWARD, new ItemStack(InitBlocks.HELL_FLOWER), InitPotionTypes.FOOLISHNESS));
+                        PotionTypes.AWKWARD, new ItemStack(RPGBlocks.HELL_FLOWER), InitPotionTypes.FOOLISHNESS));
         addBrewingRecipe(new BrewRecipe(InitPotionTypes.FOOLISHNESS, new ItemStack(Items.REDSTONE),
                                         InitPotionTypes.LONG_FOOLISHNESS));
         addBrewingRecipe(new BrewRecipe(InitPotionTypes.FOOLISHNESS, new ItemStack(Items.GLOWSTONE_DUST),

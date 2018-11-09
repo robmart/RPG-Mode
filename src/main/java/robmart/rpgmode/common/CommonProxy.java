@@ -34,10 +34,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import robmart.rpgmode.api.reference.Reference;
 import robmart.rpgmode.common.handlers.ConfigurationHandler;
-import robmart.rpgmode.common.init.InitCapabilities;
-import robmart.rpgmode.common.init.InitCommands;
-import robmart.rpgmode.common.init.InitItems;
-import robmart.rpgmode.common.init.InitRecipes;
+import robmart.rpgmode.common.init.*;
 import robmart.rpgmode.common.network.GuiHandler;
 import robmart.rpgmode.common.network.PacketDispatcher;
 import robmart.rpgmode.common.world.biome.BiomeHellDecoratorWrapper;
@@ -62,6 +59,7 @@ public abstract class CommonProxy {
             if (ConfigurationHandler.config != null) ConfigurationHandler.save();
         }
 
+        System.out.print(InitBlocks.load);
         InitCapabilities.init();
         MinecraftForge.EVENT_BUS.register(new ConfigurationHandler());
 

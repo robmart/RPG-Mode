@@ -19,41 +19,54 @@
 
 package robmart.rpgmode.common.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
+import net.minecraft.item.EnumRarity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.EnumPlantType;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import robmart.rpgmode.client.handlers.ModelHandler;
-import robmart.rpgmode.client.render.IModelRegister;
+import vazkii.arl.item.ItemModBlock;
+import vazkii.arl.util.ProxyRegistry;
 
 /**
  * @author Robmart
  */
-public class BlockRPGFlower extends BlockBush implements IModelRegister {
+public class BlockRPGBush extends BlockBush implements IRPGBlock {
     protected static final AxisAlignedBB FLOWER_AABB = new AxisAlignedBB(
             0.30000001192092896D, 0.0D, 0.30000001192092896D, 0.699999988079071D, 1.0D, 0.699999988079071D);
     protected              EnumPlantType plantType;
-    protected              String        name;
+    private final          String[]      variants;
+    private final          String        bareName;
 
-    public BlockRPGFlower(String name, EnumPlantType plantType) {
+    public BlockRPGBush(String name, EnumPlantType plantType) {
         super(Material.PLANTS);
-        this.name = name;
-        this.setRegistryName(name);
+        variants = new String[] {name};
+        bareName = name;
+
         this.setUnlocalizedName(name);
         this.setHardness(0F);
         this.setSoundType(SoundType.PLANT);
         this.setCreativeTab(CreativeTabs.DECORATIONS);
         this.plantType = plantType;
+    }
+
+    @Override
+    public Block setUnlocalizedName(String name) {
+        super.setUnlocalizedName(name);
+        setRegistryName(getPrefix() + name);
+        ProxyRegistry.register(this);
+        ProxyRegistry.register(new ItemModBlock(this, new ResourceLocation(getPrefix() + name)));
+        return this;
     }
 
     /**
@@ -96,11 +109,38 @@ public class BlockRPGFlower extends BlockBush implements IModelRegister {
         return this.plantType;
     }
 
-    @SideOnly(Side.CLIENT)
     @Override
-    public void registerModels() {
-        if (Item.getItemFromBlock(this) != Items.AIR)
-            ModelHandler.registerBlockToState(this, 0, getDefaultState());
-        ModelHandler.registerCustomItemblock(this, name.replaceAll(".*:", ""));
+    public String getBareName() {
+        return bareName;
+    }
+
+    @Override
+    public IProperty getVariantProp() {
+        return null;
+    }
+
+    @Override
+    public IProperty[] getIgnoredProperties() {
+        return new IProperty[0];
+    }
+
+    @Override
+    public EnumRarity getBlockRarity(ItemStack stack) {
+        return EnumRarity.COMMON;
+    }
+
+    @Override
+    public String[] getVariants() {
+        return variants;
+    }
+
+    @Override
+    public ItemMeshDefinition getCustomMeshDefinition() {
+        return null;
+    }
+
+    @Override
+    public Class getVariantEnum() {
+        return null;
     }
 }

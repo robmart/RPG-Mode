@@ -17,15 +17,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package robmart.rpgmode.api.reference;
+package robmart.rpgmode.common.block;
+
+import robmart.rpgmode.api.reference.Reference;
+import vazkii.arl.interf.IModBlock;
 
 /**
  * @author Robmart
- * Contains the names of all of the blocks from the mod
+ * Created on 11/9/2018
  */
-public class RefBlockNames {
-    public static final String HELL_FLOWER = "hell_flower";
+public interface IRPGBlock extends IModBlock {
 
-    private RefBlockNames() {
+    @Override
+    default String getModNamespace() {
+        return Reference.MOD_ID;
     }
 }
