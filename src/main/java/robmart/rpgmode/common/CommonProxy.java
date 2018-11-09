@@ -20,7 +20,6 @@
 package robmart.rpgmode.common;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.launchwrapper.Launch;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
@@ -59,12 +58,12 @@ public abstract class CommonProxy {
             if (ConfigurationHandler.config != null) ConfigurationHandler.save();
         }
 
-        System.out.print(InitBlocks.load);
+        InitItems.init();
+        InitBlocks.init();
         InitCapabilities.init();
         MinecraftForge.EVENT_BUS.register(new ConfigurationHandler());
 
-        if ((Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment"))
-            InitRecipes.generateRecipes();
+        InitRecipes.generateRecipes();
 
         PacketDispatcher.registerPackets();
 

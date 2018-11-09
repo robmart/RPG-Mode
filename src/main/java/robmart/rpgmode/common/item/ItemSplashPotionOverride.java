@@ -25,6 +25,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import robmart.rpgmode.common.init.InitItems;
+import vazkii.arl.util.ProxyRegistry;
 
 /**
  * @author Robmart
@@ -34,6 +35,7 @@ public class ItemSplashPotionOverride extends ItemSplashPotion {
     public ItemSplashPotionOverride() {
         this.setUnlocalizedName("splash_potion");
         this.setRegistryName("minecraft:splash_potion");
+        ProxyRegistry.register(this);
     }
 
     /**

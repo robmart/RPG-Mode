@@ -17,19 +17,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package robmart.rpgmode.common.init;
+package robmart.rpgmode.api.item;
 
-import net.minecraftforge.common.EnumPlantType;
-import robmart.rpgmode.api.block.RPGBlocks;
-import robmart.rpgmode.api.reference.RefBlockNames;
-import robmart.rpgmode.common.block.BlockRPGBush;
+import robmart.rpgmode.common.item.ItemBase;
 
 /**
  * @author Robmart
+ * Created on 11/9/2018
  */
-public class InitBlocks {
-
-    public static void init() {
-        RPGBlocks.HELL_FLOWER = new BlockRPGBush(RefBlockNames.HELL_FLOWER, EnumPlantType.Nether);
-    }
+public class RPGItems {
+    public static ItemBase BAT_WING;
+    public static ItemBase PARROT_FEATHER;
+    public static ItemBase OBSIDIAN_DUST;
 }

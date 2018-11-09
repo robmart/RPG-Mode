@@ -22,14 +22,10 @@ package robmart.rpgmode.common.init;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import robmart.rpgmode.api.item.RPGItems;
 import robmart.rpgmode.api.reference.RefItemNames;
 import robmart.rpgmode.api.reference.RefOreDict;
-import robmart.rpgmode.api.reference.Reference;
 import robmart.rpgmode.common.RPGMode;
 import robmart.rpgmode.common.item.ItemBase;
 import robmart.rpgmode.common.item.ItemLingeringPotionOverride;
@@ -39,36 +35,26 @@ import robmart.rpgmode.common.item.ItemSplashPotionOverride;
 /**
  * @author Robmart
  */
-@GameRegistry.ObjectHolder(Reference.MOD_ID)
-@Mod.EventBusSubscriber(modid = Reference.MOD_ID)
-@SuppressWarnings("unused")
 public class InitItems {
     private static int oreDictCounter = 0;
-
-    public static final ItemBase BAT_WING       = new ItemBase(RefItemNames.BAT_WING, CreativeTabs.BREWING);
-    public static final ItemBase PARROT_FEATHER = new ItemBase(RefItemNames.PARROT_FEATHER, CreativeTabs.BREWING);
-    public static final ItemBase OBSIDIAN_DUST  = new ItemBase(RefItemNames.OBSIDIAN_DUST, CreativeTabs.BREWING);
 
     public static final Item POTION           = new ItemPotionOverride();
     public static final Item SPLASH_POTION    = new ItemSplashPotionOverride();
     public static final Item LINGERING_POTION = new ItemLingeringPotionOverride();
 
-    @SubscribeEvent
-    public static void registerItems(final RegistryEvent.Register<Item> event) {
-        event.getRegistry().registerAll(
-                POTION,
-                SPLASH_POTION,
-                LINGERING_POTION
-                                       );
+    public static void init() {
+        RPGItems.BAT_WING = new ItemBase(RefItemNames.BAT_WING, CreativeTabs.BREWING);
+        RPGItems.PARROT_FEATHER = new ItemBase(RefItemNames.PARROT_FEATHER, CreativeTabs.BREWING);
+        RPGItems.OBSIDIAN_DUST = new ItemBase(RefItemNames.OBSIDIAN_DUST, CreativeTabs.BREWING);
     }
 
     public static void registerOreDictionary() {
         RPGMode.logger.info("Adding ore dictionary entries");
 
         //Items
-        registerOre(RefOreDict.WING_BAT, new ItemStack(BAT_WING));
+        registerOre(RefOreDict.WING_BAT, new ItemStack(RPGItems.BAT_WING));
 
-        registerOre(RefOreDict.OBSIDIAN_DUST, new ItemStack(OBSIDIAN_DUST));
+        registerOre(RefOreDict.OBSIDIAN_DUST, new ItemStack(RPGItems.OBSIDIAN_DUST));
 
         RPGMode.logger.info(String.format("%s ore dictionary entries added", oreDictCounter));
     }

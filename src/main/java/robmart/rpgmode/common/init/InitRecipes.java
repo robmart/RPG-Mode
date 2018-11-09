@@ -28,6 +28,7 @@ import net.minecraft.potion.PotionHelper;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.common.brewing.IBrewingRecipe;
 import robmart.rpgmode.api.block.RPGBlocks;
+import robmart.rpgmode.api.item.RPGItems;
 import robmart.rpgmode.common.RPGMode;
 import robmart.rpgmode.common.recipe.brewing.BrewRecipe;
 import robmart.rpgmode.common.recipe.brewing.BrewingHelper;
@@ -55,7 +56,7 @@ public class InitRecipes {
 
         //Dexterousness
         addBrewingRecipe(
-                new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(InitItems.BAT_WING), InitPotionTypes.DEXTEROUSNESS));
+                new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(RPGItems.BAT_WING), InitPotionTypes.DEXTEROUSNESS));
         addBrewingRecipe(new BrewRecipe(InitPotionTypes.DEXTEROUSNESS, new ItemStack(Items.REDSTONE),
                                         InitPotionTypes.LONG_DEXTEROUSNESS));
         addBrewingRecipe(new BrewRecipe(InitPotionTypes.DEXTEROUSNESS, new ItemStack(Items.GLOWSTONE_DUST),
@@ -71,7 +72,7 @@ public class InitRecipes {
 
         //Fortitude
         addBrewingRecipe(
-                new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(InitItems.OBSIDIAN_DUST), InitPotionTypes.FORTITUDE));
+                new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(RPGItems.OBSIDIAN_DUST), InitPotionTypes.FORTITUDE));
         addBrewingRecipe(new BrewRecipe(InitPotionTypes.FORTITUDE, new ItemStack(Items.REDSTONE),
                                         InitPotionTypes.LONG_FORTITUDE));
         addBrewingRecipe(new BrewRecipe(InitPotionTypes.FORTITUDE, new ItemStack(Items.GLOWSTONE_DUST),
@@ -88,7 +89,7 @@ public class InitRecipes {
         //Intelligence
         addBrewingRecipe(
                 new BrewRecipe(
-                        PotionTypes.AWKWARD, new ItemStack(InitItems.PARROT_FEATHER), InitPotionTypes.INTELLIGENCE));
+                        PotionTypes.AWKWARD, new ItemStack(RPGItems.PARROT_FEATHER), InitPotionTypes.INTELLIGENCE));
         addBrewingRecipe(new BrewRecipe(InitPotionTypes.INTELLIGENCE, new ItemStack(Items.REDSTONE),
                                         InitPotionTypes.LONG_INTELLIGENCE));
         addBrewingRecipe(new BrewRecipe(InitPotionTypes.INTELLIGENCE, new ItemStack(Items.GLOWSTONE_DUST),
@@ -135,7 +136,7 @@ public class InitRecipes {
     }
 
     public static void generateRecipes() {
-        RecipeHandler.addShapelessRecipe(new ItemStack(InitItems.OBSIDIAN_DUST, 4), new ItemStack(Blocks.OBSIDIAN));
+        RecipeHandler.addShapelessRecipe(new ItemStack(RPGItems.OBSIDIAN_DUST, 4), new ItemStack(Blocks.OBSIDIAN));
         RecipeHandler.addShapedRecipe(new ItemStack(Blocks.OBSIDIAN), "##", "##", '#', "dustObsidian");
     }
 }

@@ -25,6 +25,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import robmart.rpgmode.common.init.InitItems;
+import vazkii.arl.util.ProxyRegistry;
 
 /**
  * @author Robmart
@@ -34,6 +35,7 @@ public class ItemLingeringPotionOverride extends ItemLingeringPotion {
     public ItemLingeringPotionOverride() {
         this.setUnlocalizedName("lingering_potion");
         this.setRegistryName("minecraft:lingering_potion");
+        ProxyRegistry.register(this);
     }
 
     /**

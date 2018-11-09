@@ -27,6 +27,7 @@ import net.minecraft.potion.PotionUtils;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import robmart.rpgmode.common.potion.PotionBase;
+import vazkii.arl.util.ProxyRegistry;
 
 /**
  * @author Robmart
@@ -36,6 +37,7 @@ public class ItemPotionOverride extends ItemPotion {
     public ItemPotionOverride() {
         this.setUnlocalizedName(":potion");
         this.setRegistryName("minecraft:potion");
+        ProxyRegistry.register(this);
     }
 
     /**

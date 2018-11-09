@@ -28,8 +28,8 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import robmart.rpgmode.api.item.RPGItems;
 import robmart.rpgmode.api.reference.Reference;
-import robmart.rpgmode.common.init.InitItems;
 
 import java.util.Random;
 
@@ -48,13 +48,13 @@ public class MobEventHandler {
             if (random.nextInt(10) < 3)
                 event.getDrops().add(new EntityItem(event.getEntityLiving().world, event.getEntityLiving().posX,
                                                     event.getEntityLiving().posY, event.getEntityLiving().posZ,
-                                                    new ItemStack(InitItems.BAT_WING)));
+                                                    new ItemStack(RPGItems.BAT_WING)));
 
         if (event.getEntityLiving() instanceof EntityParrot) {
             if (random.nextInt(10) < 3)
                 event.getDrops().add(new EntityItem(event.getEntityLiving().world, event.getEntityLiving().posX,
                                                     event.getEntityLiving().posY, event.getEntityLiving().posZ,
-                                                    new ItemStack(InitItems.PARROT_FEATHER)));
+                                                    new ItemStack(RPGItems.PARROT_FEATHER)));
 
             event.getDrops().removeIf(entityItem -> entityItem.getItem().getItem() == Items.FEATHER);
         }
