@@ -27,8 +27,8 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import robmart.rpgmode.api.potion.RPGPotions;
 import robmart.rpgmode.api.reference.Reference;
-import robmart.rpgmode.common.init.InitPotions;
 import robmart.rpgmode.common.potion.PotionBase;
 
 /**
@@ -56,145 +56,145 @@ public class PotionEventHandler {
         EntityLivingBase entity = event.getEntityLiving();
         NBTTagCompound persisted = entity.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
 
-        if (entity.ticksExisted % 9 == 0 && InitPotions.STRENGTH.instance != null && !entity.isDead) {
+        if (entity.ticksExisted % 9 == 0 && ((PotionBase) RPGPotions.STRENGTH).instance != null && !entity.isDead) {
             //Strength
-            if (!persisted.getBoolean(InitPotions.STRENGTH.TAG_NAME)) {
+            if (!persisted.getBoolean(((PotionBase) RPGPotions.STRENGTH).TAG_NAME)) {
                 if (entity.getEntityAttribute(PotionBase.STRENGTH).getAttributeValue() !=
                     PotionBase.STRENGTH.getDefaultValue()) {
-                    persisted.setBoolean(InitPotions.STRENGTH.TAG_NAME, true);
+                    persisted.setBoolean(((PotionBase) RPGPotions.STRENGTH).TAG_NAME, true);
                 }
             }
             else {
                 if (entity.getEntityAttribute(PotionBase.STRENGTH).getAttributeValue() ==
                     PotionBase.STRENGTH.getDefaultValue()) {
-                    persisted.setBoolean(InitPotions.STRENGTH.TAG_NAME, false);
+                    persisted.setBoolean(((PotionBase) RPGPotions.STRENGTH).TAG_NAME, false);
                 }
             }
 
             //Weakness
-            if (!persisted.getBoolean(InitPotions.WEAKNESS.TAG_NAME)) {
+            if (!persisted.getBoolean(((PotionBase) RPGPotions.WEAKNESS).TAG_NAME)) {
                 if (entity.getEntityAttribute(PotionBase.STRENGTH).getAttributeValue() !=
                     PotionBase.STRENGTH.getDefaultValue()) {
-                    persisted.setBoolean(InitPotions.WEAKNESS.TAG_NAME, true);
+                    persisted.setBoolean(((PotionBase) RPGPotions.WEAKNESS).TAG_NAME, true);
                 }
             }
             else {
                 if (entity.getEntityAttribute(PotionBase.STRENGTH).getAttributeValue() ==
                     PotionBase.STRENGTH.getDefaultValue()) {
-                    persisted.setBoolean(InitPotions.WEAKNESS.TAG_NAME, false);
+                    persisted.setBoolean(((PotionBase) RPGPotions.WEAKNESS).TAG_NAME, false);
                 }
             }
 
 
             //Dexterousness
-            if (!persisted.getBoolean(InitPotions.DEXTEROUSNESS.TAG_NAME)) {
+            if (!persisted.getBoolean(((PotionBase) RPGPotions.DEXTEROUSNESS).TAG_NAME)) {
                 if (entity.getEntityAttribute(PotionBase.DEXTEROUSNESS).getAttributeValue() !=
                     PotionBase.DEXTEROUSNESS.getDefaultValue()) {
-                    persisted.setBoolean(InitPotions.DEXTEROUSNESS.TAG_NAME, true);
+                    persisted.setBoolean(((PotionBase) RPGPotions.DEXTEROUSNESS).TAG_NAME, true);
                 }
             }
             else {
                 if (entity.getEntityAttribute(PotionBase.DEXTEROUSNESS).getAttributeValue() ==
                     PotionBase.DEXTEROUSNESS.getDefaultValue()) {
-                    persisted.setBoolean(InitPotions.DEXTEROUSNESS.TAG_NAME, false);
+                    persisted.setBoolean(((PotionBase) RPGPotions.DEXTEROUSNESS).TAG_NAME, false);
                 }
             }
 
             //Clumsiness
-            if (!persisted.getBoolean(InitPotions.CLUMSINESS.TAG_NAME)) {
+            if (!persisted.getBoolean(((PotionBase) RPGPotions.CLUMSINESS).TAG_NAME)) {
                 if (entity.getEntityAttribute(PotionBase.DEXTEROUSNESS).getAttributeValue() !=
                     PotionBase.DEXTEROUSNESS.getDefaultValue()) {
-                    persisted.setBoolean(InitPotions.CLUMSINESS.TAG_NAME, true);
+                    persisted.setBoolean(((PotionBase) RPGPotions.CLUMSINESS).TAG_NAME, true);
                 }
             }
             else {
                 if (entity.getEntityAttribute(PotionBase.DEXTEROUSNESS).getAttributeValue() ==
                     PotionBase.DEXTEROUSNESS.getDefaultValue()) {
-                    persisted.setBoolean(InitPotions.CLUMSINESS.TAG_NAME, false);
+                    persisted.setBoolean(((PotionBase) RPGPotions.CLUMSINESS).TAG_NAME, false);
                 }
             }
 
             //Fortitude
-            if (!persisted.getBoolean(InitPotions.FORTITUDE.TAG_NAME)) {
+            if (!persisted.getBoolean(((PotionBase) RPGPotions.FORTITUDE).TAG_NAME)) {
                 if (entity.getEntityAttribute(PotionBase.FORTITUDE).getAttributeValue() !=
                     PotionBase.FORTITUDE.getDefaultValue()) {
-                    persisted.setBoolean(InitPotions.FORTITUDE.TAG_NAME, true);
+                    persisted.setBoolean(((PotionBase) RPGPotions.FORTITUDE).TAG_NAME, true);
                 }
             }
             else {
                 if (entity.getEntityAttribute(PotionBase.FORTITUDE).getAttributeValue() ==
                     PotionBase.FORTITUDE.getDefaultValue()) {
-                    persisted.setBoolean(InitPotions.FORTITUDE.TAG_NAME, false);
+                    persisted.setBoolean(((PotionBase) RPGPotions.FORTITUDE).TAG_NAME, false);
                 }
             }
 
             //Lethargy
-            if (!persisted.getBoolean(InitPotions.LETHARGY.TAG_NAME)) {
+            if (!persisted.getBoolean(((PotionBase) RPGPotions.LETHARGY).TAG_NAME)) {
                 if (entity.getEntityAttribute(PotionBase.FORTITUDE).getAttributeValue() !=
                     PotionBase.FORTITUDE.getDefaultValue()) {
-                    persisted.setBoolean(InitPotions.LETHARGY.TAG_NAME, true);
+                    persisted.setBoolean(((PotionBase) RPGPotions.LETHARGY).TAG_NAME, true);
                 }
             }
             else {
                 if (entity.getEntityAttribute(PotionBase.FORTITUDE).getAttributeValue() ==
                     PotionBase.FORTITUDE.getDefaultValue()) {
-                    persisted.setBoolean(InitPotions.LETHARGY.TAG_NAME, false);
+                    persisted.setBoolean(((PotionBase) RPGPotions.LETHARGY).TAG_NAME, false);
                 }
             }
 
             //Intelligence
-            if (!persisted.getBoolean(InitPotions.INTELLIGENCE.TAG_NAME)) {
+            if (!persisted.getBoolean(((PotionBase) RPGPotions.INTELLIGENCE).TAG_NAME)) {
                 if (entity.getEntityAttribute(PotionBase.INTELLIGENCE).getAttributeValue() !=
                     PotionBase.INTELLIGENCE.getDefaultValue()) {
-                    persisted.setBoolean(InitPotions.INTELLIGENCE.TAG_NAME, true);
+                    persisted.setBoolean(((PotionBase) RPGPotions.INTELLIGENCE).TAG_NAME, true);
                 }
             }
             else {
                 if (entity.getEntityAttribute(PotionBase.INTELLIGENCE).getAttributeValue() ==
                     PotionBase.INTELLIGENCE.getDefaultValue()) {
-                    persisted.setBoolean(InitPotions.INTELLIGENCE.TAG_NAME, false);
+                    persisted.setBoolean(((PotionBase) RPGPotions.INTELLIGENCE).TAG_NAME, false);
                 }
             }
 
             //Stupidity
-            if (!persisted.getBoolean(InitPotions.STUPIDITY.TAG_NAME)) {
+            if (!persisted.getBoolean(((PotionBase) RPGPotions.STUPIDITY).TAG_NAME)) {
                 if (entity.getEntityAttribute(PotionBase.INTELLIGENCE).getAttributeValue() !=
                     PotionBase.INTELLIGENCE.getDefaultValue()) {
-                    persisted.setBoolean(InitPotions.STUPIDITY.TAG_NAME, true);
+                    persisted.setBoolean(((PotionBase) RPGPotions.STUPIDITY).TAG_NAME, true);
                 }
             }
             else {
                 if (entity.getEntityAttribute(PotionBase.INTELLIGENCE).getAttributeValue() ==
                     PotionBase.INTELLIGENCE.getDefaultValue()) {
-                    persisted.setBoolean(InitPotions.STUPIDITY.TAG_NAME, false);
+                    persisted.setBoolean(((PotionBase) RPGPotions.STUPIDITY).TAG_NAME, false);
                 }
             }
 
             //Wisdom
-            if (!persisted.getBoolean(InitPotions.WISDOM.TAG_NAME)) {
+            if (!persisted.getBoolean(((PotionBase) RPGPotions.WISDOM).TAG_NAME)) {
                 if (entity.getEntityAttribute(PotionBase.WISDOM).getAttributeValue() !=
                     PotionBase.WISDOM.getDefaultValue()) {
-                    persisted.setBoolean(InitPotions.WISDOM.TAG_NAME, true);
+                    persisted.setBoolean(((PotionBase) RPGPotions.WISDOM).TAG_NAME, true);
                 }
             }
             else {
                 if (entity.getEntityAttribute(PotionBase.WISDOM).getAttributeValue() ==
                     PotionBase.WISDOM.getDefaultValue()) {
-                    persisted.setBoolean(InitPotions.WISDOM.TAG_NAME, false);
+                    persisted.setBoolean(((PotionBase) RPGPotions.WISDOM).TAG_NAME, false);
                 }
             }
 
             //Foolishness
-            if (!persisted.getBoolean(InitPotions.FOOLISHNESS.TAG_NAME)) {
+            if (!persisted.getBoolean(((PotionBase) RPGPotions.FOOLISHNESS).TAG_NAME)) {
                 if (entity.getEntityAttribute(PotionBase.WISDOM).getAttributeValue() !=
                     PotionBase.WISDOM.getDefaultValue()) {
-                    persisted.setBoolean(InitPotions.FOOLISHNESS.TAG_NAME, true);
+                    persisted.setBoolean(((PotionBase) RPGPotions.FOOLISHNESS).TAG_NAME, true);
                 }
             }
             else {
                 if (entity.getEntityAttribute(PotionBase.WISDOM).getAttributeValue() ==
                     PotionBase.WISDOM.getDefaultValue()) {
-                    persisted.setBoolean(InitPotions.FOOLISHNESS.TAG_NAME, false);
+                    persisted.setBoolean(((PotionBase) RPGPotions.FOOLISHNESS).TAG_NAME, false);
                 }
             }
         }

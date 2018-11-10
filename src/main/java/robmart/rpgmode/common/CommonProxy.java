@@ -61,6 +61,7 @@ public abstract class CommonProxy {
         InitItems.init();
         InitBlocks.init();
         InitCapabilities.init();
+        InitPotions.init();
         MinecraftForge.EVENT_BUS.register(new ConfigurationHandler());
 
         InitRecipes.generateRecipes();

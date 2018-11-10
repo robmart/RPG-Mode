@@ -17,22 +17,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package robmart.rpgmode.common.item.block;
+package robmart.rpgmode.api.potion;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
-
-import java.util.Objects;
+import net.minecraft.potion.Potion;
 
 /**
  * @author Robmart
+ * Created on 11/10/2018
  */
-public class ItemRPGBlock extends ItemBlock {
-    public static int counter = 0;
-
-    public ItemRPGBlock(Block block) {
-        super(block);
-        this.setRegistryName(Objects.requireNonNull(block.getRegistryName()));
-        counter++;
-    }
+public class RPGPotions {
+    public static Potion LAVA;
+    public static Potion STRENGTH;
+    public static Potion WEAKNESS;
+    public static Potion DEXTEROUSNESS;
+    public static Potion CLUMSINESS;
+    public static Potion FORTITUDE;
+    public static Potion LETHARGY;
+    public static Potion INTELLIGENCE;
+    public static Potion STUPIDITY;
+    public static Potion WISDOM;
+    public static Potion FOOLISHNESS;
 }

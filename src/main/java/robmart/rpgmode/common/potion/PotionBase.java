@@ -30,6 +30,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import robmart.rpgmode.api.reference.Reference;
+import vazkii.arl.util.ProxyRegistry;
 
 import java.awt.*;
 import java.util.Objects;
@@ -86,6 +87,7 @@ public class PotionBase extends Potion {
         this.TAG_NAME = String.format("%s - %s", Reference.MOD_ID, resourceLocation.getResourcePath());
         this.useEnchantedEffect = useGlint;
         this.instance = this;
+        ProxyRegistry.register(this);
         potionCounter++;
     }
 
