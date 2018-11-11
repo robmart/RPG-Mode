@@ -26,13 +26,18 @@ import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.PotionType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import robmart.rpgmode.api.potion.RPGPotionTypes;
 import robmart.rpgmode.api.reference.Reference;
+import robmart.rpgmode.common.helper.PotionHelper;
 import vazkii.arl.util.ProxyRegistry;
 
 import java.awt.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.Objects;
 
 /**
@@ -88,6 +93,7 @@ public class PotionBase extends Potion {
         this.useEnchantedEffect = useGlint;
         this.instance = this;
         ProxyRegistry.register(this);
+        setPotionTypes();
         potionCounter++;
     }
 
@@ -132,6 +138,47 @@ public class PotionBase extends Potion {
     public PotionBase(
             final boolean isBadEffect, final int liquidR, final int liquidG, final int liquidB, final String name) {
         this(isBadEffect, liquidR, liquidG, liquidB, name, true);
+    }
+
+    public void setPotionTypes() {
+        String LONG_PREFIX = "long_";
+        String STRONG_PREFIX = "strong_";
+
+        int HELPFUL_DURATION_STANDARD = 3600;
+        int HELPFUL_DURATION_LONG = 9600;
+        int HELPFUL_DURATION_STRONG = 1800;
+
+        int HARMFUL_DURATION_STANDARD = 1800;
+        int HARMFUL_DURATION_LONG = 4800;
+        int HARMFUL_DURATION_STRONG = 900;
+
+        for (Field field : RPGPotionTypes.class.getDeclaredFields()) {
+            if (Modifier.isStatic(field.getModifiers()) && Modifier.isPublic(field.getModifiers()) &&
+                field.getType() == PotionType.class) {
+                try {
+                    if (field.getName().toLowerCase().equals(this.getName().replaceAll(".*:", "")))
+                        field.set(null, PotionHelper.createPotionType(new PotionEffect(this, isBadEffect() ?
+                                                                                             HARMFUL_DURATION_STANDARD :
+                                                                                             HELPFUL_DURATION_STANDARD)));
+
+                    else if (field.getName().toLowerCase().equals(LONG_PREFIX + this.getName().replaceAll(".*:", "")))
+                        field.set(null, PotionHelper.createPotionType(
+                                new PotionEffect(this, isBadEffect() ?
+                                                       HARMFUL_DURATION_LONG :
+                                                       HELPFUL_DURATION_LONG),
+                                LONG_PREFIX));
+
+                    else if (field.getName().toLowerCase().equals(STRONG_PREFIX + this.getName().replaceAll(".*:", "")))
+                        field.set(null, PotionHelper.createPotionType(new PotionEffect(this, isBadEffect() ?
+                                                                                             HARMFUL_DURATION_STRONG :
+                                                                                             HELPFUL_DURATION_STRONG,
+                                                                                       1), STRONG_PREFIX));
+
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @Override
