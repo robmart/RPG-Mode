@@ -25,11 +25,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import robmart.rpgmode.api.capability.attribute.IAttribute;
+import robmart.rpgmode.api.potion.RPGPotions;
 import robmart.rpgmode.common.capability.health.MaxHealthCapability;
 import robmart.rpgmode.common.capability.mana.ManaCapability;
 import robmart.rpgmode.common.network.PacketDispatcher;
 import robmart.rpgmode.common.network.SyncPlayerAttributes;
-import robmart.rpgmode.common.potion.PotionBase;
 
 /**
  * @author Robmart
@@ -104,7 +104,7 @@ public class AttributeImplementation implements IAttribute {
      */
     @Override
     public int getStrMod() {
-        return (int) entity.getEntityAttribute(PotionBase.STRENGTH).getAttributeValue();
+        return (int) entity.getEntityAttribute(RPGPotions.STRENGTH_ATTRIBUTE).getAttributeValue();
     }
 
     /**
@@ -138,7 +138,7 @@ public class AttributeImplementation implements IAttribute {
      */
     @Override
     public int getDexMod() {
-        return (int) entity.getEntityAttribute(PotionBase.DEXTEROUSNESS).getAttributeValue();
+        return (int) entity.getEntityAttribute(RPGPotions.DEXTEROUSNESS_ATTRIBUTE).getAttributeValue();
     }
 
     /**
@@ -174,7 +174,7 @@ public class AttributeImplementation implements IAttribute {
      */
     @Override
     public int getIntMod() {
-        return (int) entity.getEntityAttribute(PotionBase.INTELLIGENCE).getAttributeValue();
+        return (int) entity.getEntityAttribute(RPGPotions.INTELLIGENCE_ATTRIBUTE).getAttributeValue();
     }
 
     /**
@@ -212,7 +212,7 @@ public class AttributeImplementation implements IAttribute {
      */
     @Override
     public int getConMod() {
-        return (int) entity.getEntityAttribute(PotionBase.FORTITUDE).getAttributeValue();
+        return (int) entity.getEntityAttribute(RPGPotions.FORTITUDE_ATTRIBUTE).getAttributeValue();
     }
 
     /**
@@ -246,7 +246,7 @@ public class AttributeImplementation implements IAttribute {
      */
     @Override
     public int getWisMod() {
-        return (int) entity.getEntityAttribute(PotionBase.WISDOM).getAttributeValue();
+        return (int) entity.getEntityAttribute(RPGPotions.WISDOM_ATTRIBUTE).getAttributeValue();
     }
 
     /**

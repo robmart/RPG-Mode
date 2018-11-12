@@ -82,19 +82,24 @@ public class InitRecipes {
         addBrewingRecipe(new BrewRecipe(PotionTypes.AWKWARD,
                                         new ItemStack(RPGBlocks.HELL_FLOWER), RPGPotionTypes.FOOLISHNESS));
 
+        //Automatically makes recipes for long and strong potions
         for (Field field : RPGPotionTypes.class.getDeclaredFields()) {
+            //Finds PotionTypes in RPGPotionTypes that are public, static and long/strong
             if (Modifier.isStatic(field.getModifiers()) && Modifier.isPublic(field.getModifiers()) &&
                 field.getType() == PotionType.class && (field.getName().toLowerCase().contains(LONG_PREFIX) ||
                                                         field.getName().toLowerCase().contains(STRONG_PREFIX))) {
                 try {
                     for (Field field2 : RPGPotionTypes.class.getDeclaredFields()) {
+                        //Finds the base PotionType
                         if (field2.getName().equalsIgnoreCase(field.getName().replaceAll(".*_", ""))) {
+                            //Adds recipe for long potions
                             if (field.getName().toLowerCase().contains(LONG_PREFIX))
                                 addBrewingRecipe(new BrewRecipe(
                                         (PotionType) field2.get(null),
                                         new ItemStack(Items.REDSTONE),
                                         (PotionType) field.get(null)));
 
+                            //Adds recipe for strong potions
                             if (field.getName().toLowerCase().contains(STRONG_PREFIX))
                                 addBrewingRecipe(new BrewRecipe(
                                         (PotionType) field2.get(null),

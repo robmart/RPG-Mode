@@ -19,13 +19,32 @@
 
 package robmart.rpgmode.api.potion;
 
+import net.minecraft.entity.ai.attributes.IAttribute;
+import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.potion.Potion;
+import robmart.rpgmode.api.reference.Reference;
 
 /**
  * @author Robmart
  * Created on 11/10/2018
  */
 public class RPGPotions {
+    public static final IAttribute STRENGTH_ATTRIBUTE =
+            new RangedAttribute(null, Reference.MOD_ID + ".strength", 0,
+                                -10, 10).setDescription("Strength").setShouldWatch(true);
+    public static final IAttribute DEXTEROUSNESS_ATTRIBUTE = new
+            RangedAttribute(null, Reference.MOD_ID + ".dexterousness", 0,
+                            -10, 10).setDescription("Dexterity").setShouldWatch(true);
+    public static final IAttribute FORTITUDE_ATTRIBUTE = new
+            RangedAttribute(null, Reference.MOD_ID + ".fortitude", 0,
+                            -10, 10).setDescription("Constitution").setShouldWatch(true);
+    public static final IAttribute INTELLIGENCE_ATTRIBUTE = new
+            RangedAttribute(null, Reference.MOD_ID + ".intelligence", 0,
+                            -10, 10).setDescription("Intelligence").setShouldWatch(true);
+    public static final IAttribute WISDOM_ATTRIBUTE = new
+            RangedAttribute(null, Reference.MOD_ID + ".wisdom", 0,
+                            -10, 10).setDescription("Wisdom").setShouldWatch(true);
+    
     public static Potion LAVA;
     public static Potion STRENGTH;
     public static Potion WEAKNESS;

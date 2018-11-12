@@ -23,7 +23,6 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.ai.attributes.IAttribute;
-import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionType;
@@ -44,16 +43,6 @@ import java.util.Objects;
  * @author Robmart
  */
 public class PotionBase extends Potion {
-    public static final IAttribute STRENGTH      = (new RangedAttribute(
-            null, Reference.MOD_ID + ".strength", 0, -10, 10)).setDescription("Strength").setShouldWatch(true);
-    public static final IAttribute DEXTEROUSNESS = (new RangedAttribute(
-            null, Reference.MOD_ID + ".dexterousness", 0, -10, 10)).setDescription("Dexterity").setShouldWatch(true);
-    public static final IAttribute FORTITUDE     = (new RangedAttribute(
-            null, Reference.MOD_ID + ".fortitude", 0, -10, 10)).setDescription("Constitution").setShouldWatch(true);
-    public static final IAttribute INTELLIGENCE  = (new RangedAttribute(
-            null, Reference.MOD_ID + ".intelligence", 0, -10, 10)).setDescription("Intelligence").setShouldWatch(true);
-    public static final IAttribute WISDOM        = (new RangedAttribute(null, Reference.MOD_ID + ".wisdom", 0, -10, 10))
-            .setDescription("Wisdom").setShouldWatch(true);
 
     /**
      * Wheather the potion will "glint" or not
