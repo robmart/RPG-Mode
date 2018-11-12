@@ -20,11 +20,19 @@
 package robmart.rpgmode.api.capability.attribute;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
 
 /**
  * @author Robmart
  */
 public interface IAttribute {
+    /**
+     * The {@link Capability} instance.
+     */
+    @CapabilityInject(IAttribute.class)
+    Capability<IAttribute> ATTRIBUTE_CAPABILITY = null;
+
     /**
      * Get the strength value
      *

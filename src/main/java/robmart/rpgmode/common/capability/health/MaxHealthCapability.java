@@ -16,7 +16,6 @@ import net.minecraft.nbt.NBTTagFloat;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -34,12 +33,6 @@ import javax.annotation.Nullable;
  * @author Choonster
  */
 public final class MaxHealthCapability {
-
-    /**
-     * The {@link Capability} instance.
-     */
-    @CapabilityInject(IMaxHealth.class)
-    private static final Capability<IMaxHealth> MAX_HEALTH_CAPABILITY = null;
 
     /**
      * The default {@link EnumFacing} to use for this capability.
@@ -77,7 +70,7 @@ public final class MaxHealthCapability {
      */
     @Nullable
     public static IMaxHealth getMaxHealth(final EntityLivingBase entity) {
-        return CapabilityUtils.getCapability(entity, MAX_HEALTH_CAPABILITY, DEFAULT_FACING);
+        return CapabilityUtils.getCapability(entity, IMaxHealth.MAX_HEALTH_CAPABILITY, DEFAULT_FACING);
     }
 
     /**
@@ -88,7 +81,7 @@ public final class MaxHealthCapability {
      * @return The provider
      */
     public static ICapabilityProvider createProvider(final IMaxHealth maxHealth) {
-        return new CapabilityProviderSerializable<>(MAX_HEALTH_CAPABILITY, DEFAULT_FACING, maxHealth);
+        return new CapabilityProviderSerializable<>(IMaxHealth.MAX_HEALTH_CAPABILITY, DEFAULT_FACING, maxHealth);
     }
 
     /**

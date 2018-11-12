@@ -28,7 +28,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -52,17 +51,12 @@ public class CharacterCapability {
     /**
      * The default {@link EnumFacing} to use for this capability.
      */
-    public static final  EnumFacing             DEFAULT_FACING       = null;
+    public static final EnumFacing DEFAULT_FACING = null;
+
     /**
      * The ID of this capability.
      */
-    public static final  ResourceLocation       ID                   = new ResourceLocation(
-            Reference.MOD_ID, "Character");
-    /**
-     * The {@link Capability} instance.
-     */
-    @CapabilityInject(ICharacter.class)
-    private static final Capability<ICharacter> CHARACTER_CAPABILITY = null;
+    public static final ResourceLocation ID = new ResourceLocation(Reference.MOD_ID, "Character");
 
     private CharacterCapability() {
     }
@@ -93,7 +87,7 @@ public class CharacterCapability {
      */
     @Nullable
     public static ICharacter getCharacter(final EntityLivingBase entity) {
-        return CapabilityUtils.getCapability(entity, CHARACTER_CAPABILITY, DEFAULT_FACING);
+        return CapabilityUtils.getCapability(entity, ICharacter.CHARACTER_CAPABILITY, DEFAULT_FACING);
     }
 
     /**
@@ -104,7 +98,7 @@ public class CharacterCapability {
      * @return The provider
      */
     public static ICapabilityProvider createProvider(final ICharacter character) {
-        return new CapabilityProviderSerializable<>(CHARACTER_CAPABILITY, DEFAULT_FACING, character);
+        return new CapabilityProviderSerializable<>(ICharacter.CHARACTER_CAPABILITY, DEFAULT_FACING, character);
     }
 
     /**

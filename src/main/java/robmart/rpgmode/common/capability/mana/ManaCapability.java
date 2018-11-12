@@ -24,7 +24,6 @@ import net.minecraft.util.text.ChatType;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -44,12 +43,6 @@ import javax.annotation.Nullable;
  * @author Choonster
  */
 public final class ManaCapability {
-
-    /**
-     * The {@link Capability} instance.
-     */
-    @CapabilityInject(IMana.class)
-    private static final Capability<IMana> MANA_CAPABILITY = null;
 
     /**
      * The default {@link EnumFacing} to use for this capability.
@@ -86,7 +79,7 @@ public final class ManaCapability {
      */
     @Nullable
     public static IMana getMana(final EntityLivingBase entity) {
-        return CapabilityUtils.getCapability(entity, MANA_CAPABILITY, DEFAULT_FACING);
+        return CapabilityUtils.getCapability(entity, IMana.MANA_CAPABILITY, DEFAULT_FACING);
     }
 
     /**
@@ -97,7 +90,7 @@ public final class ManaCapability {
      * @return The provider
      */
     public static ICapabilityProvider createProvider(final IMana mana) {
-        return new CapabilityProviderSerializable<>(MANA_CAPABILITY, DEFAULT_FACING, mana);
+        return new CapabilityProviderSerializable<>(IMana.MANA_CAPABILITY, DEFAULT_FACING, mana);
     }
 
     private ManaCapability() {

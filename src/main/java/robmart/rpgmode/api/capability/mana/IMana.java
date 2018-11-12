@@ -21,11 +21,19 @@ package robmart.rpgmode.api.capability.mana;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
 
 /**
  * @author Robmart
  */
 public interface IMana {
+    /**
+     * The {@link Capability} instance.
+     */
+    @CapabilityInject(IMana.class)
+    Capability<IMana> MANA_CAPABILITY = null;
+
     /**
      * Get the max mana
      *

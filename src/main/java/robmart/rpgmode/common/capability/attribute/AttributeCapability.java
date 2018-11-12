@@ -20,7 +20,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -41,12 +40,6 @@ import javax.annotation.Nullable;
  * @author Choonster
  */
 public final class AttributeCapability {
-
-    /**
-     * The {@link Capability} instance.
-     */
-    @CapabilityInject(IAttribute.class)
-    private static final Capability<IAttribute> ATTRIBUTE_CAPABILITY = null;
 
     /**
      * The default {@link EnumFacing} to use for this capability.
@@ -84,7 +77,7 @@ public final class AttributeCapability {
      */
     @Nullable
     public static IAttribute getAttributes(final EntityLivingBase entity) {
-        return CapabilityUtils.getCapability(entity, ATTRIBUTE_CAPABILITY, DEFAULT_FACING);
+        return CapabilityUtils.getCapability(entity, IAttribute.ATTRIBUTE_CAPABILITY, DEFAULT_FACING);
     }
 
     /**
@@ -95,7 +88,7 @@ public final class AttributeCapability {
      * @return The provider
      */
     public static ICapabilityProvider createProvider(final IAttribute attribute) {
-        return new CapabilityProviderSerializable<>(ATTRIBUTE_CAPABILITY, DEFAULT_FACING, attribute);
+        return new CapabilityProviderSerializable<>(IAttribute.ATTRIBUTE_CAPABILITY, DEFAULT_FACING, attribute);
     }
 
     /**

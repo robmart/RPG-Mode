@@ -20,12 +20,20 @@
 package robmart.rpgmode.api.capability.character;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
 
 /**
  * @author Robmart
  * Created on 9/26/2018
  */
 public interface ICharacter {
+
+    /**
+     * The {@link Capability} instance.
+     */
+    @CapabilityInject(ICharacter.class)
+    Capability<ICharacter> CHARACTER_CAPABILITY = null;
 
     /**
      * Gets the amount of EXP the character currently has
