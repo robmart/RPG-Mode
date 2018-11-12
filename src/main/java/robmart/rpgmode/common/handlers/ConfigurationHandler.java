@@ -32,7 +32,7 @@ import java.io.File;
  */
 public class ConfigurationHandler {
 
-    private static Configuration config;
+    public static Configuration config;
 
     private static boolean debug = false;
     private static boolean displayManaValue   = false;
@@ -88,9 +88,6 @@ public class ConfigurationHandler {
 
     public static void save() {
         config.save();
-    }
-
-    private ConfigurationHandler() {
     }
 
     public static class ConfigChangeListener {
