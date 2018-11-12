@@ -40,22 +40,18 @@ import java.util.List;
  * @author Robmart
  */
 public class CommandRestore extends CommandBase {
-    private final String name            = "restore";
-    private final int    permissionLevel = 2;
-    private final String commandUsage    = "commands." + Reference.MOD_ID.toLowerCase() + ".restore.usage";
+    private static final String NAME             = "restore";
+    private static final int    PERMISSION_LEVEL = 2;
+    private static final String COMMAND_USAGE    = "commands." + Reference.MOD_ID.toLowerCase() + ".restore.usage";
 
     @Override
     public String getName() {
-        return name;
-    }
-
-    public int getPermissionLevel() {
-        return permissionLevel;
+        return NAME;
     }
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return commandUsage;
+        return COMMAND_USAGE;
     }
 
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
@@ -63,7 +59,7 @@ public class CommandRestore extends CommandBase {
         IMana mana;
 
         if (args.length > 1)
-            throw new WrongUsageException(commandUsage);
+            throw new WrongUsageException(COMMAND_USAGE);
         else if (args.length == 1)
             player = getPlayer(server, sender, args[0]);
         else
@@ -74,7 +70,7 @@ public class CommandRestore extends CommandBase {
         mana.restoreMana();
         player.getFoodStats().addStats(20, 20);
 
-        Potion effects[] = new Potion[player.getActivePotionEffects().toArray().length];
+        Potion[] effects = new Potion[player.getActivePotionEffects().toArray().length];
         for (int i = 0; i < player.getActivePotionEffects().toArray().length; i++)
             effects[i] = ((PotionEffect) player.getActivePotionEffects().toArray()[i]).getPotion();
         for (Potion potion : effects)
@@ -87,6 +83,11 @@ public class CommandRestore extends CommandBase {
             notifyCommandListener(sender, this, "commands.rpgmode.restore.success2", player.getName());
     }
 
+    public int getPermissionLevel() {
+        return PERMISSION_LEVEL;
+    }
+
+    @Override
     public List<String> getTabCompletions(
             MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
         return args.length == 1 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) :

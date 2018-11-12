@@ -43,4 +43,7 @@ public class CapabilityUtils {
                (entity instanceof EntityPlayer || entity.isCreatureType(EnumCreatureType.MONSTER, false) ||
                 RPGModeAPI.shouldMobHaveAttributes(entity.getClass()));
     }
+
+    private CapabilityUtils() {
+    }
 }

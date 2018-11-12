@@ -38,22 +38,18 @@ import java.util.List;
  * @author Robmart
  */
 public class CommandManaInfo extends CommandBase {
-    protected final String name            = "manainfo";
-    private final   int    permissionLevel = 1;
-    private final   String commandUsage    = "commands." + Reference.MOD_ID.toLowerCase() + ".manainfo.usage";
+    protected static final String NAME             = "manainfo";
+    private static final   int    PERMISSION_LEVEL = 1;
+    private static final   String COMMAND_USAGE    = "commands." + Reference.MOD_ID.toLowerCase() + ".manainfo.usage";
 
     @Override
     public String getName() {
-        return name;
-    }
-
-    public int getPermissionLevel() {
-        return permissionLevel;
+        return NAME;
     }
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return commandUsage;
+        return COMMAND_USAGE;
     }
 
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
@@ -62,7 +58,7 @@ public class CommandManaInfo extends CommandBase {
         String[] info;
 
         if (args.length > 2 || args.length == 0)
-            throw new WrongUsageException(commandUsage);
+            throw new WrongUsageException(COMMAND_USAGE);
         else if (args.length == 2)
             player = getPlayer(server, sender, args[1]);
         else
@@ -72,15 +68,17 @@ public class CommandManaInfo extends CommandBase {
         info = getInfoFromString(args[0], mana);
 
         if (info == null)
-            throw new WrongUsageException(commandUsage);
+            throw new WrongUsageException(COMMAND_USAGE);
 
         notifyCommandListener(sender, this, "commands.rpgmode.manainfo.success", player.getName(), info[0], info[1]);
     }
 
+    public int getPermissionLevel() {
+        return PERMISSION_LEVEL;
+    }
+
     private String[] getInfoFromString(String string, IMana mana) {
         switch (string.toLowerCase()) {
-            case "mana":
-                return new String[] {"mana", floatToString(mana.getMana())};
             case "m":
                 return getInfoFromString("mana", mana);
             case "maxmana":
@@ -95,19 +93,21 @@ public class CommandManaInfo extends CommandBase {
                 return new String[] {"regeneration amount", floatToString(mana.getRegenAmount())};
             case "amount":
                 return getInfoFromString("regenamount", mana);
+            default:
+                return new String[] {"mana", floatToString(mana.getMana())};
         }
-        return null;
     }
 
     private String floatToString(float value) {
         return String.valueOf(value);
     }
 
+    @Override
     public List<String> getTabCompletions(
             MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
-        return args.length == 1 ?
-               getListOfStringsMatchingLastWord(args, "mana", "maxmana", "regenspeed", "regenamount") :
-               (args.length == 2 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) :
+        if (args.length == 1)
+            return getListOfStringsMatchingLastWord(args, "mana", "maxmana", "regenspeed", "regenamount");
+        return (args.length == 2 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) :
                 Collections.emptyList());
     }
 }

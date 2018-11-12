@@ -18,11 +18,11 @@ import javax.annotation.Nullable;
 /**
  * @author Choonster
  */
-public class CapabilityProvider<HANDLER> implements ICapabilitySerializable<NBTBase> {
+public class CapabilityProvider<T> implements ICapabilitySerializable<NBTBase> {
     /**
      * The {@link Capability} instance to provide the handler for.
      */
-    private final Capability<HANDLER> capability;
+    private final Capability<T> capability;
 
     /**
      * The {@link EnumFacing} to provide the handler for.
@@ -32,7 +32,7 @@ public class CapabilityProvider<HANDLER> implements ICapabilitySerializable<NBTB
     /**
      * The handler instance to provide.
      */
-    private final HANDLER instance;
+    private final T instance;
 
     /**
      * Create a provider for the default handler instance.
@@ -40,7 +40,7 @@ public class CapabilityProvider<HANDLER> implements ICapabilitySerializable<NBTB
      * @param capability The Capability instance to provide the handler for
      * @param facing     The EnumFacing to provide the handler for
      */
-    public CapabilityProvider(Capability<HANDLER> capability, @Nullable EnumFacing facing) {
+    public CapabilityProvider(Capability<T> capability, @Nullable EnumFacing facing) {
         this(capability, facing, capability.getDefaultInstance());
     }
 
@@ -51,7 +51,7 @@ public class CapabilityProvider<HANDLER> implements ICapabilitySerializable<NBTB
      * @param facing     The EnumFacing to provide the handler for
      * @param instance   The handler instance to provide
      */
-    public CapabilityProvider(Capability<HANDLER> capability, @Nullable EnumFacing facing, HANDLER instance) {
+    public CapabilityProvider(Capability<T> capability, @Nullable EnumFacing facing, T instance) {
         this.capability = capability;
         this.instance = instance;
         this.facing = facing;
@@ -114,7 +114,7 @@ public class CapabilityProvider<HANDLER> implements ICapabilitySerializable<NBTB
      *
      * @return The Capability instance
      */
-    public final Capability<HANDLER> getCapability() {
+    public final Capability<T> getCapability() {
         return capability;
     }
 
@@ -133,7 +133,7 @@ public class CapabilityProvider<HANDLER> implements ICapabilitySerializable<NBTB
      *
      * @return The handler instance
      */
-    public final HANDLER getInstance() {
+    public final T getInstance() {
         return instance;
     }
 }

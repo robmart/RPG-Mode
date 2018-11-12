@@ -117,10 +117,10 @@ public class CommandAttributeInfo extends CommandBase {
     @Override
     public List<String> getTabCompletions(
             MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
-        return args.length == 1 ?
-               getListOfStringsMatchingLastWord(args, "strength", "dexterity", "intelligence", "constitution", "wisdom",
-                                                "attributepoints") :
-               (args.length == 2 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) :
+        if (args.length == 1)
+            return getListOfStringsMatchingLastWord(args, "strength", "dexterity", "intelligence",
+                                                    "constitution", "wisdom", "attributepoints");
+        return (args.length == 2 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) :
                 Collections.emptyList());
     }
 }

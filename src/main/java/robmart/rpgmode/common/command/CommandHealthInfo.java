@@ -36,22 +36,18 @@ import java.util.List;
  * @author Robmart
  */
 public class CommandHealthInfo extends CommandBase {
-    protected final String name            = "healthinfo";
-    private final   int    permissionLevel = 1;
-    private final   String commandUsage    = "commands." + Reference.MOD_ID.toLowerCase() + ".healthinfo.usage";
+    protected static final String NAME             = "healthinfo";
+    private static final   int    PERMISSION_LEVEL = 1;
+    private static final   String COMMAND_USAGE    = "commands." + Reference.MOD_ID.toLowerCase() + ".healthinfo.usage";
 
     @Override
     public String getName() {
-        return name;
-    }
-
-    public int getPermissionLevel() {
-        return permissionLevel;
+        return NAME;
     }
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return commandUsage;
+        return COMMAND_USAGE;
     }
 
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
@@ -59,7 +55,7 @@ public class CommandHealthInfo extends CommandBase {
         String[] info;
 
         if (args.length > 2 || args.length == 0)
-            throw new WrongUsageException(commandUsage);
+            throw new WrongUsageException(COMMAND_USAGE);
         else if (args.length == 2)
             player = getPlayer(server, sender, args[1]);
         else
@@ -68,33 +64,38 @@ public class CommandHealthInfo extends CommandBase {
         info = getInfoFromString(args[0], player);
 
         if (info == null)
-            throw new WrongUsageException(commandUsage);
+            throw new WrongUsageException(COMMAND_USAGE);
 
         notifyCommandListener(sender, this, "commands.rpgmode.healthinfo.success", player.getName(), info[0], info[1]);
     }
 
+    public int getPermissionLevel() {
+        return PERMISSION_LEVEL;
+    }
+
     private String[] getInfoFromString(String string, EntityPlayer player) {
         switch (string.toLowerCase()) {
-            case "health":
-                return new String[] {"health", floatToString(player.getHealth())};
             case "h":
                 return getInfoFromString("health", player);
             case "maxhealth":
                 return new String[] {"max health", floatToString(player.getMaxHealth())};
             case "max":
                 return getInfoFromString("maxhealth", player);
+            default:
+                return new String[] {"health", floatToString(player.getHealth())};
         }
-        return null;
     }
 
     private String floatToString(float value) {
         return String.valueOf(value);
     }
 
+    @Override
     public List<String> getTabCompletions(
             MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
-        return args.length == 1 ? getListOfStringsMatchingLastWord(args, "health", "maxhealth") :
-               (args.length == 2 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) :
+        if (args.length == 1)
+            return getListOfStringsMatchingLastWord(args, "health", "maxhealth");
+        return (args.length == 2 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) :
                 Collections.emptyList());
     }
 }

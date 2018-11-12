@@ -25,7 +25,7 @@ public class RegistryHelper {
      * Get an entry from the provided registry.
      *
      * @param registry The registry
-     * @param name     The name of the entry
+     * @param name     The NAME of the entry
      * @param <T>      The registry type
      *
      * @return The registry entry

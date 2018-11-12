@@ -38,22 +38,18 @@ import java.util.List;
  * @author Robmart
  */
 public class CommandSetMana extends CommandBase {
-    public String name            = "setmana";
-    public int    permissionLevel = 2;
-    String commandUsage = "commands." + Reference.MOD_ID.toLowerCase() + ".setmana.usage";
+    private static final String NAME             = "setmana";
+    private static final int    PERMISSION_LEVEL = 2;
+    private static final String COMMAND_USAGE    = "commands." + Reference.MOD_ID.toLowerCase() + ".setmana.usage";
 
     @Override
     public String getName() {
-        return name;
-    }
-
-    public int getPermissionLevel() {
-        return permissionLevel;
+        return NAME;
     }
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return commandUsage;
+        return COMMAND_USAGE;
     }
 
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
@@ -62,7 +58,7 @@ public class CommandSetMana extends CommandBase {
         String[] info;
 
         if (args.length > 3 || args.length == 1 || args.length == 0)
-            throw new WrongUsageException(commandUsage);
+            throw new WrongUsageException(COMMAND_USAGE);
         else if (args.length == 3)
             player = getPlayer(server, sender, args[2]);
         else
@@ -74,7 +70,7 @@ public class CommandSetMana extends CommandBase {
         info = getInfoFromString(args[0], mana);
 
         if (info == null)
-            throw new WrongUsageException(commandUsage);
+            throw new WrongUsageException(COMMAND_USAGE);
 
         notifyCommandListener(player, this, "commands.rpgmode.setmana.success1", info[0], info[1]);
 
@@ -83,10 +79,12 @@ public class CommandSetMana extends CommandBase {
                     sender, this, "commands.rpgmode.setmana.success2", player.getName(), info[0], info[1]);
     }
 
+    public int getPermissionLevel() {
+        return PERMISSION_LEVEL;
+    }
+
     private String[] getInfoFromString(String string, IMana mana) {
         switch (string.toLowerCase()) {
-            case "mana":
-                return new String[] {"mana", floatToString(mana.getMana())};
             case "m":
                 return getInfoFromString("mana", mana);
             case "maxmana":
@@ -101,15 +99,13 @@ public class CommandSetMana extends CommandBase {
                 return new String[] {"regeneration amount", floatToString(mana.getRegenAmount())};
             case "amount":
                 return getInfoFromString("regenamount", mana);
+            default:
+                return new String[] {"mana", floatToString(mana.getMana())};
         }
-        return null;
     }
 
     private void setMana(String string, float amount, IMana mana) {
         switch (string.toLowerCase()) {
-            case "mana":
-                mana.setMana(amount, true);
-                break;
             case "m":
                 setMana("mana", amount, mana);
                 break;
@@ -131,6 +127,9 @@ public class CommandSetMana extends CommandBase {
             case "amount":
                 setMana("regenamount", amount, mana);
                 break;
+            default:
+                mana.setMana(amount, true);
+                break;
         }
     }
 
@@ -138,11 +137,12 @@ public class CommandSetMana extends CommandBase {
         return String.valueOf(value);
     }
 
+    @Override
     public List<String> getTabCompletions(
             MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
-        return args.length == 1 ?
-               getListOfStringsMatchingLastWord(args, "mana", "maxmana", "regenspeed", "regenamount") :
-               (args.length == 3 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) :
+        if (args.length == 1)
+            return getListOfStringsMatchingLastWord(args, "mana", "maxmana", "regenspeed", "regenamount");
+        return (args.length == 3 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) :
                 Collections.emptyList());
     }
 }

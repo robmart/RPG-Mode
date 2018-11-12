@@ -19,12 +19,12 @@ import javax.annotation.Nullable;
  *
  * @author Choonster
  */
-public class CapabilityProviderSimple<HANDLER> implements ICapabilityProvider {
+public class CapabilityProviderSimple<T> implements ICapabilityProvider {
 
     /**
      * The {@link Capability} instance to provide the handler for.
      */
-    protected final Capability<HANDLER> capability;
+    protected final Capability<T> capability;
 
     /**
      * The {@link EnumFacing} to provide the handler for.
@@ -34,16 +34,19 @@ public class CapabilityProviderSimple<HANDLER> implements ICapabilityProvider {
     /**
      * The handler instance to provide.
      */
-    protected final HANDLER instance;
+    protected final T instance;
 
+    /**
+     * @deprecated
+     */
     @Deprecated
     public CapabilityProviderSimple(
-            @Nullable final HANDLER instance, final Capability<HANDLER> capability, @Nullable final EnumFacing facing) {
+            @Nullable final T instance, final Capability<T> capability, @Nullable final EnumFacing facing) {
         this(capability, facing, instance);
     }
 
     public CapabilityProviderSimple(
-            final Capability<HANDLER> capability, @Nullable final EnumFacing facing, @Nullable final HANDLER instance) {
+            final Capability<T> capability, @Nullable final EnumFacing facing, @Nullable final T instance) {
         this.capability = capability;
         this.facing = facing;
         this.instance = instance;
@@ -97,7 +100,7 @@ public class CapabilityProviderSimple<HANDLER> implements ICapabilityProvider {
      * @return The handler instance
      */
     @Nullable
-    public final HANDLER getInstance() {
+    public final T getInstance() {
         return instance;
     }
 
@@ -106,7 +109,7 @@ public class CapabilityProviderSimple<HANDLER> implements ICapabilityProvider {
      *
      * @return The Capability instance
      */
-    public final Capability<HANDLER> getCapability() {
+    public final Capability<T> getCapability() {
         return capability;
     }
 

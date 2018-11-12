@@ -95,6 +95,9 @@ public class BlockRPGBush extends BlockBush implements IRPGBlock {
         }
     }
 
+    /**
+     * @deprecated
+     */
     @Deprecated
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {

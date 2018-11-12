@@ -19,7 +19,6 @@
 
 package robmart.rpgmode.common.network;
 
-import com.google.common.base.Throwables;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.PacketBuffer;
@@ -56,16 +55,7 @@ public abstract class AbstractMessage<T extends AbstractMessage<T>> implements I
      */
     public abstract void process(EntityPlayer player, Side side);
 
-    //=====================================================================//
-    /*
-     * Make the implementation final so child classes don't need to bother
-     * with it, since the message class shouldn't have anything to do with
-     * the handler. This is simply to avoid having to have:
-     *
-     * public static class Handler extends GenericMessageHandler<OpenGuiMessage> {}
-     *
-     * in every single message class for the sole purpose of registration.
-     */
+
     @Override
     public final IMessage onMessage(T msg, MessageContext ctx) {
         if (!msg.isValidOnSide(ctx.side)) {
@@ -93,7 +83,7 @@ public abstract class AbstractMessage<T extends AbstractMessage<T>> implements I
         try {
             read(new PacketBuffer(buffer));
         } catch (IOException e) {
-            throw Throwables.propagate(e);
+            RPGMode.logger.error(e);
         }
     }
 
@@ -102,7 +92,7 @@ public abstract class AbstractMessage<T extends AbstractMessage<T>> implements I
         try {
             write(new PacketBuffer(buffer));
         } catch (IOException e) {
-            throw Throwables.propagate(e);
+            RPGMode.logger.error(e);
         }
     }
 
@@ -128,7 +118,7 @@ public abstract class AbstractMessage<T extends AbstractMessage<T>> implements I
     /**
      * Messages that can only be sent from the server to the client should use this class
      */
-    public static abstract class AbstractClientMessage<T extends AbstractMessage<T>> extends AbstractMessage<T> {
+    public abstract static class AbstractClientMessage<T extends AbstractMessage<T>> extends AbstractMessage<T> {
         @Override
         protected final boolean isValidOnSide(Side side) {
             return side.isClient();
@@ -138,7 +128,7 @@ public abstract class AbstractMessage<T extends AbstractMessage<T>> implements I
     /**
      * Messages that can only be sent from the client to the server should use this class
      */
-    public static abstract class AbstractServerMessage<T extends AbstractMessage<T>> extends AbstractMessage<T> {
+    public abstract static class AbstractServerMessage<T extends AbstractMessage<T>> extends AbstractMessage<T> {
         @Override
         protected final boolean isValidOnSide(Side side) {
             return side.isServer();

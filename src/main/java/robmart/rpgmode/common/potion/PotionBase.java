@@ -176,9 +176,9 @@ public class PotionBase extends Potion {
     }
 
     /**
-     * Set the registry name of {@code potion} to {@code potionName} and the unlocalised name to the full registry name.
+     * Set the registry NAME of {@code potion} to {@code potionName} and the unlocalised NAME to the full registry NAME.
      *
-     * @param potionName The potion's name
+     * @param potionName The potion's NAME
      */
     public Potion setPotionName(final String potionName) {
         this.setRegistryName(potionName);

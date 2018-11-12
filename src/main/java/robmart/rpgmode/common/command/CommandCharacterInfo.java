@@ -39,18 +39,19 @@ import java.util.List;
  * Created on 9/30/2018
  */
 public class CommandCharacterInfo extends CommandBase {
-    protected final String name = "characterinfo";
-    private final   int    permissionLevel = 1;
-    private final   String commandUsage = "commands." + Reference.MOD_ID.toLowerCase() + ".characterinfo.usage";
+    protected static final String NAME             = "characterinfo";
+    private static final   int    PERMISSION_LEVEL = 1;
+    private static final   String COMMAND_USAGE    = "commands." + Reference.MOD_ID.toLowerCase() +
+                                                     ".characterinfo.usage";
 
     @Override
     public String getName() {
-        return name;
+        return NAME;
     }
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return commandUsage;
+        return COMMAND_USAGE;
     }
 
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
@@ -59,7 +60,7 @@ public class CommandCharacterInfo extends CommandBase {
         String[] info;
 
         if (args.length > 2 || args.length == 0)
-            throw new WrongUsageException(commandUsage);
+            throw new WrongUsageException(COMMAND_USAGE);
         else if (args.length == 2)
             player = getPlayer(server, sender, args[1]);
         else
@@ -69,20 +70,18 @@ public class CommandCharacterInfo extends CommandBase {
         info = getInfoFromString(args[0], character);
 
         if (info == null)
-            throw new WrongUsageException(commandUsage);
+            throw new WrongUsageException(COMMAND_USAGE);
 
         notifyCommandListener(
                 sender, this, "commands.rpgmode.characterinfo.success", player.getName(), info[0], info[1]);
     }
 
     public int getPermissionLevel() {
-        return permissionLevel;
+        return PERMISSION_LEVEL;
     }
 
     private String[] getInfoFromString(String string, ICharacter character) {
         switch (string.toLowerCase()) {
-            case "level":
-                return new String[] {"level", floatToString(character.getLevel())};
             case "lvl":
                 return getInfoFromString("level", character);
             case "experience":
@@ -97,19 +96,21 @@ public class CommandCharacterInfo extends CommandBase {
                 return new String[] {"total experience", floatToString(character.getTotalEXP())};
             case "total":
                 return getInfoFromString("totalexp", character);
+            default:
+                return new String[] {"level", floatToString(character.getLevel())};
         }
-        return null;
     }
 
     private String floatToString(float value) {
         return String.valueOf(value);
     }
 
+    @Override
     public List<String> getTabCompletions(
             MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
-        return args.length == 1 ?
-               getListOfStringsMatchingLastWord(args, "level", "experience", "exprequired", "totalexp") :
-               (args.length == 2 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) :
+        if (args.length == 1)
+            return getListOfStringsMatchingLastWord(args, "level", "experience", "exprequired", "totalexp");
+        return (args.length == 2 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) :
                 Collections.emptyList());
     }
 }

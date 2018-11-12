@@ -115,16 +115,15 @@ public class CharacterCapability {
          */
         @SubscribeEvent
         public static void attachCapabilities(final AttachCapabilitiesEvent<Entity> event) {
-            if (event.getObject() instanceof EntityLivingBase) {
-                if (CapabilityUtils.shouldHaveAttribute(event.getObject())) {
-                    ICharacter character;
-                    if (event.getObject() instanceof EntityPlayer) {
-                        character = new PlayerCharacterImplementation((EntityPlayer) event.getObject());
-                    }
-                    else
-                        character = new MobCharacterImplementation((EntityLivingBase) event.getObject());
-                    event.addCapability(ID, createProvider(character));
+            if (event.getObject() instanceof EntityLivingBase &&
+                CapabilityUtils.shouldHaveAttribute(event.getObject())) {
+                ICharacter character;
+                if (event.getObject() instanceof EntityPlayer) {
+                    character = new PlayerCharacterImplementation((EntityPlayer) event.getObject());
                 }
+                else
+                    character = new MobCharacterImplementation((EntityLivingBase) event.getObject());
+                event.addCapability(ID, createProvider(character));
             }
         }
 

@@ -38,7 +38,7 @@ public class MaxHealthImplementation implements IMaxHealth {
     protected static final UUID MODIFIER_ID = UUID.fromString("a0aab9c7-15f0-40fd-a5ac-f2987668b683");
 
     /**
-     * The name of the {@link AttributeModifier}.
+     * The NAME of the {@link AttributeModifier}.
      */
     protected static final String MODIFIER_NAME = "Bonus Max Health";
 

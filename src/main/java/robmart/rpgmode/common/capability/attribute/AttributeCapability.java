@@ -158,16 +158,14 @@ public final class AttributeCapability {
         @SubscribeEvent
         public static void moveEntity(LivingEvent.LivingUpdateEvent event) {
             if (CapabilityUtils.shouldHaveAttribute(event.getEntity())) {
-                EntityLivingBase Entity = (EntityLivingBase) event.getEntity();
-                if (Entity.world.isRemote) {
-                    if ((Entity.onGround || (Entity instanceof EntityPlayer && ((EntityPlayer) Entity).capabilities
-                            .isFlying)) && Entity.moveForward > 0F &&
-                        !Entity.isInsideOfMaterial(Material.WATER)) {
-                        Entity.moveRelative(
+                EntityLivingBase entity = (EntityLivingBase) event.getEntity();
+                if (entity.world.isRemote && (entity.onGround || (entity instanceof EntityPlayer &&
+                                                                  ((EntityPlayer) entity).capabilities.isFlying)) &&
+                    entity.moveForward > 0F && !entity.isInsideOfMaterial(Material.WATER)) {
+                    entity.moveRelative(
                                 0F, 0F, 1F, MathHelper.diminishingReturns(
-                                        getAttributes(Entity).getConstitution(true) +
-                                        getAttributes(Entity).getDexterity(true), 0.00002f) - 0.01f);
-                    }
+                                    (float) getAttributes(entity).getConstitution(true) +
+                                    getAttributes(entity).getDexterity(true), 0.00002f) - 0.01f);
                 }
             }
         }
