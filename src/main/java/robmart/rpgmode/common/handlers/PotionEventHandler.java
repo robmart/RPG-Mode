@@ -59,7 +59,6 @@ public class PotionEventHandler {
 
     @SubscribeEvent
     public static void inLivingUpdate(LivingEvent.LivingUpdateEvent event) {
-        //TODO: make this less cluttered
         EntityLivingBase entity = event.getEntityLiving();
         NBTTagCompound persisted = entity.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
 
