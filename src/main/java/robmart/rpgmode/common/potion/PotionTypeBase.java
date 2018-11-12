@@ -31,8 +31,8 @@ import javax.annotation.Nullable;
  */
 public class PotionTypeBase extends PotionType {
 
-    public PotionTypeBase(@Nullable String p_i46740_1_, PotionEffect... p_i46740_2_) {
-        super(p_i46740_1_, p_i46740_2_);
+    public PotionTypeBase(@Nullable String baseName, PotionEffect... effects) {
+        super(baseName, effects);
 
         ProxyRegistry.register(this);
     }
