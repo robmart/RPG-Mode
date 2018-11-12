@@ -19,11 +19,8 @@
 
 package robmart.rpgmode.client.handlers;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.gui.inventory.GuiInventory;
-import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -31,7 +28,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import robmart.rpgmode.api.reference.Reference;
 import robmart.rpgmode.client.gui.GuiCharacterButton;
-import robmart.rpgmode.client.gui.GuiContainerCreativeOverride;
 
 /**
  * @author Robmart
@@ -42,12 +38,6 @@ import robmart.rpgmode.client.gui.GuiContainerCreativeOverride;
 public class GuiEventHandler {
 
     private GuiEventHandler() {
-    }
-
-    @SubscribeEvent
-    public static void onGuiOpen(GuiOpenEvent event) {
-        if (event.getGui() instanceof GuiContainerCreative)
-            event.setGui(new GuiContainerCreativeOverride(Minecraft.getMinecraft().player));
     }
 
     @SubscribeEvent

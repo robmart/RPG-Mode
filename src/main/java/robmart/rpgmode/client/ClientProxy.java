@@ -20,17 +20,14 @@
 package robmart.rpgmode.client;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IThreadListener;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import robmart.rpgmode.client.gui.GuiContainerCreativeOverride;
 import robmart.rpgmode.client.init.InitGui;
 import robmart.rpgmode.common.CommonProxy;
-import robmart.rpgmode.common.creativetab.CreativeTabBrewing;
 
 /**
  * @author Robmart
@@ -44,7 +41,6 @@ public class ClientProxy extends CommonProxy {
         super.init(event);
 
         InitGui.init();
-        GuiContainerCreativeOverride.addCreativeTabReplacement(CreativeTabs.BREWING, CreativeTabBrewing.instance);
     }
 
     @Override

@@ -31,7 +31,9 @@ import javax.annotation.Nullable;
 public class PotionLava extends PotionBase {
 
     public PotionLava() {
-        super(true, -2860526, RefPotionNames.LAVA, false);
+        super(true, -2860526, RefPotionNames.LAVA);
+        this.setUseEnchantedEffect(false);
+        this.setShouldHaveSpecialPotions(false);
     }
 
     @Override

@@ -95,7 +95,7 @@ public class EventHandler {
                             event.getEntityPlayer().posZ, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F,
                             1.0F);
             ItemHelper.turnBottleIntoItem(event.getItemStack(), event.getEntityPlayer(),
-                                          PotionHelper.getItemStackOfPotion(Items.POTIONITEM, RPGPotionTypes.lava));
+                                          PotionHelper.getItemStackOfPotion(Items.POTIONITEM, RPGPotionTypes.LAVA));
         }
     }
 }

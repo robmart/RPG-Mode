@@ -19,12 +19,19 @@
 
 package robmart.rpgmode.common.item;
 
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.PotionTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemLingeringPotion;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.PotionType;
+import net.minecraft.potion.PotionUtils;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import robmart.rpgmode.common.init.InitItems;
+import robmart.rpgmode.common.potion.PotionBase;
 import vazkii.arl.util.ProxyRegistry;
 
 /**
@@ -36,6 +43,25 @@ public class ItemLingeringPotionOverride extends ItemLingeringPotion {
         this.setUnlocalizedName("lingering_potion");
         this.setRegistryName("minecraft:lingering_potion");
         ProxyRegistry.register(this);
+    }
+
+    @Override
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+        if (this.isInCreativeTab(tab)) {
+            for (PotionType potiontype : PotionType.REGISTRY) {
+                boolean shouldHaveSpecial = true;
+                for (PotionEffect potionEffect : potiontype.getEffects())
+                    if (potionEffect.getPotion() instanceof PotionBase &&
+                        !((PotionBase) potionEffect.getPotion()).getShouldHaveSpecialPotions()) {
+                        shouldHaveSpecial = false;
+                        break;
+                    }
+
+                if (potiontype != PotionTypes.EMPTY && shouldHaveSpecial) {
+                    items.add(PotionUtils.addPotionToItemStack(new ItemStack(this), potiontype));
+                }
+            }
+        }
     }
 
     /**

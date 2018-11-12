@@ -60,35 +60,35 @@ public class InitRecipes {
 
         //Dexterousness
         addBrewingRecipe(
-                new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(RPGItems.batWing), RPGPotionTypes.dexterousness));
+                new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(RPGItems.batWing), RPGPotionTypes.DEXTEROUSNESS));
 
         //Clumsiness
         addBrewingRecipe(
-                new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(Items.ROTTEN_FLESH), RPGPotionTypes.clumsiness));
+                new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(Items.ROTTEN_FLESH), RPGPotionTypes.CLUMSINESS));
 
         //Fortitude
         addBrewingRecipe(
-                new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(RPGItems.obsidianDust), RPGPotionTypes.fortitude));
+                new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(RPGItems.obsidianDust), RPGPotionTypes.FORTITUDE));
 
         //Lethargy
         addBrewingRecipe(new BrewRecipe(PotionTypes.AWKWARD,
-                                        new ItemStack(Items.DYE, 1, 15), RPGPotionTypes.lethargy));
+                                        new ItemStack(Items.DYE, 1, 15), RPGPotionTypes.LETHARGY));
 
         //Intelligence
         addBrewingRecipe(new BrewRecipe(PotionTypes.AWKWARD,
-                                        new ItemStack(RPGItems.parrotFeather), RPGPotionTypes.intelligence));
+                                        new ItemStack(RPGItems.parrotFeather), RPGPotionTypes.INTELLIGENCE));
         //Stupidity
         addBrewingRecipe(new BrewRecipe(
                 PotionTypes.AWKWARD,
-                PotionHelper.getItemStackOfPotion(Items.POTIONITEM, RPGPotionTypes.lava),
-                RPGPotionTypes.stupidity));
+                PotionHelper.getItemStackOfPotion(Items.POTIONITEM, RPGPotionTypes.LAVA),
+                RPGPotionTypes.STUPIDITY));
 
         //Wisdom
-        addBrewingRecipe(new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(Items.APPLE), RPGPotionTypes.wisdom));
+        addBrewingRecipe(new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(Items.APPLE), RPGPotionTypes.WISDOM));
 
         //Foolishness
         addBrewingRecipe(new BrewRecipe(PotionTypes.AWKWARD,
-                                        new ItemStack(RPGBlocks.hellFlower), RPGPotionTypes.foolishness));
+                                        new ItemStack(RPGBlocks.hellFlower), RPGPotionTypes.FOOLISHNESS));
 
         //Automatically makes recipes for long and strong potions
         for (Field field : RPGPotionTypes.class.getDeclaredFields()) {

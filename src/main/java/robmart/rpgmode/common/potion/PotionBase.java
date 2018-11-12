@@ -46,9 +46,14 @@ import java.util.Objects;
 public class PotionBase extends Potion {
 
     /**
-     * Wheather the potion will "glint" or not
+     * Whether the potion will "glint" or not
      */
-    public boolean useEnchantedEffect;
+    private boolean useEnchantedEffect = true;
+
+    /**
+     * Whether the potion will have special alternatives (splash and linger)
+     */
+    private boolean shouldHaveSpecialPotions = true;
 
     /**
      * The instance of the potion
@@ -65,8 +70,14 @@ public class PotionBase extends Potion {
      */
     private final ResourceLocation iconTexture;
 
-    //TODO: Fix the horrible constructors... Good lord
-    public PotionBase(final boolean isBadEffect, final int liquidColor, final String name, boolean useGlint) {
+    public PotionBase(
+            final boolean isBadEffect, final int liquidColor, final String name, IAttribute attribute,
+            String UUID, double amount, int operation) {
+        this(isBadEffect, liquidColor, name);
+        this.registerPotionAttributeModifier(attribute, UUID, amount, operation);
+    }
+
+    public PotionBase(final boolean isBadEffect, final int liquidColor, final String name) {
         super(isBadEffect, liquidColor);
         if (!isBadEffect)
             this.setBeneficial();
@@ -76,41 +87,53 @@ public class PotionBase extends Potion {
         this.iconTexture = new ResourceLocation(Reference.MOD_ID, "textures/gui/icons/" +
                                                                   resourceLocation.getResourcePath() + ".png");
         this.tagName = String.format("%s - %s", Reference.MOD_ID, resourceLocation.getResourcePath());
-        this.useEnchantedEffect = useGlint;
         this.instance = this;
         ProxyRegistry.register(this);
         setPotionTypes();
     }
 
-    public PotionBase(
-            final boolean isBadEffect, final int liquidColor, final String name, boolean useGlint, IAttribute attribute,
-            String UUID, double amount, int operation) {
-        this(isBadEffect, liquidColor, name, useGlint);
-        this.registerPotionAttributeModifier(attribute, UUID, amount, operation);
-    }
+    private void setPotionTypes() {
+        String longPrefix = "long_";
+        String strongPrefix = "strong_";
 
-    public PotionBase(final boolean isBadEffect, final int liquidColor, final String name) {
-        this(isBadEffect, liquidColor, name, true);
-    }
+        int helpfulDurationStandard = 3600;
+        int helpfulDurationLong = 9600;
+        int helpfulDurationStrong = 1800;
 
-    public PotionBase(
-            final boolean isBadEffect, final int liquidColor, final String name, IAttribute attribute, String UUID,
-            double amount, int operation) {
-        this(isBadEffect, liquidColor, name);
-        this.registerPotionAttributeModifier(attribute, UUID, amount, operation);
-    }
+        int harmfulDurationStandard = 1800;
+        int harmfulDurationLong = 4800;
+        int harmfulDurationStrong = 900;
 
-    public PotionBase(
-            final boolean isBadEffect, final int liquidR, final int liquidG, final int liquidB, final String name,
-            boolean useGlint, IAttribute attribute, String UUID, double amount, int operation) {
-        this(isBadEffect, liquidR, liquidG, liquidB, name, useGlint);
-        this.registerPotionAttributeModifier(attribute, UUID, amount, operation);
-    }
+        for (Field field : RPGPotionTypes.class.getDeclaredFields()) {
+            if (Modifier.isStatic(field.getModifiers()) && Modifier.isPublic(field.getModifiers()) &&
+                field.getType() == PotionType.class) {
+                try {
+                    Field modifiersField = Field.class.getDeclaredField("modifiers");
+                    modifiersField.setAccessible(true);
+                    modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
 
-    public PotionBase(
-            final boolean isBadEffect, final int liquidR, final int liquidG, final int liquidB, final String name,
-            boolean useGlint) {
-        this(isBadEffect, new Color(liquidR, liquidG, liquidB).getRGB(), name, useGlint);
+                    if (field.getName().equalsIgnoreCase(this.getName().replaceAll(".*:", "")))
+                        field.set(null, PotionHelper.createPotionType(new PotionEffect(this, isBadEffect() ?
+                                                                                             harmfulDurationStandard :
+                                                                                             helpfulDurationStandard)));
+
+                    else if (field.getName().equalsIgnoreCase(longPrefix + this.getName().replaceAll(".*:", "")))
+                        field.set(null, PotionHelper.createPotionType(
+                                new PotionEffect(this, isBadEffect() ?
+                                                       harmfulDurationLong :
+                                                       helpfulDurationLong), longPrefix));
+
+                    else if (field.getName().equalsIgnoreCase(strongPrefix + this.getName().replaceAll(".*:", "")))
+                        field.set(null, PotionHelper.createPotionType(new PotionEffect(this, isBadEffect() ?
+                                                                                             harmfulDurationStrong :
+                                                                                             helpfulDurationStrong,
+                                                                                       1), strongPrefix));
+
+                } catch (IllegalAccessException | NoSuchFieldException e) {
+                    RPGMode.logger.error(e);
+                }
+            }
+        }
     }
 
     public PotionBase(
@@ -118,11 +141,6 @@ public class PotionBase extends Potion {
             IAttribute attribute, String UUID, double amount, int operation) {
         this(isBadEffect, liquidR, liquidG, liquidB, name);
         this.registerPotionAttributeModifier(attribute, UUID, amount, operation);
-    }
-
-    public PotionBase(
-            final boolean isBadEffect, final int liquidR, final int liquidG, final int liquidB, final String name) {
-        this(isBadEffect, liquidR, liquidG, liquidB, name, true);
     }
 
     /**
@@ -143,45 +161,27 @@ public class PotionBase extends Potion {
         return true;
     }
 
-    public void setPotionTypes() {
-        String LONG_PREFIX = "long_";
-        String STRONG_PREFIX = "strong_";
+    public PotionBase(
+            final boolean isBadEffect, final int liquidR, final int liquidG, final int liquidB, final String name) {
+        this(isBadEffect, new Color(liquidR, liquidG, liquidB).getRGB(), name);
+    }
 
-        int HELPFUL_DURATION_STANDARD = 3600;
-        int HELPFUL_DURATION_LONG = 9600;
-        int HELPFUL_DURATION_STRONG = 1800;
+    public boolean getUseEnchantedEffect() {
+        return this.useEnchantedEffect;
+    }
 
-        int HARMFUL_DURATION_STANDARD = 1800;
-        int HARMFUL_DURATION_LONG = 4800;
-        int HARMFUL_DURATION_STRONG = 900;
+    public PotionBase setUseEnchantedEffect(boolean useEnchantedEffect) {
+        this.useEnchantedEffect = useEnchantedEffect;
+        return this;
+    }
 
-        for (Field field : RPGPotionTypes.class.getDeclaredFields()) {
-            if (Modifier.isStatic(field.getModifiers()) && Modifier.isPublic(field.getModifiers()) &&
-                field.getType() == PotionType.class) {
-                try {
-                    if (field.getName().equalsIgnoreCase(this.getName().replaceAll(".*:", "")))
-                        field.set(null, PotionHelper.createPotionType(new PotionEffect(this, isBadEffect() ?
-                                                                                             HARMFUL_DURATION_STANDARD :
-                                                                                             HELPFUL_DURATION_STANDARD)));
+    public boolean getShouldHaveSpecialPotions() {
+        return this.shouldHaveSpecialPotions;
+    }
 
-                    else if (field.getName().equalsIgnoreCase(LONG_PREFIX + this.getName().replaceAll(".*:", "")))
-                        field.set(null, PotionHelper.createPotionType(
-                                new PotionEffect(this, isBadEffect() ?
-                                                       HARMFUL_DURATION_LONG :
-                                                       HELPFUL_DURATION_LONG),
-                                LONG_PREFIX));
-
-                    else if (field.getName().equalsIgnoreCase(STRONG_PREFIX + this.getName().replaceAll(".*:", "")))
-                        field.set(null, PotionHelper.createPotionType(new PotionEffect(this, isBadEffect() ?
-                                                                                             HARMFUL_DURATION_STRONG :
-                                                                                             HELPFUL_DURATION_STRONG,
-                                                                                       1), STRONG_PREFIX));
-
-                } catch (IllegalAccessException e) {
-                    RPGMode.logger.error(e);
-                }
-            }
-        }
+    public PotionBase setShouldHaveSpecialPotions(boolean shouldHaveSpecialPotions) {
+        this.shouldHaveSpecialPotions = shouldHaveSpecialPotions;
+        return this;
     }
 
     @Override

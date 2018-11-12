@@ -60,7 +60,7 @@ public class ItemPotionOverride extends ItemPotion {
                 break;
             }
             else {
-                if (((PotionBase) effect.getPotion()).useEnchantedEffect) useGlint = true;
+                if (((PotionBase) effect.getPotion()).getUseEnchantedEffect()) useGlint = true;
             }
         }
 
