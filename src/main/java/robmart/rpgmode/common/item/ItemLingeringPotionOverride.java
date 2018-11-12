@@ -47,6 +47,7 @@ public class ItemLingeringPotionOverride extends ItemLingeringPotion {
      * the glint for enchanted items. Of course, that is unnecessary if the overwritten version always returns true.
      */
     @SideOnly(Side.CLIENT)
+    @Override
     public boolean hasEffect(ItemStack stack) {
         return InitItems.POTION.hasEffect(stack);
     }

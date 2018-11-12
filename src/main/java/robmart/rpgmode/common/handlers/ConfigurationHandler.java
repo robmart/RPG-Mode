@@ -32,7 +32,7 @@ import java.io.File;
  */
 public class ConfigurationHandler {
 
-    public static Configuration config;
+    private static Configuration config;
 
     private static boolean debug = false;
     private static boolean displayManaValue   = false;
@@ -90,12 +90,18 @@ public class ConfigurationHandler {
         config.save();
     }
 
+    private ConfigurationHandler() {
+    }
+
     public static class ConfigChangeListener {
         @SubscribeEvent
         @SuppressWarnings("unused")
         public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent eventArgs) {
             if (eventArgs.getModID().equals(Reference.MOD_ID))
                 load();
+        }
+
+        private ConfigChangeListener() {
         }
     }
 }

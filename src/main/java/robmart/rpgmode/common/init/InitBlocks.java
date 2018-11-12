@@ -29,7 +29,10 @@ import robmart.rpgmode.common.block.BlockRPGBush;
  */
 public class InitBlocks {
 
+    private InitBlocks() {
+    }
+
     public static void init() {
-        RPGBlocks.HELL_FLOWER = new BlockRPGBush(RefBlockNames.HELL_FLOWER, EnumPlantType.Nether);
+        RPGBlocks.hellFlower = new BlockRPGBush(RefBlockNames.HELL_FLOWER, EnumPlantType.Nether);
     }
 }

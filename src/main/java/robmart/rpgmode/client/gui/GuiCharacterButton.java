@@ -36,12 +36,13 @@ import robmart.rpgmode.common.RPGMode;
  * Created on 9/14/2018
  */
 public class GuiCharacterButton extends GuiButton {
-    public static ResourceLocation icon = new ResourceLocation(Reference.MOD_ID, "textures/gui/character.png");
-    public static ResourceLocation iconSelected = new ResourceLocation(
-            Reference.MOD_ID,
-            "textures/gui/character_selected.png");
-    private       GuiContainer     parentGui;
-    private       int              pos;
+    public static final ResourceLocation icon         =
+            new ResourceLocation(Reference.MOD_ID, "textures/gui/character.png");
+    public static final ResourceLocation iconSelected =
+            new ResourceLocation(Reference.MOD_ID, "textures/gui/character_selected.png");
+
+    private GuiContainer parentGui;
+    private int          pos;
 
     public GuiCharacterButton(int buttonId, GuiContainer parentGui, int x, int y, int width, int height) {
         super(buttonId, x, y, width, height, "");
@@ -87,9 +88,6 @@ public class GuiCharacterButton extends GuiButton {
             if (parentGui instanceof GuiInventory) {
                 mc.player.openGui(RPGMode.instance, RefGuiId.GUI_ATTRIBUTES_ID, mc.player.world, (int) mc.player.posX,
                                   (int) mc.player.posY, (int) mc.player.posZ);
-            }
-            else {
-                //PacketHandler.INSTANCE.sendToServer(new PacketOpenNormalInventory());
             }
         }
         return pressed;

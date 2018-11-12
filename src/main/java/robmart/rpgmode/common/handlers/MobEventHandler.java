@@ -42,19 +42,20 @@ import java.util.Random;
 public class MobEventHandler {
     private static final Random random = new Random();
 
+    private MobEventHandler() {
+    }
+
     @SubscribeEvent
     public static void onLivingDrop(LivingDropsEvent event) {
-        if (event.getEntityLiving() instanceof EntityBat)
-            if (random.nextInt(10) < 3)
-                event.getDrops().add(new EntityItem(event.getEntityLiving().world, event.getEntityLiving().posX,
-                                                    event.getEntityLiving().posY, event.getEntityLiving().posZ,
-                                                    new ItemStack(RPGItems.BAT_WING)));
+        if (event.getEntityLiving() instanceof EntityBat && random.nextInt(10) < 3)
+            event.getDrops().add(new EntityItem(event.getEntityLiving().world, event.getEntityLiving().posX,
+                                                event.getEntityLiving().posY, event.getEntityLiving().posZ,
+                                                new ItemStack(RPGItems.batWing)));
 
-        if (event.getEntityLiving() instanceof EntityParrot) {
-            if (random.nextInt(10) < 3)
-                event.getDrops().add(new EntityItem(event.getEntityLiving().world, event.getEntityLiving().posX,
-                                                    event.getEntityLiving().posY, event.getEntityLiving().posZ,
-                                                    new ItemStack(RPGItems.PARROT_FEATHER)));
+        if (event.getEntityLiving() instanceof EntityParrot && random.nextInt(10) < 3) {
+            event.getDrops().add(new EntityItem(event.getEntityLiving().world, event.getEntityLiving().posX,
+                                                event.getEntityLiving().posY, event.getEntityLiving().posZ,
+                                                new ItemStack(RPGItems.parrotFeather)));
 
             event.getDrops().removeIf(entityItem -> entityItem.getItem().getItem() == Items.FEATHER);
         }

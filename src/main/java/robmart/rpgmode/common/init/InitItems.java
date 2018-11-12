@@ -42,25 +42,28 @@ public class InitItems {
     public static final Item SPLASH_POTION    = new ItemSplashPotionOverride();
     public static final Item LINGERING_POTION = new ItemLingeringPotionOverride();
 
+    private InitItems() {
+    }
+
     public static void init() {
-        RPGItems.BAT_WING = new ItemBase(RefItemNames.BAT_WING, CreativeTabs.BREWING);
-        RPGItems.PARROT_FEATHER = new ItemBase(RefItemNames.PARROT_FEATHER, CreativeTabs.BREWING);
-        RPGItems.OBSIDIAN_DUST = new ItemBase(RefItemNames.OBSIDIAN_DUST, CreativeTabs.BREWING);
+        RPGItems.batWing = new ItemBase(RefItemNames.BAT_WING, CreativeTabs.BREWING);
+        RPGItems.parrotFeather = new ItemBase(RefItemNames.PARROT_FEATHER, CreativeTabs.BREWING);
+        RPGItems.obsidianDust = new ItemBase(RefItemNames.OBSIDIAN_DUST, CreativeTabs.BREWING);
+    }
+
+    private static void registerOre(String name, ItemStack ore) {
+        OreDictionary.registerOre(name, ore);
+        oreDictCounter++;
     }
 
     public static void registerOreDictionary() {
         RPGMode.logger.info("Adding ore dictionary entries");
 
         //Items
-        registerOre(RefOreDict.WING_BAT, new ItemStack(RPGItems.BAT_WING));
+        registerOre(RefOreDict.WING_BAT, new ItemStack(RPGItems.batWing));
 
-        registerOre(RefOreDict.OBSIDIAN_DUST, new ItemStack(RPGItems.OBSIDIAN_DUST));
+        registerOre(RefOreDict.OBSIDIAN_DUST, new ItemStack(RPGItems.obsidianDust));
 
         RPGMode.logger.info(String.format("%s ore dictionary entries added", oreDictCounter));
-    }
-
-    private static void registerOre(String name, ItemStack ore) {
-        OreDictionary.registerOre(name, ore);
-        oreDictCounter++;
     }
 }

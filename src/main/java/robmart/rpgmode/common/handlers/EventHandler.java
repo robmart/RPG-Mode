@@ -78,6 +78,9 @@ public class EventHandler {
         player.sendMessage(chatComponent);
     }
 
+    private EventHandler() {
+    }
+
     @SubscribeEvent
     public static void onPlayerRightClickBlock(final PlayerInteractEvent.RightClickItem event) {
         RayTraceResult look = PlayerHelper.rayTrace(event.getWorld(), event.getEntityPlayer(), true);
@@ -92,7 +95,7 @@ public class EventHandler {
                             event.getEntityPlayer().posZ, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F,
                             1.0F);
             ItemHelper.turnBottleIntoItem(event.getItemStack(), event.getEntityPlayer(),
-                                          PotionHelper.getItemStackOfPotion(Items.POTIONITEM, RPGPotionTypes.LAVA));
+                                          PotionHelper.getItemStackOfPotion(Items.POTIONITEM, RPGPotionTypes.lava));
         }
     }
 }

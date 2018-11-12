@@ -26,7 +26,10 @@ import robmart.rpgmode.common.item.ItemBase;
  * Created on 11/9/2018
  */
 public class RPGItems {
-    public static ItemBase BAT_WING;
-    public static ItemBase PARROT_FEATHER;
-    public static ItemBase OBSIDIAN_DUST;
+    public static ItemBase batWing;
+    public static ItemBase parrotFeather;
+    public static ItemBase obsidianDust;
+
+    private RPGItems() {
+    }
 }

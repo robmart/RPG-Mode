@@ -47,4 +47,7 @@ public class ReflectionUtil {
             field.setAccessible(true);
         }
     }
+
+    private ReflectionUtil() {
+    }
 }

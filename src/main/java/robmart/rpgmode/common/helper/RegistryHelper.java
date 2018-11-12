@@ -39,4 +39,7 @@ public class RegistryHelper {
         return Preconditions.checkNotNull(registryEntry, "%s doesn't exist in registry %s", key,
                                           RegistryManager.ACTIVE.getName(registry));
     }
+
+    private RegistryHelper() {
+    }
 }

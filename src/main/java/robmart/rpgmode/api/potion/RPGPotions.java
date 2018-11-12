@@ -44,16 +44,19 @@ public class RPGPotions {
     public static final IAttribute WISDOM_ATTRIBUTE = new
             RangedAttribute(null, Reference.MOD_ID + ".wisdom", 0,
                             -10, 10).setDescription("Wisdom").setShouldWatch(true);
-    
-    public static Potion LAVA;
-    public static Potion STRENGTH;
-    public static Potion WEAKNESS;
-    public static Potion DEXTEROUSNESS;
-    public static Potion CLUMSINESS;
-    public static Potion FORTITUDE;
-    public static Potion LETHARGY;
-    public static Potion INTELLIGENCE;
-    public static Potion STUPIDITY;
-    public static Potion WISDOM;
-    public static Potion FOOLISHNESS;
+
+    public static Potion lava;
+    public static Potion strength;
+    public static Potion weakness;
+    public static Potion dexterousness;
+    public static Potion clumsiness;
+    public static Potion fortitude;
+    public static Potion lethargy;
+    public static Potion intelligence;
+    public static Potion stupidity;
+    public static Potion wisdom;
+    public static Potion foolishness;
+
+    private RPGPotions() {
+    }
 }

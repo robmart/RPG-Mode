@@ -26,6 +26,7 @@ import org.lwjgl.opengl.GL11;
 import robmart.rpgmode.api.capability.attribute.IAttribute;
 import robmart.rpgmode.api.capability.character.ICharacter;
 import robmart.rpgmode.api.reference.Reference;
+import robmart.rpgmode.common.RPGMode;
 import robmart.rpgmode.common.capability.attribute.AttributeCapability;
 import robmart.rpgmode.common.capability.attribute.AttributeImplementation;
 import robmart.rpgmode.common.capability.character.CharacterCapability;
@@ -194,7 +195,7 @@ public class GuiCharacter extends RPGGuiScreen {
                                             AttributeImplementation.class.getMethod("getWisdom", boolean.class),
                                             buttonList.size() + 1, 70, 113));
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+            RPGMode.logger.error(e);
         }
     }
 

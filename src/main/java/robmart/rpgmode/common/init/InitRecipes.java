@@ -44,63 +44,71 @@ import java.lang.reflect.Modifier;
 public class InitRecipes {
     private static int brewingCounter = 0;
 
+    private InitRecipes() {
+    }
+
+    private static void addBrewingRecipe(IBrewingRecipe recipe) {
+        BrewingRecipeRegistry.addRecipe(recipe);
+        brewingCounter++;
+    }
+
     public static void generateBrewing() {
-        String LONG_PREFIX = "long_";
-        String STRONG_PREFIX = "strong_";
+        String longPrefix = "long_";
+        String strongPrefix = "strong_";
 
         RPGMode.logger.info("Adding brewing recipes");
 
         //Dexterousness
         addBrewingRecipe(
-                new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(RPGItems.BAT_WING), RPGPotionTypes.DEXTEROUSNESS));
+                new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(RPGItems.batWing), RPGPotionTypes.dexterousness));
 
         //Clumsiness
         addBrewingRecipe(
-                new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(Items.ROTTEN_FLESH), RPGPotionTypes.CLUMSINESS));
+                new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(Items.ROTTEN_FLESH), RPGPotionTypes.clumsiness));
 
         //Fortitude
         addBrewingRecipe(
-                new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(RPGItems.OBSIDIAN_DUST), RPGPotionTypes.FORTITUDE));
+                new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(RPGItems.obsidianDust), RPGPotionTypes.fortitude));
 
         //Lethargy
         addBrewingRecipe(new BrewRecipe(PotionTypes.AWKWARD,
-                                        new ItemStack(Items.DYE, 1, 15), RPGPotionTypes.LETHARGY));
+                                        new ItemStack(Items.DYE, 1, 15), RPGPotionTypes.lethargy));
 
         //Intelligence
         addBrewingRecipe(new BrewRecipe(PotionTypes.AWKWARD,
-                                        new ItemStack(RPGItems.PARROT_FEATHER), RPGPotionTypes.INTELLIGENCE));
+                                        new ItemStack(RPGItems.parrotFeather), RPGPotionTypes.intelligence));
         //Stupidity
         addBrewingRecipe(new BrewRecipe(
                 PotionTypes.AWKWARD,
-                PotionHelper.getItemStackOfPotion(Items.POTIONITEM, RPGPotionTypes.LAVA),
-                RPGPotionTypes.STUPIDITY));
+                PotionHelper.getItemStackOfPotion(Items.POTIONITEM, RPGPotionTypes.lava),
+                RPGPotionTypes.stupidity));
 
         //Wisdom
-        addBrewingRecipe(new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(Items.APPLE), RPGPotionTypes.WISDOM));
+        addBrewingRecipe(new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(Items.APPLE), RPGPotionTypes.wisdom));
 
         //Foolishness
         addBrewingRecipe(new BrewRecipe(PotionTypes.AWKWARD,
-                                        new ItemStack(RPGBlocks.HELL_FLOWER), RPGPotionTypes.FOOLISHNESS));
+                                        new ItemStack(RPGBlocks.hellFlower), RPGPotionTypes.foolishness));
 
         //Automatically makes recipes for long and strong potions
         for (Field field : RPGPotionTypes.class.getDeclaredFields()) {
             //Finds PotionTypes in RPGPotionTypes that are public, static and long/strong
             if (Modifier.isStatic(field.getModifiers()) && Modifier.isPublic(field.getModifiers()) &&
-                field.getType() == PotionType.class && (field.getName().toLowerCase().contains(LONG_PREFIX) ||
-                                                        field.getName().toLowerCase().contains(STRONG_PREFIX))) {
+                field.getType() == PotionType.class && (field.getName().toLowerCase().contains(longPrefix) ||
+                                                        field.getName().toLowerCase().contains(strongPrefix))) {
                 try {
                     for (Field field2 : RPGPotionTypes.class.getDeclaredFields()) {
                         //Finds the base PotionType
                         if (field2.getName().equalsIgnoreCase(field.getName().replaceAll(".*_", ""))) {
                             //Adds recipe for long potions
-                            if (field.getName().toLowerCase().contains(LONG_PREFIX))
+                            if (field.getName().toLowerCase().contains(longPrefix))
                                 addBrewingRecipe(new BrewRecipe(
                                         (PotionType) field2.get(null),
                                         new ItemStack(Items.REDSTONE),
                                         (PotionType) field.get(null)));
 
                             //Adds recipe for strong potions
-                            if (field.getName().toLowerCase().contains(STRONG_PREFIX))
+                            if (field.getName().toLowerCase().contains(strongPrefix))
                                 addBrewingRecipe(new BrewRecipe(
                                         (PotionType) field2.get(null),
                                         new ItemStack(Items.GLOWSTONE_DUST),
@@ -108,7 +116,7 @@ public class InitRecipes {
                         }
                     }
                 } catch (IllegalAccessException e) {
-                    e.printStackTrace();
+                    RPGMode.logger.error(e);
                 }
             }
         }
@@ -123,13 +131,8 @@ public class InitRecipes {
         RPGMode.logger.info(String.format("%s brewing recipes added", brewingCounter));
     }
 
-    private static void addBrewingRecipe(IBrewingRecipe recipe) {
-        BrewingRecipeRegistry.addRecipe(recipe);
-        brewingCounter++;
-    }
-
     public static void generateRecipes() {
-        RecipeHandler.addShapelessRecipe(new ItemStack(RPGItems.OBSIDIAN_DUST, 4), new ItemStack(Blocks.OBSIDIAN));
+        RecipeHandler.addShapelessRecipe(new ItemStack(RPGItems.obsidianDust, 4), new ItemStack(Blocks.OBSIDIAN));
         RecipeHandler.addShapedRecipe(new ItemStack(Blocks.OBSIDIAN), "##", "##", '#', "dustObsidian");
     }
 }

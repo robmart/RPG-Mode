@@ -23,9 +23,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.IThreadListener;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import robmart.rpgmode.common.CommonProxy;
 
@@ -37,24 +34,9 @@ public class ServerProxy extends CommonProxy {
     private MinecraftServer mc;
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
-        super.preInit(event);
-    }
-
-    @Override
     public void init(FMLInitializationEvent event) {
         super.init(event);
         mc = FMLCommonHandler.instance().getMinecraftServerInstance();
-    }
-
-    @Override
-    public void postInit(FMLPostInitializationEvent event) {
-        super.postInit(event);
-    }
-
-    @Override
-    public void serverStarting(FMLServerStartingEvent event) {
-        super.serverStarting(event);
     }
 
     @Override

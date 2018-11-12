@@ -141,4 +141,7 @@ public class PacketDispatcher {
     public static final void sendToServer(IMessage message) {
         PacketDispatcher.dispatcher.sendToServer(message);
     }
+
+    private PacketDispatcher() {
+    }
 }

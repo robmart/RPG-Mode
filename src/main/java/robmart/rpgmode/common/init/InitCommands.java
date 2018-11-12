@@ -48,4 +48,7 @@ public class InitCommands {
         event.registerServerCommand(command);
         commandCounter++;
     }
+
+    private InitCommands() {
+    }
 }

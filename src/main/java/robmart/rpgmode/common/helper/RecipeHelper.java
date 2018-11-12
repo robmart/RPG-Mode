@@ -37,6 +37,9 @@ import java.util.Map;
  */
 public class RecipeHelper {
 
+    private RecipeHelper() {
+    }
+
     /**
      * Remove a crafting recipe
      *
@@ -44,8 +47,8 @@ public class RecipeHelper {
      * @param stackSize  - the recipe's output stack size
      * @param meta       - the recipe's output metadata
      */
-    public static void RemoveRecipe(Item resultItem, int stackSize, int meta) {
-        RemoveRecipe(new ItemStack(resultItem, stackSize, meta));
+    public static void removeRecipe(Item resultItem, int stackSize, int meta) {
+        removeRecipe(new ItemStack(resultItem, stackSize, meta));
     }
 
     /**
@@ -53,7 +56,7 @@ public class RecipeHelper {
      *
      * @param resultStack - the output result stack, including metadata and size
      */
-    public static void RemoveRecipe(ItemStack resultStack) {
+    public static void removeRecipe(ItemStack resultStack) {
         ForgeRegistry<IRecipe> recipeRegistry = (ForgeRegistry<IRecipe>) ForgeRegistries.RECIPES;
         ArrayList<IRecipe> recipes = Lists.newArrayList(recipeRegistry.getValues());
         ItemStack recipeResult;
@@ -76,9 +79,9 @@ public class RecipeHelper {
      * @author Draco18s
      * Remove a smelting recipe
      */
-    public static void RemoveSmelting(Item resultItem, int stacksize, int meta) {
+    public static void removeSmelting(Item resultItem, int stacksize, int meta) {
         ItemStack resultStack = new ItemStack(resultItem, stacksize, meta);
-        RemoveSmelting(resultStack);
+        removeSmelting(resultStack);
     }
 
     /**
@@ -87,7 +90,7 @@ public class RecipeHelper {
      * @author Draco18s
      * Remove a smelting recipe
      */
-    public static void RemoveSmelting(ItemStack resultStack) {
+    public static void removeSmelting(ItemStack resultStack) {
         ItemStack recipeResult;
         Map<ItemStack, ItemStack> recipes = FurnaceRecipes.instance().getSmeltingList();
         Iterator<ItemStack> iterator = recipes.keySet().iterator();

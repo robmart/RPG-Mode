@@ -31,6 +31,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import robmart.rpgmode.api.potion.RPGPotions;
 import robmart.rpgmode.api.reference.Reference;
+import robmart.rpgmode.common.RPGMode;
 import robmart.rpgmode.common.potion.PotionBase;
 
 import java.lang.reflect.Field;
@@ -57,6 +58,9 @@ public class PotionEventHandler {
         }
     }
 
+    private PotionEventHandler() {
+    }
+
     @SubscribeEvent
     public static void inLivingUpdate(LivingEvent.LivingUpdateEvent event) {
         EntityLivingBase entity = event.getEntityLiving();
@@ -72,24 +76,24 @@ public class PotionEventHandler {
                             if (Modifier.isStatic(field.getModifiers()) && Modifier.isPublic(field.getModifiers()) &&
                                 field.getType() == IAttribute.class) {
                                 if (field2.getName().replaceAll("_*.", "").equalsIgnoreCase(field.getName())) {
-                                    if (!persisted.getBoolean(((PotionBase) field.get(null)).TAG_NAME)) {
+                                    if (!persisted.getBoolean(((PotionBase) field.get(null)).tagName)) {
                                         if (entity.getEntityAttribute((IAttribute) field2.get(null))
                                                   .getAttributeValue() !=
                                             ((IAttribute) field2.get(null)).getDefaultValue()) {
-                                            persisted.setBoolean(((PotionBase) field.get(null)).TAG_NAME, true);
+                                            persisted.setBoolean(((PotionBase) field.get(null)).tagName, true);
                                         }
                                     }
                                     else if (entity.getEntityAttribute((IAttribute) field2.get(null))
                                                    .getAttributeValue() ==
                                              ((IAttribute) field2.get(null)).getDefaultValue()) {
-                                        persisted.setBoolean(((PotionBase) field.get(null)).TAG_NAME, false);
+                                        persisted.setBoolean(((PotionBase) field.get(null)).tagName, false);
                                     }
                                 }
                             }
                         }
                     }
                 } catch (IllegalAccessException e) {
-                    e.printStackTrace();
+                    RPGMode.logger.error(e);
                 }
             }
         }

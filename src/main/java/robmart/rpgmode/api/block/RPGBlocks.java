@@ -26,5 +26,8 @@ import net.minecraft.block.BlockBush;
  * Created on 11/9/2018
  */
 public class RPGBlocks {
-    public static BlockBush HELL_FLOWER;
+    public static BlockBush hellFlower;
+
+    private RPGBlocks() {
+    }
 }

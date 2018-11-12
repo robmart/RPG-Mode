@@ -65,11 +65,11 @@ public class CreativeTabBrewing extends CreativeTabs {
         }
 
         for (ItemStack itemStack : list) {
-            if (itemStack.getItem() instanceof ItemSplashPotion || itemStack.getItem() instanceof ItemLingeringPotion)
-                if (Objects.requireNonNull(itemStack.getItem().getNBTShareTag(itemStack)).getString("Potion")
-                           .contains("rpgmode:") &&
-                    Objects.requireNonNull(itemStack.getItem().getNBTShareTag(itemStack)).getString("Potion")
-                           .contains("lava"))
+            if ((itemStack.getItem() instanceof ItemSplashPotion ||
+                 itemStack.getItem() instanceof ItemLingeringPotion) &&
+                Objects.requireNonNull(itemStack.getItem().getNBTShareTag(itemStack)).getString("Potion")
+                       .contains("rpgmode:") && Objects.requireNonNull(itemStack.getItem().getNBTShareTag(itemStack))
+                                                       .getString("Potion").contains("lava"))
                     listBanned.add(itemStack);
         }
 

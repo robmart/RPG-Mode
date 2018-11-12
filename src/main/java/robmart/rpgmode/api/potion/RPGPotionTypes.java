@@ -26,45 +26,48 @@ import net.minecraft.potion.PotionType;
  * Created on 11/11/2018
  */
 public class RPGPotionTypes {
-    public static PotionType LAVA;
+    public static PotionType lava;
 
-    public static PotionType STRENGTH;
-    public static PotionType LONG_STRENGTH;
-    public static PotionType STRONG_STRENGTH;
+    public static PotionType strength;
+    public static PotionType longStrength;
+    public static PotionType strongStrength;
 
-    public static PotionType WEAKNESS;
-    public static PotionType LONG_WEAKNESS;
-    public static PotionType STRONG_WEAKNESS;
+    public static PotionType weakness;
+    public static PotionType longWeakness;
+    public static PotionType strongWeakness;
 
-    public static PotionType DEXTEROUSNESS;
-    public static PotionType LONG_DEXTEROUSNESS;
-    public static PotionType STRONG_DEXTEROUSNESS;
+    public static PotionType dexterousness;
+    public static PotionType longDexterousness;
+    public static PotionType strongDexterousness;
 
-    public static PotionType CLUMSINESS;
-    public static PotionType LONG_CLUMSINESS;
-    public static PotionType STRONG_CLUMSINESS;
+    public static PotionType clumsiness;
+    public static PotionType longClumsiness;
+    public static PotionType strongClumsiness;
 
-    public static PotionType FORTITUDE;
-    public static PotionType LONG_FORTITUDE;
-    public static PotionType STRONG_FORTITUDE;
+    public static PotionType fortitude;
+    public static PotionType longFortitude;
+    public static PotionType strongFortitude;
 
-    public static PotionType LETHARGY;
-    public static PotionType LONG_LETHARGY;
-    public static PotionType STRONG_LETHARGY;
+    public static PotionType lethargy;
+    public static PotionType longLethargy;
+    public static PotionType strongLethargy;
 
-    public static PotionType INTELLIGENCE;
-    public static PotionType LONG_INTELLIGENCE;
-    public static PotionType STRONG_INTELLIGENCE;
+    public static PotionType intelligence;
+    public static PotionType longIntelligence;
+    public static PotionType strongIntelligence;
 
-    public static PotionType STUPIDITY;
-    public static PotionType LONG_STUPIDITY;
-    public static PotionType STRONG_STUPIDITY;
+    public static PotionType stupidity;
+    public static PotionType longStupidity;
+    public static PotionType strongStupidity;
 
-    public static PotionType WISDOM;
-    public static PotionType LONG_WISDOM;
-    public static PotionType STRONG_WISDOM;
+    public static PotionType wisdom;
+    public static PotionType longWisdom;
+    public static PotionType strongWisdom;
 
-    public static PotionType FOOLISHNESS;
-    public static PotionType LONG_FOOLISHNESS;
-    public static PotionType STRONG_FOOLISHNESS;
+    public static PotionType foolishness;
+    public static PotionType longFoolishness;
+    public static PotionType strongFoolishness;
+
+    private RPGPotionTypes() {
+    }
 }

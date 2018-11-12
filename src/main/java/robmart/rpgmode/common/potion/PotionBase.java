@@ -31,6 +31,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import robmart.rpgmode.api.potion.RPGPotionTypes;
 import robmart.rpgmode.api.reference.Reference;
+import robmart.rpgmode.common.RPGMode;
 import robmart.rpgmode.common.helper.PotionHelper;
 import vazkii.arl.util.ProxyRegistry;
 
@@ -52,23 +53,19 @@ public class PotionBase extends Potion {
     /**
      * The instance of the potion
      */
-    public PotionBase instance = null;
+    public final PotionBase instance;
 
     /**
      * The tag used to store the effect on the entity
      */
-    public String TAG_NAME;
-
-    /**
-     * Counts how many potions have been added so far
-     */
-    public static int potionCounter = 0;
+    public final String tagName;
 
     /**
      * The icon texture to use in the HUD and inventory GUI.
      */
     private final ResourceLocation iconTexture;
 
+    //TODO: Fix the horrible constructors... Good lord
     public PotionBase(final boolean isBadEffect, final int liquidColor, final String name, boolean useGlint) {
         super(isBadEffect, liquidColor);
         if (!isBadEffect)
@@ -78,12 +75,11 @@ public class PotionBase extends Potion {
         ResourceLocation resourceLocation = new ResourceLocation(name);
         this.iconTexture = new ResourceLocation(Reference.MOD_ID, "textures/gui/icons/" +
                                                                   resourceLocation.getResourcePath() + ".png");
-        this.TAG_NAME = String.format("%s - %s", Reference.MOD_ID, resourceLocation.getResourcePath());
+        this.tagName = String.format("%s - %s", Reference.MOD_ID, resourceLocation.getResourcePath());
         this.useEnchantedEffect = useGlint;
         this.instance = this;
         ProxyRegistry.register(this);
         setPotionTypes();
-        potionCounter++;
     }
 
     public PotionBase(
@@ -129,6 +125,24 @@ public class PotionBase extends Potion {
         this(isBadEffect, liquidR, liquidG, liquidB, name, true);
     }
 
+    /**
+     * Set the registry NAME of {@code potion} to {@code potionName} and the unlocalised NAME to the full registry NAME.
+     *
+     * @param potionName The potion's NAME
+     */
+    @Override
+    public Potion setPotionName(final String potionName) {
+        this.setRegistryName(potionName);
+        final ResourceLocation registryName = Objects.requireNonNull(this.getRegistryName());
+        super.setPotionName("effect." + registryName.toString());
+        return this;
+    }
+
+    @Override
+    public boolean isReady(int duration, int amplifier) {
+        return true;
+    }
+
     public void setPotionTypes() {
         String LONG_PREFIX = "long_";
         String STRONG_PREFIX = "strong_";
@@ -145,46 +159,29 @@ public class PotionBase extends Potion {
             if (Modifier.isStatic(field.getModifiers()) && Modifier.isPublic(field.getModifiers()) &&
                 field.getType() == PotionType.class) {
                 try {
-                    if (field.getName().toLowerCase().equals(this.getName().replaceAll(".*:", "")))
+                    if (field.getName().equalsIgnoreCase(this.getName().replaceAll(".*:", "")))
                         field.set(null, PotionHelper.createPotionType(new PotionEffect(this, isBadEffect() ?
                                                                                              HARMFUL_DURATION_STANDARD :
                                                                                              HELPFUL_DURATION_STANDARD)));
 
-                    else if (field.getName().toLowerCase().equals(LONG_PREFIX + this.getName().replaceAll(".*:", "")))
+                    else if (field.getName().equalsIgnoreCase(LONG_PREFIX + this.getName().replaceAll(".*:", "")))
                         field.set(null, PotionHelper.createPotionType(
                                 new PotionEffect(this, isBadEffect() ?
                                                        HARMFUL_DURATION_LONG :
                                                        HELPFUL_DURATION_LONG),
                                 LONG_PREFIX));
 
-                    else if (field.getName().toLowerCase().equals(STRONG_PREFIX + this.getName().replaceAll(".*:", "")))
+                    else if (field.getName().equalsIgnoreCase(STRONG_PREFIX + this.getName().replaceAll(".*:", "")))
                         field.set(null, PotionHelper.createPotionType(new PotionEffect(this, isBadEffect() ?
                                                                                              HARMFUL_DURATION_STRONG :
                                                                                              HELPFUL_DURATION_STRONG,
                                                                                        1), STRONG_PREFIX));
 
                 } catch (IllegalAccessException e) {
-                    e.printStackTrace();
+                    RPGMode.logger.error(e);
                 }
             }
         }
-    }
-
-    @Override
-    public boolean isReady(int duration, int amplifier) {
-        return true;
-    }
-
-    /**
-     * Set the registry NAME of {@code potion} to {@code potionName} and the unlocalised NAME to the full registry NAME.
-     *
-     * @param potionName The potion's NAME
-     */
-    public Potion setPotionName(final String potionName) {
-        this.setRegistryName(potionName);
-        final ResourceLocation registryName = Objects.requireNonNull(this.getRegistryName());
-        super.setPotionName("effect." + registryName.toString());
-        return this;
     }
 
     @Override
@@ -211,6 +208,7 @@ public class PotionBase extends Potion {
      * @param effect the active PotionEffect
      * @param mc     the Minecraft instance, for convenience
      */
+    @Override
     @SideOnly(Side.CLIENT)
     public void renderInventoryEffect(int x, int y, PotionEffect effect, net.minecraft.client.Minecraft mc) {
         renderPotionIcon(x + 6, y + 7, mc);
@@ -226,6 +224,7 @@ public class PotionBase extends Potion {
      * @param mc     the Minecraft instance, for convenience
      * @param alpha  the alpha value, blinks when the potion is about to run out
      */
+    @Override
     @SideOnly(Side.CLIENT)
     public void renderHUDEffect(int x, int y, PotionEffect effect, net.minecraft.client.Minecraft mc, float alpha) {
         renderPotionIcon(x + 3, y + 3, mc);

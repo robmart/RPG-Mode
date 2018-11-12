@@ -25,6 +25,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import robmart.rpgmode.api.capability.attribute.IAttribute;
 import robmart.rpgmode.api.reference.Reference;
+import robmart.rpgmode.common.RPGMode;
 
 import java.lang.reflect.Method;
 
@@ -33,16 +34,18 @@ import java.lang.reflect.Method;
  * Created on 9/15/2018
  */
 public class GuiAddPointButton extends GuiButton {
-    public static ResourceLocation icon = new ResourceLocation(
-            Reference.MOD_ID, "textures/gui/add_attribute.png");
-    public static ResourceLocation iconSelected = new ResourceLocation(
-            Reference.MOD_ID, "textures/gui/add_attribute_selected.png");
-    public        int              posX;
-    public        int              posY;
-    private       RPGGuiScreen     parentGui;
-    private       IAttribute       attributes;
-    private       Method           setMethod;
-    private       Method           getMethod;
+    public static final ResourceLocation icon         =
+            new ResourceLocation(Reference.MOD_ID, "textures/gui/add_attribute.png");
+    public static final ResourceLocation iconSelected =
+            new ResourceLocation(Reference.MOD_ID, "textures/gui/add_attribute_selected.png");
+
+    public final int posX;
+    public final int posY;
+
+    private RPGGuiScreen parentGui;
+    private IAttribute   attributes;
+    private Method       setMethod;
+    private Method       getMethod;
 
     public GuiAddPointButton(
             RPGGuiScreen parentGui, IAttribute attributes, Method setMethod, Method getMethod,
@@ -86,7 +89,7 @@ public class GuiAddPointButton extends GuiButton {
                 setMethod.invoke(attributes, ((int) getMethod.invoke(attributes, false)) + 1, true);
                 attributes.setAttributePoint(attributes.getAttributePoint() - 1, true);
             } catch (Exception e) {
-                e.printStackTrace();
+                RPGMode.logger.error(e);
             }
         }
         return pressed;

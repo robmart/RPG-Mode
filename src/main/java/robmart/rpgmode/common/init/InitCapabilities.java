@@ -38,4 +38,7 @@ public class InitCapabilities {
         CharacterCapability.register();
         MinecraftForge.EVENT_BUS.register(new CapabilityEventHandler());
     }
+
+    private InitCapabilities() {
+    }
 }
