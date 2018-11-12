@@ -24,6 +24,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionType;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.common.brewing.IBrewingRecipe;
 import robmart.rpgmode.api.block.RPGBlocks;
@@ -34,6 +35,9 @@ import robmart.rpgmode.common.helper.PotionHelper;
 import robmart.rpgmode.common.recipe.brewing.BrewRecipe;
 import vazkii.arl.recipe.RecipeHandler;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+
 /**
  * @author Robmart
  */
@@ -41,87 +45,69 @@ public class InitRecipes {
     private static int brewingCounter = 0;
 
     public static void generateBrewing() {
-        RPGMode.logger.info("Adding brewing recipes");
-        //Strength
-        addBrewingRecipe(
-                new BrewRecipe(RPGPotionTypes.STRENGTH, new ItemStack(Items.REDSTONE), RPGPotionTypes.LONG_STRENGTH));
-        addBrewingRecipe(new BrewRecipe(RPGPotionTypes.STRENGTH, new ItemStack(Items.GLOWSTONE_DUST),
-                                        RPGPotionTypes.STRONG_STRENGTH));
+        String LONG_PREFIX = "long_";
+        String STRONG_PREFIX = "strong_";
 
-        //Weakness
-        addBrewingRecipe(
-                new BrewRecipe(RPGPotionTypes.WEAKNESS, new ItemStack(Items.REDSTONE), RPGPotionTypes.LONG_WEAKNESS));
-        addBrewingRecipe(new BrewRecipe(RPGPotionTypes.WEAKNESS, new ItemStack(Items.GLOWSTONE_DUST),
-                                        RPGPotionTypes.STRONG_WEAKNESS));
+        RPGMode.logger.info("Adding brewing recipes");
 
         //Dexterousness
         addBrewingRecipe(
                 new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(RPGItems.BAT_WING), RPGPotionTypes.DEXTEROUSNESS));
-        addBrewingRecipe(new BrewRecipe(RPGPotionTypes.DEXTEROUSNESS, new ItemStack(Items.REDSTONE),
-                                        RPGPotionTypes.LONG_DEXTEROUSNESS));
-        addBrewingRecipe(new BrewRecipe(RPGPotionTypes.DEXTEROUSNESS, new ItemStack(Items.GLOWSTONE_DUST),
-                                        RPGPotionTypes.STRONG_DEXTEROUSNESS));
 
         //Clumsiness
         addBrewingRecipe(
                 new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(Items.ROTTEN_FLESH), RPGPotionTypes.CLUMSINESS));
-        addBrewingRecipe(new BrewRecipe(RPGPotionTypes.CLUMSINESS, new ItemStack(Items.REDSTONE),
-                                        RPGPotionTypes.LONG_CLUMSINESS));
-        addBrewingRecipe(new BrewRecipe(RPGPotionTypes.CLUMSINESS, new ItemStack(Items.GLOWSTONE_DUST),
-                                        RPGPotionTypes.STRONG_CLUMSINESS));
 
         //Fortitude
         addBrewingRecipe(
                 new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(RPGItems.OBSIDIAN_DUST), RPGPotionTypes.FORTITUDE));
-        addBrewingRecipe(new BrewRecipe(RPGPotionTypes.FORTITUDE, new ItemStack(Items.REDSTONE),
-                                        RPGPotionTypes.LONG_FORTITUDE));
-        addBrewingRecipe(new BrewRecipe(RPGPotionTypes.FORTITUDE, new ItemStack(Items.GLOWSTONE_DUST),
-                                        RPGPotionTypes.STRONG_FORTITUDE));
 
         //Lethargy
-        addBrewingRecipe(
-                new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(Items.DYE, 1, 15), RPGPotionTypes.LETHARGY));
-        addBrewingRecipe(new BrewRecipe(RPGPotionTypes.LETHARGY, new ItemStack(Items.REDSTONE),
-                                        RPGPotionTypes.LONG_LETHARGY));
-        addBrewingRecipe(new BrewRecipe(RPGPotionTypes.LETHARGY, new ItemStack(Items.GLOWSTONE_DUST),
-                                        RPGPotionTypes.STRONG_LETHARGY));
+        addBrewingRecipe(new BrewRecipe(PotionTypes.AWKWARD,
+                                        new ItemStack(Items.DYE, 1, 15), RPGPotionTypes.LETHARGY));
 
         //Intelligence
-        addBrewingRecipe(
-                new BrewRecipe(
-                        PotionTypes.AWKWARD, new ItemStack(RPGItems.PARROT_FEATHER), RPGPotionTypes.INTELLIGENCE));
-        addBrewingRecipe(new BrewRecipe(RPGPotionTypes.INTELLIGENCE, new ItemStack(Items.REDSTONE),
-                                        RPGPotionTypes.LONG_INTELLIGENCE));
-        addBrewingRecipe(new BrewRecipe(RPGPotionTypes.INTELLIGENCE, new ItemStack(Items.GLOWSTONE_DUST),
-                                        RPGPotionTypes.STRONG_INTELLIGENCE));
+        addBrewingRecipe(new BrewRecipe(PotionTypes.AWKWARD,
+                                        new ItemStack(RPGItems.PARROT_FEATHER), RPGPotionTypes.INTELLIGENCE));
         //Stupidity
-        addBrewingRecipe(
-                new BrewRecipe(
-                        PotionTypes.AWKWARD, PotionHelper.getItemStackOfPotion(Items.POTIONITEM, RPGPotionTypes.LAVA),
-                        RPGPotionTypes.STUPIDITY));
-        addBrewingRecipe(new BrewRecipe(RPGPotionTypes.STUPIDITY, new ItemStack(Items.REDSTONE),
-                                        RPGPotionTypes.LONG_STUPIDITY));
-        addBrewingRecipe(new BrewRecipe(RPGPotionTypes.STUPIDITY, new ItemStack(Items.GLOWSTONE_DUST),
-                                        RPGPotionTypes.STRONG_STUPIDITY));
+        addBrewingRecipe(new BrewRecipe(
+                PotionTypes.AWKWARD,
+                PotionHelper.getItemStackOfPotion(Items.POTIONITEM, RPGPotionTypes.LAVA),
+                RPGPotionTypes.STUPIDITY));
 
         //Wisdom
-        addBrewingRecipe(
-                new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(Items.APPLE), RPGPotionTypes.WISDOM));
-        addBrewingRecipe(new BrewRecipe(RPGPotionTypes.WISDOM, new ItemStack(Items.REDSTONE),
-                                        RPGPotionTypes.LONG_WISDOM));
-        addBrewingRecipe(new BrewRecipe(RPGPotionTypes.WISDOM, new ItemStack(Items.GLOWSTONE_DUST),
-                                        RPGPotionTypes.STRONG_WISDOM));
+        addBrewingRecipe(new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(Items.APPLE), RPGPotionTypes.WISDOM));
 
         //Foolishness
-        addBrewingRecipe(
-                new BrewRecipe(
-                        PotionTypes.AWKWARD, new ItemStack(RPGBlocks.HELL_FLOWER), RPGPotionTypes.FOOLISHNESS));
-        addBrewingRecipe(new BrewRecipe(RPGPotionTypes.FOOLISHNESS, new ItemStack(Items.REDSTONE),
-                                        RPGPotionTypes.LONG_FOOLISHNESS));
-        addBrewingRecipe(new BrewRecipe(RPGPotionTypes.FOOLISHNESS, new ItemStack(Items.GLOWSTONE_DUST),
-                                        RPGPotionTypes.STRONG_FOOLISHNESS));
+        addBrewingRecipe(new BrewRecipe(PotionTypes.AWKWARD,
+                                        new ItemStack(RPGBlocks.HELL_FLOWER), RPGPotionTypes.FOOLISHNESS));
 
-        //TODO: automatically add long and strong recipes (reflection)
+        for (Field field : RPGPotionTypes.class.getDeclaredFields()) {
+            if (Modifier.isStatic(field.getModifiers()) && Modifier.isPublic(field.getModifiers()) &&
+                field.getType() == PotionType.class && (field.getName().toLowerCase().contains(LONG_PREFIX) ||
+                                                        field.getName().toLowerCase().contains(STRONG_PREFIX))) {
+                try {
+                    for (Field field2 : RPGPotionTypes.class.getDeclaredFields()) {
+                        if (field2.getName().equalsIgnoreCase(field.getName().replaceAll(".*_", ""))) {
+                            if (field.getName().toLowerCase().contains(LONG_PREFIX))
+                                addBrewingRecipe(new BrewRecipe(
+                                        (PotionType) field2.get(null),
+                                        new ItemStack(Items.REDSTONE),
+                                        (PotionType) field.get(null)));
+
+                            if (field.getName().toLowerCase().contains(STRONG_PREFIX))
+                                addBrewingRecipe(new BrewRecipe(
+                                        (PotionType) field2.get(null),
+                                        new ItemStack(Items.GLOWSTONE_DUST),
+                                        (PotionType) field.get(null)));
+                        }
+                    }
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
         //Splash and Lingering
         net.minecraft.potion.PotionHelper
                 .addContainerRecipe((ItemPotion) InitItems.POTION, Items.GUNPOWDER, Items.SPLASH_POTION);
