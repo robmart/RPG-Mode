@@ -87,7 +87,7 @@ public class InitRecipes {
 
         //Foolishness
         addBrewingRecipe(new BrewRecipe(PotionTypes.AWKWARD,
-                                        new ItemStack(RPGBlocks.hellFlower), RPGPotionTypes.FOOLISHNESS));
+                                        new ItemStack(RPGBlocks.HELL_FLOWER), RPGPotionTypes.FOOLISHNESS));
 
         //Automatically makes recipes for long and strong potions
         for (Field field : RPGPotionTypes.class.getDeclaredFields()) {

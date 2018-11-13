@@ -64,8 +64,8 @@ public class BiomeHellDecoratorWrapper extends BiomeHellDecorator {
                     int z1 = z + random.nextInt(dist * 2) - dist;
                     BlockPos pos2 = new BlockPos(x1, y, z1);
 
-                    if (worldIn.isAirBlock(pos2) && RPGBlocks.hellFlower.canPlaceBlockAt(worldIn, pos2)) {
-                        worldIn.setBlockState(pos2, RPGBlocks.hellFlower.getDefaultState());
+                    if (worldIn.isAirBlock(pos2) && RPGBlocks.HELL_FLOWER.canPlaceBlockAt(worldIn, pos2)) {
+                        worldIn.setBlockState(pos2, RPGBlocks.HELL_FLOWER.getDefaultState());
                     }
                 }
             }

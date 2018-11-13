@@ -37,7 +37,7 @@ import java.util.List;
 public class RPGGuiConfig extends DefaultGuiFactory {
 
     public RPGGuiConfig() {
-        super(Reference.MOD_ID, GuiConfig.getAbridgedConfigPath(ConfigurationHandler.config.toString()));
+        super(Reference.MOD_ID, GuiConfig.getAbridgedConfigPath(ConfigurationHandler.getConfig().toString()));
     }
 
 
@@ -49,11 +49,11 @@ public class RPGGuiConfig extends DefaultGuiFactory {
     private static List<IConfigElement> getConfigElements() {
         List<IConfigElement> list = new ArrayList<>();
 
-        list.addAll(new ConfigElement(ConfigurationHandler.config
-                                              .getCategory(Configuration.CATEGORY_GENERAL))
+        list.addAll(new ConfigElement(ConfigurationHandler.getConfig()
+                                                          .getCategory(Configuration.CATEGORY_GENERAL))
                             .getChildElements());
-        list.addAll(new ConfigElement(ConfigurationHandler.config
-                                              .getCategory(Configuration.CATEGORY_CLIENT))
+        list.addAll(new ConfigElement(ConfigurationHandler.getConfig()
+                                                          .getCategory(Configuration.CATEGORY_CLIENT))
                             .getChildElements());
 
         return list;

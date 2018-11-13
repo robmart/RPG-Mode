@@ -22,7 +22,9 @@ package robmart.rpgmode.common.init;
 import net.minecraftforge.common.EnumPlantType;
 import robmart.rpgmode.api.block.RPGBlocks;
 import robmart.rpgmode.api.reference.RefBlockNames;
+import robmart.rpgmode.common.RPGMode;
 import robmart.rpgmode.common.block.BlockRPGBush;
+import robmart.rpgmode.common.util.ReflectionUtil;
 
 /**
  * @author Robmart
@@ -33,6 +35,11 @@ public class InitBlocks {
     }
 
     public static void init() {
-        RPGBlocks.hellFlower = new BlockRPGBush(RefBlockNames.HELL_FLOWER, EnumPlantType.Nether);
+        try {
+            ReflectionUtil.setField(RPGBlocks.class, "HELL_FLOWER",
+                                    new BlockRPGBush(RefBlockNames.HELL_FLOWER, EnumPlantType.Nether));
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            RPGMode.logger.error(e);
+        }
     }
 }

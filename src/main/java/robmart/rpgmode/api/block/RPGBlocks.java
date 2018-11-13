@@ -21,12 +21,14 @@ package robmart.rpgmode.api.block;
 
 import net.minecraft.block.BlockBush;
 
+import static robmart.rpgmode.api.util.InjectionUtil.Null;
+
 /**
  * @author Robmart
  * Created on 11/9/2018
  */
 public class RPGBlocks {
-    public static BlockBush hellFlower;
+    public static final BlockBush HELL_FLOWER = Null();
 
     private RPGBlocks() {
     }

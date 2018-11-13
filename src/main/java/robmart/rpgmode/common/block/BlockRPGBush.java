@@ -44,9 +44,10 @@ import vazkii.arl.util.ProxyRegistry;
 public class BlockRPGBush extends BlockBush implements IRPGBlock {
     protected static final AxisAlignedBB FLOWER_AABB = new AxisAlignedBB(
             0.30000001192092896D, 0.0D, 0.30000001192092896D, 0.699999988079071D, 1.0D, 0.699999988079071D);
-    protected              EnumPlantType plantType;
-    private final          String[]      variants;
-    private final          String        bareName;
+
+    private final String[]      variants;
+    private final String        bareName;
+    protected     EnumPlantType plantType;
 
     public BlockRPGBush(String name, EnumPlantType plantType) {
         super(Material.PLANTS);
@@ -131,7 +132,7 @@ public class BlockRPGBush extends BlockBush implements IRPGBlock {
 
     @Override
     public String[] getVariants() {
-        return variants;
+        return variants.clone();
     }
 
     @Override

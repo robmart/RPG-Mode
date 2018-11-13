@@ -55,7 +55,7 @@ public abstract class CommonProxy {
         } catch (Exception e) {
             RPGMode.logger.error("Problem loading configuration");
         } finally {
-            if (ConfigurationHandler.config != null) ConfigurationHandler.save();
+            if (ConfigurationHandler.getConfig() != null) ConfigurationHandler.save();
         }
 
         InitItems.init();
