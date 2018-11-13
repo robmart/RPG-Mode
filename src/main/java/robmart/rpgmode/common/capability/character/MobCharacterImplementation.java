@@ -53,10 +53,12 @@ public class MobCharacterImplementation implements ICharacter {
 
     @Override
     public void setEXP(int exp) {
+        //Mobs have no exp
     }
 
     @Override
     public void addEXP(int exp) {
+        //Mobs have no exp
     }
 
     @Override
@@ -86,11 +88,12 @@ public class MobCharacterImplementation implements ICharacter {
 
     @Override
     public void levelUp() {
+        setEXP(getLevel() + 1);
     }
 
     @Override
     public void synchronise() {
-
+        //Syncing mobs is not necessary
     }
 
     @Override

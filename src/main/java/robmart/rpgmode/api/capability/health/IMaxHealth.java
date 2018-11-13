@@ -11,6 +11,8 @@ package robmart.rpgmode.api.capability.health;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 
+import static robmart.rpgmode.api.util.InjectionUtil.Null;
+
 /**
  * A capability to provide a max health bonus to an entity.
  *
@@ -21,7 +23,7 @@ public interface IMaxHealth {
      * The {@link Capability} instance.
      */
     @CapabilityInject(IMaxHealth.class)
-    Capability<IMaxHealth> MAX_HEALTH_CAPABILITY = null;
+    Capability<IMaxHealth> MAX_HEALTH_CAPABILITY = Null();
 
     /**
      * Get the bonus max health.

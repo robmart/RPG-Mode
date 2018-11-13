@@ -21,27 +21,24 @@ package robmart.rpgmode.common.item;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.PotionTypes;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemSplashPotion;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTippedArrow;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.NonNullList;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import robmart.rpgmode.common.helper.PotionHelper;
 import robmart.rpgmode.common.potion.PotionBase;
 import vazkii.arl.util.ProxyRegistry;
 
 /**
  * @author Robmart
+ * Created on 11/13/2018
  */
-public class ItemSplashPotionOverride extends ItemSplashPotion {
+public class ItemTippedArrowOverride extends ItemTippedArrow {
 
-    public ItemSplashPotionOverride() {
-        this.setUnlocalizedName("splash_potion");
-        this.setRegistryName("minecraft:splash_potion");
+    public ItemTippedArrowOverride() {
+        this.setUnlocalizedName("tipped_arrow");
+        this.setRegistryName("minecraft:tipped_arrow");
         ProxyRegistry.register(this);
     }
 
@@ -49,32 +46,18 @@ public class ItemSplashPotionOverride extends ItemSplashPotion {
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
         if (this.isInCreativeTab(tab)) {
             for (PotionType potiontype : PotionType.REGISTRY) {
-                boolean shouldHaveSpecial = true;
+                boolean shouldHaveArrow = true;
                 for (PotionEffect potionEffect : potiontype.getEffects())
                     if (potionEffect.getPotion() instanceof PotionBase &&
-                        !((PotionBase) potionEffect.getPotion()).getShouldHaveSpecialPotions()) {
-                        shouldHaveSpecial = false;
+                        !((PotionBase) potionEffect.getPotion()).getShouldHaveArrow()) {
+                        shouldHaveArrow = false;
                         break;
                     }
 
-                if (potiontype != PotionTypes.EMPTY && shouldHaveSpecial) {
+                if (potiontype != PotionTypes.EMPTY && shouldHaveArrow) {
                     items.add(PotionUtils.addPotionToItemStack(new ItemStack(this), potiontype));
                 }
             }
         }
-    }
-
-    /**
-     * Returns true if this item has an enchantment glint. By default, this returns
-     * <code>stack.isItemEnchanted()</code>, but other items can override it (for instance, written books always return
-     * true).
-     * <p>
-     * Note that if you override this method, you generally want to also call the super version (on {@link Item}) to get
-     * the glint for enchanted items. Of course, that is unnecessary if the overwritten version always returns true.
-     */
-    @SideOnly(Side.CLIENT)
-    @Override
-    public boolean hasEffect(ItemStack stack) {
-        return super.hasEffect(stack) && PotionHelper.hasEffect(stack);
     }
 }

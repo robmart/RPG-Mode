@@ -34,6 +34,7 @@ public class PotionLava extends PotionBase {
         super(true, -2860526, RefPotionNames.LAVA);
         this.setUseEnchantedEffect(false);
         this.setShouldHaveSpecialPotions(false);
+        this.setShouldHaveArrow(false);
     }
 
     @Override

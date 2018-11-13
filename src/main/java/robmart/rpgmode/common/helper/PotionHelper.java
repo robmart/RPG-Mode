@@ -45,6 +45,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.ResourceLocation;
+import robmart.rpgmode.common.potion.PotionBase;
 import robmart.rpgmode.common.potion.PotionTypeBase;
 
 import javax.annotation.Nullable;
@@ -80,6 +81,26 @@ public class PotionHelper {
         }
 
         return (PotionTypeBase) new PotionTypeBase(potionName.toString(), effect).setRegistryName(potionTypeName);
+    }
+
+    public static boolean hasEffect(ItemStack stack) {
+        boolean useGlint = false;
+        boolean modPotions = true;
+
+        for (PotionEffect effect : PotionUtils.getEffectsFromStack(stack)) {
+            if (!(effect.getPotion() instanceof PotionBase)) {
+                modPotions = false;
+                break;
+            }
+            else {
+                if (((PotionBase) effect.getPotion()).getUseEnchantedEffect()) useGlint = true;
+            }
+        }
+
+        if (modPotions)
+            return useGlint;
+
+        return !PotionUtils.getEffectsFromStack(stack).isEmpty();
     }
 
     private PotionHelper() {

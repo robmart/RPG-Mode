@@ -22,7 +22,6 @@ package robmart.rpgmode.common.init;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
-import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionType;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
@@ -60,7 +59,7 @@ public class InitRecipes {
 
         //Dexterousness
         addBrewingRecipe(
-                new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(RPGItems.batWing), RPGPotionTypes.DEXTEROUSNESS));
+                new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(RPGItems.BAT_WING), RPGPotionTypes.DEXTEROUSNESS));
 
         //Clumsiness
         addBrewingRecipe(
@@ -68,7 +67,7 @@ public class InitRecipes {
 
         //Fortitude
         addBrewingRecipe(
-                new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(RPGItems.obsidianDust), RPGPotionTypes.FORTITUDE));
+                new BrewRecipe(PotionTypes.AWKWARD, new ItemStack(RPGItems.OBSIDIAN_DUST), RPGPotionTypes.FORTITUDE));
 
         //Lethargy
         addBrewingRecipe(new BrewRecipe(PotionTypes.AWKWARD,
@@ -76,7 +75,7 @@ public class InitRecipes {
 
         //Intelligence
         addBrewingRecipe(new BrewRecipe(PotionTypes.AWKWARD,
-                                        new ItemStack(RPGItems.parrotFeather), RPGPotionTypes.INTELLIGENCE));
+                                        new ItemStack(RPGItems.PARROT_FEATHER), RPGPotionTypes.INTELLIGENCE));
         //Stupidity
         addBrewingRecipe(new BrewRecipe(
                 PotionTypes.AWKWARD,
@@ -123,16 +122,16 @@ public class InitRecipes {
 
         //Splash and Lingering
         net.minecraft.potion.PotionHelper
-                .addContainerRecipe((ItemPotion) InitItems.POTION, Items.GUNPOWDER, Items.SPLASH_POTION);
+                .addContainerRecipe(Items.POTIONITEM, Items.GUNPOWDER, Items.SPLASH_POTION);
         net.minecraft.potion.PotionHelper
-                .addContainerRecipe((ItemPotion) InitItems.SPLASH_POTION, Items.DRAGON_BREATH, Items
+                .addContainerRecipe(Items.SPLASH_POTION, Items.DRAGON_BREATH, Items
                 .LINGERING_POTION);
 
         RPGMode.logger.info(String.format("%s brewing recipes added", brewingCounter));
     }
 
     public static void generateRecipes() {
-        RecipeHandler.addShapelessRecipe(new ItemStack(RPGItems.obsidianDust, 4), new ItemStack(Blocks.OBSIDIAN));
+        RecipeHandler.addShapelessRecipe(new ItemStack(RPGItems.OBSIDIAN_DUST, 4), new ItemStack(Blocks.OBSIDIAN));
         RecipeHandler.addShapedRecipe(new ItemStack(Blocks.OBSIDIAN), "##", "##", '#', "dustObsidian");
     }
 }

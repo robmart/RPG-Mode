@@ -77,7 +77,7 @@ public class GuiFood extends Gui {
         EntityPlayer entityplayer = (EntityPlayer) this.mc.getRenderViewEntity();
         ScaledResolution scaledRes = new ScaledResolution(this.mc);
 
-        this.rand.setSeed((long) (this.updateCounter * 312871));
+        this.rand.setSeed(this.updateCounter * 312871L);
         FoodStats foodstats = entityplayer.getFoodStats();
         int k = foodstats.getFoodLevel();
         int i1 = scaledRes.getScaledWidth() / 2 + 91;

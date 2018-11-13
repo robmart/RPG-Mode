@@ -56,6 +56,11 @@ public class PotionBase extends Potion {
     private boolean shouldHaveSpecialPotions = true;
 
     /**
+     * Whether the potion will have special alternatives (splash and linger)
+     */
+    private boolean shouldHaveArrow = true;
+
+    /**
      * The instance of the potion
      */
     public final PotionBase instance;
@@ -181,6 +186,15 @@ public class PotionBase extends Potion {
 
     public PotionBase setShouldHaveSpecialPotions(boolean shouldHaveSpecialPotions) {
         this.shouldHaveSpecialPotions = shouldHaveSpecialPotions;
+        return this;
+    }
+
+    public boolean getShouldHaveArrow() {
+        return this.shouldHaveArrow;
+    }
+
+    public PotionBase setShouldHaveArrow(boolean shouldHaveArrow) {
+        this.shouldHaveArrow = shouldHaveArrow;
         return this;
     }
 

@@ -23,6 +23,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 
+import static robmart.rpgmode.api.util.InjectionUtil.Null;
+
 /**
  * @author Robmart
  */
@@ -31,7 +33,7 @@ public interface IAttribute {
      * The {@link Capability} instance.
      */
     @CapabilityInject(IAttribute.class)
-    Capability<IAttribute> ATTRIBUTE_CAPABILITY = null;
+    Capability<IAttribute> ATTRIBUTE_CAPABILITY = Null();
 
     /**
      * Get the strength value

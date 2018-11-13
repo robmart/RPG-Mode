@@ -24,6 +24,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 
+import static robmart.rpgmode.api.util.InjectionUtil.Null;
+
 /**
  * @author Robmart
  */
@@ -32,7 +34,7 @@ public interface IMana {
      * The {@link Capability} instance.
      */
     @CapabilityInject(IMana.class)
-    Capability<IMana> MANA_CAPABILITY = null;
+    Capability<IMana> MANA_CAPABILITY = Null();
 
     /**
      * Get the max mana

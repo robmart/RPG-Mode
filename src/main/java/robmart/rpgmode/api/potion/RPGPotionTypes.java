@@ -21,52 +21,54 @@ package robmart.rpgmode.api.potion;
 
 import net.minecraft.potion.PotionType;
 
+import static robmart.rpgmode.api.util.InjectionUtil.Null;
+
 /**
  * @author Robmart
  * Created on 11/11/2018
  */
 public class RPGPotionTypes {
-     public static final PotionType LAVA = null;
+     public static final PotionType LAVA = Null();
 
-     public static final PotionType STRENGTH        = null;
-     public static final PotionType LONG_STRENGTH   = null;
-     public static final PotionType STRONG_STRENGTH = null;
+     public static final PotionType STRENGTH        = Null();
+     public static final PotionType LONG_STRENGTH   = Null();
+     public static final PotionType STRONG_STRENGTH = Null();
 
-     public static final PotionType WEAKNESS        = null;
-     public static final PotionType LONG_WEAKNESS   = null;
-     public static final PotionType STRONG_WEAKNESS = null;
+     public static final PotionType WEAKNESS        = Null();
+     public static final PotionType LONG_WEAKNESS   = Null();
+     public static final PotionType STRONG_WEAKNESS = Null();
 
-     public static final PotionType DEXTEROUSNESS        = null;
-     public static final PotionType LONG_DEXTEROUSNESS   = null;
-     public static final PotionType STRONG_DEXTEROUSNESS = null;
+     public static final PotionType DEXTEROUSNESS        = Null();
+     public static final PotionType LONG_DEXTEROUSNESS   = Null();
+     public static final PotionType STRONG_DEXTEROUSNESS = Null();
 
-     public static final PotionType CLUMSINESS        = null;
-     public static final PotionType LONG_CLUMSINESS   = null;
-     public static final PotionType STRONG_CLUMSINESS = null;
+     public static final PotionType CLUMSINESS        = Null();
+     public static final PotionType LONG_CLUMSINESS   = Null();
+     public static final PotionType STRONG_CLUMSINESS = Null();
 
-     public static final PotionType FORTITUDE        = null;
-     public static final PotionType LONG_FORTITUDE   = null;
-     public static final PotionType STRONG_FORTITUDE = null;
+     public static final PotionType FORTITUDE        = Null();
+     public static final PotionType LONG_FORTITUDE   = Null();
+     public static final PotionType STRONG_FORTITUDE = Null();
 
-     public static final PotionType LETHARGY        = null;
-     public static final PotionType LONG_LETHARGY   = null;
-     public static final PotionType STRONG_LETHARGY = null;
+     public static final PotionType LETHARGY        = Null();
+     public static final PotionType LONG_LETHARGY   = Null();
+     public static final PotionType STRONG_LETHARGY = Null();
 
-     public static final PotionType INTELLIGENCE        = null;
-     public static final PotionType LONG_INTELLIGENCE   = null;
-     public static final PotionType STRONG_INTELLIGENCE = null;
+     public static final PotionType INTELLIGENCE        = Null();
+     public static final PotionType LONG_INTELLIGENCE   = Null();
+     public static final PotionType STRONG_INTELLIGENCE = Null();
 
-     public static final PotionType STUPIDITY        = null;
-     public static final PotionType LONG_STUPIDITY   = null;
-     public static final PotionType STRONG_STUPIDITY = null;
+     public static final PotionType STUPIDITY        = Null();
+     public static final PotionType LONG_STUPIDITY   = Null();
+     public static final PotionType STRONG_STUPIDITY = Null();
 
-     public static final PotionType WISDOM        = null;
-     public static final PotionType LONG_WISDOM   = null;
-     public static final PotionType STRONG_WISDOM = null;
+     public static final PotionType WISDOM        = Null();
+     public static final PotionType LONG_WISDOM   = Null();
+     public static final PotionType STRONG_WISDOM = Null();
 
-     public static final PotionType FOOLISHNESS        = null;
-     public static final PotionType LONG_FOOLISHNESS   = null;
-     public static final PotionType STRONG_FOOLISHNESS = null;
+     public static final PotionType FOOLISHNESS        = Null();
+     public static final PotionType LONG_FOOLISHNESS   = Null();
+     public static final PotionType STRONG_FOOLISHNESS = Null();
 
     private RPGPotionTypes() {
     }

@@ -50,12 +50,12 @@ public class MobEventHandler {
         if (event.getEntityLiving() instanceof EntityBat && random.nextInt(10) < 3)
             event.getDrops().add(new EntityItem(event.getEntityLiving().world, event.getEntityLiving().posX,
                                                 event.getEntityLiving().posY, event.getEntityLiving().posZ,
-                                                new ItemStack(RPGItems.batWing)));
+                                                new ItemStack(RPGItems.BAT_WING)));
 
         if (event.getEntityLiving() instanceof EntityParrot && random.nextInt(10) < 3) {
             event.getDrops().add(new EntityItem(event.getEntityLiving().world, event.getEntityLiving().posX,
                                                 event.getEntityLiving().posY, event.getEntityLiving().posZ,
-                                                new ItemStack(RPGItems.parrotFeather)));
+                                                new ItemStack(RPGItems.PARROT_FEATHER)));
 
             event.getDrops().removeIf(entityItem -> entityItem.getItem().getItem() == Items.FEATHER);
         }

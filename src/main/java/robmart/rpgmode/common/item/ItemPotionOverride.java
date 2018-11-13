@@ -22,11 +22,9 @@ package robmart.rpgmode.common.item;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.potion.PotionUtils;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import robmart.rpgmode.common.potion.PotionBase;
+import robmart.rpgmode.common.helper.PotionHelper;
 import vazkii.arl.util.ProxyRegistry;
 
 /**
@@ -51,22 +49,6 @@ public class ItemPotionOverride extends ItemPotion {
     @SideOnly(Side.CLIENT)
     @Override
     public boolean hasEffect(ItemStack stack) {
-        boolean useGlint = false;
-        boolean modPotions = true;
-
-        for (PotionEffect effect : PotionUtils.getEffectsFromStack(stack)) {
-            if (!(effect.getPotion() instanceof PotionBase)) {
-                modPotions = false;
-                break;
-            }
-            else {
-                if (((PotionBase) effect.getPotion()).getUseEnchantedEffect()) useGlint = true;
-            }
-        }
-
-        if (modPotions)
-            return useGlint;
-
-        return super.hasEffect(stack) || !PotionUtils.getEffectsFromStack(stack).isEmpty();
+        return super.hasEffect(stack) && PotionHelper.hasEffect(stack);
     }
 }

@@ -20,17 +20,14 @@
 package robmart.rpgmode.common.init;
 
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import robmart.rpgmode.api.item.RPGItems;
 import robmart.rpgmode.api.reference.RefItemNames;
 import robmart.rpgmode.api.reference.RefOreDict;
 import robmart.rpgmode.common.RPGMode;
-import robmart.rpgmode.common.item.ItemBase;
-import robmart.rpgmode.common.item.ItemLingeringPotionOverride;
-import robmart.rpgmode.common.item.ItemPotionOverride;
-import robmart.rpgmode.common.item.ItemSplashPotionOverride;
+import robmart.rpgmode.common.item.*;
+import robmart.rpgmode.common.util.ReflectionUtil;
 
 /**
  * @author Robmart
@@ -38,17 +35,25 @@ import robmart.rpgmode.common.item.ItemSplashPotionOverride;
 public class InitItems {
     private static int oreDictCounter = 0;
 
-    public static final Item POTION           = new ItemPotionOverride();
-    public static final Item SPLASH_POTION    = new ItemSplashPotionOverride();
-    public static final Item LINGERING_POTION = new ItemLingeringPotionOverride();
-
     private InitItems() {
     }
 
     public static void init() {
-        RPGItems.batWing = new ItemBase(RefItemNames.BAT_WING, CreativeTabs.BREWING);
-        RPGItems.parrotFeather = new ItemBase(RefItemNames.PARROT_FEATHER, CreativeTabs.BREWING);
-        RPGItems.obsidianDust = new ItemBase(RefItemNames.OBSIDIAN_DUST, CreativeTabs.BREWING);
+        new ItemPotionOverride();
+        new ItemSplashPotionOverride();
+        new ItemLingeringPotionOverride();
+        new ItemTippedArrowOverride();
+
+        try {
+            ReflectionUtil
+                    .setField(RPGItems.class, "BAT_WING", new ItemBase(RefItemNames.BAT_WING, CreativeTabs.BREWING));
+            ReflectionUtil.setField(RPGItems.class, "PARROT_FEATHER",
+                                    new ItemBase(RefItemNames.PARROT_FEATHER, CreativeTabs.BREWING));
+            ReflectionUtil.setField(RPGItems.class, "OBSIDIAN_DUST",
+                                    new ItemBase(RefItemNames.OBSIDIAN_DUST, CreativeTabs.BREWING));
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            RPGMode.logger.error(e);
+        }
     }
 
     private static void registerOre(String name, ItemStack ore) {
@@ -60,9 +65,9 @@ public class InitItems {
         RPGMode.logger.info("Adding ore dictionary entries");
 
         //Items
-        registerOre(RefOreDict.WING_BAT, new ItemStack(RPGItems.batWing));
+        registerOre(RefOreDict.WING_BAT, new ItemStack(RPGItems.BAT_WING));
 
-        registerOre(RefOreDict.OBSIDIAN_DUST, new ItemStack(RPGItems.obsidianDust));
+        registerOre(RefOreDict.OBSIDIAN_DUST, new ItemStack(RPGItems.OBSIDIAN_DUST));
 
         RPGMode.logger.info(String.format("%s ore dictionary entries added", oreDictCounter));
     }

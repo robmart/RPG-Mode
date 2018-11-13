@@ -41,6 +41,27 @@ public class ReflectionUtil {
         }
     }
 
+    public static void setField(
+            Class clazz, String fieldName, Object value) throws NoSuchFieldException, IllegalAccessException {
+        Field field = getField(clazz, fieldName);
+        if (value.getClass().isAssignableFrom(field.getType())) {
+            throw new ClassCastException(value.getClass() + " can't be cast to " + field.getType());
+        }
+
+        if (!Modifier.isPublic(field.getModifiers()) ||
+            !Modifier.isPublic(field.getDeclaringClass().getModifiers()))
+            makeAccessible(field);
+
+        if (Modifier.isFinal(field.getModifiers())) {
+            Field modifiersField = null;
+            modifiersField = Field.class.getDeclaredField("modifiers");
+            makeAccessible(modifiersField);
+            modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+        }
+
+        field.set(null, value);
+    }
+
     public static void makeAccessible(Field field) {
         if (!Modifier.isPublic(field.getModifiers()) ||
             !Modifier.isPublic(field.getDeclaringClass().getModifiers())) {

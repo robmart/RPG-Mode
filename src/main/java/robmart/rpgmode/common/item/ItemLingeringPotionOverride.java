@@ -30,7 +30,7 @@ import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import robmart.rpgmode.common.init.InitItems;
+import robmart.rpgmode.common.helper.PotionHelper;
 import robmart.rpgmode.common.potion.PotionBase;
 import vazkii.arl.util.ProxyRegistry;
 
@@ -75,6 +75,6 @@ public class ItemLingeringPotionOverride extends ItemLingeringPotion {
     @SideOnly(Side.CLIENT)
     @Override
     public boolean hasEffect(ItemStack stack) {
-        return InitItems.POTION.hasEffect(stack);
+        return super.hasEffect(stack) && PotionHelper.hasEffect(stack);
     }
 }

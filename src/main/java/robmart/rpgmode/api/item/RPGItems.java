@@ -19,16 +19,18 @@
 
 package robmart.rpgmode.api.item;
 
-import robmart.rpgmode.common.item.ItemBase;
+import net.minecraft.item.Item;
+
+import static robmart.rpgmode.api.util.InjectionUtil.Null;
 
 /**
  * @author Robmart
  * Created on 11/9/2018
  */
 public class RPGItems {
-    public static ItemBase batWing;
-    public static ItemBase parrotFeather;
-    public static ItemBase obsidianDust;
+    public static final Item BAT_WING       = Null();
+    public static final Item PARROT_FEATHER = Null();
+    public static final Item OBSIDIAN_DUST  = Null();
 
     private RPGItems() {
     }

@@ -24,6 +24,8 @@ import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.potion.Potion;
 import robmart.rpgmode.api.reference.Reference;
 
+import static robmart.rpgmode.api.util.InjectionUtil.Null;
+
 /**
  * @author Robmart
  * Created on 11/10/2018
@@ -45,17 +47,17 @@ public class RPGPotions {
             RangedAttribute(null, Reference.MOD_ID + ".wisdom", 0,
                             -10, 10).setDescription("Wisdom").setShouldWatch(true);
 
-    public static Potion lava;
-    public static Potion strength;
-    public static Potion weakness;
-    public static Potion dexterousness;
-    public static Potion clumsiness;
-    public static Potion fortitude;
-    public static Potion lethargy;
-    public static Potion intelligence;
-    public static Potion stupidity;
-    public static Potion wisdom;
-    public static Potion foolishness;
+    public static final Potion LAVA          = Null();
+    public static final Potion STRENGTH      = Null();
+    public static final Potion WEAKNESS      = Null();
+    public static final Potion DEXTEROUSNESS = Null();
+    public static final Potion CLUMSINESS    = Null();
+    public static final Potion FORTITUDE     = Null();
+    public static final Potion LETHARGY      = Null();
+    public static final Potion INTELLIGENCE  = Null();
+    public static final Potion STUPIDITY     = Null();
+    public static final Potion WISDOM        = Null();
+    public static final Potion FOOLISHNESS   = Null();
 
     private RPGPotions() {
     }
