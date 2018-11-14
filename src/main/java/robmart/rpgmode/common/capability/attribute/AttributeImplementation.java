@@ -198,7 +198,7 @@ public class AttributeImplementation implements IAttribute {
         this.constitution = value;
 
         //Set max health
-        if (entity instanceof EntityPlayerMP)
+        if (!(entity instanceof EntityPlayerSP))
             MaxHealthCapability.getMaxHealth(entity).setBonusMaxHealth(10.0F * getConstitution(true));
 
         if (shouldSync)

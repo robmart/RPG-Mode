@@ -27,6 +27,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 import robmart.rpgmode.api.reference.Reference;
+import robmart.rpgmode.client.network.SyncChunkLevel;
 import robmart.rpgmode.client.network.SyncPlayerCharacter;
 import robmart.rpgmode.client.network.SyncPlayerMana;
 import robmart.rpgmode.server.network.OpenGuiMessage;
@@ -52,6 +53,7 @@ public class PacketDispatcher {
         // Packets handled on CLIENT
         registerMessage(SyncPlayerMana.class);
         registerMessage(SyncPlayerCharacter.class);
+        registerMessage(SyncChunkLevel.class);
 
         // Packets handled on SERVER
         registerMessage(OpenGuiMessage.class);

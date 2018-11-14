@@ -35,6 +35,7 @@ public class InitGui {
         MinecraftForge.EVENT_BUS.register(new GuiAir(Minecraft.getMinecraft()));
         MinecraftForge.EVENT_BUS.register(new GuiFood(Minecraft.getMinecraft()));
         MinecraftForge.EVENT_BUS.register(new GuiArmor(Minecraft.getMinecraft()));
+        MinecraftForge.EVENT_BUS.register(new GuiChunkLevel(Minecraft.getMinecraft()));
     }
 
     private InitGui() {
