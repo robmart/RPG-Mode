@@ -20,6 +20,7 @@
 package robmart.rpgmode.common.capability.chunklevel;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
@@ -56,15 +57,24 @@ public class ChunkLevelImplementation implements IChunkLevel {
             return;
 
         for (int i = 0; i < 9; i++) {
-            IChunkLevel chunkLevel =
-                    ChunkLevelCapability.getChunkLevel(world.getChunkFromChunkCoords(
-                            (chunkPos.x - 1) + i / 3,
-                            (chunkPos.z - 1) + i % 3));
+            Chunk newChunk = (world.getChunkFromChunkCoords((chunkPos.x - 1) + i / 3, (chunkPos.z - 1) + i % 3));
+            IChunkLevel chunkLevel = ChunkLevelCapability.getChunkLevel(newChunk);
 
-            if (chunkLevel == null || i == 5)
-                continue;
+            if (chunkLevel == null || i == 4)
+                return;
 
-            if (chunkLevel.getLevel() != 0) {
+            if (chunkLevel.getLevel() > 0 &&
+                newChunk.getBiome(
+                        new BlockPos(newChunk.getPos().getXStart(), 0,
+                                     newChunk.getPos().getZStart()),
+                        world.getBiomeProvider()) ==
+                this.chunk.getBiome(
+                        new BlockPos(this.chunk.getPos().getXStart(), 0,
+                                     this.chunk.getPos().getZStart()),
+                        world.getBiomeProvider())) {
+                this.setLevel(chunkLevel.getLevel());
+            }
+            else if (chunkLevel.getLevel() > 0) {
                 totalLevel += chunkLevel.getLevel();
                 chunksWithLevels++;
             }
@@ -73,7 +83,8 @@ public class ChunkLevelImplementation implements IChunkLevel {
         if (chunksWithLevels > 0) {
             this.setLevel(Math.round(totalLevel / (float) chunksWithLevels));
         }
-        else {
+
+        if (getLevel() < 1) {
             this.setLevel(1);
         }
 
