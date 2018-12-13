@@ -67,14 +67,4 @@ public abstract class RPGGuiScreen extends GuiScreen {
         bufferbuilder.pos((double) (x + 0), (double) (y + 0), 0).tex(0, 0).endVertex();
         tessellator.draw();
     }
-
-    protected void drawStringWithBackdrop(int message, int xPos, int yPos, int colorText, int colorBackdrop) {
-        drawStringWithBackdrop(Integer.toString(message), xPos, yPos, colorText, colorBackdrop);
-
-    }
-
-    protected void drawStringWithBackdrop(String message, int xPos, int yPos, int colorText, int colorBackdrop) {
-        fontRenderer.drawString(message, xPos + 1, yPos + 1, colorBackdrop);
-        fontRenderer.drawString(message, xPos, yPos, colorText);
-    }
 }

@@ -23,6 +23,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.GameType;
@@ -57,7 +58,7 @@ public class GuiAir extends Gui {
     @SubscribeEvent(priority = EventPriority.NORMAL)
     @SuppressWarnings("unused")
     public void onRenderExperienceBar(RenderGameOverlayEvent.Post event) {
-        if (event.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE)
+        if (event.getType() != RenderGameOverlayEvent.ElementType.HOTBAR)
             return;
 
         if (mc.playerController.getCurrentGameType() == GameType.CREATIVE ||
@@ -71,6 +72,8 @@ public class GuiAir extends Gui {
         int i1 = scaledRes.getScaledWidth() / 2 + 91;
 
         this.mc.mcProfiler.startSection("air");
+
+        GlStateManager.enableAlpha();
 
         if (entityPlayer.isInsideOfMaterial(Material.WATER)) {
             int i6 = this.mc.player.getAir();
@@ -87,5 +90,7 @@ public class GuiAir extends Gui {
                 }
             }
         }
+
+        GlStateManager.disableAlpha();
     }
 }

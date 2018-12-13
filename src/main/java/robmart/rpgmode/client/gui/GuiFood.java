@@ -65,7 +65,7 @@ public class GuiFood extends Gui {
     @SubscribeEvent(priority = EventPriority.NORMAL)
     @SuppressWarnings("unused")
     public void onRenderExperienceBar(RenderGameOverlayEvent.Post event) {
-        if (event.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE)
+        if (event.getType() != RenderGameOverlayEvent.ElementType.HOTBAR)
             return;
 
         if (mc.playerController.getCurrentGameType() == GameType.CREATIVE ||

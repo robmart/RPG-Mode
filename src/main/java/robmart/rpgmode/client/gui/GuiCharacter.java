@@ -26,6 +26,7 @@ import org.lwjgl.opengl.GL11;
 import robmart.rpgmode.api.capability.attribute.IAttribute;
 import robmart.rpgmode.api.capability.character.ICharacter;
 import robmart.rpgmode.api.reference.Reference;
+import robmart.rpgmode.client.helper.GuiHelper;
 import robmart.rpgmode.common.RPGMode;
 import robmart.rpgmode.common.capability.attribute.AttributeCapability;
 import robmart.rpgmode.common.capability.attribute.AttributeImplementation;
@@ -47,7 +48,8 @@ public class GuiCharacter extends RPGGuiScreen {
         this.drawDefaultBackground();
         drawBackgroundLayer();
 
-        drawStringWithBackdrop(player.getName(), getGuiLeft() + 7, getGuiTop() + 7, 0xffffff, 0);
+        GuiHelper
+                .drawStringWithBackdrop(fontRenderer, player.getName(), getGuiLeft() + 7, getGuiTop() + 7, 0xffffff, 0);
         drawExpBar();
         drawCharacterInfo();
         drawIcons();
@@ -75,24 +77,24 @@ public class GuiCharacter extends RPGGuiScreen {
         ICharacter character = CharacterCapability.getCharacter(player);
 
         GlStateManager.scale(0.8, 0.8, 1);
-        this.drawStringWithBackdrop(String.format("Level: %s", character.getLevel()),
-                                    (int) Math.round((getGuiLeft() + 127) * 1.25),
-                                    (int) Math.round((getGuiTop() + 22) * 1.25), 16777215, 0);
+        GuiHelper.drawStringWithBackdrop(fontRenderer, String.format("Level: %s", character.getLevel()),
+                                         (int) Math.round((getGuiLeft() + 127) * 1.25),
+                                         (int) Math.round((getGuiTop() + 22) * 1.25), 16777215, 0);
 
-        this.drawStringWithBackdrop(String.format(
+        GuiHelper.drawStringWithBackdrop(fontRenderer, String.format(
                 "%s / %s",
                 character.getEXP() < 1000 ? character.getEXP() :
                 Integer.toString((character.getEXP() + 500) / 1000) + "K",
                 character.getEXPRequired() < 1000 ? character.getEXPRequired() :
                 Integer.toString((character.getEXPRequired() + 500) / 1000) + "K"),
-                                    (int) Math.round((getGuiLeft() + 127) * 1.25),
-                                    (int) Math.round((getGuiTop() + 35) * 1.25), 16777215, 0);
+                                         (int) Math.round((getGuiLeft() + 127) * 1.25),
+                                         (int) Math.round((getGuiTop() + 35) * 1.25), 16777215, 0);
 
-        this.drawStringWithBackdrop(
-                String.format("Total: %s", character.getTotalEXP() < 1000 ? character.getTotalEXP() :
+        GuiHelper.drawStringWithBackdrop(fontRenderer,
+                                         String.format("Total: %s", character.getTotalEXP() < 1000 ? character.getTotalEXP() :
                                            (Integer.toString((character.getTotalEXP() + 500) / 1000) + "K")),
-                (int) Math.round((getGuiLeft() + 127) * 1.25),
-                (int) Math.round((getGuiTop() + 47) * 1.25), 16777215, 0);
+                                         (int) Math.round((getGuiLeft() + 127) * 1.25),
+                                         (int) Math.round((getGuiTop() + 47) * 1.25), 16777215, 0);
 
         GlStateManager.scale(1.25, 1.25, 1);
     }
@@ -136,36 +138,39 @@ public class GuiCharacter extends RPGGuiScreen {
         IAttribute playerAttributes = AttributeCapability.getAttributes(player);
 
         GlStateManager.scale(0.75, 0.75, 1);
-        drawStringWithBackdrop(
-                playerAttributes.getAttributePoint(), Math.round((getGuiLeft() + 18) * 100 / (float) 75),
-                Math.round((getGuiTop() + 22) * 100 / (float) 75), 8453920, 0);
-        drawStringWithBackdrop(playerAttributes.getStrength(false), Math.round((getGuiLeft() + 25) * 100 / (float) 75),
-                               Math.round((getGuiTop() + 34) * 100 / (float) 75), 10164248, 0);
-        drawStringWithBackdrop(
-                String.format("+ %s", playerAttributes.getStrMod()), Math.round((getGuiLeft() + 25) * 100 / (float) 75),
-                Math.round((getGuiTop() + 43) * 100 / (float) 75), 10164248, 0);
-        drawStringWithBackdrop(playerAttributes.getDexterity(false), Math.round((getGuiLeft() + 25) * 100 / (float) 75),
-                               Math.round((getGuiTop() + 54) * 100 / (float) 75), 7449644, 0);
-        drawStringWithBackdrop(
-                String.format("+ %s", playerAttributes.getDexMod()), Math.round((getGuiLeft() + 25) * 100 / (float) 75),
-                Math.round((getGuiTop() + 63) * 100 / (float) 75), 7449644, 0);
-        drawStringWithBackdrop(playerAttributes.getConstitution(false),
-                               Math.round((getGuiLeft() + 25) * 100 / (float) 75),
-                               Math.round((getGuiTop() + 74) * 100 / (float) 75), 15338024, 0);
-        drawStringWithBackdrop(
-                String.format("+ %s", playerAttributes.getConMod()), Math.round((getGuiLeft() + 25) * 100 / (float) 75),
-                Math.round((getGuiTop() + 83) * 100 / (float) 75), 15338024, 0);
-        drawStringWithBackdrop(playerAttributes.getIntelligence(false),
-                               Math.round((getGuiLeft() + 25) * 100 / (float) 75),
-                               Math.round((getGuiTop() + 94) * 100 / (float) 75), 2754524, 0);
-        drawStringWithBackdrop(
-                String.format("+ %s", playerAttributes.getIntMod()), Math.round((getGuiLeft() + 25) * 100 / (float) 75),
-                Math.round((getGuiTop() + 103) * 100 / (float) 75), 2754524, 0);
-        drawStringWithBackdrop(playerAttributes.getWisdom(false), Math.round((getGuiLeft() + 25) * 100 / (float) 75),
-                               Math.round((getGuiTop() + 114) * 100 / (float) 75), 6693065, 0);
-        drawStringWithBackdrop(
-                String.format("+ %s", playerAttributes.getWisMod()), Math.round((getGuiLeft() + 25) * 100 / (float) 75),
-                Math.round((getGuiTop() + 123) * 100 / (float) 75), 6693065, 0);
+        GuiHelper.drawStringWithBackdrop(fontRenderer,
+                                         playerAttributes.getAttributePoint(), Math.round((getGuiLeft() + 18) * 100 / (float) 75),
+                                         Math.round((getGuiTop() + 22) * 100 / (float) 75), 8453920, 0);
+        GuiHelper.drawStringWithBackdrop(fontRenderer, playerAttributes.getStrength(false),
+                                         Math.round((getGuiLeft() + 25) * 100 / (float) 75),
+                                         Math.round((getGuiTop() + 34) * 100 / (float) 75), 10164248, 0);
+        GuiHelper.drawStringWithBackdrop(fontRenderer,
+                                         String.format("+ %s", playerAttributes.getStrMod()), Math.round((getGuiLeft() + 25) * 100 / (float) 75),
+                                         Math.round((getGuiTop() + 43) * 100 / (float) 75), 10164248, 0);
+        GuiHelper.drawStringWithBackdrop(fontRenderer, playerAttributes.getDexterity(false),
+                                         Math.round((getGuiLeft() + 25) * 100 / (float) 75),
+                                         Math.round((getGuiTop() + 54) * 100 / (float) 75), 7449644, 0);
+        GuiHelper.drawStringWithBackdrop(fontRenderer,
+                                         String.format("+ %s", playerAttributes.getDexMod()), Math.round((getGuiLeft() + 25) * 100 / (float) 75),
+                                         Math.round((getGuiTop() + 63) * 100 / (float) 75), 7449644, 0);
+        GuiHelper.drawStringWithBackdrop(fontRenderer, playerAttributes.getConstitution(false),
+                                         Math.round((getGuiLeft() + 25) * 100 / (float) 75),
+                                         Math.round((getGuiTop() + 74) * 100 / (float) 75), 15338024, 0);
+        GuiHelper.drawStringWithBackdrop(fontRenderer,
+                                         String.format("+ %s", playerAttributes.getConMod()), Math.round((getGuiLeft() + 25) * 100 / (float) 75),
+                                         Math.round((getGuiTop() + 83) * 100 / (float) 75), 15338024, 0);
+        GuiHelper.drawStringWithBackdrop(fontRenderer, playerAttributes.getIntelligence(false),
+                                         Math.round((getGuiLeft() + 25) * 100 / (float) 75),
+                                         Math.round((getGuiTop() + 94) * 100 / (float) 75), 2754524, 0);
+        GuiHelper.drawStringWithBackdrop(fontRenderer,
+                                         String.format("+ %s", playerAttributes.getIntMod()), Math.round((getGuiLeft() + 25) * 100 / (float) 75),
+                                         Math.round((getGuiTop() + 103) * 100 / (float) 75), 2754524, 0);
+        GuiHelper.drawStringWithBackdrop(fontRenderer, playerAttributes.getWisdom(false),
+                                         Math.round((getGuiLeft() + 25) * 100 / (float) 75),
+                                         Math.round((getGuiTop() + 114) * 100 / (float) 75), 6693065, 0);
+        GuiHelper.drawStringWithBackdrop(fontRenderer,
+                                         String.format("+ %s", playerAttributes.getWisMod()), Math.round((getGuiLeft() + 25) * 100 / (float) 75),
+                                         Math.round((getGuiTop() + 123) * 100 / (float) 75), 6693065, 0);
         GlStateManager.scale(1.33, 1.33, 1);
     }
 

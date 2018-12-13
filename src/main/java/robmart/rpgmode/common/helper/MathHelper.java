@@ -33,6 +33,10 @@ public class MathHelper {
         return (float) trinum * scale;
     }
 
+    public static float inverse(float number) {
+        return (1 / number);
+    }
+
     private MathHelper() {
     }
 }

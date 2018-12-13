@@ -22,6 +22,7 @@ package robmart.rpgmode.client.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.GameType;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -52,9 +53,9 @@ public class GuiArmor extends Gui {
      * Render air bubbles in the right position
      */
     @SubscribeEvent(priority = EventPriority.NORMAL)
-    //@SuppressWarnings("unused")
+    @SuppressWarnings("unused")
     public void onRenderExperienceBar(RenderGameOverlayEvent.Post event) {
-        if (event.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE)
+        if (event.getType() != RenderGameOverlayEvent.ElementType.HOTBAR)
             return;
 
         if (mc.playerController.getCurrentGameType() == GameType.CREATIVE ||
@@ -71,6 +72,8 @@ public class GuiArmor extends Gui {
 
         this.mc.mcProfiler.startSection("armor");
 
+        GlStateManager.enableAlpha();
+
         for (int k3 = 0; k3 < 10; ++k3) {
             if (i3 > 0) {
                 int l3 = l + k3 * 8;
@@ -85,5 +88,8 @@ public class GuiArmor extends Gui {
                     this.drawTexturedModalRect(l3, j1, 16, 9, 9, 9);
             }
         }
+
+        GlStateManager.enableAlpha();
+
     }
 }
